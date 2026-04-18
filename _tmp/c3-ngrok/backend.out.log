@@ -1,0 +1,57 @@
+Using launch settings from D:\FPT\TicketBooking.V3\TicketBooking.Api\Properties\launchSettings.json...
+Building...
+[22:28:18 INF] Ensured user 'qlnx' with role 'QLNX'.
+[22:28:18 INF] Ensured user 'qlks' with role 'QLKS'.
+[22:28:18 INF] Ensured user 'qlvt' with role 'QLVT'.
+[22:28:18 INF] Ensured user 'qlvmm' with role 'QLVMM'.
+[22:28:18 INF] Ensured user 'qltour' with role 'QLTour'.
+[22:28:18 INF] Ensured user 'scanner_nx' with role 'Customer'.
+[22:28:18 INF] Ensured user 'customer' with role 'Customer'.
+[22:28:18 INF] Identity seed completed.
+[22:28:18 INF] Tenant NX001 already exists.
+[22:28:18 INF] Tenant VT001 already exists.
+[22:28:18 INF] Tenant VMM001 already exists.
+[22:28:18 INF] Tenant KS001 already exists.
+[22:28:18 INF] Tenant TOUR001 already exists.
+[22:28:18 INF] Updated tenant link 'qlnx' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[22:28:18 INF] Updated tenant link 'admin' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[22:28:18 INF] Updated tenant link 'qlvt' -> tenant 8f759d36-942d-4666-bda8-195ccfc7939a.
+[22:28:18 INF] Updated tenant link 'admin' -> tenant 8f759d36-942d-4666-bda8-195ccfc7939a.
+[22:28:18 INF] Updated tenant link 'qlvmm' -> tenant 47997b25-a35b-4291-a7ca-2521e14ea6e4.
+[22:28:18 INF] Updated tenant link 'admin' -> tenant 47997b25-a35b-4291-a7ca-2521e14ea6e4.
+[22:28:18 INF] Updated tenant link 'qlks' -> tenant 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+[22:28:18 INF] Updated tenant link 'admin' -> tenant 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+[22:28:18 INF] Updated tenant link 'qltour' -> tenant dfb80807-d1db-43b0-a62f-9b744f1dde4f.
+[22:28:18 INF] Updated tenant link 'admin' -> tenant dfb80807-d1db-43b0-a62f-9b744f1dde4f.
+[22:28:18 INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+[22:28:18 INF] Permissions seed completed.
+[22:28:19 INF] Tenant system role seed completed.
+[22:28:19 INF] Updated TenantUser link 'customer' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[22:28:19 INF] Updated TenantUser link 'scanner_nx' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[22:28:19 INF] TenantRoles seed completed for NX001.
+[22:28:19 INF] BUS demo seed completed for tenant NX001.
+[22:28:20 INF] TRAIN demo seed completed for tenant VT001.
+[22:28:20 INF] Flight demo seed completed for tenant VMM001.
+[22:28:20 INF] CmsDemoSeed completed for tenant NX001.
+[22:28:20 INF] Hotel demo seed starting for 6 tenant(s). Days=14
+[22:28:21 INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+[22:28:21 INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+[22:28:21 INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+[22:28:21 INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+[22:28:21 INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+[22:28:22 INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+[22:28:22 INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+[22:28:22 INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+[22:28:22 INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+[22:28:22 INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+[22:28:22 INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+[22:28:22 INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+[22:28:22 INF] Hotel demo seed finished.
+[22:28:22 INF] Now listening on: http://localhost:5183
+[22:28:22 INF] Application started. Press Ctrl+C to shut down.
+[22:28:22 INF] Hosting environment: Development
+[22:28:22 INF] Content root path: D:\FPT\TicketBooking.V3\TicketBooking.Api
+[22:29:18 WRN] Failed to determine the https port for redirect.
+[22:29:18 INF] HTTP POST /api/v1/payments/sepay/webhook responded 401 in 158.3446 ms
+[22:29:29 INF] HTTP POST /api/v1/payments/sepay/webhook responded 401 in 4.5109 ms
+[22:29:29 INF] HTTP POST /api/v1/payments/sepay/webhook responded 401 in 14.9840 ms

@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-04-12T08:34:47.587Z",
+  "ok": true,
+  "screenshots": [
+    "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\admin-artifacts\\01_admin_train_dashboard_entry.png",
+    "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\admin-artifacts\\02_admin_train_inventory.png",
+    "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\admin-artifacts\\03_admin_train_stop_points.png",
+    "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\admin-artifacts\\04_admin_train_routes.png",
+    "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\admin-artifacts\\05_admin_train_trip_stop_times.png",
+    "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\admin-artifacts\\06_admin_train_segment_prices.png",
+    "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\admin-artifacts\\07_admin_train_cars.png",
+    "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\admin-artifacts\\08_admin_train_car_seats.png"
+  ],
+  "errors": []
+}

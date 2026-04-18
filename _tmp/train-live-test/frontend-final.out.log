@@ -1,0 +1,10 @@
+
+> travel@0.0.0 dev
+> vite --host 127.0.0.1 --port 4178
+
+
+  [32m[1mVITE[22m v7.3.1[39m  [2mready in [0m[1m411[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m4178[22m/[39m
+[2m3:33:04 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles/index.css, /src/modules/tenant/train/pages/TrainSeatHoldsPage.jsx, /src/modules/home/pages/TrainSeatSelectionPage.jsx, /src/modules/tenant/train/pages/TrainCarsPage.jsx, /src/modules/home/pages/TrainResultsPage.jsx, /src/modules/tenant/train/pages/TrainCarSeatsPage.jsx, /src/modules/tenant/train/pages/TrainTripSegmentPricesPage.jsx, /src/modules/admin/pages/AdminTrainTripStopTimesPage.jsx, /src/modules/admin/pages/AdminTrainRoutesPage.jsx, /src/modules/tenant/train/pages/TrainStopPointsPage.jsx, /src/modules/tenant/inventory/pages/TrainInventoryPage.jsx, /src/modules/tenant/train/pages/TrainTripSeatsPage.jsx, /src/modules/booking/pages/CheckoutPage.jsx, /src/modules/tenant/pages/TrainProvidersPage.jsx, /src/modules/tenant/train/pages/TrainTripStopTimesPage.jsx, /src/modules/tenant/train/pages/TrainRoutesPage.jsx, /src/modules/admin/pages/AdminTrainTripSegmentPricesPage.jsx, /src/modules/admin/pages/AdminTrainInventoryPage.jsx, /src/modules/tenant/pages/TrainOperationsPage.jsx, /src/modules/admin/pages/AdminTrainStopPointsPage.jsx, /src/modules/home/pages/TrainDetailPage.jsx, /src/modules/admin/pages/AdminTrainCarSeatsPage.jsx, /src/modules/admin/pages/AdminTrainCarsPage.jsx[22m
+[2m3:34:22 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/modules/admin/pages/AdminTrainCarsPage.jsx, /src/styles/index.css[22m

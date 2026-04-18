@@ -1,0 +1,598 @@
+@baseUrl = http://localhost:5183
+@apiVersion = 1
+
+@tenantId = REPLACE_TENANT_GUID
+@adminToken = REPLACE_ADMIN_JWT
+@qlksToken = REPLACE_QLKS_JWT
+
+@ariFrom = 2026-04-10
+@ariTo = 2026-04-12
+@publicCheckIn = 2026-04-10
+@publicCheckOut = 2026-04-12
+
+@qlksHotelId = REPLACE_AFTER_CREATE
+@qlksHotelSlug = swagger-qlks-hotel-001
+@hiddenHotelId = REPLACE_AFTER_CREATE
+@hiddenHotelSlug = swagger-hidden-hotel-001
+@adminHotelId = REPLACE_AFTER_CREATE
+@adminHotelSlug = swagger-admin-hotel-001
+
+@bedTypeId = REPLACE_AFTER_CREATE
+@mealPlanId = REPLACE_AFTER_CREATE
+@hotelAmenityId = REPLACE_AFTER_CREATE
+@roomAmenityId = REPLACE_AFTER_CREATE
+
+@qlksCancellationPolicyId = REPLACE_AFTER_CREATE
+@qlksCheckInOutRuleId = REPLACE_AFTER_CREATE
+@qlksPropertyPolicyId = REPLACE_AFTER_CREATE
+@qlksRoomTypeId = REPLACE_AFTER_CREATE
+@qlksRatePlanId = REPLACE_AFTER_CREATE
+@qlksRatePlanRoomTypeId = REPLACE_AFTER_GET
+@qlksExtraServiceId = REPLACE_AFTER_CREATE
+
+@hotelContactSecondaryId = REPLACE_AFTER_CREATE
+@hotelImageSecondaryId = REPLACE_AFTER_CREATE
+
+@adminCancellationPolicyId = REPLACE_AFTER_CREATE
+@adminCheckInOutRuleId = REPLACE_AFTER_CREATE
+@adminPropertyPolicyId = REPLACE_AFTER_CREATE
+@adminRoomTypeId = REPLACE_AFTER_CREATE
+@adminRoomTypePolicyId = REPLACE_AFTER_CREATE
+@adminRoomTypeImageSecondaryId = REPLACE_AFTER_CREATE
+@adminRatePlanId = REPLACE_AFTER_CREATE
+@adminRatePlanRoomTypeId = REPLACE_AFTER_GET
+@adminExtraServiceId = REPLACE_AFTER_CREATE
+@promoOverrideId = REPLACE_AFTER_CREATE
+
+@seedReviewId = REPLACE_EXISTING_REVIEW_ID
+@seedReviewHotelId = REPLACE_EXISTING_REVIEW_HOTEL_ID
+
+# HOTEL SWAGGER REGRESSION SUITE
+# Suite nay da doi chieu voi runtime that, khong con la smoke suite.
+# Chi dung X-TenantId. Hotel review can review seed co san.
+# Regression da fix va duoc giu trong suite:
+# - replace/update links o qlks/admin room-types, rate-plans, hotel-amenity links, bed links, room-amenity links phai idempotent
+# - Swagger-only optional fields o bed type, meal plan, hotel contact, meal-plan link khong duoc lam runtime 400
+# - room-type-image inactive phai bi chan khi set-primary
+
+### QLKS - Create active hotel - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/qlks/hotels
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"code":"QLKS-HTL-SWAGGER-001","name":"Swagger QLKS Hotel 001","slug":"{{qlksHotelSlug}}","addressLine":"123 Swagger Street","city":"Ho Chi Minh City","province":"Ho Chi Minh","countryCode":"VN","latitude":10.7769,"longitude":106.7009,"timeZone":"Asia/Ho_Chi_Minh","shortDescription":"Hotel tao bang regression swagger suite","descriptionMarkdown":"## Swagger QLKS Hotel","descriptionHtml":"<h2>Swagger QLKS Hotel</h2>","starRating":4,"status":2,"defaultCheckInTime":"14:00:00","defaultCheckOutTime":"12:00:00","phone":"0900000001","email":"qlks-hotel@example.com","websiteUrl":"https://example.com/qlks-hotel","coverImageUrl":"https://example.com/images/qlks-cover.jpg","policiesJson":"{\"pets\":\"not-allowed\"}","metadataJson":"{\"source\":\"swagger-suite\"}","isActive":true}
+
+### QLKS - Create hidden draft hotel - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/qlks/hotels
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"code":"QLKS-HTL-HIDDEN-001","name":"Swagger Hidden Hotel 001","slug":"{{hiddenHotelSlug}}","addressLine":"999 Hidden Street","city":"Ho Chi Minh City","province":"Ho Chi Minh","countryCode":"VN","timeZone":"Asia/Ho_Chi_Minh","shortDescription":"Hidden draft hotel","starRating":3,"status":1,"phone":"0900000999","email":"hidden-hotel@example.com","isActive":true}
+
+### QLKS - List hotels - expect 200
+GET {{baseUrl}}/api/v{{apiVersion}}/qlks/hotels?page=1&pageSize=20
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Accept: application/json
+
+### QLKS - Get hotel by id - expect 200
+GET {{baseUrl}}/api/v{{apiVersion}}/qlks/hotels/{{qlksHotelId}}
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Accept: application/json
+
+### QLKS - Update hotel with clear flags - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/qlks/hotels/{{qlksHotelId}}
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"name":"Swagger QLKS Hotel 001 Updated","shortDescription":"Updated by swagger suite","clearLatitude":true,"clearLongitude":true,"clearDefaultCheckInTime":true,"clearDefaultCheckOutTime":true,"clearCoverMediaAssetId":true,"coverImageUrl":"https://example.com/images/qlks-cover-updated.jpg","isActive":true}
+
+### QLKS - Negative update clear flag conflict - expect 400
+PUT {{baseUrl}}/api/v{{apiVersion}}/qlks/hotels/{{qlksHotelId}}
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"locationId":"11111111-1111-1111-1111-111111111111","clearLocationId":true}
+
+### Public - Search hotels - active visible, draft hidden excluded - expect 200
+GET {{baseUrl}}/api/v{{apiVersion}}/hotels?page=1&pageSize=20&q=swagger
+Accept: application/json
+
+### Public - Get active hotel by id - expect 200
+GET {{baseUrl}}/api/v{{apiVersion}}/hotels/{{qlksHotelId}}
+Accept: application/json
+
+### Public - Get active hotel by slug - expect 200
+GET {{baseUrl}}/api/v{{apiVersion}}/hotels/slug/{{qlksHotelSlug}}
+Accept: application/json
+
+### Public - Hidden draft by id must 404
+GET {{baseUrl}}/api/v{{apiVersion}}/hotels/{{hiddenHotelId}}
+Accept: application/json
+
+### Public - Gallery by id - expect 200
+GET {{baseUrl}}/api/v{{apiVersion}}/hotels/{{qlksHotelId}}/gallery
+Accept: application/json
+
+### Public - Reviews by slug - expect 200
+GET {{baseUrl}}/api/v{{apiVersion}}/hotels/slug/{{qlksHotelSlug}}/reviews?page=1&pageSize=10
+Accept: application/json
+
+### Public - Availability by slug - expect 200
+GET {{baseUrl}}/api/v{{apiVersion}}/hotels/slug/{{qlksHotelSlug}}/availability?checkInDate={{publicCheckIn}}&checkOutDate={{publicCheckOut}}&adults=2&children=0&rooms=2
+Accept: application/json
+
+### Public - Hidden draft availability must 404
+GET {{baseUrl}}/api/v{{apiVersion}}/hotels/slug/{{hiddenHotelSlug}}/availability?checkInDate={{publicCheckIn}}&checkOutDate={{publicCheckOut}}&adults=2&children=0&rooms=1
+Accept: application/json
+
+### Public - Invalid availability date order - expect 400
+GET {{baseUrl}}/api/v{{apiVersion}}/hotels/slug/{{qlksHotelSlug}}/availability?checkInDate={{ariTo}}&checkOutDate={{ariFrom}}&adults=2&children=0&rooms=1
+Accept: application/json
+
+### Admin - Create bed type with Swagger-only optional fields - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/bed-types
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"code":"BED-NEG-001","name":"Negative Bed","description":"Should ignore unsupported optional fields safely","category":"Double","sortOrder":1,"metadataJson":"{\"source\":\"swagger\"}","isActive":true}
+
+### Admin - Create bed type - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/bed-types
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"code":"BED-SWAGGER-001","name":"Swagger Bed","description":"Regression bed type","isActive":true}
+
+### Admin - Create meal plan with Swagger-only optional fields - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/meal-plans
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"code":"MEAL-NEG-001","name":"Negative Meal","description":"Should ignore unsupported optional fields safely","category":"Breakfast","sortOrder":1,"includesBreakfast":true,"includesLunch":false,"includesDinner":false,"metadataJson":"{\"source\":\"swagger\"}","isActive":true}
+
+### Admin - Create meal plan - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/meal-plans
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"code":"MEAL-SWAGGER-001","name":"Swagger Meal","description":"Regression meal plan","isActive":true}
+
+### Admin - Create hotel amenity - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-amenities
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"code":"HAM-SWAGGER-001","name":"Swagger Hotel Amenity","description":"Regression hotel amenity","category":"General","iconUrl":"https://example.com/icons/hotel-amenity.svg","sortOrder":1,"isActive":true}
+
+### Admin - Create room amenity - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/room-amenities
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"code":"RAM-SWAGGER-001","name":"Swagger Room Amenity","description":"Regression room amenity","category":"Bedroom","iconUrl":"https://example.com/icons/room-amenity.svg","sortOrder":1,"isActive":true}
+
+### Admin - Create hotel - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/hotels
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"code":"ADMIN-HTL-SWAGGER-001","name":"Swagger Admin Hotel 001","slug":"{{adminHotelSlug}}","addressLine":"456 Admin Avenue","city":"Da Nang","province":"Da Nang","countryCode":"VN","latitude":16.0544,"longitude":108.2022,"timeZone":"Asia/Ho_Chi_Minh","shortDescription":"Admin hotel for regression suite","descriptionMarkdown":"## Swagger Admin Hotel","descriptionHtml":"<h2>Swagger Admin Hotel</h2>","starRating":5,"status":2,"defaultCheckInTime":"15:00:00","defaultCheckOutTime":"11:00:00","phone":"0900000002","email":"admin-hotel@example.com","websiteUrl":"https://example.com/admin-hotel","coverImageUrl":"https://example.com/images/admin-cover.jpg","isActive":true}
+
+### Admin - Replace hotel amenity links with sortOrder from Swagger - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-amenities/hotels/{{qlksHotelId}}/links
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"items":[{"amenityId":"{{hotelAmenityId}}","isHighlighted":true,"sortOrder":1,"notes":"Linked by swagger suite"}]}
+
+### Admin - Repeat same hotel amenity links replace - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-amenities/hotels/{{qlksHotelId}}/links
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"items":[{"amenityId":"{{hotelAmenityId}}","isHighlighted":true,"sortOrder":1,"notes":"Repeat same link to verify idempotent replace"}]}
+
+### Admin - Create primary hotel contact with Swagger-only optional fields - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-contacts
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{qlksHotelId}}","name":"Front Desk","title":"Reception Lead","department":"Front Office","phone":"0900003000","email":"frontdesk@example.com","contactType":"Phone","isPrimary":true,"sortOrder":1,"notes":"Should ignore unsupported optional fields safely","metadataJson":"{\"source\":\"swagger\"}","isActive":true}
+
+### Admin - Create secondary hotel contact using runtime-supported fields - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-contacts
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{qlksHotelId}}","name":"Guest Service","title":"Guest Service Agent","phone":"0900003001","email":"guestservice@example.com","isPrimary":false,"notes":"Secondary hotel contact","isActive":true}
+
+### Admin - Create secondary hotel image - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-images
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{qlksHotelId}}","imageUrl":"https://example.com/images/hotel-secondary.jpg","caption":"Secondary hotel image","altText":"Secondary hotel image alt","title":"Secondary hotel image","isPrimary":false,"sortOrder":2,"isActive":true}
+
+### QLKS - Create cancellation policy - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/qlks/hotel-policies/cancellation-policies
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{qlksHotelId}}","code":"QLKS-CP-001","name":"24h Flexible","type":3,"description":"Free cancellation before 24 hours","isActive":true,"rules":[{"cancelBeforeHours":24,"chargeType":2,"chargeValue":0,"currencyCode":"VND","priority":1,"isActive":true},{"cancelBeforeHours":0,"chargeType":2,"chargeValue":100,"currencyCode":"VND","priority":2,"isActive":true}]}
+
+### QLKS - Negative cancellation validation - expect 400
+POST {{baseUrl}}/api/v{{apiVersion}}/qlks/hotel-policies/cancellation-policies
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{qlksHotelId}}","code":"QLKS-CP-INVALID","name":"Invalid rule set","type":3,"rules":[{"chargeType":2,"chargeValue":0,"priority":1}]}
+
+### QLKS - Create check-in/out rule - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/qlks/hotel-policies/check-in-out-rules
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{qlksHotelId}}","code":"QLKS-CIO-001","name":"Standard Window","checkInFrom":"14:00:00","checkInTo":"23:00:00","checkOutFrom":"06:00:00","checkOutTo":"12:00:00","allowsEarlyCheckIn":true,"allowsLateCheckOut":true,"notes":"Standard check-in/out window","isActive":true}
+
+### QLKS - Negative check-in/out validation - expect 400
+POST {{baseUrl}}/api/v{{apiVersion}}/qlks/hotel-policies/check-in-out-rules
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{qlksHotelId}}","code":"QLKS-CIO-INVALID","name":"Invalid Window","checkInFrom":"23:00:00","checkInTo":"14:00:00","checkOutFrom":"06:00:00","checkOutTo":"12:00:00","isActive":true}
+
+### QLKS - Create property policy - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/qlks/hotel-policies/property-policies
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{qlksHotelId}}","code":"QLKS-PP-001","name":"General House Rules","policyJson":"{\"pets\":\"not-allowed\",\"children\":\"allowed\"}","notes":"Property policy created by swagger suite","isActive":true}
+
+### QLKS - Create room type - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/qlks/room-types
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{qlksHotelId}}","code":"QRT-SWAGGER-001","name":"Swagger QLKS Room Type","descriptionMarkdown":"## Room type","descriptionHtml":"<h2>Room type</h2>","sortOrder":1,"areaSquareMeters":28,"hasBalcony":true,"hasWindow":true,"smokingAllowed":false,"defaultAdults":2,"defaultChildren":1,"maxAdults":3,"maxChildren":1,"maxGuests":4,"totalUnits":5,"coverImageUrl":"https://example.com/images/room-cover.jpg","status":2,"isActive":true,"metadataJson":"{\"source\":\"swagger-suite\"}","beds":[{"bedTypeId":"{{bedTypeId}}","quantity":1}],"amenities":[{"amenityId":"{{roomAmenityId}}","isHighlighted":true,"notes":"Linked by swagger suite"}],"occupancyRules":[{"minAdults":1,"maxAdults":3,"minChildren":0,"maxChildren":1,"minGuests":1,"maxGuests":4,"allowsInfants":true,"maxInfants":1,"notes":"Default occupancy","isActive":true}]}
+
+### QLKS - Update room type with existing bed and amenity links - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/qlks/room-types/{{qlksRoomTypeId}}
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"name":"Swagger QLKS Room Type Updated","beds":[{"bedTypeId":"{{bedTypeId}}","quantity":1}],"amenities":[{"amenityId":"{{roomAmenityId}}","isHighlighted":true,"notes":"Linked by swagger suite"}]}
+
+### QLKS - Scalar-only room type update - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/qlks/room-types/{{qlksRoomTypeId}}
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"name":"Swagger QLKS Room Type Updated","descriptionMarkdown":"## Room type updated","descriptionHtml":"<h2>Room type updated</h2>","coverImageUrl":"https://example.com/images/room-cover-updated.jpg","isActive":true}
+
+### QLKS - Create rate plan - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/qlks/rate-plans
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{qlksHotelId}}","code":"QRP-SWAGGER-001","name":"Swagger QLKS Rate Plan","description":"Regression rate plan","type":1,"status":2,"cancellationPolicyId":"{{qlksCancellationPolicyId}}","checkInOutRuleId":"{{qlksCheckInOutRuleId}}","propertyPolicyId":"{{qlksPropertyPolicyId}}","refundable":true,"breakfastIncluded":false,"minNights":1,"maxNights":10,"minAdvanceDays":0,"maxAdvanceDays":365,"requiresGuarantee":true,"metadataJson":"{\"source\":\"swagger-suite\"}","isActive":true,"roomTypes":[{"roomTypeId":"{{qlksRoomTypeId}}","basePrice":1000000,"currencyCode":"VND","isActive":true}],"policy":{"policyJson":"{\"guarantee\":\"required\"}","isActive":true}}
+
+### QLKS - Update rate plan with existing room type mapping - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/qlks/rate-plans/{{qlksRatePlanId}}
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"name":"Swagger QLKS Rate Plan Updated","roomTypes":[{"roomTypeId":"{{qlksRoomTypeId}}","basePrice":1000000,"currencyCode":"VND","isActive":true}]}
+
+### QLKS - Scalar-only rate plan update - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/qlks/rate-plans/{{qlksRatePlanId}}
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"name":"Swagger QLKS Rate Plan Updated","description":"Regression rate plan updated","breakfastIncluded":false,"requiresGuarantee":true,"isActive":true}
+
+### QLKS - Create extra service - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/qlks/extra-services
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{qlksHotelId}}","code":"QES-SWAGGER-001","name":"Swagger Airport Pickup","description":"Regression extra service","type":2,"metadataJson":"{\"source\":\"swagger-suite\"}","isActive":true,"prices":[{"startDate":"{{ariFrom}}","endDate":"{{ariTo}}","currencyCode":"VND","price":180000}]}
+
+### QLKS - Inventory bulk upsert - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/qlks/ari/room-types/{{qlksRoomTypeId}}/inventory/bulk
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"items":[{"date":"2026-04-10","totalUnits":5,"soldUnits":0,"heldUnits":0,"status":1,"minNights":1,"maxNights":10,"notes":"Open inventory"},{"date":"2026-04-11","totalUnits":5,"soldUnits":0,"heldUnits":0,"status":1,"minNights":1,"maxNights":10,"notes":"Open inventory"}]}
+
+### QLKS - Daily rates bulk upsert - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/qlks/ari/rate-plan-room-types/{{qlksRatePlanRoomTypeId}}/daily-rates/bulk
+Authorization: Bearer {{qlksToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"items":[{"date":"2026-04-10","basePrice":1000000,"taxes":100000,"fees":100000,"currencyCode":"VND","isActive":true,"metadataJson":"{\"source\":\"swagger-suite\"}"},{"date":"2026-04-11","basePrice":1000000,"taxes":100000,"fees":100000,"currencyCode":"VND","isActive":true,"metadataJson":"{\"source\":\"swagger-suite\"}"}]}
+
+### Admin - Create room type - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/room-types
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{adminHotelId}}","code":"ART-SWAGGER-001","name":"Swagger Admin Room Type","descriptionMarkdown":"## Admin room type","descriptionHtml":"<h2>Admin room type</h2>","sortOrder":1,"areaSquareMeters":32,"hasBalcony":true,"hasWindow":true,"smokingAllowed":false,"defaultAdults":2,"defaultChildren":1,"maxAdults":3,"maxChildren":1,"maxGuests":4,"totalUnits":4,"coverImageUrl":"https://example.com/images/admin-room-cover.jpg","status":2,"isActive":true,"metadataJson":"{\"source\":\"swagger-suite\"}","beds":[{"bedTypeId":"{{bedTypeId}}","quantity":1}],"amenities":[{"amenityId":"{{roomAmenityId}}","isHighlighted":true,"notes":"Linked by swagger suite"}],"occupancyRules":[{"minAdults":1,"maxAdults":3,"minChildren":0,"maxChildren":1,"minGuests":1,"maxGuests":4,"allowsInfants":true,"maxInfants":1,"notes":"Default occupancy","isActive":true}]}
+
+### Admin - Replace bed links - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/bed-types/room-types/{{adminRoomTypeId}}/links
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"items":[{"bedTypeId":"{{bedTypeId}}","quantity":1}]}
+
+### Admin - Replace meal plan links with Swagger-only pricing fields - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/meal-plans/room-types/{{adminRoomTypeId}}/links
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"items":[{"mealPlanId":"{{mealPlanId}}","additionalPrice":150000,"currencyCode":"VND","isDefault":true,"isIncluded":false}]}
+
+### Admin - Repeat same meal plan links replace - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/meal-plans/room-types/{{adminRoomTypeId}}/links
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"items":[{"mealPlanId":"{{mealPlanId}}","additionalPrice":150000,"currencyCode":"VND","isDefault":true,"isIncluded":false}]}
+
+### Admin - Replace room amenity links - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/room-amenities/room-types/{{adminRoomTypeId}}/links
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"items":[{"amenityId":"{{roomAmenityId}}","isHighlighted":true,"sortOrder":1,"notes":"Linked by swagger suite"}]}
+
+### Admin - Update room type with existing bed and amenity links - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/room-types/{{adminRoomTypeId}}
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"name":"Swagger Admin Room Type Updated","beds":[{"bedTypeId":"{{bedTypeId}}","quantity":1}],"amenities":[{"amenityId":"{{roomAmenityId}}","isHighlighted":true,"notes":"Linked by swagger suite"}]}
+
+### Admin - Scalar-only room type update - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/room-types/{{adminRoomTypeId}}
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"name":"Swagger Admin Room Type Updated","descriptionMarkdown":"## Admin room type updated","descriptionHtml":"<h2>Admin room type updated</h2>","coverImageUrl":"https://example.com/images/admin-room-cover-updated.jpg","isActive":true}
+
+### Admin - Create room type policy - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/room-type-policies
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"roomTypeId":"{{adminRoomTypeId}}","policyJson":"{\"maxOccupancy\":3,\"children\":\"allowed\"}","isActive":true}
+
+### Admin - Create secondary room type image - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/room-type-images
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"roomTypeId":"{{adminRoomTypeId}}","imageUrl":"https://example.com/images/admin-roomtype-secondary.jpg","caption":"Secondary room type image","altText":"Secondary room type image alt","title":"Secondary room type image","isPrimary":false,"sortOrder":2,"isActive":true}
+
+### Admin - Deactivate secondary room type image - expect 200
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/room-type-images/{{adminRoomTypeImageSecondaryId}}/deactivate
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Accept: application/json
+
+### Admin - Inactive room type image set-primary must fail - expect 400
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/room-type-images/{{adminRoomTypeImageSecondaryId}}/set-primary
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Accept: application/json
+
+### Admin - Reactivate secondary room type image - expect 200
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/room-type-images/{{adminRoomTypeImageSecondaryId}}/activate
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Accept: application/json
+
+### Admin - Create rate plan - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/rate-plans
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{adminHotelId}}","code":"ARP-SWAGGER-001","name":"Swagger Admin Rate Plan","description":"Regression admin rate plan","type":1,"status":2,"cancellationPolicyId":"{{adminCancellationPolicyId}}","checkInOutRuleId":"{{adminCheckInOutRuleId}}","propertyPolicyId":"{{adminPropertyPolicyId}}","refundable":true,"breakfastIncluded":true,"minNights":1,"maxNights":10,"minAdvanceDays":0,"maxAdvanceDays":365,"requiresGuarantee":true,"metadataJson":"{\"source\":\"swagger-suite\"}","isActive":true,"roomTypes":[{"roomTypeId":"{{adminRoomTypeId}}","basePrice":1300000,"currencyCode":"VND","isActive":true}],"policy":{"policyJson":"{\"guarantee\":\"required\"}","isActive":true}}
+
+### Admin - Update rate plan with existing room type mapping - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/rate-plans/{{adminRatePlanId}}
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"name":"Swagger Admin Rate Plan Updated","roomTypes":[{"roomTypeId":"{{adminRoomTypeId}}","basePrice":1300000,"currencyCode":"VND","isActive":true}]}
+
+### Admin - Scalar-only rate plan update - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/rate-plans/{{adminRatePlanId}}
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"name":"Swagger Admin Rate Plan Updated","description":"Regression admin rate plan updated","breakfastIncluded":true,"requiresGuarantee":true,"isActive":true}
+
+### Admin - Create extra service - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/extra-services
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{adminHotelId}}","code":"AES-SWAGGER-001","name":"Swagger Admin Breakfast","description":"Regression admin extra service","type":4,"metadataJson":"{\"source\":\"swagger-suite\"}","isActive":true,"prices":[{"startDate":"{{ariFrom}}","endDate":"{{ariTo}}","currencyCode":"VND","price":260000}]}
+
+### Admin - Inventory bulk upsert - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/ari/room-types/{{adminRoomTypeId}}/inventory/bulk
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"items":[{"date":"2026-04-10","totalUnits":4,"soldUnits":0,"heldUnits":0,"status":1,"minNights":1,"maxNights":10,"notes":"Admin inventory"},{"date":"2026-04-11","totalUnits":4,"soldUnits":0,"heldUnits":0,"status":1,"minNights":1,"maxNights":10,"notes":"Admin inventory"}]}
+
+### Admin - Daily rates bulk upsert - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/ari/rate-plan-room-types/{{adminRatePlanRoomTypeId}}/daily-rates/bulk
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"items":[{"date":"2026-04-10","basePrice":1300000,"taxes":100000,"fees":100000,"currencyCode":"VND","isActive":true,"metadataJson":"{\"source\":\"swagger-suite\"}"},{"date":"2026-04-11","basePrice":1300000,"taxes":100000,"fees":100000,"currencyCode":"VND","isActive":true,"metadataJson":"{\"source\":\"swagger-suite\"}"}]}
+
+### Admin - Create promo override - expect 201
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/promo-rate-overrides
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"hotelId":"{{adminHotelId}}","roomTypeId":"{{adminRoomTypeId}}","ratePlanId":"{{adminRatePlanId}}","ratePlanRoomTypeId":"{{adminRatePlanRoomTypeId}}","code":"PROMO-SWAGGER-001","promoCode":"PROMO-SWAGGER-001","startDate":"{{ariFrom}}","endDate":"{{ariTo}}","overridePrice":1250000,"currencyCode":"VND","isActive":true}
+
+### Admin - List reviews in switched tenant - expect 200
+GET {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-reviews?page=1&pageSize=20&includeDeleted=true&includeHidden=true
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Accept: application/json
+
+### Admin - Get review by id - expect 200
+GET {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-reviews/{{seedReviewId}}?includeDeleted=true
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Accept: application/json
+
+### Admin - Update review with unsupported ReviewerName field ignored safely - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-reviews/{{seedReviewId}}
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"reviewerName":"Manual Name"}
+
+### Admin - Reply unsupported by current schema - expect 400
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-reviews/{{seedReviewId}}/reply
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"replyContent":"Thanks for your feedback"}
+
+### Admin - Update review and publish - expect 200
+PUT {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-reviews/{{seedReviewId}}
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"rating":4,"title":"Regression review updated","content":"Updated by hotel regression suite","status":"Published","isVerifiedStay":true,"helpfulCount":2,"metadataJson":"{\"source\":\"swagger-suite\"}"}
+
+### Admin - Hide review - expect 200
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-reviews/{{seedReviewId}}/hide
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Accept: application/json
+
+### Admin - Show review - expect 200
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-reviews/{{seedReviewId}}/show
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Accept: application/json
+
+### Admin - Reject review - expect 200
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-reviews/{{seedReviewId}}/reject
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Content-Type: application/json
+
+{"reason":"Regression moderation"}
+
+### Admin - Approve review - expect 200
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-reviews/{{seedReviewId}}/approve
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Accept: application/json
+
+### Admin - Delete review - expect 200
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-reviews/{{seedReviewId}}/delete
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Accept: application/json
+
+### Admin - Restore review - expect 200
+POST {{baseUrl}}/api/v{{apiVersion}}/admin/hotel-reviews/{{seedReviewId}}/restore
+Authorization: Bearer {{adminToken}}
+X-TenantId: {{tenantId}}
+Accept: application/json
+
+# EXECUTED LIFECYCLE COVERAGE LOG
+# Da goi that va pass 200 tren runtime hien tai:
+# - POST /qlks/hotels/{id}/activate, /deactivate, /delete, /restore
+# - GET /qlks/hotel-policies/{cancellation|check-in-out|property}/{id}
+# - POST /qlks/hotel-policies/{cancellation|check-in-out|property}/{id}/activate, /deactivate, /delete, /restore
+# - GET /qlks/room-types/{id}, /qlks/rate-plans/{id}, /qlks/extra-services/{id}
+# - POST /qlks/room-types/{id}/activate, /deactivate, /delete, /restore
+# - POST /qlks/rate-plans/{id}/activate, /deactivate, /delete, /restore
+# - GET /qlks/extra-services/{id}/prices
+# - PUT /qlks/extra-services/{id}, PUT /qlks/extra-services/{id}/prices
+# - POST /qlks/extra-services/{id}/activate, /deactivate, /delete, /restore
+# - POST /qlks/ari/room-types/{roomTypeId}/inventory/delete-range + GET empty after delete
+# - POST /qlks/ari/rate-plan-room-types/{ratePlanRoomTypeId}/daily-rates/delete-range + GET empty after delete
+# - GET /admin/bed-types/{id}, /admin/meal-plans/{id}, /admin/hotel-amenities/{id}, /admin/room-amenities/{id}
+# - POST /admin/{bed-types|meal-plans|hotel-amenities|room-amenities}/{id}/activate, /deactivate, /delete, /restore
+# - GET /admin/hotels/{id}; POST /admin/hotels/{id}/activate, /deactivate, /delete, /restore
+# - GET /admin/hotel-amenities/hotels/{hotelId}/links
+# - GET /admin/hotel-contacts/{id}; PUT /admin/hotel-contacts/{id}; POST /set-primary, /activate, /deactivate, /delete, /restore
+# - GET /admin/hotel-images/{id}; PUT /admin/hotel-images/{id}; POST /set-primary, /activate, /deactivate, /delete, /restore
+# - GET /admin/hotel-policies/{cancellation|check-in-out|property}/{id}
+# - POST /admin/hotel-policies/{cancellation|check-in-out|property}/{id}/activate, /deactivate, /delete, /restore
+# - GET /admin/bed-types/room-types/{roomTypeId}/links
+# - GET /admin/meal-plans/room-types/{roomTypeId}/links
+# - GET /admin/room-amenities/room-types/{roomTypeId}/links
+# - GET /admin/room-types/{id}; POST /admin/room-types/{id}/activate, /deactivate, /delete, /restore
+# - GET /admin/room-type-policies/{id}; POST /admin/room-type-policies/{id}/activate, /deactivate, /delete, /restore
+# - GET /admin/room-type-images/{id}; PUT /admin/room-type-images/{id}; POST /activate, /deactivate, /delete, /restore
+# - GET /admin/rate-plans/{id}; POST /admin/rate-plans/{id}/activate, /deactivate, /delete, /restore
+# - GET /admin/extra-services/{id}; PUT /admin/extra-services/{id}; GET /prices; PUT /prices; POST /activate, /deactivate, /delete, /restore
+# - POST /admin/ari/room-types/{roomTypeId}/inventory/delete-range + GET empty after delete
+# - POST /admin/ari/rate-plan-room-types/{ratePlanRoomTypeId}/daily-rates/delete-range + GET empty after delete
+# - GET /admin/promo-rate-overrides/{id}; PUT /admin/promo-rate-overrides/{id}; POST /activate, /deactivate, /delete, /restore
+# - GET /admin/hotel-reviews?includeDeleted/Hidden filters; GET /admin/hotel-reviews/{id}?includeDeleted=true

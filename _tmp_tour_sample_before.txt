@@ -1,0 +1,2 @@
+setError(requestError.message || 'Không thể tải danh sách tour.');
+    

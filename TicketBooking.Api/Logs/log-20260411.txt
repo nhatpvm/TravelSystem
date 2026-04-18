@@ -1,0 +1,594 @@
+2026-04-11 23:50:10.765 +07:00 [INF] Ensured user 'qlnx' with role 'QLNX'.
+2026-04-11 23:50:10.823 +07:00 [INF] Ensured user 'qlks' with role 'QLKS'.
+2026-04-11 23:50:10.838 +07:00 [INF] Ensured user 'qlvt' with role 'QLVT'.
+2026-04-11 23:50:10.854 +07:00 [INF] Ensured user 'qlvmm' with role 'QLVMM'.
+2026-04-11 23:50:10.873 +07:00 [INF] Ensured user 'qltour' with role 'QLTour'.
+2026-04-11 23:50:10.882 +07:00 [INF] Ensured user 'scanner_nx' with role 'Customer'.
+2026-04-11 23:50:10.890 +07:00 [INF] Ensured user 'customer' with role 'Customer'.
+2026-04-11 23:50:10.892 +07:00 [INF] Identity seed completed.
+2026-04-11 23:50:11.083 +07:00 [INF] Tenant NX001 already exists.
+2026-04-11 23:50:11.089 +07:00 [INF] Tenant VT001 already exists.
+2026-04-11 23:50:11.094 +07:00 [INF] Tenant VMM001 already exists.
+2026-04-11 23:50:11.098 +07:00 [INF] Tenant KS001 already exists.
+2026-04-11 23:50:11.109 +07:00 [INF] Tenant TOUR001 already exists.
+2026-04-11 23:50:11.278 +07:00 [INF] Updated tenant link 'qlnx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-11 23:50:11.310 +07:00 [INF] Updated tenant link 'admin' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-11 23:50:11.561 +07:00 [INF] Updated tenant link 'qlvt' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-11 23:50:11.585 +07:00 [INF] Updated tenant link 'admin' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-11 23:50:11.632 +07:00 [INF] Updated tenant link 'qlvmm' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-11 23:50:11.648 +07:00 [INF] Updated tenant link 'admin' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-11 23:50:11.688 +07:00 [INF] Updated tenant link 'qlks' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-11 23:50:11.712 +07:00 [INF] Updated tenant link 'admin' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-11 23:50:11.755 +07:00 [INF] Updated tenant link 'qltour' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-11 23:50:11.771 +07:00 [INF] Updated tenant link 'admin' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-11 23:50:11.780 +07:00 [INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+2026-04-11 23:50:11.985 +07:00 [INF] Permissions seed completed.
+2026-04-11 23:50:13.260 +07:00 [INF] Tenant system role seed completed.
+2026-04-11 23:50:13.458 +07:00 [INF] Updated TenantUser link 'customer' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-11 23:50:13.517 +07:00 [INF] Updated TenantUser link 'scanner_nx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-11 23:50:13.541 +07:00 [INF] TenantRoles seed completed for NX001.
+2026-04-11 23:50:14.886 +07:00 [INF] BUS demo seed completed for tenant NX001.
+2026-04-11 23:50:15.788 +07:00 [INF] TRAIN demo seed completed for tenant VT001.
+2026-04-11 23:50:16.950 +07:00 [INF] Flight demo seed completed for tenant VMM001.
+2026-04-11 23:50:17.374 +07:00 [INF] CmsDemoSeed completed for tenant NX001.
+2026-04-11 23:50:17.520 +07:00 [INF] Hotel demo seed starting for 6 tenant(s). Days=14
+2026-04-11 23:50:17.622 +07:00 [INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-11 23:50:19.377 +07:00 [INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+2026-04-11 23:50:19.385 +07:00 [INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-11 23:50:19.575 +07:00 [INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+2026-04-11 23:50:19.583 +07:00 [INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-11 23:50:19.770 +07:00 [INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+2026-04-11 23:50:19.779 +07:00 [INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-11 23:50:20.139 +07:00 [INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+2026-04-11 23:50:20.146 +07:00 [INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-11 23:50:20.343 +07:00 [INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+2026-04-11 23:50:20.350 +07:00 [INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-11 23:50:20.637 +07:00 [INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+2026-04-11 23:50:20.639 +07:00 [INF] Hotel demo seed finished.
+2026-04-11 23:50:21.525 +07:00 [INF] Now listening on: http://localhost:5183
+2026-04-11 23:50:21.527 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 23:50:21.528 +07:00 [INF] Hosting environment: Development
+2026-04-11 23:50:21.530 +07:00 [INF] Content root path: D:\FPT\TicketBooking.V3\TicketBooking.Api
+2026-04-11 23:50:46.164 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-04-11 23:50:46.497 +07:00 [INF] HTTP POST /api/v1/auth/login responded 401 in 335.0375 ms
+2026-04-11 23:50:55.114 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 229.3306 ms
+2026-04-11 23:50:55.377 +07:00 [INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 247.0916 ms
+2026-04-11 23:50:55.525 +07:00 [INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 125.7238 ms
+2026-04-11 23:50:55.684 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 19.1825 ms
+2026-04-11 23:50:55.705 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 13.8487 ms
+2026-04-11 23:51:08.378 +07:00 [INF] HTTP GET /api/v1/manager/cms/site-settings responded 404 in 30.7646 ms
+2026-04-11 23:51:08.390 +07:00 [INF] HTTP GET /api/v1/manager/cms/site-settings responded 404 in 6.9002 ms
+2026-04-11 23:51:08.408 +07:00 [INF] HTTP GET /api/v1/manager/cms/media-assets responded 200 in 60.7217 ms
+2026-04-11 23:51:08.414 +07:00 [INF] HTTP GET /api/v1/manager/cms/redirects responded 200 in 66.5440 ms
+2026-04-11 23:51:08.426 +07:00 [INF] HTTP GET /api/v1/manager/cms/options responded 200 in 80.8896 ms
+2026-04-11 23:51:08.432 +07:00 [INF] HTTP GET /api/v1/manager/cms/media-assets responded 200 in 18.8616 ms
+2026-04-11 23:51:08.436 +07:00 [INF] HTTP GET /api/v1/manager/cms/redirects responded 200 in 17.3832 ms
+2026-04-11 23:51:08.450 +07:00 [INF] HTTP GET /api/v1/manager/cms/posts responded 200 in 102.7383 ms
+2026-04-11 23:51:08.458 +07:00 [INF] HTTP GET /api/v1/manager/cms/options responded 200 in 27.4618 ms
+2026-04-11 23:51:08.488 +07:00 [INF] HTTP GET /api/v1/manager/cms/posts responded 200 in 33.2966 ms
+2026-04-11 23:51:08.930 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 69.8647 ms
+2026-04-11 23:51:08.961 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 26.5195 ms
+2026-04-11 23:51:09.079 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5 responded 200 in 43.0726 ms
+2026-04-11 23:51:20.373 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 21.4697 ms
+2026-04-11 23:51:20.387 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 8.5665 ms
+2026-04-11 23:51:20.590 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules responded 200 in 237.9249 ms
+2026-04-11 23:51:20.654 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules responded 200 in 56.3455 ms
+2026-04-11 23:51:29.537 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 22.8153 ms
+2026-04-11 23:51:29.551 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 9.3374 ms
+2026-04-11 23:51:29.569 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules responded 200 in 55.3763 ms
+2026-04-11 23:51:29.581 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules/0169313c-f78d-bdbc-382e-bba82c8fe2a4/prices responded 200 in 65.6069 ms
+2026-04-11 23:51:29.590 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules responded 200 in 16.0928 ms
+2026-04-11 23:51:29.601 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules/0169313c-f78d-bdbc-382e-bba82c8fe2a4/prices responded 200 in 14.8256 ms
+2026-04-11 23:51:44.919 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 25.1947 ms
+2026-04-11 23:51:44.947 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules responded 200 in 53.5694 ms
+2026-04-11 23:51:44.947 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules/0169313c-f78d-bdbc-382e-bba82c8fe2a4/capacity responded 200 in 53.7735 ms
+2026-04-11 23:51:44.947 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 24.0437 ms
+2026-04-11 23:51:44.981 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules/0169313c-f78d-bdbc-382e-bba82c8fe2a4/capacity responded 200 in 27.0308 ms
+2026-04-11 23:51:45.009 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules responded 200 in 55.3955 ms
+2026-04-11 23:51:48.719 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 42.5071 ms
+2026-04-11 23:51:48.733 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 9.6048 ms
+2026-04-11 23:51:48.778 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/packages responded 200 in 101.3731 ms
+2026-04-11 23:51:48.792 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/packages responded 200 in 10.1617 ms
+2026-04-11 23:51:54.836 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5 responded 200 in 22.4125 ms
+2026-04-11 23:51:54.840 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 27.2294 ms
+2026-04-11 23:51:54.849 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5 responded 200 in 9.1449 ms
+2026-04-11 23:51:54.854 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 10.1256 ms
+2026-04-11 23:52:03.311 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 30.4227 ms
+2026-04-11 23:52:03.350 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 33.8828 ms
+2026-04-11 23:52:03.446 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules responded 200 in 72.4332 ms
+2026-04-11 23:52:04.610 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 32.9346 ms
+2026-04-11 23:52:04.633 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 12.9920 ms
+2026-04-11 23:52:04.633 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/packages responded 200 in 56.3494 ms
+2026-04-11 23:52:04.659 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/packages responded 200 in 11.7604 ms
+2026-04-11 23:52:04.685 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules responded 200 in 107.6180 ms
+2026-04-11 23:52:04.704 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules responded 200 in 12.3764 ms
+2026-04-11 23:52:15.434 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 27.1218 ms
+2026-04-11 23:52:15.450 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/packages responded 200 in 39.3766 ms
+2026-04-11 23:52:15.471 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 28.5648 ms
+2026-04-11 23:52:15.477 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules responded 200 in 66.3563 ms
+2026-04-11 23:52:15.485 +07:00 [ERR] Failed executing DbCommand (9ms) [Parameters=[@__tenantId_0='?' (DbType = Guid), @__tourId_1='?' (DbType = Guid), @__request_ScheduleId_Value_2='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [tours].[TourPackageAuditEvents] AS [t]
+WHERE [t].[TenantId] = @__tenantId_0 AND [t].[TourId] = @__tourId_1 AND [t].[IsDeleted] = CAST(0 AS bit) AND [t].[TourScheduleId] = @__request_ScheduleId_Value_2
+2026-04-11 23:52:15.504 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/packages responded 200 in 42.8663 ms
+2026-04-11 23:52:15.506 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/package-reporting/source-breakdown responded 200 in 95.2615 ms
+2026-04-11 23:52:15.513 +07:00 [ERR] An exception occurred while iterating over the results of a query for context type 'TicketBooking.Infrastructure.Persistence.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageAuditEvents'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:be232f6c-d804-461e-8ef2-a0b2fcd5d50c
+Error Number:208,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageAuditEvents'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:be232f6c-d804-461e-8ef2-a0b2fcd5d50c
+Error Number:208,State:1,Class:16
+2026-04-11 23:52:15.536 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/package-reporting/source-breakdown responded 200 in 24.4214 ms
+2026-04-11 23:52:15.543 +07:00 [ERR] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/package-reporting/audit-events responded 500 in 130.8021 ms
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageAuditEvents'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at TicketBooking.Api.Services.Tours.TourPackageAuditService.ListEventsAsync(Guid tenantId, Guid tourId, TourPackageAuditEventListRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageAuditService.cs:line 468
+   at TicketBooking.Api.Controllers.Tours.TourPackageReportingManagementController.ListAuditEvents(Guid tourId, Nullable`1 from, Nullable`1 to, Nullable`1 packageId, Nullable`1 scheduleId, Nullable`1 bookingId, Nullable`1 reservationId, Nullable`1 cancellationId, Nullable`1 refundId, Nullable`1 rescheduleId, Nullable`1 actorUserId, String eventType, Nullable`1 severity, Nullable`1 sourceType, Int32 page, Int32 pageSize, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Tours\Manager\TourPackageReportingManagementController.cs:line 115
+   at lambda_method11478(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 175
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+ClientConnectionId:be232f6c-d804-461e-8ef2-a0b2fcd5d50c
+Error Number:208,State:1,Class:16
+2026-04-11 23:52:15.546 +07:00 [ERR] Failed executing DbCommand (3ms) [Parameters=[@__tenantId_0='?' (DbType = Guid), @__tourId_1='?' (DbType = Guid), @__request_ScheduleId_Value_2='?' (DbType = Guid), @__tenantId_3='?' (DbType = Guid), @__tourId_4='?' (DbType = Guid), @__request_ScheduleId_Value_5='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Status]
+FROM [tours].[TourPackageReschedules] AS [t]
+WHERE [t].[TenantId] = @__tenantId_0 AND [t].[TourId] = @__tourId_1 AND [t].[IsDeleted] = CAST(0 AS bit) AND ([t].[SourceTourScheduleId] = @__request_ScheduleId_Value_2 OR [t].[TargetTourScheduleId] = @__request_ScheduleId_Value_2) AND ([t].[SourceTourPackageBookingId] IN (
+    SELECT [t0].[Id]
+    FROM [tours].[TourPackageBookings] AS [t0]
+    WHERE [t0].[TenantId] = @__tenantId_3 AND [t0].[TourId] = @__tourId_4 AND [t0].[IsDeleted] = CAST(0 AS bit) AND [t0].[TourScheduleId] = @__request_ScheduleId_Value_5
+) OR ([t].[TargetTourPackageBookingId] IS NOT NULL AND [t].[TargetTourPackageBookingId] IN (
+    SELECT [t1].[Id]
+    FROM [tours].[TourPackageBookings] AS [t1]
+    WHERE [t1].[TenantId] = @__tenantId_3 AND [t1].[TourId] = @__tourId_4 AND [t1].[IsDeleted] = CAST(0 AS bit) AND [t1].[TourScheduleId] = @__request_ScheduleId_Value_5
+)))
+2026-04-11 23:52:15.558 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/schedules responded 200 in 74.7588 ms
+2026-04-11 23:52:15.570 +07:00 [ERR] An exception occurred while iterating over the results of a query for context type 'TicketBooking.Infrastructure.Persistence.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageReschedules'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:53ddf002-4a0c-4d88-82c6-93d8557aecc0
+Error Number:208,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageReschedules'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:53ddf002-4a0c-4d88-82c6-93d8557aecc0
+Error Number:208,State:1,Class:16
+2026-04-11 23:52:15.571 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageAuditEvents'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at TicketBooking.Api.Services.Tours.TourPackageAuditService.ListEventsAsync(Guid tenantId, Guid tourId, TourPackageAuditEventListRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageAuditService.cs:line 468
+   at TicketBooking.Api.Controllers.Tours.TourPackageReportingManagementController.ListAuditEvents(Guid tourId, Nullable`1 from, Nullable`1 to, Nullable`1 packageId, Nullable`1 scheduleId, Nullable`1 bookingId, Nullable`1 reservationId, Nullable`1 cancellationId, Nullable`1 refundId, Nullable`1 rescheduleId, Nullable`1 actorUserId, String eventType, Nullable`1 severity, Nullable`1 sourceType, Int32 page, Int32 pageSize, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Tours\Manager\TourPackageReportingManagementController.cs:line 115
+   at lambda_method11478(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 175
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+ClientConnectionId:be232f6c-d804-461e-8ef2-a0b2fcd5d50c
+Error Number:208,State:1,Class:16
+2026-04-11 23:52:15.579 +07:00 [ERR] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/package-reporting/overview responded 500 in 167.7925 ms
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageReschedules'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at TicketBooking.Api.Services.Tours.TourPackageAuditService.GetOverviewAsync(Guid tenantId, Guid tourId, TourPackageAuditOverviewRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageAuditService.cs:line 210
+   at TicketBooking.Api.Controllers.Tours.TourPackageReportingManagementController.GetOverview(Guid tourId, Nullable`1 from, Nullable`1 to, Nullable`1 packageId, Nullable`1 scheduleId, Nullable`1 bookingId, Nullable`1 userId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Tours\Manager\TourPackageReportingManagementController.cs:line 44
+   at lambda_method11466(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 175
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+ClientConnectionId:53ddf002-4a0c-4d88-82c6-93d8557aecc0
+Error Number:208,State:1,Class:16
+2026-04-11 23:52:15.605 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageReschedules'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at TicketBooking.Api.Services.Tours.TourPackageAuditService.GetOverviewAsync(Guid tenantId, Guid tourId, TourPackageAuditOverviewRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageAuditService.cs:line 210
+   at TicketBooking.Api.Controllers.Tours.TourPackageReportingManagementController.GetOverview(Guid tourId, Nullable`1 from, Nullable`1 to, Nullable`1 packageId, Nullable`1 scheduleId, Nullable`1 bookingId, Nullable`1 userId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Tours\Manager\TourPackageReportingManagementController.cs:line 44
+   at lambda_method11466(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 175
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+ClientConnectionId:53ddf002-4a0c-4d88-82c6-93d8557aecc0
+Error Number:208,State:1,Class:16
+2026-04-11 23:52:15.646 +07:00 [ERR] Failed executing DbCommand (1ms) [Parameters=[@__tenantId_0='?' (DbType = Guid), @__tourId_1='?' (DbType = Guid), @__request_ScheduleId_Value_2='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [tours].[TourPackageAuditEvents] AS [t]
+WHERE [t].[TenantId] = @__tenantId_0 AND [t].[TourId] = @__tourId_1 AND [t].[IsDeleted] = CAST(0 AS bit) AND [t].[TourScheduleId] = @__request_ScheduleId_Value_2
+2026-04-11 23:52:15.650 +07:00 [ERR] An exception occurred while iterating over the results of a query for context type 'TicketBooking.Infrastructure.Persistence.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageAuditEvents'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:53ddf002-4a0c-4d88-82c6-93d8557aecc0
+Error Number:208,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageAuditEvents'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:53ddf002-4a0c-4d88-82c6-93d8557aecc0
+Error Number:208,State:1,Class:16
+2026-04-11 23:52:15.658 +07:00 [ERR] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/package-reporting/audit-events responded 500 in 28.5913 ms
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageAuditEvents'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at TicketBooking.Api.Services.Tours.TourPackageAuditService.ListEventsAsync(Guid tenantId, Guid tourId, TourPackageAuditEventListRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageAuditService.cs:line 468
+   at TicketBooking.Api.Controllers.Tours.TourPackageReportingManagementController.ListAuditEvents(Guid tourId, Nullable`1 from, Nullable`1 to, Nullable`1 packageId, Nullable`1 scheduleId, Nullable`1 bookingId, Nullable`1 reservationId, Nullable`1 cancellationId, Nullable`1 refundId, Nullable`1 rescheduleId, Nullable`1 actorUserId, String eventType, Nullable`1 severity, Nullable`1 sourceType, Int32 page, Int32 pageSize, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Tours\Manager\TourPackageReportingManagementController.cs:line 115
+   at lambda_method11478(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 175
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+ClientConnectionId:53ddf002-4a0c-4d88-82c6-93d8557aecc0
+Error Number:208,State:1,Class:16
+2026-04-11 23:52:15.673 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageAuditEvents'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at TicketBooking.Api.Services.Tours.TourPackageAuditService.ListEventsAsync(Guid tenantId, Guid tourId, TourPackageAuditEventListRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageAuditService.cs:line 468
+   at TicketBooking.Api.Controllers.Tours.TourPackageReportingManagementController.ListAuditEvents(Guid tourId, Nullable`1 from, Nullable`1 to, Nullable`1 packageId, Nullable`1 scheduleId, Nullable`1 bookingId, Nullable`1 reservationId, Nullable`1 cancellationId, Nullable`1 refundId, Nullable`1 rescheduleId, Nullable`1 actorUserId, String eventType, Nullable`1 severity, Nullable`1 sourceType, Int32 page, Int32 pageSize, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Tours\Manager\TourPackageReportingManagementController.cs:line 115
+   at lambda_method11478(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 175
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+ClientConnectionId:53ddf002-4a0c-4d88-82c6-93d8557aecc0
+Error Number:208,State:1,Class:16
+2026-04-11 23:52:15.703 +07:00 [ERR] Failed executing DbCommand (2ms) [Parameters=[@__tenantId_0='?' (DbType = Guid), @__tourId_1='?' (DbType = Guid), @__request_ScheduleId_Value_2='?' (DbType = Guid), @__tenantId_3='?' (DbType = Guid), @__tourId_4='?' (DbType = Guid), @__request_ScheduleId_Value_5='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Status]
+FROM [tours].[TourPackageReschedules] AS [t]
+WHERE [t].[TenantId] = @__tenantId_0 AND [t].[TourId] = @__tourId_1 AND [t].[IsDeleted] = CAST(0 AS bit) AND ([t].[SourceTourScheduleId] = @__request_ScheduleId_Value_2 OR [t].[TargetTourScheduleId] = @__request_ScheduleId_Value_2) AND ([t].[SourceTourPackageBookingId] IN (
+    SELECT [t0].[Id]
+    FROM [tours].[TourPackageBookings] AS [t0]
+    WHERE [t0].[TenantId] = @__tenantId_3 AND [t0].[TourId] = @__tourId_4 AND [t0].[IsDeleted] = CAST(0 AS bit) AND [t0].[TourScheduleId] = @__request_ScheduleId_Value_5
+) OR ([t].[TargetTourPackageBookingId] IS NOT NULL AND [t].[TargetTourPackageBookingId] IN (
+    SELECT [t1].[Id]
+    FROM [tours].[TourPackageBookings] AS [t1]
+    WHERE [t1].[TenantId] = @__tenantId_3 AND [t1].[TourId] = @__tourId_4 AND [t1].[IsDeleted] = CAST(0 AS bit) AND [t1].[TourScheduleId] = @__request_ScheduleId_Value_5
+)))
+2026-04-11 23:52:15.707 +07:00 [ERR] An exception occurred while iterating over the results of a query for context type 'TicketBooking.Infrastructure.Persistence.AppDbContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageReschedules'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:53ddf002-4a0c-4d88-82c6-93d8557aecc0
+Error Number:208,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageReschedules'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:53ddf002-4a0c-4d88-82c6-93d8557aecc0
+Error Number:208,State:1,Class:16
+2026-04-11 23:52:15.720 +07:00 [ERR] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/package-reporting/overview responded 500 in 90.7125 ms
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageReschedules'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at TicketBooking.Api.Services.Tours.TourPackageAuditService.GetOverviewAsync(Guid tenantId, Guid tourId, TourPackageAuditOverviewRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageAuditService.cs:line 210
+   at TicketBooking.Api.Controllers.Tours.TourPackageReportingManagementController.GetOverview(Guid tourId, Nullable`1 from, Nullable`1 to, Nullable`1 packageId, Nullable`1 scheduleId, Nullable`1 bookingId, Nullable`1 userId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Tours\Manager\TourPackageReportingManagementController.cs:line 44
+   at lambda_method11466(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 175
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+ClientConnectionId:53ddf002-4a0c-4d88-82c6-93d8557aecc0
+Error Number:208,State:1,Class:16
+2026-04-11 23:52:15.752 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid object name 'tours.TourPackageReschedules'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__271_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at TicketBooking.Api.Services.Tours.TourPackageAuditService.GetOverviewAsync(Guid tenantId, Guid tourId, TourPackageAuditOverviewRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageAuditService.cs:line 210
+   at TicketBooking.Api.Controllers.Tours.TourPackageReportingManagementController.GetOverview(Guid tourId, Nullable`1 from, Nullable`1 to, Nullable`1 packageId, Nullable`1 scheduleId, Nullable`1 bookingId, Nullable`1 userId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Tours\Manager\TourPackageReportingManagementController.cs:line 44
+   at lambda_method11466(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 175
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+ClientConnectionId:53ddf002-4a0c-4d88-82c6-93d8557aecc0
+Error Number:208,State:1,Class:16
+2026-04-11 23:52:21.498 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 25.4737 ms
+2026-04-11 23:52:21.527 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 24.0468 ms
+2026-04-11 23:52:21.604 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/itinerary responded 200 in 131.6176 ms
+2026-04-11 23:52:21.663 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/itinerary responded 200 in 50.0787 ms
+2026-04-11 23:52:21.776 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/itinerary/e37ca1a4-45ae-1945-e5b2-5899c6e67e5c responded 200 in 63.9271 ms
+2026-04-11 23:52:22.444 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 26.0467 ms
+2026-04-11 23:52:22.457 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 9.5724 ms
+2026-04-11 23:52:22.474 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/contacts responded 200 in 56.7637 ms
+2026-04-11 23:52:22.503 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/contacts responded 200 in 24.5738 ms
+2026-04-11 23:52:22.591 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/contacts/3c900ec0-c1f6-cf18-afa6-f2ac8b0a3df9 responded 200 in 50.5388 ms
+2026-04-11 23:52:23.414 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 28.5204 ms
+2026-04-11 23:52:23.438 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/itinerary responded 200 in 52.6115 ms
+2026-04-11 23:52:23.460 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 34.0089 ms
+2026-04-11 23:52:23.503 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/itinerary responded 200 in 59.2257 ms
+2026-04-11 23:52:23.556 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/5f9f4429-ff56-a455-6092-bac95791edf5/itinerary/e37ca1a4-45ae-1945-e5b2-5899c6e67e5c responded 200 in 22.3881 ms
+2026-04-11 23:52:28.251 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/341929ef-b5d5-c8ea-3935-e6331fab02ed/itinerary responded 200 in 35.3717 ms
+2026-04-11 23:52:28.330 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/341929ef-b5d5-c8ea-3935-e6331fab02ed/itinerary/dc351b41-a1b6-af67-93d2-597e4f0a19e3 responded 200 in 22.9359 ms
+2026-04-11 23:52:31.852 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/itinerary responded 200 in 40.7431 ms
+2026-04-11 23:52:49.375 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 25.1766 ms
+2026-04-11 23:52:49.380 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/contacts responded 200 in 30.2609 ms
+2026-04-11 23:52:49.521 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 141.9225 ms
+2026-04-11 23:52:49.525 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/contacts responded 200 in 140.9178 ms
+2026-04-11 23:52:49.983 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 18.2868 ms
+2026-04-11 23:52:50.004 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/packages responded 200 in 39.3388 ms
+2026-04-11 23:52:50.007 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 200 in 20.5893 ms
+2026-04-11 23:52:50.045 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/packages responded 200 in 36.6601 ms

@@ -1,0 +1,183 @@
+{
+  "startedAt": "2026-04-11T17:29:51.255Z",
+  "prefix": "ToursLive_20260411172951",
+  "api": {
+    "setup": {
+      "tourId": "f5060fb1-d057-44ad-abdf-1a6465886c6c",
+      "tourCode": "PH7-20260410011353",
+      "tourName": "Tour test Phase 7 20260410011353",
+      "scheduleId": "8cba0918-b9b9-451d-8c79-1ee14910637e",
+      "scheduleCode": "PH7-20260410011353-S1",
+      "priceId": "83a705e7-9da5-4787-84f4-93f6d5035535",
+      "packageId": "5f9688f9-a7b3-46c1-a6bd-903bff1525ca",
+      "packageCode": "PH7-20260410011353-PKG",
+      "capacityStatus": 1,
+      "contactId": "6cae74c1-4bc7-4198-935c-6bf321cb5090",
+      "faqId": "34def7db-0ac3-41f0-a388-802ae7b203bf",
+      "reviewId": "b40a4bbb-811a-4f5e-beb0-ccebeca8fff8",
+      "componentId": "96285d54-43af-487f-98fc-b1a3a212b521",
+      "optionId": "0ac87470-9365-4e7f-a843-26bbaf911ab1",
+      "overrideId": "acf0deb1-f152-40a4-9cca-e5f39d2f99d3",
+      "publicCounts": {
+        "policies": 12,
+        "addons": 11,
+        "faqs": 12,
+        "itineraryDays": 11,
+        "gallery": 12,
+        "reviews": 10
+      },
+      "adminCounts": {
+        "reviews": 13,
+        "faqs": 12,
+        "schedules": 1
+      }
+    },
+    "bookingId": "86293f8a-3579-408f-b0b7-d28c85f19ff8"
+  },
+  "ui": [
+    {
+      "area": "public",
+      "name": "tour-results-loaded",
+      "at": "2026-04-11T17:29:54.819Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\00_public_results.png"
+    },
+    {
+      "area": "public",
+      "name": "tour-detail-loaded",
+      "at": "2026-04-11T17:29:56.775Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\01_public_detail.png"
+    },
+    {
+      "area": "customer",
+      "name": "redirected-to-login-from-checkout",
+      "at": "2026-04-11T17:29:58.219Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\02_customer_login_redirect.png"
+    },
+    {
+      "area": "customer",
+      "name": "returned-to-checkout-after-login",
+      "at": "2026-04-11T17:29:58.581Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\03_customer_checkout_after_login.png"
+    },
+    {
+      "area": "customer",
+      "name": "tour-booking-confirmed",
+      "at": "2026-04-11T17:29:59.278Z",
+      "bookingId": "86293f8a-3579-408f-b0b7-d28c85f19ff8",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\04_customer_ticket_success.png"
+    },
+    {
+      "area": "customer",
+      "name": "my-bookings-loaded",
+      "at": "2026-04-11T17:30:00.927Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\05_customer_my_bookings.png"
+    },
+    {
+      "area": "customer",
+      "name": "booking-detail-loaded",
+      "at": "2026-04-11T17:30:02.264Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\06_customer_booking_detail.png"
+    },
+    {
+      "area": "customer",
+      "name": "cancel-booking-page-loaded",
+      "at": "2026-04-11T17:30:03.527Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\07_customer_cancel_booking.png"
+    },
+    {
+      "area": "tenant",
+      "name": "tenant_inventory",
+      "at": "2026-04-11T17:30:05.449Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\08_tenant_inventory.png"
+    },
+    {
+      "area": "tenant",
+      "name": "tenant_schedules",
+      "at": "2026-04-11T17:30:06.316Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\09_tenant_schedules.png"
+    },
+    {
+      "area": "tenant",
+      "name": "tenant_pricing",
+      "at": "2026-04-11T17:30:07.167Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\10_tenant_pricing.png"
+    },
+    {
+      "area": "tenant",
+      "name": "tenant_capacity",
+      "at": "2026-04-11T17:30:08.028Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\11_tenant_capacity.png"
+    },
+    {
+      "area": "tenant",
+      "name": "tenant_packages",
+      "at": "2026-04-11T17:30:08.885Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\12_tenant_packages.png"
+    },
+    {
+      "area": "tenant",
+      "name": "tenant_content",
+      "at": "2026-04-11T17:30:09.772Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\13_tenant_content.png"
+    },
+    {
+      "area": "tenant",
+      "name": "tenant_experience",
+      "at": "2026-04-11T17:30:10.654Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\14_tenant_experience.png"
+    },
+    {
+      "area": "tenant",
+      "name": "tenant_package_builder",
+      "at": "2026-04-11T17:30:11.630Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\15_tenant_package_builder.png"
+    },
+    {
+      "area": "tenant",
+      "name": "tenant_reporting",
+      "at": "2026-04-11T17:30:12.572Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\16_tenant_reporting.png"
+    },
+    {
+      "area": "tenant",
+      "name": "tenant_bookings",
+      "at": "2026-04-11T17:30:13.520Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\17_tenant_bookings.png"
+    },
+    {
+      "area": "tenant",
+      "name": "tenant_reviews",
+      "at": "2026-04-11T17:30:14.455Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\18_tenant_reviews.png"
+    },
+    {
+      "area": "admin",
+      "name": "admin_tours",
+      "at": "2026-04-11T17:30:16.369Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\19_admin_tours.png"
+    },
+    {
+      "area": "admin",
+      "name": "admin_tour_schedules",
+      "at": "2026-04-11T17:30:17.288Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\20_admin_tour_schedules.png"
+    },
+    {
+      "area": "admin",
+      "name": "admin_tour_faqs",
+      "at": "2026-04-11T17:30:18.214Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\21_admin_tour_faqs.png"
+    },
+    {
+      "area": "admin",
+      "name": "admin_tour_reviews",
+      "at": "2026-04-11T17:30:19.096Z",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\tours-live-test\\artifacts\\22_admin_tour_reviews.png"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "completedAt": "2026-04-11T17:30:19.269Z",
+  "ok": true
+}

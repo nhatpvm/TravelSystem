@@ -1,0 +1,52 @@
+Using launch settings from TicketBooking.Api\Properties\launchSettings.json...
+[20:35:13 INF] Ensured user 'qlnx' with role 'QLNX'.
+[20:35:13 INF] Ensured user 'qlks' with role 'QLKS'.
+[20:35:13 INF] Ensured user 'qlvt' with role 'QLVT'.
+[20:35:13 INF] Ensured user 'qlvmm' with role 'QLVMM'.
+[20:35:13 INF] Ensured user 'qltour' with role 'QLTour'.
+[20:35:13 INF] Ensured user 'scanner_nx' with role 'Customer'.
+[20:35:13 INF] Ensured user 'customer' with role 'Customer'.
+[20:35:13 INF] Identity seed completed.
+[20:35:13 INF] Tenant NX001 already exists.
+[20:35:13 INF] Tenant VT001 already exists.
+[20:35:13 INF] Tenant VMM001 already exists.
+[20:35:13 INF] Tenant KS001 already exists.
+[20:35:13 INF] Tenant TOUR001 already exists.
+[20:35:13 INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+[20:35:13 INF] Permissions seed completed.
+[20:35:14 INF] BUS demo seed completed for tenant NX001.
+[20:35:14 INF] TRAIN demo seed completed for tenant VT001.
+[20:35:15 INF] Flight demo seed completed for tenant VMM001.
+[20:35:15 INF] CmsDemoSeed completed for tenant NX001.
+[20:35:15 INF] Hotel demo seed starting for 6 tenant(s). Days=14
+[20:35:15 INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+[20:35:16 INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+[20:35:16 INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+[20:35:16 INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+[20:35:16 INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+[20:35:16 INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+[20:35:16 INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+[20:35:16 INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+[20:35:16 INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+[20:35:17 INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+[20:35:17 INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+[20:35:17 INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+[20:35:17 INF] Hotel demo seed finished.
+[20:35:17 INF] Now listening on: http://localhost:5183
+[20:35:17 INF] Application started. Press Ctrl+C to shut down.
+[20:35:17 INF] Hosting environment: Development
+[20:35:17 INF] Content root path: D:\FPT\TicketBooking.V3\TicketBooking.Api
+[20:35:20 WRN] Failed to determine the https port for redirect.
+[20:35:20 INF] HTTP GET /api/v1/ping responded 200 in 32.8674 ms
+[20:35:58 INF] Registered new customer: authcheck20260408203558 (authcheck20260408203558@example.com)
+[20:35:59 INF] HTTP POST /api/v1/auth/register responded 201 in 187.4658 ms
+[20:35:59 INF] HTTP POST /api/v1/auth/register responded 409 in 14.9135 ms
+[20:35:59 INF] HTTP POST /api/v1/auth/login responded 200 in 103.2215 ms
+[20:35:59 INF] HTTP POST /api/v1/auth/login responded 200 in 57.7362 ms
+[20:35:59 INF] HTTP POST /api/v1/auth/login responded 401 in 62.7103 ms
+[20:35:59 INF] HTTP POST /api/v1/auth/login responded 200 in 53.4131 ms
+[20:35:59 INF] HTTP GET /api/v1/auth/me responded 200 in 36.3191 ms
+[20:35:59 INF] HTTP POST /api/v1/auth/logout responded 401 in 3.5087 ms
+[20:35:59 INF] HTTP POST /api/v1/auth/logout responded 200 in 12.8690 ms
+[20:35:59 INF] HTTP GET /api/v1/auth/me responded 401 in 3.2390 ms
+[20:35:59 INF] HTTP POST /api/v1/auth/login responded 200 in 59.0655 ms

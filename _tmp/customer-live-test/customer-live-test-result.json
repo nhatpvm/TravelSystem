@@ -1,0 +1,157 @@
+{
+  "startedAt": "2026-04-18T15:48:12.449Z",
+  "apiBase": "http://127.0.0.1:5183/api/v1",
+  "appBase": "http://127.0.0.1:4173",
+  "account": {
+    "user": {
+      "email": "customer-1776527292450@example.com",
+      "fullName": "Khách hàng nghiệm thu",
+      "userId": null
+    },
+    "preferences": {
+      "languageCode": "en",
+      "currencyCode": "USD",
+      "themeMode": "dark",
+      "emailNotificationsEnabled": true,
+      "smsNotificationsEnabled": true,
+      "pushNotificationsEnabled": false,
+      "updatedAt": "2026-04-18T15:48:12.9543955+00:00"
+    },
+    "passenger": {
+      "id": "ada52749-16a7-430e-85f0-e3598db23bc0",
+      "fullName": "Nguyễn Hành Khách Chính",
+      "passengerType": 1,
+      "gender": "male",
+      "dateOfBirth": null,
+      "nationalityCode": null,
+      "idNumber": null,
+      "passportNumber": null,
+      "email": "customer-1776527292450@example.com",
+      "phoneNumber": "0903000001",
+      "isDefault": true,
+      "notes": "Khách ưu tiên cho checkout",
+      "createdAt": "2026-04-18T22:48:13.0314117+07:00",
+      "updatedAt": "2026-04-18T22:48:13.0757189+07:00"
+    },
+    "wishlistItem": {
+      "id": "f8198e72-f19d-4d42-a977-5bd0dda9210b",
+      "productType": 5,
+      "targetId": "f5060fb1-d057-44ad-abdf-1a6465886c6c",
+      "targetSlug": "phase-7-tour-20260410011353",
+      "title": "Tour test Phase 7 20260410011353",
+      "subtitle": "L?ch test ??u ti?n",
+      "locationText": null,
+      "priceText": null,
+      "priceValue": null,
+      "currencyCode": "VND",
+      "imageUrl": null,
+      "targetUrl": "/tour/f5060fb1-d057-44ad-abdf-1a6465886c6c",
+      "metadata": {},
+      "createdAt": "2026-04-18T22:48:13.7904224+07:00"
+    }
+  },
+  "orders": {
+    "tourSeed": {
+      "tourId": "f5060fb1-d057-44ad-abdf-1a6465886c6c",
+      "scheduleId": "8cba0918-b9b9-451d-8c79-1ee14910637e",
+      "packageId": "5f9688f9-a7b3-46c1-a6bd-903bff1525ca",
+      "title": "Tour test Phase 7 20260410011353"
+    },
+    "paidOrder": {
+      "orderCode": "ORD-20260418154813BFB677",
+      "paymentCode": "PAY-202604181548130039A6",
+      "providerInvoiceNumber": "ORD-20260418154813BFB677",
+      "ticketCode": "TKT-20260418154815924B5D"
+    },
+    "vatRequest": {
+      "orderCode": "ORD-20260418154813BFB677",
+      "requestCode": "VAT-260418154815-985"
+    },
+    "refundOrder": {
+      "orderCode": "ORD-202604181548157478CE",
+      "refundCode": "RFD-20260418154815F21667"
+    },
+    "cancelledOrder": {
+      "orderCode": "ORD-20260418154815475F05"
+    },
+    "pendingOrder": {
+      "orderCode": "ORD-2026041815481656A8D0"
+    }
+  },
+  "lists": {
+    "orders": 4,
+    "payments": 4,
+    "notifications": 10,
+    "vatInvoices": 1,
+    "wishlist": 1,
+    "passengers": 1,
+    "paymentMethods": 1
+  },
+  "ui": [
+    {
+      "route": "/checkout?product=tour&tourId=f5060fb1-d057-44ad-abdf-1a6465886c6c&scheduleId=8cba0918-b9b9-451d-8c79-1ee14910637e&packageId=5f9688f9-a7b3-46c1-a6bd-903bff1525ca&adult=2&child=0",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\01_checkout_tour.png"
+    },
+    {
+      "route": "/payment?orderCode=ORD-20260418154813BFB677",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\02_payment_paid_order.png"
+    },
+    {
+      "route": "/ticket/success?orderCode=ORD-20260418154813BFB677",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\03_ticket_success.png"
+    },
+    {
+      "route": "/my-account/profile",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\04_profile.png"
+    },
+    {
+      "route": "/my-account/bookings",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\05_bookings.png"
+    },
+    {
+      "route": "/my-account/bookings/ORD-202604181548157478CE",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\06_booking_detail_refund.png"
+    },
+    {
+      "route": "/my-account/bookings/ORD-2026041815481656A8D0/cancel",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\07_cancel_pending_order.png"
+    },
+    {
+      "route": "/my-account/passengers",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\08_saved_passengers.png"
+    },
+    {
+      "route": "/my-account/wishlist",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\09_wishlist.png"
+    },
+    {
+      "route": "/my-account/notifications",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\10_notifications.png"
+    },
+    {
+      "route": "/my-account/payments",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\11_payments.png"
+    },
+    {
+      "route": "/my-account/payment-history",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\12_payment_history.png"
+    },
+    {
+      "route": "/my-account/vat-invoice",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\13_vat_invoices.png"
+    },
+    {
+      "route": "/my-account/settings",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\14_settings.png"
+    },
+    {
+      "route": "/my-account/security",
+      "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\artifacts\\15_security.png"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "apiErrors": [],
+  "ok": true,
+  "finishedAt": "2026-04-18T15:48:34.368Z"
+}

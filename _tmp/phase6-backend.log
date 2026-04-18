@@ -1,0 +1,290 @@
+Using launch settings from d:\FPT\TicketBooking.V3\TicketBooking.Api\Properties\launchSettings.json...
+Building...
+[23:52:47 INF] Ensured user 'qlnx' with role 'QLNX'.
+[23:52:47 INF] Ensured user 'qlks' with role 'QLKS'.
+[23:52:47 INF] Ensured user 'qlvt' with role 'QLVT'.
+[23:52:47 INF] Ensured user 'qlvmm' with role 'QLVMM'.
+[23:52:47 INF] Ensured user 'qltour' with role 'QLTour'.
+[23:52:47 INF] Ensured user 'scanner_nx' with role 'Customer'.
+[23:52:47 INF] Ensured user 'customer' with role 'Customer'.
+[23:52:47 INF] Identity seed completed.
+[23:52:47 INF] Tenant NX001 already exists.
+[23:52:47 INF] Tenant VT001 already exists.
+[23:52:47 INF] Tenant VMM001 already exists.
+[23:52:47 INF] Tenant KS001 already exists.
+[23:52:47 INF] Tenant TOUR001 already exists.
+[23:52:47 INF] Updated tenant link 'qlnx' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[23:52:47 INF] Updated tenant link 'admin' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[23:52:47 INF] Updated tenant link 'qlvt' -> tenant 8f759d36-942d-4666-bda8-195ccfc7939a.
+[23:52:47 INF] Updated tenant link 'admin' -> tenant 8f759d36-942d-4666-bda8-195ccfc7939a.
+[23:52:47 INF] Updated tenant link 'qlvmm' -> tenant 47997b25-a35b-4291-a7ca-2521e14ea6e4.
+[23:52:47 INF] Updated tenant link 'admin' -> tenant 47997b25-a35b-4291-a7ca-2521e14ea6e4.
+[23:52:47 INF] Updated tenant link 'qlks' -> tenant 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+[23:52:47 INF] Updated tenant link 'admin' -> tenant 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+[23:52:47 INF] Updated tenant link 'qltour' -> tenant dfb80807-d1db-43b0-a62f-9b744f1dde4f.
+[23:52:47 INF] Updated tenant link 'admin' -> tenant dfb80807-d1db-43b0-a62f-9b744f1dde4f.
+[23:52:47 INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+[23:52:47 INF] Permissions seed completed.
+[23:52:48 INF] Tenant system role seed completed.
+[23:52:48 INF] Updated TenantUser link 'customer' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[23:52:48 INF] Updated TenantUser link 'scanner_nx' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[23:52:48 INF] TenantRoles seed completed for NX001.
+[23:52:48 INF] BUS demo seed completed for tenant NX001.
+[23:52:49 INF] TRAIN demo seed completed for tenant VT001.
+[23:52:49 INF] Flight demo seed completed for tenant VMM001.
+[23:52:49 INF] CmsDemoSeed completed for tenant NX001.
+[23:52:50 INF] Hotel demo seed starting for 6 tenant(s). Days=14
+[23:52:50 INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+[23:52:51 INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+[23:52:51 INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+[23:52:51 INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+[23:52:51 INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+[23:52:51 INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+[23:52:51 INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+[23:52:51 INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+[23:52:51 INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+[23:52:51 INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+[23:52:51 INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+[23:52:51 INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+[23:52:51 INF] Hotel demo seed finished.
+[23:52:52 INF] Now listening on: http://localhost:5183
+[23:52:52 INF] Application started. Press Ctrl+C to shut down.
+[23:52:52 INF] Hosting environment: Development
+[23:52:52 INF] Content root path: d:\FPT\TicketBooking.V3\TicketBooking.Api
+[23:53:14 WRN] Failed to determine the https port for redirect.
+[23:53:14 INF] HTTP GET /api/v1/bus/search/locations responded 200 in 92.1059 ms
+[23:53:14 INF] HTTP GET /api/v1/bus/search/trips responded 200 in 137.9572 ms
+[23:53:16 INF] HTTP POST /api/v1/auth/login responded 200 in 221.1772 ms
+[23:53:16 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 129.9355 ms
+[23:53:16 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 82.6447 ms
+[23:53:16 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 32.6066 ms
+[23:53:17 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 8.7960 ms
+[23:53:17 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 98.8706 ms
+[23:53:17 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 10.5419 ms
+[23:53:18 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 7.4111 ms
+[23:53:18 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 12.8083 ms
+[23:53:18 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.4179 ms
+[23:53:18 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 7.4977 ms
+[23:53:19 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.1336 ms
+[23:53:19 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 11.4581 ms
+[23:53:19 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.5183 ms
+[23:53:19 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 8.0579 ms
+[23:53:21 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 6.0230 ms
+[23:53:21 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 10.6719 ms
+[23:53:21 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.3538 ms
+[23:53:21 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 7.1345 ms
+[23:53:21 INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 26.2545 ms
+[23:53:21 INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 5.9585 ms
+[23:53:21 INF] HTTP GET /api/v1/qlnx/bus/seat-holds/trip/4d2c3144-1279-46c5-97ca-cafc89bc2217 responded 200 in 23.7172 ms
+[23:53:23 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 12.1952 ms
+[23:53:23 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 12.4810 ms
+[23:53:23 INF] HTTP GET /api/v1/qlnx/bus/routes responded 200 in 28.3563 ms
+[23:53:23 INF] HTTP GET /api/v1/qlnx/bus/routes responded 200 in 4.6481 ms
+[23:53:23 INF] HTTP GET /api/v1/qlnx/bus/routes/5f6a9391-7438-49e0-bcf8-5dae93637292 responded 200 in 24.1718 ms
+[23:53:23 INF] HTTP GET /api/v1/qlnx/bus/routes/5f6a9391-7438-49e0-bcf8-5dae93637292 responded 200 in 4.7952 ms
+[23:53:24 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.2228 ms
+[23:53:24 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 9.9428 ms
+[23:53:24 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 6.0949 ms
+[23:53:24 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 7.7087 ms
+[23:53:24 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 49.1778 ms
+[23:53:24 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 4.7751 ms
+[23:53:26 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.0694 ms
+[23:53:26 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.4024 ms
+[23:53:26 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 14.9511 ms
+[23:53:26 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 6.0188 ms
+[23:53:26 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/b147108a-d584-4c2a-884b-05f203d761d0/pickup-points responded 200 in 22.3175 ms
+[23:53:26 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/b147108a-d584-4c2a-884b-05f203d761d0/dropoff-points responded 200 in 22.3171 ms
+[23:53:28 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.0960 ms
+[23:53:28 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 7.8210 ms
+[23:53:28 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.0066 ms
+[23:53:28 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 6.0965 ms
+[23:53:28 INF] HTTP GET /api/v1/qlnx/bus/trip-segment-prices/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 23.2867 ms
+[23:53:28 INF] HTTP GET /api/v1/qlnx/bus/trip-segment-prices/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 4.3776 ms
+[23:53:29 INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 4.3678 ms
+[23:53:29 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 8.2110 ms
+[23:53:29 INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 4.5146 ms
+[23:53:29 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 7.4069 ms
+[23:53:31 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.2522 ms
+[23:53:31 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 7.9226 ms
+[23:53:31 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.8060 ms
+[23:53:31 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 6.0874 ms
+[23:53:31 INF] HTTP GET /api/v1/qlnx/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897/seats responded 200 in 69.4610 ms
+[23:53:33 INF] HTTP GET /api/v1/bus/search/locations responded 200 in 2.1783 ms
+[23:53:33 INF] HTTP GET /api/v1/bus/search/locations responded 200 in 2.0795 ms
+[23:53:33 INF] HTTP GET /api/v1/bus/search/trips responded 200 in 10.7439 ms
+[23:53:33 INF] HTTP GET /api/v1/bus/search/trips responded 200 in 7.6581 ms
+[23:53:35 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 155.2192 ms
+[23:53:35 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 24.0099 ms
+[23:53:36 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 8.5017 ms
+[23:53:36 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 10.7108 ms
+[23:53:36 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897/seats responded 200 in 44.6928 ms
+[23:53:36 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897/seats responded 200 in 6.1150 ms
+[23:54:31 INF] HTTP GET /api/v1/bus/search/locations responded 200 in 9.4655 ms
+[23:54:31 INF] HTTP GET /api/v1/bus/search/trips responded 200 in 45.5485 ms
+[23:54:32 INF] HTTP POST /api/v1/auth/login responded 200 in 139.0368 ms
+[23:54:32 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 24.3599 ms
+[23:54:32 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 32.8146 ms
+[23:54:33 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 6.7499 ms
+[23:54:33 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.5808 ms
+[23:54:33 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 24.9826 ms
+[23:54:33 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 7.2667 ms
+[23:54:34 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.4949 ms
+[23:54:34 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 12.4377 ms
+[23:54:34 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.7082 ms
+[23:54:34 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 7.1909 ms
+[23:54:36 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.3810 ms
+[23:54:36 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 10.7792 ms
+[23:54:36 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.2499 ms
+[23:54:36 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 7.8148 ms
+[23:54:37 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.2638 ms
+[23:54:37 INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 8.3731 ms
+[23:54:37 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 11.0955 ms
+[23:54:37 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.8525 ms
+[23:54:37 INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 5.3291 ms
+[23:54:37 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 8.9526 ms
+[23:54:37 INF] HTTP GET /api/v1/qlnx/bus/seat-holds/trip/4d2c3144-1279-46c5-97ca-cafc89bc2217 responded 200 in 9.9782 ms
+[23:54:39 INF] HTTP GET /api/v1/qlnx/bus/routes responded 200 in 6.7394 ms
+[23:54:39 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 11.1194 ms
+[23:54:39 INF] HTTP GET /api/v1/qlnx/bus/routes responded 200 in 6.1368 ms
+[23:54:39 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 8.7856 ms
+[23:54:39 INF] HTTP GET /api/v1/qlnx/bus/routes/5f6a9391-7438-49e0-bcf8-5dae93637292 responded 200 in 9.1733 ms
+[23:54:39 INF] HTTP GET /api/v1/qlnx/bus/routes/5f6a9391-7438-49e0-bcf8-5dae93637292 responded 200 in 4.8117 ms
+[23:54:40 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.0049 ms
+[23:54:40 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 9.4432 ms
+[23:54:40 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.4972 ms
+[23:54:40 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 8.0883 ms
+[23:54:40 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 22.1400 ms
+[23:54:40 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 5.6535 ms
+[23:54:42 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.6785 ms
+[23:54:42 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 11.3210 ms
+[23:54:42 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.8221 ms
+[23:54:42 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 5.3361 ms
+[23:54:42 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/b147108a-d584-4c2a-884b-05f203d761d0/dropoff-points responded 200 in 6.7156 ms
+[23:54:42 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/b147108a-d584-4c2a-884b-05f203d761d0/pickup-points responded 200 in 6.7156 ms
+[23:54:44 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.5566 ms
+[23:54:44 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 7.4005 ms
+[23:54:44 INF] HTTP GET /api/v1/qlnx/bus/trip-segment-prices/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 8.1534 ms
+[23:54:44 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 3.8100 ms
+[23:54:44 INF] HTTP GET /api/v1/qlnx/bus/trip-segment-prices/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 4.2514 ms
+[23:54:44 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 6.9801 ms
+[23:54:45 INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 3.4166 ms
+[23:54:45 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 7.3378 ms
+[23:54:45 INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 4.0115 ms
+[23:54:45 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 5.7806 ms
+[23:54:47 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.1669 ms
+[23:54:47 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 7.2681 ms
+[23:54:47 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.6990 ms
+[23:54:47 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 5.2305 ms
+[23:54:47 INF] HTTP GET /api/v1/qlnx/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897/seats responded 200 in 30.6546 ms
+[23:54:49 INF] HTTP GET /api/v1/bus/search/locations responded 200 in 1.9263 ms
+[23:54:49 INF] HTTP GET /api/v1/bus/search/locations responded 200 in 1.7349 ms
+[23:54:49 INF] HTTP GET /api/v1/bus/search/trips responded 200 in 9.6714 ms
+[23:54:49 INF] HTTP GET /api/v1/bus/search/trips responded 200 in 7.8809 ms
+[23:54:51 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 45.6235 ms
+[23:54:51 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 9.4721 ms
+[23:54:52 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 11.3290 ms
+[23:54:52 ERR] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897/seats responded 500 in 17.6337 ms
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at TicketBooking.Api.Controllers.BusTripSeatsController.GetSeats(Guid tripId, Guid fromTripStopTimeId, Guid toTripStopTimeId, CancellationToken ct) in d:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Bus\Public\BusTripSeatsController.cs:line 82
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in d:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 81
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+[23:55:09 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897/seats responded 200 in 25.0364 ms
+[23:55:09 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897/seats responded 200 in 5.6970 ms
+[23:55:09 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 56.4175 ms
+[23:55:09 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 8.0053 ms
+[23:55:25 INF] HTTP GET /api/v1/bus/search/locations responded 200 in 5.6355 ms
+[23:55:25 INF] HTTP GET /api/v1/bus/search/trips responded 200 in 35.9266 ms
+[23:55:26 INF] HTTP POST /api/v1/auth/login responded 200 in 90.5982 ms
+[23:55:26 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 24.2403 ms
+[23:55:26 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 33.1352 ms
+[23:55:27 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 6.0603 ms
+[23:55:27 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 11.3523 ms
+[23:55:27 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.7392 ms
+[23:55:27 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 18.1522 ms
+[23:55:28 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 3.8752 ms
+[23:55:28 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 8.7915 ms
+[23:55:28 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.0964 ms
+[23:55:28 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 6.4179 ms
+[23:55:30 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.3737 ms
+[23:55:30 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 8.2622 ms
+[23:55:30 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.4801 ms
+[23:55:30 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 9.1769 ms
+[23:55:31 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 3.8716 ms
+[23:55:31 INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 5.3479 ms
+[23:55:31 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 9.0581 ms
+[23:55:31 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 3.9412 ms
+[23:55:31 INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 3.3109 ms
+[23:55:31 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 7.0173 ms
+[23:55:31 INF] HTTP GET /api/v1/qlnx/bus/seat-holds/trip/4d2c3144-1279-46c5-97ca-cafc89bc2217 responded 200 in 9.8946 ms
+[23:55:33 INF] HTTP GET /api/v1/qlnx/bus/routes responded 200 in 5.3558 ms
+[23:55:33 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 7.0852 ms
+[23:55:33 INF] HTTP GET /api/v1/qlnx/bus/routes responded 200 in 3.5314 ms
+[23:55:33 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 6.2424 ms
+[23:55:33 INF] HTTP GET /api/v1/qlnx/bus/routes/5f6a9391-7438-49e0-bcf8-5dae93637292 responded 200 in 7.7387 ms
+[23:55:33 INF] HTTP GET /api/v1/qlnx/bus/routes/5f6a9391-7438-49e0-bcf8-5dae93637292 responded 200 in 5.1746 ms
+[23:55:35 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.1779 ms
+[23:55:35 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 8.4794 ms
+[23:55:35 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.3586 ms
+[23:55:35 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 19.6452 ms
+[23:55:35 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 13.3316 ms
+[23:55:35 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 5.2681 ms
+[23:55:36 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.0860 ms
+[23:55:36 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 11.5730 ms
+[23:55:36 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.5735 ms
+[23:55:36 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 5.8951 ms
+[23:55:36 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/b147108a-d584-4c2a-884b-05f203d761d0/dropoff-points responded 200 in 6.0786 ms
+[23:55:36 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/b147108a-d584-4c2a-884b-05f203d761d0/pickup-points responded 200 in 6.0772 ms
+[23:55:38 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.6470 ms
+[23:55:38 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 7.2110 ms
+[23:55:38 INF] HTTP GET /api/v1/qlnx/bus/trip-segment-prices/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 7.3115 ms
+[23:55:38 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.3849 ms
+[23:55:38 INF] HTTP GET /api/v1/qlnx/bus/trip-segment-prices/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 4.7162 ms
+[23:55:38 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 6.4493 ms
+[23:55:39 INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 3.8676 ms
+[23:55:39 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 7.8687 ms
+[23:55:39 INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 4.0094 ms
+[23:55:39 INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 6.1041 ms
+[23:55:41 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 3.7953 ms
+[23:55:41 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 6.7853 ms
+[23:55:41 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 4.2274 ms
+[23:55:41 INF] HTTP GET /api/v1/qlnx/bus/trip-stop-times/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 4.5514 ms
+[23:55:41 INF] HTTP GET /api/v1/qlnx/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897/seats responded 200 in 24.0940 ms
+[23:55:43 INF] HTTP GET /api/v1/bus/search/locations responded 200 in 1.9606 ms
+[23:55:43 INF] HTTP GET /api/v1/bus/search/locations responded 200 in 1.9274 ms
+[23:55:43 INF] HTTP GET /api/v1/bus/search/trips responded 200 in 10.2782 ms
+[23:55:43 INF] HTTP GET /api/v1/bus/search/trips responded 200 in 9.3610 ms
+[23:55:45 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 17.4852 ms
+[23:55:45 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 6.9798 ms
+[23:55:46 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897/seats responded 200 in 4.7168 ms
+[23:55:46 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 8.7314 ms
+[23:55:46 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897/seats responded 200 in 4.8697 ms
+[23:55:46 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 6.8602 ms
+[23:55:48 INF] HTTP POST /api/v1/auth/login responded 200 in 63.9558 ms
+[23:55:48 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897/seats responded 200 in 7.4030 ms
+[23:55:48 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 8.1144 ms
+[23:55:48 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897/seats responded 200 in 5.4003 ms
+[23:55:48 INF] HTTP GET /api/v1/bus/trips/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 6.8002 ms
+[23:55:48 WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+[23:55:48 INF] HTTP POST /api/v1/bus/seat-holds responded 200 in 106.6984 ms
+[23:55:49 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 14.5953 ms
+[23:55:49 INF] HTTP GET /api/v1/qlnx/bus/seat-holds/trip/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 22.6217 ms
+[23:55:49 INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 12.4087 ms
+[23:55:50 INF] HTTP GET /api/v1/qlnx/bus/seat-holds/trip/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 18.2549 ms
+[23:55:52 INF] HTTP DELETE /api/v1/qlnx/bus/seat-holds/f5635f82dfb547d283df4cd9fc5dcccc responded 200 in 28.5919 ms
+[23:55:52 INF] HTTP GET /api/v1/qlnx/bus/seat-holds/trip/0c9c008a-75fc-4a3e-956f-44f16eba8897 responded 200 in 24.1442 ms

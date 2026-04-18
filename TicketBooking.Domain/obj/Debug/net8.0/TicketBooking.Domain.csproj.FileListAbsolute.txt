@@ -1,0 +1,14 @@
+D:\FPT\TicketBooking.V3\TicketBooking.Domain\bin\Debug\net8.0\TicketBooking.Domain.deps.json
+D:\FPT\TicketBooking.V3\TicketBooking.Domain\bin\Debug\net8.0\TicketBooking.Domain.dll
+D:\FPT\TicketBooking.V3\TicketBooking.Domain\bin\Debug\net8.0\TicketBooking.Domain.pdb
+D:\FPT\TicketBooking.V3\TicketBooking.Domain\obj\Debug\net8.0\TicketBooking.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\FPT\TicketBooking.V3\TicketBooking.Domain\obj\Debug\net8.0\TicketBooking.Domain.AssemblyInfoInputs.cache
+D:\FPT\TicketBooking.V3\TicketBooking.Domain\obj\Debug\net8.0\TicketBooking.Domain.AssemblyInfo.cs
+D:\FPT\TicketBooking.V3\TicketBooking.Domain\obj\Debug\net8.0\TicketBooking.Domain.csproj.CoreCompileInputs.cache
+D:\FPT\TicketBooking.V3\TicketBooking.Domain\obj\Debug\net8.0\TicketBooking.Domain.dll
+D:\FPT\TicketBooking.V3\TicketBooking.Domain\obj\Debug\net8.0\refint\TicketBooking.Domain.dll
+D:\FPT\TicketBooking.V3\TicketBooking.Domain\obj\Debug\net8.0\TicketBooking.Domain.pdb
+D:\FPT\TicketBooking.V3\TicketBooking.Domain\obj\Debug\net8.0\ref\TicketBooking.Domain.dll
+d:\FPT\TicketBooking.V3\artifacts\be-build-phase03\TicketBooking.Domain.deps.json
+d:\FPT\TicketBooking.V3\artifacts\be-build-phase03\TicketBooking.Domain.dll
+d:\FPT\TicketBooking.V3\artifacts\be-build-phase03\TicketBooking.Domain.pdb

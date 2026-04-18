@@ -1,0 +1,19 @@
+﻿{
+    "createdTourId":  "f5060fb1-d057-44ad-abdf-1a6465886c6c",
+    "createdScheduleId":  "8cba0918-b9b9-451d-8c79-1ee14910637e",
+    "createdPriceId":  "83a705e7-9da5-4787-84f4-93f6d5035535",
+    "createdCapacityId":  "dbd6db38-3614-4898-b5e5-41885052af16",
+    "createdPackageId":  "5f9688f9-a7b3-46c1-a6bd-903bff1525ca",
+    "managerTours":  3,
+    "managerSchedules":  1,
+    "managerPrices":  1,
+    "managerCapacityStatus":  1,
+    "managerPackages":  1,
+    "managerBookings":  0,
+    "managerReviews":  0,
+    "adminTours":  3,
+    "adminReviews":  3,
+    "publicTours":  1,
+    "myBookings":  0,
+    "routes":  null
+}

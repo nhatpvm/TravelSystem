@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* Hide scrollbar globally */
+html,
+body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  overflow-x: hidden;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+body {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+html[data-theme-mode='dark'] body {
+  background-color: #020617;
+  color: #e2e8f0;
+}
+
+/* Keep dark mode effective across existing Tailwind utility usage */
+html[data-theme-mode='dark'] .bg-white {
+  background-color: #0f172a !important;
+}
+
+html[data-theme-mode='dark'] .bg-slate-50 {
+  background-color: #111827 !important;
+}
+
+html[data-theme-mode='dark'] .text-slate-900 {
+  color: #f8fafc !important;
+}
+
+html[data-theme-mode='dark'] .text-slate-700,
+html[data-theme-mode='dark'] .text-slate-600 {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme-mode='dark'] .text-slate-500,
+html[data-theme-mode='dark'] .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+html[data-theme-mode='dark'] .border-slate-100,
+html[data-theme-mode='dark'] .border-slate-200 {
+  border-color: #334155 !important;
+}
+
+html[data-theme-mode='dark'] .shadow-xl,
+html[data-theme-mode='dark'] .shadow-2xl,
+html[data-theme-mode='dark'] .shadow-sm {
+  --tw-shadow-color: rgb(2 6 23 / 0.8);
+}
+
+@layer utilities {
+  .animate-zoom-slow {
+    animation: zoom-slow 20s infinite alternate;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 1s ease-out forwards;
+  }
+
+  .animate-fade-in-down {
+    animation: fade-in-down 0.8s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  @keyframes zoom-slow {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fade-in-down {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-down {
+    animation: slide-down 0.4s ease-out forwards;
+  }
+
+  @keyframes slide-down {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+}

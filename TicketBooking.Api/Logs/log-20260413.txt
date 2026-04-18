@@ -1,0 +1,1128 @@
+2026-04-13 00:00:01.975 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 135.6545 ms
+2026-04-13 00:00:02.097 +07:00 [INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 100.2646 ms
+2026-04-13 00:00:02.219 +07:00 [INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 112.1276 ms
+2026-04-13 00:00:04.407 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 436.8160 ms
+2026-04-13 00:00:04.496 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 107.9621 ms
+2026-04-13 00:00:07.803 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 76.2488 ms
+2026-04-13 00:00:07.860 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/flights responded 200 in 131.4009 ms
+2026-04-13 00:00:07.881 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 75.4585 ms
+2026-04-13 00:00:07.882 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/offers responded 200 in 152.9907 ms
+2026-04-13 00:00:07.912 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/flights responded 200 in 48.1259 ms
+2026-04-13 00:00:07.930 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/offers responded 200 in 46.7889 ms
+2026-04-13 00:00:14.297 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 104.9471 ms
+2026-04-13 00:00:14.372 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 73.1643 ms
+2026-04-13 00:00:14.828 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 186.0203 ms
+2026-04-13 00:00:14.897 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 66.4994 ms
+2026-04-13 00:00:15.459 +07:00 [INF] HTTP GET /api/v1/admin/flight/aircraft-models responded 200 in 34.3516 ms
+2026-04-13 00:00:15.491 +07:00 [INF] HTTP GET /api/v1/admin/flight/aircraft-models responded 200 in 22.9328 ms
+2026-04-13 00:00:19.131 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 66.7884 ms
+2026-04-13 00:00:19.157 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 23.2134 ms
+2026-04-13 00:00:24.260 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/flights responded 200 in 46.7434 ms
+2026-04-13 00:00:24.271 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/offers responded 200 in 58.3587 ms
+2026-04-13 00:00:24.281 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 68.0084 ms
+2026-04-13 00:00:24.285 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/flights responded 200 in 21.2927 ms
+2026-04-13 00:00:24.299 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/offers responded 200 in 20.9172 ms
+2026-04-13 00:00:24.307 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 22.3636 ms
+2026-04-13 00:00:25.468 +07:00 [INF] HTTP GET /api/v1/admin/flight/flights responded 200 in 39.8960 ms
+2026-04-13 00:00:25.480 +07:00 [INF] HTTP GET /api/v1/admin/flight/flights responded 200 in 8.1497 ms
+2026-04-13 00:00:25.500 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 71.7771 ms
+2026-04-13 00:00:25.568 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 65.1452 ms
+2026-04-13 00:00:51.979 +07:00 [INF] HTTP GET /api/v1/admin/flight/offers responded 200 in 43.4521 ms
+2026-04-13 00:00:52.006 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 71.0002 ms
+2026-04-13 00:00:52.008 +07:00 [INF] HTTP GET /api/v1/admin/flight/offers responded 200 in 24.7364 ms
+2026-04-13 00:00:52.042 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 32.7066 ms
+2026-04-13 00:00:52.074 +07:00 [INF] HTTP GET /api/v1/admin/flight/offers responded 200 in 19.7695 ms
+2026-04-13 00:00:52.100 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 45.8978 ms
+2026-04-13 00:00:59.248 +07:00 [INF] HTTP GET /api/v1/admin/flight/fare-classes responded 200 in 38.6421 ms
+2026-04-13 00:00:59.261 +07:00 [INF] HTTP GET /api/v1/admin/flight/fare-classes responded 200 in 9.1714 ms
+2026-04-13 00:00:59.281 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 71.4859 ms
+2026-04-13 00:00:59.305 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 21.1792 ms
+2026-04-13 00:00:59.995 +07:00 [INF] HTTP GET /api/v1/admin/flight/fare-rules responded 200 in 109.2980 ms
+2026-04-13 00:01:00.048 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 162.2803 ms
+2026-04-13 00:01:00.050 +07:00 [INF] HTTP GET /api/v1/admin/flight/fare-rules responded 200 in 50.2580 ms
+2026-04-13 00:01:00.101 +07:00 [INF] HTTP GET /api/v1/admin/flight/fare-rules responded 200 in 29.0668 ms
+2026-04-13 00:01:00.131 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 78.3800 ms
+2026-04-13 00:01:00.183 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 47.7465 ms
+2026-04-13 00:01:00.645 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 20.4731 ms
+2026-04-13 00:01:00.673 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 23.5249 ms
+2026-04-13 00:01:00.682 +07:00 [INF] HTTP GET /api/v1/admin/flight/offers/tax-fee-lines responded 200 in 29.1321 ms
+2026-04-13 00:01:00.693 +07:00 [INF] HTTP GET /api/v1/admin/flight/offers/tax-fee-lines responded 200 in 6.5681 ms
+2026-04-13 00:01:00.705 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 27.9031 ms
+2026-04-13 00:01:00.730 +07:00 [INF] HTTP GET /api/v1/admin/flight/offers/tax-fee-lines responded 200 in 7.8859 ms
+2026-04-13 00:01:01.302 +07:00 [INF] HTTP GET /api/v1/admin/flight/fare-classes responded 200 in 12.0264 ms
+2026-04-13 00:01:01.312 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 22.4499 ms
+2026-04-13 00:01:01.315 +07:00 [INF] HTTP GET /api/v1/admin/flight/fare-classes responded 200 in 9.2403 ms
+2026-04-13 00:01:01.342 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 24.8647 ms
+2026-04-13 00:01:01.798 +07:00 [INF] HTTP GET /api/v1/admin/flight/fare-rules responded 200 in 10.5921 ms
+2026-04-13 00:01:01.806 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 18.6864 ms
+2026-04-13 00:01:01.812 +07:00 [INF] HTTP GET /api/v1/admin/flight/fare-rules responded 200 in 9.1908 ms
+2026-04-13 00:01:01.831 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 20.8381 ms
+2026-04-13 00:01:01.837 +07:00 [INF] HTTP GET /api/v1/admin/flight/fare-rules responded 200 in 11.3389 ms
+2026-04-13 00:01:01.854 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 18.7847 ms
+2026-04-13 00:01:03.243 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 16.8034 ms
+2026-04-13 00:01:03.257 +07:00 [INF] HTTP GET /api/v1/admin/flight/offers/tax-fee-lines responded 200 in 6.0473 ms
+2026-04-13 00:01:03.269 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 22.7185 ms
+2026-04-13 00:01:03.289 +07:00 [INF] HTTP GET /api/v1/admin/flight/offers/tax-fee-lines responded 200 in 5.6258 ms
+2026-04-13 00:01:03.295 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 22.1006 ms
+2026-04-13 00:01:03.318 +07:00 [INF] HTTP GET /api/v1/admin/flight/offers/tax-fee-lines responded 200 in 7.6161 ms
+2026-04-13 00:01:06.483 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 19.0866 ms
+2026-04-13 00:01:06.494 +07:00 [INF] HTTP GET /api/v1/admin/flight/aircrafts responded 200 in 30.2634 ms
+2026-04-13 00:01:06.504 +07:00 [INF] HTTP GET /api/v1/admin/flight/aircrafts responded 200 in 6.3921 ms
+2026-04-13 00:01:06.506 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 18.9406 ms
+2026-04-13 00:01:06.954 +07:00 [INF] HTTP GET /api/v1/admin/flight/aircraft-models responded 200 in 13.9305 ms
+2026-04-13 00:01:06.966 +07:00 [INF] HTTP GET /api/v1/admin/flight/aircraft-models responded 200 in 8.2481 ms
+2026-04-13 00:01:08.474 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 15.8971 ms
+2026-04-13 00:01:08.498 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 20.5363 ms
+2026-04-13 00:01:08.521 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 17.8875 ms
+2026-04-13 00:01:08.524 +07:00 [INF] HTTP GET /api/v1/admin/flight/cabin-seats responded 200 in 41.1955 ms
+2026-04-13 00:01:08.535 +07:00 [INF] HTTP GET /api/v1/admin/flight/cabin-seats responded 200 in 7.4920 ms
+2026-04-13 00:01:08.545 +07:00 [INF] HTTP GET /api/v1/admin/flight/cabin-seats responded 200 in 6.8418 ms
+2026-04-13 00:01:09.574 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 127.3759 ms
+2026-04-13 00:01:09.594 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 16.6192 ms
+2026-04-13 00:21:26.494 +07:00 [INF] HTTP POST /api/v1/auth/logout responded 200 in 18.2468 ms
+2026-04-13 00:21:39.551 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 95.0602 ms
+2026-04-13 00:21:39.594 +07:00 [INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 31.9798 ms
+2026-04-13 00:21:39.629 +07:00 [INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 26.1368 ms
+2026-04-13 00:21:41.892 +07:00 [INF] HTTP GET /api/v1/admin/tenant-onboarding responded 200 in 44.7415 ms
+2026-04-13 00:21:41.901 +07:00 [INF] HTTP GET /api/v1/admin/tenant-onboarding responded 200 in 5.3081 ms
+2026-04-13 00:21:41.916 +07:00 [INF] HTTP GET /api/v1/admin/tenants responded 200 in 68.9191 ms
+2026-04-13 00:21:41.928 +07:00 [INF] HTTP GET /api/v1/admin/tenants responded 200 in 8.1125 ms
+2026-04-13 00:21:51.140 +07:00 [INF] HTTP GET /api/v1/admin/users responded 200 in 54.7322 ms
+2026-04-13 00:21:51.156 +07:00 [INF] HTTP GET /api/v1/admin/roles responded 200 in 70.6590 ms
+2026-04-13 00:21:51.171 +07:00 [INF] HTTP GET /api/v1/admin/users responded 200 in 26.6825 ms
+2026-04-13 00:21:51.181 +07:00 [INF] HTTP GET /api/v1/admin/roles responded 200 in 20.6462 ms
+2026-04-13 00:21:51.569 +07:00 [INF] HTTP GET /api/v1/admin/roles responded 200 in 19.3098 ms
+2026-04-13 00:21:51.578 +07:00 [INF] HTTP GET /api/v1/admin/auth/permissions responded 200 in 28.3974 ms
+2026-04-13 00:21:51.588 +07:00 [INF] HTTP GET /api/v1/admin/auth/permissions responded 200 in 5.4228 ms
+2026-04-13 00:21:51.592 +07:00 [INF] HTTP GET /api/v1/admin/roles responded 200 in 20.1580 ms
+2026-04-13 00:21:51.661 +07:00 [INF] HTTP GET /api/v1/admin/auth/role-permissions responded 200 in 63.5887 ms
+2026-04-13 00:21:52.357 +07:00 [INF] HTTP GET /api/v1/admin/tenant-onboarding responded 200 in 5.9671 ms
+2026-04-13 00:21:52.362 +07:00 [INF] HTTP GET /api/v1/admin/tenants responded 200 in 10.9231 ms
+2026-04-13 00:21:52.369 +07:00 [INF] HTTP GET /api/v1/admin/tenant-onboarding responded 200 in 7.0918 ms
+2026-04-13 00:21:52.376 +07:00 [INF] HTTP GET /api/v1/admin/tenants responded 200 in 9.3611 ms
+2026-04-13 00:22:02.048 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 29.9065 ms
+2026-04-13 00:22:02.062 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 9.8814 ms
+2026-04-13 00:22:02.109 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 94.1527 ms
+2026-04-13 00:22:02.123 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 10.1876 ms
+2026-04-13 00:22:02.665 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 8.0376 ms
+2026-04-13 00:22:02.674 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 16.2015 ms
+2026-04-13 00:22:02.682 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 11.5290 ms
+2026-04-13 00:22:02.691 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 11.4316 ms
+2026-04-13 00:22:02.692 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 34.4285 ms
+2026-04-13 00:22:02.703 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 7.4938 ms
+2026-04-13 00:22:18.290 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 48.3825 ms
+2026-04-13 00:22:18.308 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 13.5322 ms
+2026-04-13 00:22:21.051 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 19.2237 ms
+2026-04-13 00:22:21.069 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 13.9466 ms
+2026-04-13 00:22:21.075 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/flights responded 200 in 43.7518 ms
+2026-04-13 00:22:21.086 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/offers responded 200 in 54.0286 ms
+2026-04-13 00:22:21.094 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/flights responded 200 in 14.2975 ms
+2026-04-13 00:22:21.104 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/offers responded 200 in 14.1833 ms
+2026-04-13 00:22:23.400 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 14.0269 ms
+2026-04-13 00:22:23.420 +07:00 [INF] HTTP GET /api/v1/qlvmm/flight/options responded 200 in 15.1324 ms
+2026-04-13 00:22:23.827 +07:00 [INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 8523.7103 ms
+2026-04-13 00:22:24.067 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 6.4301 ms
+2026-04-13 00:22:24.067 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 6.4302 ms
+2026-04-13 00:22:24.076 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 15.2930 ms
+2026-04-13 00:22:24.084 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 10.3380 ms
+2026-04-13 00:22:24.084 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 10.3137 ms
+2026-04-13 00:22:24.097 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 15.4472 ms
+2026-04-13 00:22:24.522 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 11.0663 ms
+2026-04-13 00:22:24.530 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 18.2987 ms
+2026-04-13 00:22:24.544 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 17.9040 ms
+2026-04-13 00:22:24.563 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 26.3171 ms
+2026-04-13 09:30:51.685 +07:00 [INF] Ensured user 'qlnx' with role 'QLNX'.
+2026-04-13 09:30:51.729 +07:00 [INF] Ensured user 'qlks' with role 'QLKS'.
+2026-04-13 09:30:51.734 +07:00 [INF] Ensured user 'qlvt' with role 'QLVT'.
+2026-04-13 09:30:51.737 +07:00 [INF] Ensured user 'qlvmm' with role 'QLVMM'.
+2026-04-13 09:30:51.741 +07:00 [INF] Ensured user 'qltour' with role 'QLTour'.
+2026-04-13 09:30:51.743 +07:00 [INF] Ensured user 'scanner_nx' with role 'Customer'.
+2026-04-13 09:30:51.747 +07:00 [INF] Ensured user 'customer' with role 'Customer'.
+2026-04-13 09:30:51.747 +07:00 [INF] Identity seed completed.
+2026-04-13 09:30:51.851 +07:00 [INF] Tenant NX001 already exists.
+2026-04-13 09:30:51.853 +07:00 [INF] Tenant VT001 already exists.
+2026-04-13 09:30:51.854 +07:00 [INF] Tenant VMM001 already exists.
+2026-04-13 09:30:51.855 +07:00 [INF] Tenant KS001 already exists.
+2026-04-13 09:30:51.856 +07:00 [INF] Tenant TOUR001 already exists.
+2026-04-13 09:30:51.915 +07:00 [INF] Updated tenant link 'qlnx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:30:51.921 +07:00 [INF] Updated tenant link 'admin' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:30:52.015 +07:00 [INF] Updated tenant link 'qlvt' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 09:30:52.018 +07:00 [INF] Updated tenant link 'admin' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 09:30:52.025 +07:00 [INF] Updated tenant link 'qlvmm' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 09:30:52.027 +07:00 [INF] Updated tenant link 'admin' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 09:30:52.033 +07:00 [INF] Updated tenant link 'qlks' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 09:30:52.035 +07:00 [INF] Updated tenant link 'admin' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 09:30:52.041 +07:00 [INF] Updated tenant link 'qltour' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 09:30:52.043 +07:00 [INF] Updated tenant link 'admin' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 09:30:52.046 +07:00 [INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+2026-04-13 09:30:52.160 +07:00 [INF] Permissions seed completed.
+2026-04-13 09:30:52.507 +07:00 [INF] Tenant system role seed completed.
+2026-04-13 09:30:52.550 +07:00 [INF] Updated TenantUser link 'customer' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:30:52.573 +07:00 [INF] Updated TenantUser link 'scanner_nx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:30:52.585 +07:00 [INF] TenantRoles seed completed for NX001.
+2026-04-13 09:30:53.329 +07:00 [INF] BUS demo seed completed for tenant NX001.
+2026-04-13 09:30:53.839 +07:00 [INF] TRAIN demo seed completed for tenant VT001.
+2026-04-13 09:30:54.652 +07:00 [INF] Flight demo seed completed for tenant VMM001.
+2026-04-13 09:30:55.014 +07:00 [INF] CmsDemoSeed completed for tenant NX001.
+2026-04-13 09:30:55.165 +07:00 [INF] Hotel demo seed starting for 6 tenant(s). Days=14
+2026-04-13 09:30:55.257 +07:00 [INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:30:56.327 +07:00 [INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+2026-04-13 09:30:56.329 +07:00 [INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:30:56.399 +07:00 [INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+2026-04-13 09:30:56.401 +07:00 [INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:30:56.477 +07:00 [INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+2026-04-13 09:30:56.479 +07:00 [INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:30:56.571 +07:00 [INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+2026-04-13 09:30:56.573 +07:00 [INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:30:56.637 +07:00 [INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+2026-04-13 09:30:56.639 +07:00 [INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:30:56.708 +07:00 [INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+2026-04-13 09:30:56.709 +07:00 [INF] Hotel demo seed finished.
+2026-04-13 09:30:57.272 +07:00 [INF] Now listening on: http://127.0.0.1:5183
+2026-04-13 09:30:57.272 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-13 09:30:57.273 +07:00 [INF] Hosting environment: Development
+2026-04-13 09:30:57.273 +07:00 [INF] Content root path: d:\FPT\TicketBooking.V3\TicketBooking.Api
+2026-04-13 09:32:33.070 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-04-13 09:32:33.179 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 108.9487 ms
+2026-04-13 09:32:33.272 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0 responded 200 in 56.0676 ms
+2026-04-13 09:32:33.336 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/gallery responded 200 in 57.4134 ms
+2026-04-13 09:32:33.390 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/reviews responded 200 in 42.9627 ms
+2026-04-13 09:32:33.406 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/availability responded 400 in 11.1306 ms
+2026-04-13 09:32:33.496 +07:00 [INF] HTTP POST /api/v1/auth/login responded 400 in 19.5078 ms
+2026-04-13 09:32:33.515 +07:00 [INF] HTTP GET /api/v1/qlks/hotels responded 401 in 5.2819 ms
+2026-04-13 09:32:33.527 +07:00 [INF] HTTP GET /api/v1/qlks/room-types responded 401 in 1.5653 ms
+2026-04-13 09:32:33.537 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 401 in 1.9345 ms
+2026-04-13 09:32:33.546 +07:00 [INF] HTTP GET /api/v1/qlks/extra-services responded 401 in 0.3613 ms
+2026-04-13 09:32:33.555 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/cancellation-policies responded 401 in 0.3888 ms
+2026-04-13 09:32:33.565 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/check-in-out-rules responded 401 in 0.3875 ms
+2026-04-13 09:32:33.574 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/property-policies responded 401 in 0.3692 ms
+2026-04-13 09:32:33.586 +07:00 [INF] HTTP POST /api/v1/auth/login responded 400 in 2.0137 ms
+2026-04-13 09:32:33.596 +07:00 [INF] HTTP GET /api/v1/admin/tenants responded 401 in 0.4271 ms
+2026-04-13 09:32:33.627 +07:00 [INF] HTTP GET /api/v1/admin/hotels responded 401 in 0.3834 ms
+2026-04-13 09:32:33.636 +07:00 [INF] HTTP GET /api/v1/admin/room-types responded 401 in 0.3675 ms
+2026-04-13 09:32:33.644 +07:00 [INF] HTTP GET /api/v1/admin/rate-plans responded 401 in 0.3648 ms
+2026-04-13 09:32:33.657 +07:00 [INF] HTTP GET /api/v1/admin/hotel-contacts responded 401 in 0.3632 ms
+2026-04-13 09:32:33.666 +07:00 [INF] HTTP GET /api/v1/admin/hotel-images responded 401 in 0.3884 ms
+2026-04-13 09:32:33.674 +07:00 [INF] HTTP GET /api/v1/admin/hotel-amenities responded 401 in 0.4081 ms
+2026-04-13 09:32:33.683 +07:00 [INF] HTTP GET /api/v1/admin/room-amenities responded 401 in 0.3527 ms
+2026-04-13 09:32:33.692 +07:00 [INF] HTTP GET /api/v1/admin/meal-plans responded 401 in 0.3709 ms
+2026-04-13 09:32:33.703 +07:00 [INF] HTTP GET /api/v1/admin/bed-types responded 401 in 0.3441 ms
+2026-04-13 09:32:33.711 +07:00 [INF] HTTP GET /api/v1/admin/room-type-images responded 401 in 0.4216 ms
+2026-04-13 09:32:33.720 +07:00 [INF] HTTP GET /api/v1/admin/room-type-policies responded 401 in 0.3825 ms
+2026-04-13 09:32:33.729 +07:00 [INF] HTTP GET /api/v1/admin/promo-rate-overrides responded 401 in 0.3813 ms
+2026-04-13 09:32:33.737 +07:00 [INF] HTTP GET /api/v1/admin/hotel-reviews responded 401 in 0.3747 ms
+2026-04-13 09:32:33.785 +07:00 [INF] HTTP GET /api/v1/admin/rate-plans/=true responded 404 in 0.4854 ms
+2026-04-13 09:32:33.801 +07:00 [INF] HTTP GET /api/v1/admin/ari/room-types//inventory responded 404 in 0.4134 ms
+2026-04-13 09:32:33.809 +07:00 [INF] HTTP GET /api/v1/admin/ari/rate-plan-room-types//daily-rates responded 404 in 0.3387 ms
+2026-04-13 09:32:33.818 +07:00 [INF] HTTP POST /api/v1/admin/hotel-contacts responded 401 in 0.3705 ms
+2026-04-13 09:32:33.827 +07:00 [INF] HTTP GET /api/v1/admin/hotel-contacts/ responded 401 in 0.3607 ms
+2026-04-13 09:32:33.836 +07:00 [INF] HTTP PUT /api/v1/admin/hotel-contacts/ responded 405 in 0.4975 ms
+2026-04-13 09:32:33.849 +07:00 [INF] HTTP POST /api/v1/admin/hotel-contacts//delete responded 404 in 0.3111 ms
+2026-04-13 09:32:33.857 +07:00 [INF] HTTP POST /api/v1/admin/hotel-contacts//restore responded 404 in 0.4161 ms
+2026-04-13 09:32:33.867 +07:00 [INF] HTTP POST /api/v1/admin/hotel-images responded 401 in 0.3587 ms
+2026-04-13 09:32:33.875 +07:00 [INF] HTTP GET /api/v1/admin/hotel-images/ responded 401 in 0.3422 ms
+2026-04-13 09:32:33.884 +07:00 [INF] HTTP PUT /api/v1/admin/hotel-images/ responded 405 in 0.6583 ms
+2026-04-13 09:32:33.903 +07:00 [INF] HTTP POST /api/v1/admin/hotel-images//delete responded 404 in 0.2944 ms
+2026-04-13 09:32:33.910 +07:00 [INF] HTTP POST /api/v1/admin/hotel-images//restore responded 404 in 0.3214 ms
+2026-04-13 09:32:33.921 +07:00 [INF] HTTP GET /api/v1/admin/hotel-amenities responded 401 in 0.3593 ms
+2026-04-13 09:32:33.938 +07:00 [INF] HTTP PUT /api/v1/admin/hotel-amenities/hotels//links responded 404 in 0.3000 ms
+2026-04-13 09:32:33.946 +07:00 [INF] HTTP GET /api/v1/admin/hotel-amenities/hotels//links responded 404 in 0.2878 ms
+2026-04-13 09:32:33.954 +07:00 [INF] HTTP GET /api/v1/admin/room-amenities responded 401 in 0.4452 ms
+2026-04-13 09:32:33.967 +07:00 [INF] HTTP PUT /api/v1/admin/room-amenities/room-types//links responded 404 in 0.2889 ms
+2026-04-13 09:32:33.974 +07:00 [INF] HTTP GET /api/v1/admin/room-amenities/room-types//links responded 404 in 0.2943 ms
+2026-04-13 09:32:33.982 +07:00 [INF] HTTP GET /api/v1/admin/meal-plans responded 401 in 0.4759 ms
+2026-04-13 09:32:33.998 +07:00 [INF] HTTP PUT /api/v1/admin/meal-plans/room-types//links responded 404 in 0.3177 ms
+2026-04-13 09:32:34.006 +07:00 [INF] HTTP GET /api/v1/admin/meal-plans/room-types//links responded 404 in 0.2948 ms
+2026-04-13 09:32:34.014 +07:00 [INF] HTTP GET /api/v1/admin/bed-types responded 401 in 0.3399 ms
+2026-04-13 09:32:34.028 +07:00 [INF] HTTP PUT /api/v1/admin/bed-types/room-types//links responded 404 in 0.2966 ms
+2026-04-13 09:32:34.036 +07:00 [INF] HTTP GET /api/v1/admin/bed-types/room-types//links responded 404 in 0.2686 ms
+2026-04-13 09:32:50.351 +07:00 [INF] HTTP POST /api/v1/auth/login responded 400 in 14.6024 ms
+2026-04-13 09:32:50.358 +07:00 [INF] HTTP POST /api/v1/auth/login responded 400 in 1.9168 ms
+2026-04-13 09:32:50.389 +07:00 [INF] HTTP POST /api/v1/auth/login responded 400 in 1.3764 ms
+2026-04-13 09:32:50.482 +07:00 [INF] HTTP GET /api/v1/admin/tenants responded 401 in 0.4394 ms
+2026-04-13 09:33:07.298 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 261.4926 ms
+2026-04-13 09:33:07.300 +07:00 [ERR] HTTP POST /api/v1/auth/login responded 500 in 267.2421 ms
+System.InvalidOperationException: Could not persist refresh token.
+   at TicketBooking.Api.Auth.AuthTokenService.IssueTokenPairAsync(AppUser user, IList`1 roles, CancellationToken ct) in d:\FPT\TicketBooking.V3\TicketBooking.Api\Auth\AuthTokenService.cs:line 95
+   at TicketBooking.Api.Controllers.AuthController.Login(LoginRequest req) in d:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Auth\AuthController.cs:line 125
+   at lambda_method11280(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in d:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 69
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-04-13 09:33:07.313 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Could not persist refresh token.
+   at TicketBooking.Api.Auth.AuthTokenService.IssueTokenPairAsync(AppUser user, IList`1 roles, CancellationToken ct) in d:\FPT\TicketBooking.V3\TicketBooking.Api\Auth\AuthTokenService.cs:line 95
+   at TicketBooking.Api.Controllers.AuthController.Login(LoginRequest req) in d:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Auth\AuthController.cs:line 125
+   at lambda_method11280(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in d:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 69
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2026-04-13 09:33:07.404 +07:00 [INF] HTTP GET /api/v1/admin/tenants responded 401 in 0.3930 ms
+2026-04-13 09:34:23.634 +07:00 [INF] Ensured user 'qlnx' with role 'QLNX'.
+2026-04-13 09:34:23.669 +07:00 [INF] Ensured user 'qlks' with role 'QLKS'.
+2026-04-13 09:34:23.673 +07:00 [INF] Ensured user 'qlvt' with role 'QLVT'.
+2026-04-13 09:34:23.676 +07:00 [INF] Ensured user 'qlvmm' with role 'QLVMM'.
+2026-04-13 09:34:23.679 +07:00 [INF] Ensured user 'qltour' with role 'QLTour'.
+2026-04-13 09:34:23.681 +07:00 [INF] Ensured user 'scanner_nx' with role 'Customer'.
+2026-04-13 09:34:23.684 +07:00 [INF] Ensured user 'customer' with role 'Customer'.
+2026-04-13 09:34:23.684 +07:00 [INF] Identity seed completed.
+2026-04-13 09:34:23.771 +07:00 [INF] Tenant NX001 already exists.
+2026-04-13 09:34:23.773 +07:00 [INF] Tenant VT001 already exists.
+2026-04-13 09:34:23.775 +07:00 [INF] Tenant VMM001 already exists.
+2026-04-13 09:34:23.777 +07:00 [INF] Tenant KS001 already exists.
+2026-04-13 09:34:23.778 +07:00 [INF] Tenant TOUR001 already exists.
+2026-04-13 09:34:23.838 +07:00 [INF] Updated tenant link 'qlnx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:34:23.844 +07:00 [INF] Updated tenant link 'admin' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:34:23.936 +07:00 [INF] Updated tenant link 'qlvt' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 09:34:23.939 +07:00 [INF] Updated tenant link 'admin' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 09:34:23.945 +07:00 [INF] Updated tenant link 'qlvmm' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 09:34:23.947 +07:00 [INF] Updated tenant link 'admin' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 09:34:23.953 +07:00 [INF] Updated tenant link 'qlks' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 09:34:23.955 +07:00 [INF] Updated tenant link 'admin' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 09:34:23.961 +07:00 [INF] Updated tenant link 'qltour' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 09:34:23.963 +07:00 [INF] Updated tenant link 'admin' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 09:34:23.966 +07:00 [INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+2026-04-13 09:34:24.081 +07:00 [INF] Permissions seed completed.
+2026-04-13 09:34:24.407 +07:00 [INF] Tenant system role seed completed.
+2026-04-13 09:34:24.449 +07:00 [INF] Updated TenantUser link 'customer' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:34:24.469 +07:00 [INF] Updated TenantUser link 'scanner_nx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:34:24.478 +07:00 [INF] TenantRoles seed completed for NX001.
+2026-04-13 09:34:25.105 +07:00 [INF] BUS demo seed completed for tenant NX001.
+2026-04-13 09:34:25.715 +07:00 [INF] TRAIN demo seed completed for tenant VT001.
+2026-04-13 09:34:26.517 +07:00 [INF] Flight demo seed completed for tenant VMM001.
+2026-04-13 09:34:26.909 +07:00 [INF] CmsDemoSeed completed for tenant NX001.
+2026-04-13 09:34:27.018 +07:00 [INF] Hotel demo seed starting for 6 tenant(s). Days=14
+2026-04-13 09:34:27.099 +07:00 [INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:34:28.230 +07:00 [INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+2026-04-13 09:34:28.233 +07:00 [INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:34:28.300 +07:00 [INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+2026-04-13 09:34:28.302 +07:00 [INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:34:28.363 +07:00 [INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+2026-04-13 09:34:28.365 +07:00 [INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:34:28.452 +07:00 [INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+2026-04-13 09:34:28.456 +07:00 [INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:34:28.670 +07:00 [INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+2026-04-13 09:34:28.673 +07:00 [INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:34:28.733 +07:00 [INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+2026-04-13 09:34:28.734 +07:00 [INF] Hotel demo seed finished.
+2026-04-13 09:34:29.140 +07:00 [INF] Now listening on: http://127.0.0.1:5183
+2026-04-13 09:34:29.142 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-13 09:34:29.143 +07:00 [INF] Hosting environment: Development
+2026-04-13 09:34:29.143 +07:00 [INF] Content root path: d:\FPT\TicketBooking.V3\TicketBooking.Api
+2026-04-13 09:34:33.509 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-04-13 09:34:33.739 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 230.3220 ms
+2026-04-13 09:34:33.828 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 71.7051 ms
+2026-04-13 09:34:49.152 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 85.3221 ms
+2026-04-13 09:34:49.342 +07:00 [INF] HTTP GET /api/v1/admin/tenants responded 200 in 174.2436 ms
+2026-04-13 09:35:53.832 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 44.6808 ms
+2026-04-13 09:35:53.911 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0 responded 200 in 54.0920 ms
+2026-04-13 09:35:53.927 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/availability responded 400 in 9.4998 ms
+2026-04-13 09:35:54.040 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/gallery responded 200 in 57.2236 ms
+2026-04-13 09:35:54.083 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/reviews responded 200 in 37.1290 ms
+2026-04-13 09:35:54.188 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 95.3154 ms
+2026-04-13 09:35:54.239 +07:00 [INF] HTTP GET /api/v1/qlks/hotels responded 200 in 44.5947 ms
+2026-04-13 09:35:54.277 +07:00 [INF] HTTP GET /api/v1/qlks/room-types responded 200 in 33.5703 ms
+2026-04-13 09:35:54.315 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 34.7938 ms
+2026-04-13 09:35:54.350 +07:00 [INF] HTTP GET /api/v1/qlks/extra-services responded 200 in 24.6761 ms
+2026-04-13 09:35:54.384 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/cancellation-policies responded 200 in 28.9851 ms
+2026-04-13 09:35:54.419 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/check-in-out-rules responded 200 in 29.2214 ms
+2026-04-13 09:35:54.453 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/property-policies responded 200 in 28.8111 ms
+2026-04-13 09:35:54.519 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 60.8882 ms
+2026-04-13 09:35:54.556 +07:00 [INF] HTTP GET /api/v1/admin/hotels responded 200 in 28.9827 ms
+2026-04-13 09:35:54.588 +07:00 [INF] HTTP GET /api/v1/admin/room-types responded 200 in 27.4012 ms
+2026-04-13 09:35:54.616 +07:00 [INF] HTTP GET /api/v1/admin/rate-plans responded 200 in 23.7418 ms
+2026-04-13 09:35:54.654 +07:00 [INF] HTTP GET /api/v1/admin/hotel-contacts responded 200 in 29.1613 ms
+2026-04-13 09:35:54.685 +07:00 [INF] HTTP GET /api/v1/admin/hotel-images responded 200 in 26.1874 ms
+2026-04-13 09:35:54.716 +07:00 [INF] HTTP GET /api/v1/admin/hotel-amenities responded 200 in 26.4101 ms
+2026-04-13 09:35:54.750 +07:00 [INF] HTTP GET /api/v1/admin/room-amenities responded 200 in 29.8163 ms
+2026-04-13 09:35:54.782 +07:00 [INF] HTTP GET /api/v1/admin/meal-plans responded 200 in 27.4900 ms
+2026-04-13 09:35:54.827 +07:00 [INF] HTTP GET /api/v1/admin/bed-types responded 200 in 26.5049 ms
+2026-04-13 09:35:54.858 +07:00 [INF] HTTP GET /api/v1/admin/room-type-images responded 200 in 27.3590 ms
+2026-04-13 09:35:54.896 +07:00 [INF] HTTP GET /api/v1/admin/room-type-policies responded 200 in 33.5691 ms
+2026-04-13 09:35:54.957 +07:00 [INF] HTTP GET /api/v1/admin/promo-rate-overrides responded 200 in 56.6498 ms
+2026-04-13 09:35:54.992 +07:00 [INF] HTTP GET /api/v1/admin/hotel-reviews responded 200 in 29.7846 ms
+2026-04-13 09:35:55.004 +07:00 [INF] HTTP GET /api/v1/admin/rate-plans/=true responded 404 in 4.1890 ms
+2026-04-13 09:35:55.046 +07:00 [INF] HTTP GET /api/v1/admin/ari/room-types/72b54313-850e-49e2-89bc-857fc7f96b44/inventory responded 200 in 30.2286 ms
+2026-04-13 09:35:55.116 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-13 09:35:55.187 +07:00 [INF] HTTP POST /api/v1/admin/hotel-contacts responded 201 in 123.3092 ms
+2026-04-13 09:35:55.210 +07:00 [INF] HTTP GET /api/v1/admin/hotel-contacts/1e16c924-65bd-492c-9f06-f23cadebe47d responded 200 in 19.7545 ms
+2026-04-13 09:35:55.255 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-13 09:35:55.264 +07:00 [INF] HTTP PUT /api/v1/admin/hotel-contacts/1e16c924-65bd-492c-9f06-f23cadebe47d responded 200 in 48.7226 ms
+2026-04-13 09:35:55.281 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-13 09:35:55.287 +07:00 [INF] HTTP POST /api/v1/admin/hotel-contacts/1e16c924-65bd-492c-9f06-f23cadebe47d/delete responded 200 in 15.5162 ms
+2026-04-13 09:35:55.300 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-13 09:35:55.303 +07:00 [INF] HTTP POST /api/v1/admin/hotel-contacts/1e16c924-65bd-492c-9f06-f23cadebe47d/restore responded 200 in 11.0282 ms
+2026-04-13 09:35:55.358 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-13 09:35:55.374 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-13 09:35:55.379 +07:00 [INF] HTTP POST /api/v1/admin/hotel-images responded 201 in 69.7527 ms
+2026-04-13 09:35:55.400 +07:00 [INF] HTTP GET /api/v1/admin/hotel-images/3be70d8c-055a-4c19-81f8-77ae6e3200d7 responded 200 in 17.0742 ms
+2026-04-13 09:35:55.424 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-13 09:35:55.429 +07:00 [INF] HTTP PUT /api/v1/admin/hotel-images/3be70d8c-055a-4c19-81f8-77ae6e3200d7 responded 200 in 25.5712 ms
+2026-04-13 09:35:55.446 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-13 09:35:55.452 +07:00 [INF] HTTP POST /api/v1/admin/hotel-images/3be70d8c-055a-4c19-81f8-77ae6e3200d7/delete responded 200 in 18.2923 ms
+2026-04-13 09:35:55.468 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-13 09:35:55.472 +07:00 [WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-04-13 09:35:55.475 +07:00 [INF] HTTP POST /api/v1/admin/hotel-images/3be70d8c-055a-4c19-81f8-77ae6e3200d7/restore responded 200 in 16.8178 ms
+2026-04-13 09:47:01.976 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 10.6973 ms
+2026-04-13 09:47:02.102 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/availability responded 200 in 99.7756 ms
+2026-04-13 09:47:02.113 +07:00 [INF] HTTP POST /api/v1/auth/login responded 400 in 1.2681 ms
+2026-04-13 09:47:02.182 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 401 in 3.9324 ms
+2026-04-13 09:47:02.215 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans/ responded 401 in 0.6252 ms
+2026-04-13 09:47:02.239 +07:00 [INF] HTTP GET /api/v1/qlks/ari/rate-plan-room-types//daily-rates responded 404 in 0.2898 ms
+2026-04-13 09:47:02.248 +07:00 [INF] HTTP POST /api/v1/auth/login responded 400 in 0.9523 ms
+2026-04-13 09:47:02.258 +07:00 [INF] HTTP GET /api/v1/admin/hotels responded 401 in 0.2910 ms
+2026-04-13 09:47:02.290 +07:00 [INF] HTTP GET /api/v1/admin/rate-plans responded 401 in 0.3522 ms
+2026-04-13 09:47:02.310 +07:00 [INF] HTTP GET /api/v1/admin/rate-plans/ responded 401 in 0.2951 ms
+2026-04-13 09:47:02.331 +07:00 [INF] HTTP GET /api/v1/admin/ari/rate-plan-room-types//daily-rates responded 404 in 0.2486 ms
+2026-04-13 09:48:03.927 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 11.6113 ms
+2026-04-13 09:48:04.008 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/availability responded 200 in 67.0683 ms
+2026-04-13 09:48:04.083 +07:00 [INF] HTTP GET /api/v1/hotels/052eaa5e-e666-4fa8-9ff1-53b759cbec82/availability responded 200 in 63.6455 ms
+2026-04-13 09:48:04.125 +07:00 [INF] HTTP GET /api/v1/hotels/a1340955-a696-4b12-830b-2ae16de7946a/availability responded 200 in 29.5474 ms
+2026-04-13 09:48:27.349 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 120.2186 ms
+2026-04-13 09:48:27.350 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 120.8429 ms
+2026-04-13 09:51:21.857 +07:00 [INF] Ensured user 'qlnx' with role 'QLNX'.
+2026-04-13 09:51:21.899 +07:00 [INF] Ensured user 'qlks' with role 'QLKS'.
+2026-04-13 09:51:21.903 +07:00 [INF] Ensured user 'qlvt' with role 'QLVT'.
+2026-04-13 09:51:21.907 +07:00 [INF] Ensured user 'qlvmm' with role 'QLVMM'.
+2026-04-13 09:51:21.910 +07:00 [INF] Ensured user 'qltour' with role 'QLTour'.
+2026-04-13 09:51:21.913 +07:00 [INF] Ensured user 'scanner_nx' with role 'Customer'.
+2026-04-13 09:51:21.916 +07:00 [INF] Ensured user 'customer' with role 'Customer'.
+2026-04-13 09:51:21.917 +07:00 [INF] Identity seed completed.
+2026-04-13 09:51:22.010 +07:00 [INF] Tenant NX001 already exists.
+2026-04-13 09:51:22.013 +07:00 [INF] Tenant VT001 already exists.
+2026-04-13 09:51:22.014 +07:00 [INF] Tenant VMM001 already exists.
+2026-04-13 09:51:22.016 +07:00 [INF] Tenant KS001 already exists.
+2026-04-13 09:51:22.018 +07:00 [INF] Tenant TOUR001 already exists.
+2026-04-13 09:51:22.090 +07:00 [INF] Updated tenant link 'qlnx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:51:22.101 +07:00 [INF] Updated tenant link 'admin' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:51:22.194 +07:00 [INF] Updated tenant link 'qlvt' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 09:51:22.197 +07:00 [INF] Updated tenant link 'admin' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 09:51:22.212 +07:00 [INF] Updated tenant link 'qlvmm' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 09:51:22.219 +07:00 [INF] Updated tenant link 'admin' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 09:51:22.231 +07:00 [INF] Updated tenant link 'qlks' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 09:51:22.238 +07:00 [INF] Updated tenant link 'admin' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 09:51:22.252 +07:00 [INF] Updated tenant link 'qltour' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 09:51:22.257 +07:00 [INF] Updated tenant link 'admin' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 09:51:22.264 +07:00 [INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+2026-04-13 09:51:22.410 +07:00 [INF] Permissions seed completed.
+2026-04-13 09:51:22.914 +07:00 [INF] Tenant system role seed completed.
+2026-04-13 09:51:22.982 +07:00 [INF] Updated TenantUser link 'customer' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:51:23.020 +07:00 [INF] Updated TenantUser link 'scanner_nx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:51:23.043 +07:00 [INF] TenantRoles seed completed for NX001.
+2026-04-13 09:51:23.771 +07:00 [INF] BUS demo seed completed for tenant NX001.
+2026-04-13 09:51:24.393 +07:00 [INF] TRAIN demo seed completed for tenant VT001.
+2026-04-13 09:51:25.127 +07:00 [INF] Flight demo seed completed for tenant VMM001.
+2026-04-13 09:51:25.535 +07:00 [INF] CmsDemoSeed completed for tenant NX001.
+2026-04-13 09:51:25.677 +07:00 [INF] Hotel demo seed starting for 6 tenant(s). Days=14
+2026-04-13 09:51:25.778 +07:00 [INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:51:27.000 +07:00 [INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+2026-04-13 09:51:27.004 +07:00 [INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:51:27.091 +07:00 [INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+2026-04-13 09:51:27.094 +07:00 [INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:51:27.170 +07:00 [INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+2026-04-13 09:51:27.172 +07:00 [INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:51:27.246 +07:00 [INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+2026-04-13 09:51:27.248 +07:00 [INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:51:27.317 +07:00 [INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+2026-04-13 09:51:27.319 +07:00 [INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:51:27.393 +07:00 [INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+2026-04-13 09:51:27.394 +07:00 [INF] Hotel demo seed finished.
+2026-04-13 09:51:27.906 +07:00 [INF] Now listening on: http://127.0.0.1:5183
+2026-04-13 09:51:27.907 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-13 09:51:27.907 +07:00 [INF] Hosting environment: Development
+2026-04-13 09:51:27.907 +07:00 [INF] Content root path: d:\FPT\TicketBooking.V3\TicketBooking.Api
+2026-04-13 09:51:56.405 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-04-13 09:51:56.523 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 118.0765 ms
+2026-04-13 09:51:56.686 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/availability responded 200 in 145.0012 ms
+2026-04-13 09:51:56.711 +07:00 [INF] HTTP GET /api/v1/hotels/052eaa5e-e666-4fa8-9ff1-53b759cbec82/availability responded 200 in 12.5938 ms
+2026-04-13 09:51:56.720 +07:00 [INF] HTTP GET /api/v1/hotels/a1340955-a696-4b12-830b-2ae16de7946a/availability responded 200 in 7.3020 ms
+2026-04-13 09:53:13.710 +07:00 [INF] Ensured user 'qlnx' with role 'QLNX'.
+2026-04-13 09:53:13.740 +07:00 [INF] Ensured user 'qlks' with role 'QLKS'.
+2026-04-13 09:53:13.743 +07:00 [INF] Ensured user 'qlvt' with role 'QLVT'.
+2026-04-13 09:53:13.747 +07:00 [INF] Ensured user 'qlvmm' with role 'QLVMM'.
+2026-04-13 09:53:13.749 +07:00 [INF] Ensured user 'qltour' with role 'QLTour'.
+2026-04-13 09:53:13.753 +07:00 [INF] Ensured user 'scanner_nx' with role 'Customer'.
+2026-04-13 09:53:13.756 +07:00 [INF] Ensured user 'customer' with role 'Customer'.
+2026-04-13 09:53:13.757 +07:00 [INF] Identity seed completed.
+2026-04-13 09:53:13.829 +07:00 [INF] Tenant NX001 already exists.
+2026-04-13 09:53:13.833 +07:00 [INF] Tenant VT001 already exists.
+2026-04-13 09:53:13.834 +07:00 [INF] Tenant VMM001 already exists.
+2026-04-13 09:53:13.836 +07:00 [INF] Tenant KS001 already exists.
+2026-04-13 09:53:13.838 +07:00 [INF] Tenant TOUR001 already exists.
+2026-04-13 09:53:13.891 +07:00 [INF] Updated tenant link 'qlnx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:53:13.897 +07:00 [INF] Updated tenant link 'admin' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:53:13.972 +07:00 [INF] Updated tenant link 'qlvt' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 09:53:13.974 +07:00 [INF] Updated tenant link 'admin' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 09:53:13.981 +07:00 [INF] Updated tenant link 'qlvmm' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 09:53:13.984 +07:00 [INF] Updated tenant link 'admin' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 09:53:13.989 +07:00 [INF] Updated tenant link 'qlks' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 09:53:13.991 +07:00 [INF] Updated tenant link 'admin' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 09:53:13.997 +07:00 [INF] Updated tenant link 'qltour' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 09:53:13.998 +07:00 [INF] Updated tenant link 'admin' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 09:53:14.001 +07:00 [INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+2026-04-13 09:53:14.106 +07:00 [INF] Permissions seed completed.
+2026-04-13 09:53:14.403 +07:00 [INF] Tenant system role seed completed.
+2026-04-13 09:53:14.485 +07:00 [INF] Updated TenantUser link 'customer' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:53:14.577 +07:00 [INF] Updated TenantUser link 'scanner_nx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:53:14.606 +07:00 [INF] TenantRoles seed completed for NX001.
+2026-04-13 09:53:15.178 +07:00 [INF] BUS demo seed completed for tenant NX001.
+2026-04-13 09:53:15.618 +07:00 [INF] TRAIN demo seed completed for tenant VT001.
+2026-04-13 09:53:16.317 +07:00 [INF] Flight demo seed completed for tenant VMM001.
+2026-04-13 09:53:16.658 +07:00 [INF] CmsDemoSeed completed for tenant NX001.
+2026-04-13 09:53:16.747 +07:00 [INF] Hotel demo seed starting for 6 tenant(s). Days=14
+2026-04-13 09:53:16.962 +07:00 [INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:53:17.959 +07:00 [INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+2026-04-13 09:53:17.962 +07:00 [INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:53:18.029 +07:00 [INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+2026-04-13 09:53:18.030 +07:00 [INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:53:18.101 +07:00 [INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+2026-04-13 09:53:18.102 +07:00 [INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:53:18.166 +07:00 [INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+2026-04-13 09:53:18.168 +07:00 [INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:53:18.256 +07:00 [INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+2026-04-13 09:53:18.258 +07:00 [INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:53:18.329 +07:00 [INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+2026-04-13 09:53:18.330 +07:00 [INF] Hotel demo seed finished.
+2026-04-13 09:53:18.679 +07:00 [INF] Now listening on: http://127.0.0.1:5183
+2026-04-13 09:53:18.681 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-13 09:53:18.681 +07:00 [INF] Hosting environment: Development
+2026-04-13 09:53:18.682 +07:00 [INF] Content root path: d:\FPT\TicketBooking.V3\TicketBooking.Api
+2026-04-13 09:53:44.360 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-04-13 09:53:44.453 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 93.3398 ms
+2026-04-13 09:53:44.600 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/availability responded 200 in 128.6237 ms
+2026-04-13 09:53:44.621 +07:00 [INF] HTTP GET /api/v1/hotels/052eaa5e-e666-4fa8-9ff1-53b759cbec82/availability responded 200 in 11.1390 ms
+2026-04-13 09:53:44.630 +07:00 [INF] HTTP GET /api/v1/hotels/a1340955-a696-4b12-830b-2ae16de7946a/availability responded 200 in 6.8834 ms
+2026-04-13 09:53:44.651 +07:00 [INF] HTTP GET /api/v1/hotels/9eea4812-bfad-43fb-a362-3225991c3400/availability responded 200 in 20.0848 ms
+2026-04-13 09:53:44.664 +07:00 [INF] HTTP GET /api/v1/hotels/f6b8f7e2-a5c3-4625-8426-112d6de6ca35/availability responded 200 in 10.8937 ms
+2026-04-13 09:53:44.676 +07:00 [INF] HTTP GET /api/v1/hotels/ec4600e5-000e-4035-914e-c2e877cc61e7/availability responded 200 in 9.7133 ms
+2026-04-13 09:53:44.686 +07:00 [INF] HTTP GET /api/v1/hotels/29caaa6d-5d8c-4382-84b4-f622aea90168/availability responded 200 in 8.1973 ms
+2026-04-13 09:53:44.697 +07:00 [INF] HTTP GET /api/v1/hotels/1ae1adf4-61bd-4172-acd1-968f019c681a/availability responded 200 in 8.4831 ms
+2026-04-13 09:53:44.707 +07:00 [INF] HTTP GET /api/v1/hotels/f2509b62-93cb-4927-ae0f-ee171cd57525/availability responded 200 in 8.5688 ms
+2026-04-13 09:54:14.311 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 4.3548 ms
+2026-04-13 09:54:14.331 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/availability responded 200 in 7.4044 ms
+2026-04-13 09:54:14.346 +07:00 [INF] HTTP GET /api/v1/hotels/052eaa5e-e666-4fa8-9ff1-53b759cbec82/availability responded 200 in 5.7131 ms
+2026-04-13 09:54:14.352 +07:00 [INF] HTTP GET /api/v1/hotels/a1340955-a696-4b12-830b-2ae16de7946a/availability responded 200 in 4.8463 ms
+2026-04-13 09:54:14.360 +07:00 [INF] HTTP GET /api/v1/hotels/9eea4812-bfad-43fb-a362-3225991c3400/availability responded 200 in 6.3946 ms
+2026-04-13 09:54:14.514 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 145.9062 ms
+2026-04-13 09:54:14.629 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 110.4967 ms
+2026-04-13 09:54:14.683 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans/3fbc129a-83ed-4326-b320-ca8ecadd216a responded 200 in 49.6170 ms
+2026-04-13 09:54:14.716 +07:00 [INF] HTTP GET /api/v1/qlks/ari/rate-plan-room-types/a4fd2bbc-3d56-4bfe-87fa-39af79bc49ed/daily-rates responded 200 in 31.2431 ms
+2026-04-13 09:54:14.780 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 60.3999 ms
+2026-04-13 09:54:14.808 +07:00 [INF] HTTP GET /api/v1/admin/hotels responded 200 in 26.2407 ms
+2026-04-13 09:54:14.845 +07:00 [INF] HTTP GET /api/v1/admin/rate-plans responded 200 in 24.5355 ms
+2026-04-13 09:54:14.886 +07:00 [INF] HTTP GET /api/v1/admin/rate-plans/31688b37-d18d-45ef-9184-8afeef02b936 responded 200 in 39.1499 ms
+2026-04-13 09:54:14.904 +07:00 [INF] HTTP GET /api/v1/admin/ari/rate-plan-room-types/3adc219d-a2fb-4846-92ed-0b0c3ccb4505/daily-rates responded 404 in 17.0123 ms
+2026-04-13 09:54:29.685 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 3.0842 ms
+2026-04-13 09:54:29.775 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 63.4904 ms
+2026-04-13 09:54:29.787 +07:00 [INF] HTTP GET /api/v1/admin/rate-plans responded 200 in 6.2786 ms
+2026-04-13 09:54:29.800 +07:00 [INF] HTTP GET /api/v1/admin/rate-plans/31688b37-d18d-45ef-9184-8afeef02b936 responded 200 in 6.8153 ms
+2026-04-13 09:56:03.129 +07:00 [INF] Ensured user 'qlnx' with role 'QLNX'.
+2026-04-13 09:56:03.160 +07:00 [INF] Ensured user 'qlks' with role 'QLKS'.
+2026-04-13 09:56:03.165 +07:00 [INF] Ensured user 'qlvt' with role 'QLVT'.
+2026-04-13 09:56:03.167 +07:00 [INF] Ensured user 'qlvmm' with role 'QLVMM'.
+2026-04-13 09:56:03.170 +07:00 [INF] Ensured user 'qltour' with role 'QLTour'.
+2026-04-13 09:56:03.172 +07:00 [INF] Ensured user 'scanner_nx' with role 'Customer'.
+2026-04-13 09:56:03.175 +07:00 [INF] Ensured user 'customer' with role 'Customer'.
+2026-04-13 09:56:03.176 +07:00 [INF] Identity seed completed.
+2026-04-13 09:56:03.252 +07:00 [INF] Tenant NX001 already exists.
+2026-04-13 09:56:03.254 +07:00 [INF] Tenant VT001 already exists.
+2026-04-13 09:56:03.255 +07:00 [INF] Tenant VMM001 already exists.
+2026-04-13 09:56:03.257 +07:00 [INF] Tenant KS001 already exists.
+2026-04-13 09:56:03.260 +07:00 [INF] Tenant TOUR001 already exists.
+2026-04-13 09:56:03.309 +07:00 [INF] Updated tenant link 'qlnx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:56:03.314 +07:00 [INF] Updated tenant link 'admin' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:56:03.392 +07:00 [INF] Updated tenant link 'qlvt' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 09:56:03.395 +07:00 [INF] Updated tenant link 'admin' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 09:56:03.402 +07:00 [INF] Updated tenant link 'qlvmm' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 09:56:03.404 +07:00 [INF] Updated tenant link 'admin' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 09:56:03.409 +07:00 [INF] Updated tenant link 'qlks' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 09:56:03.411 +07:00 [INF] Updated tenant link 'admin' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 09:56:03.416 +07:00 [INF] Updated tenant link 'qltour' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 09:56:03.419 +07:00 [INF] Updated tenant link 'admin' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 09:56:03.421 +07:00 [INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+2026-04-13 09:56:03.523 +07:00 [INF] Permissions seed completed.
+2026-04-13 09:56:03.894 +07:00 [INF] Tenant system role seed completed.
+2026-04-13 09:56:03.934 +07:00 [INF] Updated TenantUser link 'customer' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:56:03.954 +07:00 [INF] Updated TenantUser link 'scanner_nx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 09:56:03.967 +07:00 [INF] TenantRoles seed completed for NX001.
+2026-04-13 09:56:04.548 +07:00 [INF] BUS demo seed completed for tenant NX001.
+2026-04-13 09:56:04.974 +07:00 [INF] TRAIN demo seed completed for tenant VT001.
+2026-04-13 09:56:05.547 +07:00 [INF] Flight demo seed completed for tenant VMM001.
+2026-04-13 09:56:05.886 +07:00 [INF] CmsDemoSeed completed for tenant NX001.
+2026-04-13 09:56:05.977 +07:00 [INF] Hotel demo seed starting for 6 tenant(s). Days=14
+2026-04-13 09:56:06.053 +07:00 [INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:56:07.046 +07:00 [INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+2026-04-13 09:56:07.049 +07:00 [INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:56:07.123 +07:00 [INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+2026-04-13 09:56:07.125 +07:00 [INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:56:07.194 +07:00 [INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+2026-04-13 09:56:07.195 +07:00 [INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:56:07.279 +07:00 [INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+2026-04-13 09:56:07.280 +07:00 [INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:56:07.351 +07:00 [INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+2026-04-13 09:56:07.352 +07:00 [INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 09:56:07.420 +07:00 [INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+2026-04-13 09:56:07.421 +07:00 [INF] Hotel demo seed finished.
+2026-04-13 09:56:07.748 +07:00 [INF] Now listening on: http://127.0.0.1:5183
+2026-04-13 09:56:07.750 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-13 09:56:07.750 +07:00 [INF] Hosting environment: Development
+2026-04-13 09:56:07.750 +07:00 [INF] Content root path: d:\FPT\TicketBooking.V3\TicketBooking.Api
+2026-04-13 09:57:09.236 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-04-13 09:57:09.334 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 97.6236 ms
+2026-04-13 09:57:09.488 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/availability responded 200 in 136.4949 ms
+2026-04-13 09:57:09.511 +07:00 [INF] HTTP GET /api/v1/hotels/052eaa5e-e666-4fa8-9ff1-53b759cbec82/availability responded 200 in 12.7676 ms
+2026-04-13 09:57:09.521 +07:00 [INF] HTTP GET /api/v1/hotels/a1340955-a696-4b12-830b-2ae16de7946a/availability responded 200 in 8.4716 ms
+2026-04-13 09:57:09.543 +07:00 [INF] HTTP GET /api/v1/hotels/9eea4812-bfad-43fb-a362-3225991c3400/availability responded 200 in 20.6104 ms
+2026-04-13 09:57:09.698 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 145.5869 ms
+2026-04-13 09:57:09.794 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 91.8940 ms
+2026-04-13 09:57:09.852 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans/3fbc129a-83ed-4326-b320-ca8ecadd216a responded 200 in 53.6427 ms
+2026-04-13 09:57:09.890 +07:00 [INF] HTTP GET /api/v1/qlks/ari/rate-plan-room-types/a4fd2bbc-3d56-4bfe-87fa-39af79bc49ed/daily-rates responded 200 in 33.8640 ms
+2026-04-13 09:57:09.956 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 62.1991 ms
+2026-04-13 09:57:09.988 +07:00 [INF] HTTP GET /api/v1/admin/hotels responded 200 in 29.1240 ms
+2026-04-13 09:57:10.022 +07:00 [INF] HTTP GET /api/v1/admin/rate-plans responded 200 in 26.2164 ms
+2026-04-13 09:57:10.068 +07:00 [INF] HTTP GET /api/v1/admin/rate-plans/3fbc129a-83ed-4326-b320-ca8ecadd216a responded 200 in 44.0378 ms
+2026-04-13 09:57:10.091 +07:00 [INF] HTTP GET /api/v1/admin/ari/rate-plan-room-types/a4fd2bbc-3d56-4bfe-87fa-39af79bc49ed/daily-rates responded 200 in 20.2308 ms
+2026-04-13 10:02:10.979 +07:00 [INF] Ensured user 'qlnx' with role 'QLNX'.
+2026-04-13 10:02:11.022 +07:00 [INF] Ensured user 'qlks' with role 'QLKS'.
+2026-04-13 10:02:11.035 +07:00 [INF] Ensured user 'qlvt' with role 'QLVT'.
+2026-04-13 10:02:11.046 +07:00 [INF] Ensured user 'qlvmm' with role 'QLVMM'.
+2026-04-13 10:02:11.051 +07:00 [INF] Ensured user 'qltour' with role 'QLTour'.
+2026-04-13 10:02:11.055 +07:00 [INF] Ensured user 'scanner_nx' with role 'Customer'.
+2026-04-13 10:02:11.064 +07:00 [INF] Ensured user 'customer' with role 'Customer'.
+2026-04-13 10:02:11.066 +07:00 [INF] Identity seed completed.
+2026-04-13 10:02:11.272 +07:00 [INF] Tenant NX001 already exists.
+2026-04-13 10:02:11.277 +07:00 [INF] Tenant VT001 already exists.
+2026-04-13 10:02:11.282 +07:00 [INF] Tenant VMM001 already exists.
+2026-04-13 10:02:11.287 +07:00 [INF] Tenant KS001 already exists.
+2026-04-13 10:02:11.289 +07:00 [INF] Tenant TOUR001 already exists.
+2026-04-13 10:02:11.409 +07:00 [INF] Updated tenant link 'qlnx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 10:02:11.464 +07:00 [INF] Updated tenant link 'admin' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 10:02:11.593 +07:00 [INF] Updated tenant link 'qlvt' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 10:02:11.597 +07:00 [INF] Updated tenant link 'admin' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 10:02:11.612 +07:00 [INF] Updated tenant link 'qlvmm' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 10:02:11.617 +07:00 [INF] Updated tenant link 'admin' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 10:02:11.625 +07:00 [INF] Updated tenant link 'qlks' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 10:02:11.630 +07:00 [INF] Updated tenant link 'admin' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 10:02:11.638 +07:00 [INF] Updated tenant link 'qltour' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 10:02:11.644 +07:00 [INF] Updated tenant link 'admin' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 10:02:11.650 +07:00 [INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+2026-04-13 10:02:11.755 +07:00 [INF] Permissions seed completed.
+2026-04-13 10:02:12.200 +07:00 [INF] Tenant system role seed completed.
+2026-04-13 10:02:12.251 +07:00 [INF] Updated TenantUser link 'customer' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 10:02:12.318 +07:00 [INF] Updated TenantUser link 'scanner_nx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 10:02:12.385 +07:00 [INF] TenantRoles seed completed for NX001.
+2026-04-13 10:02:13.150 +07:00 [INF] BUS demo seed completed for tenant NX001.
+2026-04-13 10:02:13.888 +07:00 [INF] TRAIN demo seed completed for tenant VT001.
+2026-04-13 10:02:14.507 +07:00 [INF] Flight demo seed completed for tenant VMM001.
+2026-04-13 10:02:15.102 +07:00 [INF] CmsDemoSeed completed for tenant NX001.
+2026-04-13 10:02:15.211 +07:00 [INF] Hotel demo seed starting for 6 tenant(s). Days=14
+2026-04-13 10:02:15.286 +07:00 [INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 10:02:16.789 +07:00 [INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+2026-04-13 10:02:16.795 +07:00 [INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 10:02:16.938 +07:00 [INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+2026-04-13 10:02:16.944 +07:00 [INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 10:02:17.220 +07:00 [INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+2026-04-13 10:02:17.249 +07:00 [INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 10:02:17.532 +07:00 [INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+2026-04-13 10:02:17.540 +07:00 [INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 10:02:17.767 +07:00 [INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+2026-04-13 10:02:17.776 +07:00 [INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 10:02:17.943 +07:00 [INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+2026-04-13 10:02:17.945 +07:00 [INF] Hotel demo seed finished.
+2026-04-13 10:02:18.683 +07:00 [INF] Now listening on: http://localhost:5183
+2026-04-13 10:02:18.684 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-13 10:02:18.685 +07:00 [INF] Hosting environment: Development
+2026-04-13 10:02:18.686 +07:00 [INF] Content root path: D:\FPT\TicketBooking.V3\TicketBooking.Api
+2026-04-13 10:02:36.268 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-04-13 10:02:36.380 +07:00 [INF] HTTP GET /api/v1/auth/me responded 401 in 114.1001 ms
+2026-04-13 10:02:36.412 +07:00 [INF] HTTP GET /api/v1/auth/me responded 401 in 7.6149 ms
+2026-04-13 10:02:36.605 +07:00 [INF] HTTP POST /api/v1/auth/refresh responded 200 in 200.3901 ms
+2026-04-13 10:02:36.651 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 34.3250 ms
+2026-04-13 10:02:36.668 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 12.9912 ms
+2026-04-13 10:02:38.972 +07:00 [INF] HTTP POST /api/v1/auth/logout responded 200 in 35.7511 ms
+2026-04-13 10:03:02.289 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 139.5879 ms
+2026-04-13 10:03:02.409 +07:00 [INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 109.9983 ms
+2026-04-13 10:03:02.525 +07:00 [INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 105.6281 ms
+2026-04-13 10:03:02.676 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 15.7893 ms
+2026-04-13 10:03:02.694 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 13.6065 ms
+2026-04-13 10:03:08.095 +07:00 [INF] HTTP GET /api/v1/qlks/room-types responded 200 in 55.0449 ms
+2026-04-13 10:03:08.103 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 62.4622 ms
+2026-04-13 10:03:08.108 +07:00 [INF] HTTP GET /api/v1/qlks/hotels responded 200 in 75.2780 ms
+2026-04-13 10:03:08.108 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/cancellation-policies responded 200 in 68.1186 ms
+2026-04-13 10:03:08.108 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/property-policies responded 200 in 68.3285 ms
+2026-04-13 10:03:08.119 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/check-in-out-rules responded 200 in 78.3920 ms
+2026-04-13 10:03:08.126 +07:00 [INF] HTTP GET /api/v1/qlks/room-types responded 200 in 15.3892 ms
+2026-04-13 10:03:08.129 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 10.0825 ms
+2026-04-13 10:03:08.133 +07:00 [INF] HTTP GET /api/v1/qlks/hotels responded 200 in 11.5916 ms
+2026-04-13 10:03:08.135 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/cancellation-policies responded 200 in 10.4283 ms
+2026-04-13 10:03:08.135 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/property-policies responded 200 in 10.1547 ms
+2026-04-13 10:03:08.143 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/check-in-out-rules responded 200 in 11.4794 ms
+2026-04-13 10:03:08.148 +07:00 [INF] HTTP GET /api/v1/qlks/room-types responded 200 in 12.5446 ms
+2026-04-13 10:03:08.155 +07:00 [INF] HTTP GET /api/v1/qlks/extra-services responded 200 in 52.7586 ms
+2026-04-13 10:03:08.162 +07:00 [INF] HTTP GET /api/v1/qlks/room-types responded 200 in 10.4359 ms
+2026-04-13 10:03:08.168 +07:00 [INF] HTTP GET /api/v1/qlks/extra-services responded 200 in 8.8113 ms
+2026-04-13 10:03:19.595 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/check-in-out-rules responded 200 in 21.0520 ms
+2026-04-13 10:03:19.595 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/cancellation-policies responded 200 in 21.0521 ms
+2026-04-13 10:03:19.595 +07:00 [INF] HTTP GET /api/v1/qlks/hotels responded 200 in 25.1241 ms
+2026-04-13 10:03:19.595 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 21.0520 ms
+2026-04-13 10:03:19.595 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/property-policies responded 200 in 21.2866 ms
+2026-04-13 10:03:19.595 +07:00 [INF] HTTP GET /api/v1/qlks/room-types responded 200 in 21.0520 ms
+2026-04-13 10:03:19.615 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/cancellation-policies responded 200 in 9.6662 ms
+2026-04-13 10:03:19.618 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 8.2519 ms
+2026-04-13 10:03:19.621 +07:00 [INF] HTTP GET /api/v1/qlks/room-types responded 200 in 9.7984 ms
+2026-04-13 10:03:19.619 +07:00 [INF] HTTP GET /api/v1/qlks/extra-services responded 200 in 16.8427 ms
+2026-04-13 10:03:19.623 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/property-policies responded 200 in 9.8119 ms
+2026-04-13 10:03:19.623 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/check-in-out-rules responded 200 in 10.2033 ms
+2026-04-13 10:03:19.636 +07:00 [INF] HTTP GET /api/v1/qlks/hotels responded 200 in 13.5167 ms
+2026-04-13 10:03:19.640 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 9.0235 ms
+2026-04-13 10:03:19.643 +07:00 [INF] HTTP GET /api/v1/qlks/extra-services responded 200 in 9.7820 ms
+2026-04-13 10:03:19.643 +07:00 [INF] HTTP GET /api/v1/qlks/room-types responded 200 in 9.7820 ms
+2026-04-13 10:03:19.653 +07:00 [INF] HTTP GET /api/v1/qlks/hotels responded 200 in 11.3790 ms
+2026-04-13 10:03:19.654 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 10.7757 ms
+2026-04-13 10:03:19.664 +07:00 [INF] HTTP GET /api/v1/qlks/room-types responded 200 in 16.6378 ms
+2026-04-13 10:03:19.672 +07:00 [INF] HTTP GET /api/v1/qlks/hotels responded 200 in 14.0004 ms
+2026-04-13 10:03:26.883 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/cancellation-policies responded 200 in 19.0259 ms
+2026-04-13 10:03:26.883 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/check-in-out-rules responded 200 in 19.0262 ms
+2026-04-13 10:03:26.883 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 19.0258 ms
+2026-04-13 10:03:26.883 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/property-policies responded 200 in 19.0258 ms
+2026-04-13 10:03:26.883 +07:00 [INF] HTTP GET /api/v1/qlks/room-types responded 200 in 22.8955 ms
+2026-04-13 10:03:26.883 +07:00 [INF] HTTP GET /api/v1/qlks/hotels responded 200 in 24.1259 ms
+2026-04-13 10:03:26.914 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 17.1445 ms
+2026-04-13 10:03:26.915 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/check-in-out-rules responded 200 in 22.4831 ms
+2026-04-13 10:03:26.915 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/cancellation-policies responded 200 in 16.1389 ms
+2026-04-13 10:03:26.915 +07:00 [INF] HTTP GET /api/v1/qlks/extra-services responded 200 in 25.8218 ms
+2026-04-13 10:03:26.917 +07:00 [INF] HTTP GET /api/v1/qlks/hotel-policies/property-policies responded 200 in 14.3271 ms
+2026-04-13 10:03:26.917 +07:00 [INF] HTTP GET /api/v1/qlks/hotels responded 200 in 16.3481 ms
+2026-04-13 10:03:26.939 +07:00 [INF] HTTP GET /api/v1/qlks/room-types responded 200 in 16.5674 ms
+2026-04-13 10:03:26.939 +07:00 [INF] HTTP GET /api/v1/qlks/extra-services responded 200 in 11.5724 ms
+2026-04-13 10:03:26.939 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 14.9061 ms
+2026-04-13 10:03:26.960 +07:00 [INF] HTTP GET /api/v1/qlks/rate-plans responded 200 in 15.4409 ms
+2026-04-13 10:03:40.232 +07:00 [INF] HTTP GET /api/v1/tenant/staff responded 200 in 199.3990 ms
+2026-04-13 10:03:40.262 +07:00 [INF] HTTP GET /api/v1/tenant/staff responded 200 in 25.7785 ms
+2026-04-13 10:03:41.289 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 403 in 8.2607 ms
+2026-04-13 10:03:41.302 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 403 in 5.4593 ms
+2026-04-13 10:03:42.610 +07:00 [INF] HTTP GET /api/v1/tenant/staff responded 200 in 22.4365 ms
+2026-04-13 10:03:42.635 +07:00 [INF] HTTP GET /api/v1/tenant/staff responded 200 in 21.1961 ms
+2026-04-13 22:46:42.791 +07:00 [INF] Ensured user 'qlnx' with role 'QLNX'.
+2026-04-13 22:46:42.831 +07:00 [INF] Ensured user 'qlks' with role 'QLKS'.
+2026-04-13 22:46:42.835 +07:00 [INF] Ensured user 'qlvt' with role 'QLVT'.
+2026-04-13 22:46:42.838 +07:00 [INF] Ensured user 'qlvmm' with role 'QLVMM'.
+2026-04-13 22:46:42.841 +07:00 [INF] Ensured user 'qltour' with role 'QLTour'.
+2026-04-13 22:46:42.845 +07:00 [INF] Ensured user 'scanner_nx' with role 'Customer'.
+2026-04-13 22:46:42.849 +07:00 [INF] Ensured user 'customer' with role 'Customer'.
+2026-04-13 22:46:42.849 +07:00 [INF] Identity seed completed.
+2026-04-13 22:46:42.948 +07:00 [INF] Tenant NX001 already exists.
+2026-04-13 22:46:42.950 +07:00 [INF] Tenant VT001 already exists.
+2026-04-13 22:46:42.952 +07:00 [INF] Tenant VMM001 already exists.
+2026-04-13 22:46:42.954 +07:00 [INF] Tenant KS001 already exists.
+2026-04-13 22:46:42.955 +07:00 [INF] Tenant TOUR001 already exists.
+2026-04-13 22:46:43.021 +07:00 [INF] Updated tenant link 'qlnx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 22:46:43.027 +07:00 [INF] Updated tenant link 'admin' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 22:46:43.135 +07:00 [INF] Updated tenant link 'qlvt' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 22:46:43.138 +07:00 [INF] Updated tenant link 'admin' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 22:46:43.144 +07:00 [INF] Updated tenant link 'qlvmm' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 22:46:43.146 +07:00 [INF] Updated tenant link 'admin' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 22:46:43.150 +07:00 [INF] Updated tenant link 'qlks' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 22:46:43.153 +07:00 [INF] Updated tenant link 'admin' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 22:46:43.157 +07:00 [INF] Updated tenant link 'qltour' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 22:46:43.160 +07:00 [INF] Updated tenant link 'admin' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 22:46:43.162 +07:00 [INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+2026-04-13 22:46:43.284 +07:00 [INF] Permissions seed completed.
+2026-04-13 22:46:43.645 +07:00 [INF] Tenant system role seed completed.
+2026-04-13 22:46:43.689 +07:00 [INF] Updated TenantUser link 'customer' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 22:46:43.713 +07:00 [INF] Updated TenantUser link 'scanner_nx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 22:46:43.726 +07:00 [INF] TenantRoles seed completed for NX001.
+2026-04-13 22:46:44.378 +07:00 [INF] BUS demo seed completed for tenant NX001.
+2026-04-13 22:46:44.856 +07:00 [INF] TRAIN demo seed completed for tenant VT001.
+2026-04-13 22:46:45.526 +07:00 [INF] Flight demo seed completed for tenant VMM001.
+2026-04-13 22:46:45.870 +07:00 [INF] CmsDemoSeed completed for tenant NX001.
+2026-04-13 22:46:46.014 +07:00 [INF] Hotel demo seed starting for 6 tenant(s). Days=14
+2026-04-13 22:46:46.109 +07:00 [INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 22:46:47.210 +07:00 [INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+2026-04-13 22:46:47.213 +07:00 [INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 22:46:47.292 +07:00 [INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+2026-04-13 22:46:47.294 +07:00 [INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 22:46:47.399 +07:00 [INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+2026-04-13 22:46:47.401 +07:00 [INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 22:46:47.476 +07:00 [INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+2026-04-13 22:46:47.478 +07:00 [INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 22:46:47.562 +07:00 [INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+2026-04-13 22:46:47.564 +07:00 [INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 22:46:47.644 +07:00 [INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+2026-04-13 22:46:47.645 +07:00 [INF] Hotel demo seed finished.
+2026-04-13 22:46:48.166 +07:00 [INF] Now listening on: http://127.0.0.1:5183
+2026-04-13 22:46:48.166 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-13 22:46:48.166 +07:00 [INF] Hosting environment: Development
+2026-04-13 22:46:48.167 +07:00 [INF] Content root path: d:\FPT\TicketBooking.V3\TicketBooking.Api
+2026-04-13 22:46:48.950 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-04-13 22:46:49.005 +07:00 [INF] HTTP GET /api/v1/ping responded 200 in 56.2605 ms
+2026-04-13 22:50:21.682 +07:00 [INF] Ensured user 'qlnx' with role 'QLNX'.
+2026-04-13 22:50:21.718 +07:00 [INF] Ensured user 'qlks' with role 'QLKS'.
+2026-04-13 22:50:21.721 +07:00 [INF] Ensured user 'qlvt' with role 'QLVT'.
+2026-04-13 22:50:21.724 +07:00 [INF] Ensured user 'qlvmm' with role 'QLVMM'.
+2026-04-13 22:50:21.726 +07:00 [INF] Ensured user 'qltour' with role 'QLTour'.
+2026-04-13 22:50:21.728 +07:00 [INF] Ensured user 'scanner_nx' with role 'Customer'.
+2026-04-13 22:50:21.731 +07:00 [INF] Ensured user 'customer' with role 'Customer'.
+2026-04-13 22:50:21.731 +07:00 [INF] Identity seed completed.
+2026-04-13 22:50:21.807 +07:00 [INF] Tenant NX001 already exists.
+2026-04-13 22:50:21.811 +07:00 [INF] Tenant VT001 already exists.
+2026-04-13 22:50:21.812 +07:00 [INF] Tenant VMM001 already exists.
+2026-04-13 22:50:21.814 +07:00 [INF] Tenant KS001 already exists.
+2026-04-13 22:50:21.815 +07:00 [INF] Tenant TOUR001 already exists.
+2026-04-13 22:50:21.874 +07:00 [INF] Updated tenant link 'qlnx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 22:50:21.883 +07:00 [INF] Updated tenant link 'admin' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 22:50:21.959 +07:00 [INF] Updated tenant link 'qlvt' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 22:50:21.962 +07:00 [INF] Updated tenant link 'admin' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 22:50:21.970 +07:00 [INF] Updated tenant link 'qlvmm' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 22:50:21.973 +07:00 [INF] Updated tenant link 'admin' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 22:50:21.978 +07:00 [INF] Updated tenant link 'qlks' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 22:50:21.980 +07:00 [INF] Updated tenant link 'admin' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 22:50:21.985 +07:00 [INF] Updated tenant link 'qltour' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 22:50:21.987 +07:00 [INF] Updated tenant link 'admin' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 22:50:21.990 +07:00 [INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+2026-04-13 22:50:22.090 +07:00 [INF] Permissions seed completed.
+2026-04-13 22:50:22.477 +07:00 [INF] Tenant system role seed completed.
+2026-04-13 22:50:22.558 +07:00 [INF] Updated TenantUser link 'customer' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 22:50:22.591 +07:00 [INF] Updated TenantUser link 'scanner_nx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 22:50:22.609 +07:00 [INF] TenantRoles seed completed for NX001.
+2026-04-13 22:50:23.258 +07:00 [INF] BUS demo seed completed for tenant NX001.
+2026-04-13 22:50:23.691 +07:00 [INF] TRAIN demo seed completed for tenant VT001.
+2026-04-13 22:50:24.244 +07:00 [INF] Flight demo seed completed for tenant VMM001.
+2026-04-13 22:50:24.547 +07:00 [INF] CmsDemoSeed completed for tenant NX001.
+2026-04-13 22:50:24.635 +07:00 [INF] Hotel demo seed starting for 6 tenant(s). Days=14
+2026-04-13 22:50:24.705 +07:00 [INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 22:50:25.673 +07:00 [INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+2026-04-13 22:50:25.676 +07:00 [INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 22:50:25.743 +07:00 [INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+2026-04-13 22:50:25.744 +07:00 [INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 22:50:25.816 +07:00 [INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+2026-04-13 22:50:25.818 +07:00 [INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 22:50:25.888 +07:00 [INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+2026-04-13 22:50:25.890 +07:00 [INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 22:50:25.956 +07:00 [INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+2026-04-13 22:50:25.957 +07:00 [INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 22:50:26.018 +07:00 [INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+2026-04-13 22:50:26.019 +07:00 [INF] Hotel demo seed finished.
+2026-04-13 22:50:26.382 +07:00 [INF] Now listening on: http://127.0.0.1:5183
+2026-04-13 22:50:26.384 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-13 22:50:26.384 +07:00 [INF] Hosting environment: Development
+2026-04-13 22:50:26.384 +07:00 [INF] Content root path: d:\FPT\TicketBooking.V3\TicketBooking.Api
+2026-04-13 22:50:27.611 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-04-13 22:50:27.647 +07:00 [INF] HTTP GET /api/v1/ping responded 200 in 36.6695 ms
+2026-04-13 22:53:55.835 +07:00 [INF] Registered new customer: customer-1776095635606 (customer-1776095635606@example.com)
+2026-04-13 22:53:55.879 +07:00 [INF] HTTP POST /api/v1/auth/register responded 201 in 233.0440 ms
+2026-04-13 22:53:56.050 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 160.2264 ms
+2026-04-13 22:53:56.121 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 403 in 67.9758 ms
+2026-04-13 23:17:48.734 +07:00 [INF] HTTP GET /api/v1/tours responded 200 in 220.6135 ms
+2026-04-13 23:17:48.748 +07:00 [INF] HTTP GET /api/v1/tours responded 200 in 8.4780 ms
+2026-04-13 23:17:52.010 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/policies responded 200 in 44.3147 ms
+2026-04-13 23:17:52.011 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/gallery responded 200 in 46.4401 ms
+2026-04-13 23:17:52.019 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/addons responded 200 in 52.4929 ms
+2026-04-13 23:17:52.023 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/policies responded 200 in 4.4214 ms
+2026-04-13 23:17:52.025 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/itinerary responded 200 in 59.0341 ms
+2026-04-13 23:17:52.027 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/gallery responded 200 in 3.6062 ms
+2026-04-13 23:17:52.032 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/addons responded 200 in 3.0143 ms
+2026-04-13 23:17:52.033 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/itinerary responded 200 in 2.5800 ms
+2026-04-13 23:17:52.053 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/faqs responded 200 in 86.5343 ms
+2026-04-13 23:17:52.060 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/faqs responded 200 in 3.8218 ms
+2026-04-13 23:17:52.068 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/reviews responded 200 in 50.2512 ms
+2026-04-13 23:17:52.076 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/reviews responded 200 in 4.1175 ms
+2026-04-13 23:17:52.088 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077 responded 200 in 123.5261 ms
+2026-04-13 23:17:52.099 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077 responded 200 in 7.2621 ms
+2026-04-13 23:17:52.316 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-04-13 23:17:52.397 +07:00 [INF] HTTP POST /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/quote responded 200 in 243.4125 ms
+2026-04-13 23:19:24.703 +07:00 [INF] Ensured user 'qlnx' with role 'QLNX'.
+2026-04-13 23:19:24.736 +07:00 [INF] Ensured user 'qlks' with role 'QLKS'.
+2026-04-13 23:19:24.742 +07:00 [INF] Ensured user 'qlvt' with role 'QLVT'.
+2026-04-13 23:19:24.745 +07:00 [INF] Ensured user 'qlvmm' with role 'QLVMM'.
+2026-04-13 23:19:24.749 +07:00 [INF] Ensured user 'qltour' with role 'QLTour'.
+2026-04-13 23:19:24.754 +07:00 [INF] Ensured user 'scanner_nx' with role 'Customer'.
+2026-04-13 23:19:24.758 +07:00 [INF] Ensured user 'customer' with role 'Customer'.
+2026-04-13 23:19:24.759 +07:00 [INF] Identity seed completed.
+2026-04-13 23:19:24.838 +07:00 [INF] Tenant NX001 already exists.
+2026-04-13 23:19:24.841 +07:00 [INF] Tenant VT001 already exists.
+2026-04-13 23:19:24.844 +07:00 [INF] Tenant VMM001 already exists.
+2026-04-13 23:19:24.847 +07:00 [INF] Tenant KS001 already exists.
+2026-04-13 23:19:24.849 +07:00 [INF] Tenant TOUR001 already exists.
+2026-04-13 23:19:24.900 +07:00 [INF] Updated tenant link 'qlnx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 23:19:24.907 +07:00 [INF] Updated tenant link 'admin' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 23:19:24.989 +07:00 [INF] Updated tenant link 'qlvt' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 23:19:24.993 +07:00 [INF] Updated tenant link 'admin' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-13 23:19:25.000 +07:00 [INF] Updated tenant link 'qlvmm' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 23:19:25.003 +07:00 [INF] Updated tenant link 'admin' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-13 23:19:25.009 +07:00 [INF] Updated tenant link 'qlks' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 23:19:25.012 +07:00 [INF] Updated tenant link 'admin' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-13 23:19:25.019 +07:00 [INF] Updated tenant link 'qltour' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 23:19:25.021 +07:00 [INF] Updated tenant link 'admin' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-13 23:19:25.024 +07:00 [INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+2026-04-13 23:19:25.120 +07:00 [INF] Permissions seed completed.
+2026-04-13 23:19:25.380 +07:00 [INF] Tenant system role seed completed.
+2026-04-13 23:19:25.417 +07:00 [INF] Updated TenantUser link 'customer' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 23:19:25.437 +07:00 [INF] Updated TenantUser link 'scanner_nx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-13 23:19:25.446 +07:00 [INF] TenantRoles seed completed for NX001.
+2026-04-13 23:19:26.098 +07:00 [INF] BUS demo seed completed for tenant NX001.
+2026-04-13 23:19:26.495 +07:00 [INF] TRAIN demo seed completed for tenant VT001.
+2026-04-13 23:19:27.151 +07:00 [INF] Flight demo seed completed for tenant VMM001.
+2026-04-13 23:19:27.435 +07:00 [INF] CmsDemoSeed completed for tenant NX001.
+2026-04-13 23:19:27.527 +07:00 [INF] Hotel demo seed starting for 6 tenant(s). Days=14
+2026-04-13 23:19:27.597 +07:00 [INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 23:19:28.635 +07:00 [INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+2026-04-13 23:19:28.640 +07:00 [INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 23:19:28.699 +07:00 [INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+2026-04-13 23:19:28.701 +07:00 [INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 23:19:28.820 +07:00 [INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+2026-04-13 23:19:28.824 +07:00 [INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 23:19:28.887 +07:00 [INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+2026-04-13 23:19:28.890 +07:00 [INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 23:19:28.957 +07:00 [INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+2026-04-13 23:19:28.960 +07:00 [INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-13 23:19:29.181 +07:00 [INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+2026-04-13 23:19:29.183 +07:00 [INF] Hotel demo seed finished.
+2026-04-13 23:19:29.521 +07:00 [INF] Now listening on: http://localhost:5183
+2026-04-13 23:19:29.523 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-13 23:19:29.524 +07:00 [INF] Hosting environment: Development
+2026-04-13 23:19:29.526 +07:00 [INF] Content root path: D:\FPT\TicketBooking.V3\TicketBooking.Api
+2026-04-13 23:20:00.695 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-04-13 23:20:00.942 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 248.6751 ms
+2026-04-13 23:20:01.216 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/gallery responded 200 in 88.0164 ms
+2026-04-13 23:20:01.226 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/policies responded 200 in 98.0805 ms
+2026-04-13 23:20:01.243 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/gallery responded 200 in 7.6107 ms
+2026-04-13 23:20:01.244 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/addons responded 200 in 115.9188 ms
+2026-04-13 23:20:01.255 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/itinerary responded 200 in 127.3233 ms
+2026-04-13 23:20:01.260 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/policies responded 200 in 9.8148 ms
+2026-04-13 23:20:01.265 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/faqs responded 200 in 137.0262 ms
+2026-04-13 23:20:01.265 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/addons responded 200 in 10.8073 ms
+2026-04-13 23:20:01.276 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/itinerary responded 200 in 10.4202 ms
+2026-04-13 23:20:01.285 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/faqs responded 200 in 12.9268 ms
+2026-04-13 23:20:01.304 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/reviews responded 200 in 80.2843 ms
+2026-04-13 23:20:01.315 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/reviews responded 200 in 7.1613 ms
+2026-04-13 23:20:01.352 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077 responded 200 in 223.7135 ms
+2026-04-13 23:20:01.368 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077 responded 200 in 11.9442 ms
+2026-04-13 23:20:01.569 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-04-13 23:20:01.642 +07:00 [INF] HTTP POST /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/quote responded 200 in 235.4544 ms
+2026-04-13 23:20:06.506 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077 responded 200 in 24.4223 ms
+2026-04-13 23:20:06.531 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077 responded 200 in 21.4213 ms
+2026-04-13 23:20:06.552 +07:00 [INF] HTTP POST /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/quote responded 200 in 70.6638 ms
+2026-04-13 23:20:06.554 +07:00 [INF] HTTP POST /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/quote responded 200 in 72.9644 ms
+2026-04-13 23:20:06.613 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 131.7505 ms
+2026-04-13 23:20:06.635 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 16.0411 ms
+2026-04-13 23:20:13.110 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/addons responded 200 in 14.1797 ms
+2026-04-13 23:20:13.110 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/policies responded 200 in 14.1798 ms
+2026-04-13 23:20:13.111 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/gallery responded 200 in 15.5875 ms
+2026-04-13 23:20:13.116 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/itinerary responded 200 in 20.5704 ms
+2026-04-13 23:20:13.119 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/faqs responded 200 in 23.0449 ms
+2026-04-13 23:20:13.133 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/policies responded 200 in 6.0604 ms
+2026-04-13 23:20:13.133 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/addons responded 200 in 10.4323 ms
+2026-04-13 23:20:13.137 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077 responded 200 in 47.5793 ms
+2026-04-13 23:20:13.139 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/gallery responded 200 in 8.1275 ms
+2026-04-13 23:20:13.137 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/itinerary responded 200 in 6.2646 ms
+2026-04-13 23:20:13.150 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/reviews responded 200 in 31.1220 ms
+2026-04-13 23:20:13.160 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/faqs responded 200 in 17.2853 ms
+2026-04-13 23:20:13.163 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077 responded 200 in 17.2093 ms
+2026-04-13 23:20:13.166 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/reviews responded 200 in 11.3932 ms
+2026-04-13 23:20:13.271 +07:00 [INF] HTTP POST /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/quote responded 200 in 65.2375 ms
+2026-04-13 23:20:15.197 +07:00 [INF] HTTP POST /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/quote responded 200 in 8.7442 ms
+2026-04-13 23:20:16.045 +07:00 [INF] HTTP POST /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/quote responded 200 in 16.3995 ms
+2026-04-13 23:20:16.053 +07:00 [INF] HTTP POST /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/quote responded 200 in 24.1295 ms
+2026-04-13 23:20:16.054 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 25.5495 ms
+2026-04-13 23:20:16.054 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077 responded 200 in 25.0594 ms
+2026-04-13 23:20:16.088 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 26.4531 ms
+2026-04-13 23:20:16.101 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077 responded 200 in 39.2588 ms
+2026-04-13 23:21:39.140 +07:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2026-04-13 23:21:39.178 +07:00 [ERR] HTTP POST /api/v1/customer/orders responded 500 in 286.5949 ms
+System.InvalidOperationException: Tour package not found or not available for reservation.
+   at TicketBooking.Api.Services.Tours.TourPackageReservationService.HoldAsync(Guid tourId, TourPackageReservationCreateRequest request, Nullable`1 userId, Boolean isAdmin, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageReservationService.cs:line 140
+   at TicketBooking.Api.Services.Commerce.CustomerOrderService.CreateTourOrderAsync(CreateCustomerOrderRequest request, Guid userId, DateTimeOffset now, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerOrderService.Create.HotelTour.cs:line 208
+   at TicketBooking.Api.Services.Commerce.CustomerOrderService.CreateOrderAsync(CreateCustomerOrderRequest request, Guid userId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerOrderService.cs:line 60
+   at TicketBooking.Api.Controllers.Commerce.CustomerOrdersController.Create(CreateCustomerOrderRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Commerce\CustomerOrdersController.cs:line 32
+   at lambda_method11529(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 154
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-04-13 23:21:39.203 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Tour package not found or not available for reservation.
+   at TicketBooking.Api.Services.Tours.TourPackageReservationService.HoldAsync(Guid tourId, TourPackageReservationCreateRequest request, Nullable`1 userId, Boolean isAdmin, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageReservationService.cs:line 140
+   at TicketBooking.Api.Services.Commerce.CustomerOrderService.CreateTourOrderAsync(CreateCustomerOrderRequest request, Guid userId, DateTimeOffset now, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerOrderService.Create.HotelTour.cs:line 208
+   at TicketBooking.Api.Services.Commerce.CustomerOrderService.CreateOrderAsync(CreateCustomerOrderRequest request, Guid userId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerOrderService.cs:line 60
+   at TicketBooking.Api.Controllers.Commerce.CustomerOrdersController.Create(CreateCustomerOrderRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Commerce\CustomerOrdersController.cs:line 32
+   at lambda_method11529(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 154
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2026-04-13 23:21:44.450 +07:00 [ERR] HTTP POST /api/v1/customer/orders responded 500 in 16.3545 ms
+System.InvalidOperationException: Tour package not found or not available for reservation.
+   at TicketBooking.Api.Services.Tours.TourPackageReservationService.HoldAsync(Guid tourId, TourPackageReservationCreateRequest request, Nullable`1 userId, Boolean isAdmin, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageReservationService.cs:line 140
+   at TicketBooking.Api.Services.Commerce.CustomerOrderService.CreateTourOrderAsync(CreateCustomerOrderRequest request, Guid userId, DateTimeOffset now, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerOrderService.Create.HotelTour.cs:line 208
+   at TicketBooking.Api.Services.Commerce.CustomerOrderService.CreateOrderAsync(CreateCustomerOrderRequest request, Guid userId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerOrderService.cs:line 60
+   at TicketBooking.Api.Controllers.Commerce.CustomerOrdersController.Create(CreateCustomerOrderRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Commerce\CustomerOrdersController.cs:line 32
+   at lambda_method11529(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 154
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-04-13 23:21:44.459 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Tour package not found or not available for reservation.
+   at TicketBooking.Api.Services.Tours.TourPackageReservationService.HoldAsync(Guid tourId, TourPackageReservationCreateRequest request, Nullable`1 userId, Boolean isAdmin, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageReservationService.cs:line 140
+   at TicketBooking.Api.Services.Commerce.CustomerOrderService.CreateTourOrderAsync(CreateCustomerOrderRequest request, Guid userId, DateTimeOffset now, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerOrderService.Create.HotelTour.cs:line 208
+   at TicketBooking.Api.Services.Commerce.CustomerOrderService.CreateOrderAsync(CreateCustomerOrderRequest request, Guid userId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerOrderService.cs:line 60
+   at TicketBooking.Api.Controllers.Commerce.CustomerOrdersController.Create(CreateCustomerOrderRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Commerce\CustomerOrdersController.cs:line 32
+   at lambda_method11529(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 154
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2026-04-13 23:21:45.314 +07:00 [ERR] HTTP POST /api/v1/customer/orders responded 500 in 171.3840 ms
+System.InvalidOperationException: Tour package not found or not available for reservation.
+   at TicketBooking.Api.Services.Tours.TourPackageReservationService.HoldAsync(Guid tourId, TourPackageReservationCreateRequest request, Nullable`1 userId, Boolean isAdmin, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageReservationService.cs:line 140
+   at TicketBooking.Api.Services.Commerce.CustomerOrderService.CreateTourOrderAsync(CreateCustomerOrderRequest request, Guid userId, DateTimeOffset now, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerOrderService.Create.HotelTour.cs:line 208
+   at TicketBooking.Api.Services.Commerce.CustomerOrderService.CreateOrderAsync(CreateCustomerOrderRequest request, Guid userId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerOrderService.cs:line 60
+   at TicketBooking.Api.Controllers.Commerce.CustomerOrdersController.Create(CreateCustomerOrderRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Commerce\CustomerOrdersController.cs:line 32
+   at lambda_method11529(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 154
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-04-13 23:21:45.323 +07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Tour package not found or not available for reservation.
+   at TicketBooking.Api.Services.Tours.TourPackageReservationService.HoldAsync(Guid tourId, TourPackageReservationCreateRequest request, Nullable`1 userId, Boolean isAdmin, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Tours\TourPackageReservationService.cs:line 140
+   at TicketBooking.Api.Services.Commerce.CustomerOrderService.CreateTourOrderAsync(CreateCustomerOrderRequest request, Guid userId, DateTimeOffset now, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerOrderService.Create.HotelTour.cs:line 208
+   at TicketBooking.Api.Services.Commerce.CustomerOrderService.CreateOrderAsync(CreateCustomerOrderRequest request, Guid userId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerOrderService.cs:line 60
+   at TicketBooking.Api.Controllers.Commerce.CustomerOrdersController.Create(CreateCustomerOrderRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Commerce\CustomerOrdersController.cs:line 32
+   at lambda_method11529(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 154
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2026-04-13 23:21:47.288 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/gallery responded 200 in 15.7205 ms
+2026-04-13 23:21:47.298 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/addons responded 200 in 19.6894 ms
+2026-04-13 23:21:47.301 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/itinerary responded 200 in 24.7113 ms
+2026-04-13 23:21:47.305 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/faqs responded 200 in 25.6195 ms
+2026-04-13 23:21:47.306 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/policies responded 200 in 28.7760 ms
+2026-04-13 23:21:47.307 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077 responded 200 in 40.5218 ms
+2026-04-13 23:21:47.326 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/gallery responded 200 in 8.9800 ms
+2026-04-13 23:21:47.340 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/faqs responded 200 in 19.5565 ms
+2026-04-13 23:21:47.326 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/addons responded 200 in 9.5087 ms
+2026-04-13 23:21:47.330 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/policies responded 200 in 8.6723 ms
+2026-04-13 23:21:47.326 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/itinerary responded 200 in 9.0482 ms
+2026-04-13 23:21:47.370 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/reviews responded 200 in 64.1688 ms
+2026-04-13 23:21:47.375 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077 responded 200 in 27.6884 ms
+2026-04-13 23:21:47.385 +07:00 [INF] HTTP GET /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/reviews responded 200 in 10.3864 ms
+2026-04-13 23:21:47.518 +07:00 [INF] HTTP POST /api/v1/tours/1d9c1c4d-36fd-4a31-974c-de0764649077/quote responded 200 in 70.7152 ms
+2026-04-13 23:21:50.925 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 38.5815 ms
+2026-04-13 23:21:50.940 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 10.1348 ms
+2026-04-13 23:21:50.982 +07:00 [INF] HTTP GET /api/v1/tours responded 200 in 95.7719 ms
+2026-04-13 23:21:50.998 +07:00 [INF] HTTP GET /api/v1/tours responded 200 in 10.4135 ms
+2026-04-13 23:21:56.804 +07:00 [INF] HTTP GET /api/v1/search/flights/airports responded 200 in 54.8120 ms
+2026-04-13 23:21:56.817 +07:00 [INF] HTTP GET /api/v1/search/flights/airports responded 200 in 7.8572 ms
+2026-04-13 23:21:57.197 +07:00 [INF] HTTP GET /api/v1/search/flights responded 200 in 266.5412 ms
+2026-04-13 23:21:59.946 +07:00 [INF] HTTP GET /api/v1/bus/search/locations responded 200 in 39.9764 ms
+2026-04-13 23:21:59.955 +07:00 [INF] HTTP GET /api/v1/bus/search/locations responded 200 in 3.3937 ms
+2026-04-13 23:22:03.097 +07:00 [INF] HTTP GET /api/v1/train/search/locations responded 200 in 40.6490 ms
+2026-04-13 23:22:03.109 +07:00 [INF] HTTP GET /api/v1/train/search/locations responded 200 in 4.1756 ms
+2026-04-13 23:22:03.280 +07:00 [INF] HTTP GET /api/v1/train/search/trips responded 200 in 39.5648 ms
+2026-04-13 23:22:06.503 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 41.6308 ms
+2026-04-13 23:22:06.517 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 6.4899 ms

@@ -1,0 +1,2258 @@
+// Auto-generated from EF Core model
+// Upload this .dbml file to dbdiagram.io
+
+Table auth.Permissions {
+  Category nvarchar(100)
+  Code nvarchar(200) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Description nvarchar(1000)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(8) [not null]
+  SortOrder int [increment, not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table auth.RolePermissions {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  PermissionId uniqueidentifier [not null]
+  RoleId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table auth.UserPermissions {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Effect int [not null]
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  PermissionId uniqueidentifier [not null]
+  Reason nvarchar(500)
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  UserId uniqueidentifier [not null]
+}
+
+Table bus.Routes {
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DistanceKm int [increment, not null]
+  EstimatedMinutes int [increment, not null]
+  FromStopPointId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200) [not null]
+  ProviderId uniqueidentifier [not null]
+  RowVersion varbinary(max) [not null]
+  TenantId uniqueidentifier [not null]
+  ToStopPointId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table bus.RouteStops {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DistanceFromStartKm int
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MinutesFromStart int
+  RouteId uniqueidentifier [not null]
+  RowVersion varbinary(max) [not null]
+  StopIndex int [not null]
+  StopPointId uniqueidentifier [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table bus.StopPoints {
+  AddressLine nvarchar(300)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Latitude float
+  LocationId uniqueidentifier [not null]
+  Longitude float
+  Name nvarchar(200) [not null]
+  Notes nvarchar(max)
+  RowVersion varbinary(max) [not null]
+  SortOrder int [increment, not null]
+  TenantId uniqueidentifier [not null]
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table bus.Trips {
+  ArrivalAt datetimeoffset [not null]
+  BaggagePolicyJson nvarchar(max)
+  BoardingPolicyJson nvarchar(max)
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DepartureAt datetimeoffset [not null]
+  FareRulesJson nvarchar(max)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200) [not null]
+  Notes nvarchar(max)
+  ProviderId uniqueidentifier [not null]
+  RouteId uniqueidentifier [not null]
+  RowVersion varbinary(max) [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  VehicleId uniqueidentifier [not null]
+}
+
+Table bus.TripSeatHolds {
+  BookingId uniqueidentifier
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  FromStopIndex int [not null]
+  FromTripStopTimeId uniqueidentifier [not null]
+  HoldExpiresAt datetimeoffset [not null]
+  HoldToken nvarchar(100) [not null]
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  RowVersion varbinary(max) [not null]
+  SeatId uniqueidentifier [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  ToStopIndex int [not null]
+  ToTripStopTimeId uniqueidentifier [not null]
+  TripId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  UserId uniqueidentifier
+}
+
+Table bus.TripSegmentPrices {
+  BaseFare decimal(18,2) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode nvarchar(3) [not null]
+  FromStopIndex int [not null]
+  FromTripStopTimeId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  RowVersion varbinary(max) [not null]
+  TaxesFees decimal(18,2)
+  TenantId uniqueidentifier [not null]
+  ToStopIndex int [not null]
+  TotalPrice decimal(18,2) [not null]
+  ToTripStopTimeId uniqueidentifier [not null]
+  TripId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table bus.TripStopDropoffPoints {
+  AddressLine nvarchar(300)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDefault bit [not null]
+  IsDeleted bit [not null]
+  Latitude float
+  Longitude float
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(max) [not null]
+  SortOrder int [increment, not null]
+  TenantId uniqueidentifier [not null]
+  TripStopTimeId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table bus.TripStopPickupPoints {
+  AddressLine nvarchar(300)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDefault bit [not null]
+  IsDeleted bit [not null]
+  Latitude float
+  Longitude float
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(max) [not null]
+  SortOrder int [increment, not null]
+  TenantId uniqueidentifier [not null]
+  TripStopTimeId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table bus.TripStopTimes {
+  ArriveAt datetimeoffset
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DepartAt datetimeoffset
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MinutesFromStart int
+  RowVersion varbinary(max) [not null]
+  StopIndex int [not null]
+  StopPointId uniqueidentifier [not null]
+  TenantId uniqueidentifier [not null]
+  TripId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table catalog.Locations {
+  AddressLine nvarchar(300)
+  AirportIataCode nvarchar(10)
+  AirportIcaoCode nvarchar(10)
+  BusStationCode nvarchar(50)
+  Code nvarchar(50)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DistrictId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Latitude float
+  Longitude float
+  MetadataJson nvarchar(max)
+  Name nvarchar(200) [not null]
+  NormalizedName nvarchar(250) [not null]
+  ProvinceId uniqueidentifier
+  RowVersion varbinary(max) [not null]
+  ShortName nvarchar(100)
+  TenantId uniqueidentifier [not null]
+  TimeZone nvarchar(64)
+  TrainStationCode nvarchar(50)
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  WardId uniqueidentifier
+}
+
+Table catalog.Providers {
+  AddressLine nvarchar(300)
+  Code nvarchar(50) [not null]
+  CoverUrl nvarchar(500)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Description nvarchar(max)
+  DistrictId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  LegalName nvarchar(250)
+  LocationId uniqueidentifier
+  LogoUrl nvarchar(500)
+  MetadataJson nvarchar(max)
+  Name nvarchar(200) [not null]
+  ProvinceId uniqueidentifier
+  RatingAverage decimal(3,2)
+  RatingCount int [increment, not null]
+  RowVersion varbinary(max) [not null]
+  Slug nvarchar(200) [not null]
+  SupportEmail nvarchar(200)
+  SupportPhone nvarchar(50)
+  TenantId uniqueidentifier [not null]
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  WardId uniqueidentifier
+  WebsiteUrl nvarchar(300)
+}
+
+Table cms.MediaAssets {
+  AltText nvarchar(300)
+  ChecksumSha256 nvarchar(128)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  FileName nvarchar(255) [not null]
+  Height int
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MetadataJson nvarchar(max)
+  MimeType nvarchar(100) [not null]
+  PublicUrl nvarchar(1000)
+  RowVersion varbinary(max) [not null]
+  SizeBytes bigint [not null]
+  StorageKey nvarchar(500) [not null]
+  StorageProvider nvarchar(50) [not null]
+  TenantId uniqueidentifier [not null]
+  Title nvarchar(200)
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  Width int
+}
+
+Table cms.NewsCategories {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Description nvarchar(2000)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(max) [not null]
+  Slug nvarchar(200) [not null]
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table cms.NewsPostCategories {
+  CategoryId uniqueidentifier [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  PostId uniqueidentifier [not null]
+  RowVersion varbinary(max) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table cms.NewsPostRevisions {
+  CanonicalUrl nvarchar(1000)
+  ChangeNote nvarchar(1000)
+  ContentHtml nvarchar(max) [not null]
+  ContentMarkdown nvarchar(max) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  EditedAt datetimeoffset [not null]
+  EditorUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  OgDescription nvarchar(2000)
+  OgImageUrl nvarchar(1000)
+  OgTitle nvarchar(300)
+  PostId uniqueidentifier [not null]
+  Robots nvarchar(200)
+  RowVersion varbinary(max) [not null]
+  SchemaJsonLd nvarchar(max)
+  SeoDescription nvarchar(2000)
+  SeoTitle nvarchar(300)
+  Summary nvarchar(2000)
+  TenantId uniqueidentifier [not null]
+  Title nvarchar(300) [not null]
+  TwitterCard nvarchar(50)
+  TwitterDescription nvarchar(2000)
+  TwitterImageUrl nvarchar(1000)
+  TwitterTitle nvarchar(300)
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  VersionNumber int [not null]
+}
+
+Table cms.NewsPosts {
+  AuthorUserId uniqueidentifier
+  CanonicalUrl nvarchar(1000)
+  ContentHtml nvarchar(max) [not null]
+  ContentMarkdown nvarchar(max) [not null]
+  CoverImageUrl nvarchar(1000)
+  CoverMediaAssetId uniqueidentifier
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  EditorUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  LastEditedAt datetimeoffset
+  OgDescription nvarchar(2000)
+  OgImageUrl nvarchar(1000)
+  OgTitle nvarchar(300)
+  OgType nvarchar(50)
+  PublishedAt datetimeoffset
+  ReadingTimeMinutes int [not null]
+  Robots nvarchar(200)
+  RowVersion varbinary(max) [not null]
+  ScheduledAt datetimeoffset
+  SchemaJsonLd nvarchar(max)
+  SeoDescription nvarchar(2000)
+  SeoKeywords nvarchar(2000)
+  SeoTitle nvarchar(300)
+  Slug nvarchar(300) [not null]
+  Status int [not null]
+  Summary nvarchar(2000)
+  TenantId uniqueidentifier [not null]
+  Title nvarchar(300) [not null]
+  TwitterCard nvarchar(50)
+  TwitterCreator nvarchar(100)
+  TwitterDescription nvarchar(2000)
+  TwitterImageUrl nvarchar(1000)
+  TwitterSite nvarchar(100)
+  TwitterTitle nvarchar(300)
+  UnpublishedAt datetimeoffset
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  ViewCount int [not null]
+  WordCount int [not null]
+}
+
+Table cms.NewsPostTags {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  PostId uniqueidentifier [not null]
+  RowVersion varbinary(max) [not null]
+  TagId uniqueidentifier [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table cms.NewsRedirects {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  FromPath nvarchar(500) [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  IsRegex bit [not null]
+  Reason nvarchar(500)
+  RowVersion varbinary(max) [not null]
+  StatusCode int [not null]
+  TenantId uniqueidentifier [not null]
+  ToPath nvarchar(1000) [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table cms.NewsTags {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(max) [not null]
+  Slug nvarchar(200) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table cms.SiteSettings {
+  BrandLogoUrl nvarchar(1000)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DefaultOgImageUrl nvarchar(1000)
+  DefaultRobots nvarchar(200)
+  DefaultSchemaJsonLd nvarchar(max)
+  DefaultTwitterCard nvarchar(50)
+  DefaultTwitterSite nvarchar(100)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  RowVersion varbinary(max) [not null]
+  SiteName nvarchar(200) [not null]
+  SiteUrl nvarchar(1000)
+  SupportEmail nvarchar(200)
+  SupportPhone nvarchar(50)
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table fleet.BusVehicleDetails {
+  AmenitiesJson nvarchar(max)
+  BusType nvarchar(100)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  RowVersion varbinary(max) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  VehicleId uniqueidentifier [not null]
+}
+
+Table fleet.SeatMaps {
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DeckCount int [increment, not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  LayoutVersion nvarchar(50)
+  MetadataJson nvarchar(max)
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(max) [not null]
+  SeatLabelScheme nvarchar(50)
+  TenantId uniqueidentifier [not null]
+  TotalColumns int [not null]
+  TotalRows int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  VehicleType int [not null]
+}
+
+Table fleet.Seats {
+  ColumnIndex int [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DeckIndex int [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsAisle bit [not null]
+  IsDeleted bit [not null]
+  IsWindow bit [not null]
+  PriceModifier decimal(18,2)
+  RowIndex int [not null]
+  RowVersion varbinary(max) [not null]
+  SeatClass int [not null]
+  SeatMapId uniqueidentifier [not null]
+  SeatNumber nvarchar(20) [not null]
+  SeatType int [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table fleet.VehicleModels {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Manufacturer nvarchar(100) [not null]
+  MetadataJson nvarchar(max)
+  ModelName nvarchar(120) [not null]
+  ModelYear int
+  RowVersion varbinary(max) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  VehicleType int [not null]
+}
+
+Table fleet.Vehicles {
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  InServiceFrom datetimeoffset
+  InServiceTo datetimeoffset
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MetadataJson nvarchar(max)
+  Name nvarchar(200) [not null]
+  PlateNumber nvarchar(50)
+  ProviderId uniqueidentifier [not null]
+  RegistrationNumber nvarchar(50)
+  RowVersion varbinary(max) [not null]
+  SeatCapacity int [not null]
+  SeatMapId uniqueidentifier
+  Status nvarchar(50)
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  VehicleModelId uniqueidentifier
+  VehicleType int [not null]
+}
+
+Table flight.AircraftModels {
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Manufacturer nvarchar(100) [not null]
+  MetadataJson nvarchar(max)
+  Model nvarchar(100) [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  TypicalSeatCapacity int
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table flight.Aircrafts {
+  AircraftModelId uniqueidentifier [not null]
+  AirlineId uniqueidentifier [not null]
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200)
+  Registration nvarchar(30)
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table flight.Airlines {
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  IataCode nvarchar(8)
+  IcaoCode nvarchar(8)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  LogoUrl nvarchar(1000)
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(8) [not null]
+  SupportEmail nvarchar(200)
+  SupportPhone nvarchar(50)
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  WebsiteUrl nvarchar(1000)
+}
+
+Table flight.Airports {
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  IataCode nvarchar(8)
+  IcaoCode nvarchar(8)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Latitude float
+  LocationId uniqueidentifier [not null]
+  Longitude float
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  TimeZone nvarchar(64)
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table flight.AncillaryDefinitions {
+  AirlineId uniqueidentifier [not null]
+  Code nvarchar(80) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode char(3) [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200) [not null]
+  Price decimal(18,2) [not null]
+  RowVersion varbinary(8) [not null]
+  RulesJson nvarchar(max)
+  TenantId uniqueidentifier [not null]
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table flight.CabinSeatMaps {
+  AircraftModelId uniqueidentifier [not null]
+  CabinClass int [not null]
+  Code nvarchar(80) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  LayoutVersion nvarchar(50)
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(8) [not null]
+  SeatLabelScheme nvarchar(50)
+  TenantId uniqueidentifier [not null]
+  TotalColumns int [not null]
+  TotalRows int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table flight.CabinSeats {
+  CabinSeatMapId uniqueidentifier [not null]
+  ColumnIndex int [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsAisle bit [not null]
+  IsDeleted bit [not null]
+  IsWindow bit [not null]
+  PriceModifier decimal(18,2)
+  RowIndex int [not null]
+  RowVersion varbinary(8) [not null]
+  SeatClass nvarchar(50)
+  SeatNumber nvarchar(10) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table flight.FareClasses {
+  AirlineId uniqueidentifier [not null]
+  CabinClass int [not null]
+  Code nvarchar(10) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsChangeable bit [not null]
+  IsDeleted bit [not null]
+  IsRefundable bit [not null]
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table flight.FareRules {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  FareClassId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  RowVersion varbinary(8) [not null]
+  RulesJson nvarchar(max) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table flight.Flights {
+  AircraftId uniqueidentifier [not null]
+  AirlineId uniqueidentifier [not null]
+  ArrivalAt datetimeoffset [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DepartureAt datetimeoffset [not null]
+  FlightNumber nvarchar(20) [not null]
+  FromAirportId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Notes nvarchar(2000)
+  RowVersion varbinary(8) [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  ToAirportId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table flight.Offers {
+  AirlineId uniqueidentifier [not null]
+  BaseFare decimal(18,2) [not null]
+  ConditionsJson nvarchar(max)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode char(3) [not null]
+  ExpiresAt datetimeoffset [not null]
+  FareClassId uniqueidentifier [not null]
+  FlightId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  MetadataJson nvarchar(max)
+  RequestedAt datetimeoffset [not null]
+  RowVersion varbinary(8) [not null]
+  SeatsAvailable int [increment, not null]
+  Status int [not null]
+  TaxesFees decimal(18,2) [not null]
+  TenantId uniqueidentifier [not null]
+  TotalPrice decimal(18,2) [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table flight.OfferSegments {
+  ArrivalAt datetimeoffset [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DepartureAt datetimeoffset [not null]
+  FlightNumber nvarchar(20)
+  FromAirportId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  OfferId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  SegmentIndex int [not null]
+  TenantId uniqueidentifier [not null]
+  ToAirportId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table flight.OfferTaxFeeLines {
+  Amount decimal(18,2) [not null]
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode char(3) [not null]
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  LineType int [not null]
+  Name nvarchar(200) [not null]
+  OfferId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  SortOrder int [increment, not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table geo.Districts {
+  Code int [not null]
+  CreatedAt datetimeoffset [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  Name nvarchar(200) [not null]
+  NameEn nvarchar(200)
+  ProvinceId uniqueidentifier [not null]
+  Slug nvarchar(250)
+  Type nvarchar(50)
+  UpdatedAt datetimeoffset
+}
+
+Table geo.GeoSyncLogs {
+  CreatedAt datetimeoffset [not null]
+  Depth int [not null]
+  DistrictsInserted int [not null]
+  DistrictsUpdated int [not null]
+  ErrorDetail nvarchar(max)
+  ErrorMessage nvarchar(1000)
+  HttpStatus int [not null]
+  Id uniqueidentifier [pk, not null]
+  IsSuccess bit [not null]
+  ProvincesInserted int [not null]
+  ProvincesUpdated int [not null]
+  Source nvarchar(100) [not null]
+  Url nvarchar(500) [not null]
+  WardsInserted int [not null]
+  WardsUpdated int [not null]
+}
+
+Table geo.Provinces {
+  Code int [not null]
+  CreatedAt datetimeoffset [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  Name nvarchar(200) [not null]
+  NameEn nvarchar(200)
+  RegionCode int
+  Slug nvarchar(250)
+  Type nvarchar(50)
+  UpdatedAt datetimeoffset
+}
+
+Table geo.Wards {
+  Code int [not null]
+  CreatedAt datetimeoffset [not null]
+  DistrictId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  Name nvarchar(200) [not null]
+  NameEn nvarchar(200)
+  Slug nvarchar(250)
+  Type nvarchar(50)
+  UpdatedAt datetimeoffset
+}
+
+Table hotels.BedTypes {
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Description nvarchar(2000)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.CancellationPolicies {
+  Code nvarchar(80) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Description nvarchar(2000)
+  HotelId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MetadataJson nvarchar(max)
+  Name nvarchar(300) [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.CancellationPolicyRules {
+  CancelBeforeDays int
+  CancelBeforeHours int
+  CancellationPolicyId uniqueidentifier [not null]
+  ChargeType int [not null]
+  ChargeValue decimal(18,2) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode nvarchar(10) [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Notes nvarchar(2000)
+  Priority int [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.CheckInOutRules {
+  AllowsEarlyCheckIn bit [not null]
+  AllowsLateCheckOut bit [not null]
+  CheckInFrom time(0) [not null]
+  CheckInTo time(0) [not null]
+  CheckOutFrom time(0) [not null]
+  CheckOutTo time(0) [not null]
+  Code nvarchar(80) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  HotelId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(300) [not null]
+  Notes nvarchar(2000)
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.DailyRates {
+  BasePrice decimal(18,2)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode nvarchar(10) [not null]
+  Date date [not null]
+  Fees decimal(18,2)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MetadataJson nvarchar(max)
+  Price decimal(18,2) [not null]
+  RatePlanRoomTypeId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  Taxes decimal(18,2)
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.ExtraServicePrices {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode nvarchar(10) [not null]
+  EndDate date [not null]
+  ExtraServiceId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Price decimal(18,2) [not null]
+  RowVersion varbinary(8) [not null]
+  StartDate date [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.ExtraServices {
+  Code nvarchar(80) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Description nvarchar(2000)
+  HotelId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MetadataJson nvarchar(max)
+  Name nvarchar(300) [not null]
+  RowVersion varbinary(8) [not null]
+  Taxable bit [not null]
+  TenantId uniqueidentifier [not null]
+  Type int [not null]
+  Unit int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.HotelAmenities {
+  Code nvarchar(80) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Description nvarchar(2000)
+  IconKey nvarchar(200)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Kind int [not null]
+  MetadataJson nvarchar(max)
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(8) [not null]
+  Scope int [not null]
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.HotelAmenityLinks {
+  AmenityId uniqueidentifier [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  HotelId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  IsHighlighted bit [not null]
+  Notes nvarchar(2000)
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.HotelContacts {
+  ContactName nvarchar(200) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Email nvarchar(200)
+  HotelId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  IsPrimary bit [not null]
+  Notes nvarchar(2000)
+  Phone nvarchar(50)
+  RoleTitle nvarchar(200)
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.HotelImages {
+  AltText nvarchar(300)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  HotelId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  ImageUrl nvarchar(1000)
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Kind int [not null]
+  MediaAssetId uniqueidentifier
+  RowVersion varbinary(8) [not null]
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  Title nvarchar(200)
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.HotelReviews {
+  BookingId uniqueidentifier
+  Content nvarchar(max)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CustomerUserId uniqueidentifier
+  HelpfulCount int [not null]
+  HotelId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  IsVerifiedStay bit [not null]
+  MetadataJson nvarchar(max)
+  Rating int [not null]
+  RowVersion varbinary(8) [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  Title nvarchar(300)
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.Hotels {
+  AddressLine nvarchar(500)
+  CanonicalUrl nvarchar(1000)
+  City nvarchar(200)
+  Code nvarchar(50) [not null]
+  CountryCode nvarchar(10)
+  CoverImageUrl nvarchar(1000)
+  CoverMediaAssetId uniqueidentifier
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DefaultCheckInTime time(0)
+  DefaultCheckOutTime time(0)
+  DescriptionHtml nvarchar(max)
+  DescriptionMarkdown nvarchar(max)
+  Email nvarchar(200)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Latitude decimal(9,6)
+  LocationId uniqueidentifier
+  Longitude decimal(9,6)
+  MetadataJson nvarchar(max)
+  Name nvarchar(300) [not null]
+  OgImageUrl nvarchar(1000)
+  Phone nvarchar(50)
+  PoliciesJson nvarchar(max)
+  Province nvarchar(200)
+  Robots nvarchar(200)
+  RowVersion varbinary(8) [not null]
+  SchemaJsonLd nvarchar(max)
+  SeoDescription nvarchar(2000)
+  SeoKeywords nvarchar(2000)
+  SeoTitle nvarchar(300)
+  ShortDescription nvarchar(2000)
+  Slug nvarchar(300)
+  StarRating int [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  TimeZone nvarchar(100)
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  WebsiteUrl nvarchar(1000)
+}
+
+Table hotels.InventoryHolds {
+  BookingId uniqueidentifier
+  BookingItemId uniqueidentifier
+  CheckInDate date [not null]
+  CheckOutDate date [not null]
+  CorrelationId nvarchar(100)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  HoldExpiresAt datetimeoffset [not null]
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  Notes nvarchar(2000)
+  RoomTypeId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  Units int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.MealPlans {
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Description nvarchar(2000)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.PromoRateOverrides {
+  ConditionsJson nvarchar(max)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode nvarchar(10) [not null]
+  DiscountPercent decimal(5,2)
+  EndDate date [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  OverridePrice decimal(18,2)
+  PromoCode nvarchar(80)
+  PromoCodeId uniqueidentifier
+  RatePlanRoomTypeId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  StartDate date [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.PropertyPolicies {
+  Code nvarchar(80) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  HotelId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(300) [not null]
+  Notes nvarchar(2000)
+  PolicyJson nvarchar(max)
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.RatePlanPolicies {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  PolicyJson nvarchar(max)
+  RatePlanId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.RatePlanRoomTypes {
+  BasePrice decimal(18,2)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode nvarchar(10) [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  RatePlanId uniqueidentifier [not null]
+  RoomTypeId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.RatePlans {
+  BreakfastIncluded bit [not null]
+  CancellationPolicyId uniqueidentifier
+  CheckInOutRuleId uniqueidentifier
+  Code nvarchar(80) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Description nvarchar(2000)
+  HotelId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MaxAdvanceDays int
+  MaxNights int
+  MetadataJson nvarchar(max)
+  MinAdvanceDays int
+  MinNights int
+  Name nvarchar(300) [not null]
+  PropertyPolicyId uniqueidentifier
+  Refundable bit [not null]
+  RequiresGuarantee bit [not null]
+  RowVersion varbinary(8) [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.RoomAmenities {
+  Code nvarchar(80) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Description nvarchar(2000)
+  IconKey nvarchar(200)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Kind int [not null]
+  MetadataJson nvarchar(max)
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(8) [not null]
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.RoomAmenityLinks {
+  AmenityId uniqueidentifier [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  IsHighlighted bit [not null]
+  Notes nvarchar(2000)
+  RoomTypeId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.RoomTypeBeds {
+  BedTypeId uniqueidentifier [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  Quantity int [not null]
+  RoomTypeId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.RoomTypeImages {
+  AltText nvarchar(300)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  ImageUrl nvarchar(1000)
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Kind int [not null]
+  MediaAssetId uniqueidentifier
+  RoomTypeId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  Title nvarchar(200)
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.RoomTypeInventories {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Date date [not null]
+  HeldUnits int [not null]
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  MaxNights int
+  MinNights int
+  Notes nvarchar(2000)
+  RoomTypeId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  SoldUnits int [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  TotalUnits int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.RoomTypeMealPlans {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDefault bit [not null]
+  IsDeleted bit [not null]
+  MealPlanId uniqueidentifier [not null]
+  RoomTypeId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.RoomTypeOccupancyRules {
+  AllowsInfants bit [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MaxAdults int [not null]
+  MaxChildren int [not null]
+  MaxGuests int [not null]
+  MaxInfants int
+  MinAdults int [not null]
+  MinChildren int [not null]
+  MinGuests int [not null]
+  Notes nvarchar(2000)
+  RoomTypeId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.RoomTypePolicies {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  PolicyJson nvarchar(max)
+  RoomTypeId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table hotels.RoomTypes {
+  AreaSquareMeters int
+  Code nvarchar(50) [not null]
+  CoverImageUrl nvarchar(1000)
+  CoverMediaAssetId uniqueidentifier
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DefaultAdults int [not null]
+  DefaultChildren int [not null]
+  DescriptionHtml nvarchar(max)
+  DescriptionMarkdown nvarchar(max)
+  HasBalcony bit
+  HasWindow bit
+  HotelId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MaxAdults int [not null]
+  MaxChildren int [not null]
+  MaxGuests int [not null]
+  MetadataJson nvarchar(max)
+  Name nvarchar(300) [not null]
+  RowVersion varbinary(8) [not null]
+  SmokingAllowed bit
+  SortOrder int [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  TotalUnits int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tenants.TenantRolePermissions {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  PermissionId uniqueidentifier [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  TenantRoleId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tenants.TenantRoles {
+  Code nvarchar(80) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Description nvarchar(1000)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tenants.Tenants {
+  Code nvarchar(32) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  HoldMinutes int [increment, not null]
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200) [not null]
+  RowVersion varbinary(max) [not null]
+  Status int [not null]
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tenants.TenantUserRoles {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  RowVersion varbinary(8) [not null]
+  TenantId uniqueidentifier [not null]
+  TenantRoleId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  UserId uniqueidentifier [not null]
+}
+
+Table tenants.TenantUsers {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  IsOwner bit [not null]
+  RoleName nvarchar(50) [not null]
+  RowVersion varbinary(max) [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  UserId uniqueidentifier [not null]
+}
+
+Table tours.TourAddons {
+  AllowQuantitySelection bit [not null]
+  BasePrice decimal(18,2) [not null]
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode nvarchar(10) [not null]
+  DescriptionHtml nvarchar(max)
+  DescriptionMarkdown nvarchar(max)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDefaultSelected bit [not null]
+  IsDeleted bit [not null]
+  IsPerPerson bit [not null]
+  IsRequired bit [not null]
+  MaxQuantity int
+  MetadataJson nvarchar(max)
+  MinQuantity int
+  Name nvarchar(300) [not null]
+  Notes nvarchar(2000)
+  OriginalPrice decimal(18,2)
+  RowVersion varbinary(8) [not null]
+  ShortDescription nvarchar(2000)
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  TourId uniqueidentifier [not null]
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tours.TourContacts {
+  ContactType int [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Department nvarchar(200)
+  Email nvarchar(200)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  IsPrimary bit [not null]
+  MetadataJson nvarchar(max)
+  Name nvarchar(200) [not null]
+  Notes nvarchar(2000)
+  Phone nvarchar(50)
+  RowVersion varbinary(8) [not null]
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  Title nvarchar(200)
+  TourId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tours.TourDropoffPoints {
+  AddressLine nvarchar(500)
+  Code nvarchar(50) [not null]
+  CountryCode nvarchar(10)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  District nvarchar(200)
+  DropoffTime time
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDefault bit [not null]
+  IsDeleted bit [not null]
+  Latitude decimal(18,6)
+  Longitude decimal(18,6)
+  MetadataJson nvarchar(max)
+  Name nvarchar(300) [not null]
+  Notes nvarchar(2000)
+  Province nvarchar(200)
+  RowVersion varbinary(8) [not null]
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  TourId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  Ward nvarchar(200)
+}
+
+Table tours.TourFaqs {
+  AnswerHtml nvarchar(max)
+  AnswerMarkdown nvarchar(max) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  IsHighlighted bit [not null]
+  MetadataJson nvarchar(max)
+  Notes nvarchar(2000)
+  Question nvarchar(1000) [not null]
+  RowVersion varbinary(8) [not null]
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  TourId uniqueidentifier [not null]
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tours.TourImages {
+  AltText nvarchar(500)
+  Caption nvarchar(500)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  ImageUrl nvarchar(1000)
+  IsActive bit [not null]
+  IsCover bit [not null]
+  IsDeleted bit [not null]
+  IsFeatured bit [not null]
+  IsPrimary bit [not null]
+  MediaAssetId uniqueidentifier
+  MetadataJson nvarchar(max)
+  RowVersion varbinary(8) [not null]
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  Title nvarchar(500)
+  TourId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tours.TourItineraryDays {
+  AccommodationName nvarchar(300)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DayNumber int [not null]
+  DescriptionHtml nvarchar(max)
+  DescriptionMarkdown nvarchar(max)
+  EndLocation nvarchar(300)
+  Id uniqueidentifier [pk, not null]
+  IncludesBreakfast bit [not null]
+  IncludesDinner bit [not null]
+  IncludesLunch bit [not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MetadataJson nvarchar(max)
+  Notes nvarchar(2000)
+  RowVersion varbinary(8) [not null]
+  ShortDescription nvarchar(2000)
+  SortOrder int [not null]
+  StartLocation nvarchar(300)
+  TenantId uniqueidentifier [not null]
+  Title nvarchar(300) [not null]
+  TourId uniqueidentifier [not null]
+  TransportationSummary nvarchar(1000)
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tours.TourItineraryItems {
+  AddressLine nvarchar(500)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DescriptionHtml nvarchar(max)
+  DescriptionMarkdown nvarchar(max)
+  EndTime time
+  Id uniqueidentifier [pk, not null]
+  IncludesMeal bit [not null]
+  IncludesTicket bit [not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  IsOptional bit [not null]
+  LocationName nvarchar(300)
+  MetadataJson nvarchar(max)
+  Notes nvarchar(2000)
+  RequiresAdditionalFee bit [not null]
+  RowVersion varbinary(8) [not null]
+  ShortDescription nvarchar(2000)
+  SortOrder int [not null]
+  StartTime time
+  TenantId uniqueidentifier [not null]
+  Title nvarchar(300) [not null]
+  TourItineraryDayId uniqueidentifier [not null]
+  TransportationMode nvarchar(100)
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tours.TourPickupPoints {
+  AddressLine nvarchar(500)
+  Code nvarchar(50) [not null]
+  CountryCode nvarchar(10)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  District nvarchar(200)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDefault bit [not null]
+  IsDeleted bit [not null]
+  Latitude decimal(18,6)
+  Longitude decimal(18,6)
+  MetadataJson nvarchar(max)
+  Name nvarchar(300) [not null]
+  Notes nvarchar(2000)
+  PickupTime time
+  Province nvarchar(200)
+  RowVersion varbinary(8) [not null]
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  TourId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  Ward nvarchar(200)
+}
+
+Table tours.TourPolicies {
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DescriptionHtml nvarchar(max)
+  DescriptionMarkdown nvarchar(max)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  IsHighlighted bit [not null]
+  MetadataJson nvarchar(max)
+  Name nvarchar(300) [not null]
+  Notes nvarchar(2000)
+  PolicyJson nvarchar(max)
+  RowVersion varbinary(8) [not null]
+  ShortDescription nvarchar(2000)
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  TourId uniqueidentifier [not null]
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tours.TourReviews {
+  ApprovedAt datetimeoffset
+  ApprovedByUserId uniqueidentifier
+  Content nvarchar(4000)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsApproved bit [not null]
+  IsDeleted bit [not null]
+  IsPublic bit [not null]
+  MetadataJson nvarchar(max)
+  ModerationNote nvarchar(2000)
+  PublishedAt datetimeoffset
+  Rating decimal(4,2) [not null]
+  ReplyAt datetimeoffset
+  ReplyByUserId uniqueidentifier
+  ReplyContent nvarchar(4000)
+  ReviewerName nvarchar(200)
+  RowVersion varbinary(8) [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  Title nvarchar(300)
+  TourId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tours.Tours {
+  City nvarchar(200)
+  Code nvarchar(50) [not null]
+  CountryCode nvarchar(10)
+  CoverImageUrl nvarchar(1000)
+  CoverMediaAssetId uniqueidentifier
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode nvarchar(10) [not null]
+  DescriptionHtml nvarchar(max)
+  DescriptionMarkdown nvarchar(max)
+  Difficulty int [not null]
+  DurationDays int [not null]
+  DurationNights int [not null]
+  ExcludesJson nvarchar(max)
+  HighlightsJson nvarchar(max)
+  Id uniqueidentifier [pk, not null]
+  IncludesJson nvarchar(max)
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  IsFeatured bit [not null]
+  IsFeaturedOnHome bit [not null]
+  IsInstantConfirm bit [not null]
+  IsPrivateTourSupported bit [not null]
+  MaxAge int
+  MaxGuests int
+  MeetingPointSummary nvarchar(1000)
+  MetadataJson nvarchar(max)
+  MinAge int
+  MinGuests int
+  Name nvarchar(300) [not null]
+  PrimaryLocationId uniqueidentifier
+  ProviderId uniqueidentifier
+  Province nvarchar(200)
+  RowVersion varbinary(8) [not null]
+  ShortDescription nvarchar(2000)
+  Slug nvarchar(300) [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  TermsJson nvarchar(max)
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tours.TourScheduleAddonPrices {
+  AllowQuantitySelection bit [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode nvarchar(10) [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDefaultSelected bit [not null]
+  IsDeleted bit [not null]
+  IsPerPerson bit [not null]
+  IsRequired bit [not null]
+  MaxQuantity int
+  MetadataJson nvarchar(max)
+  MinQuantity int
+  Notes nvarchar(2000)
+  OriginalPrice decimal(18,2)
+  Price decimal(18,2)
+  RowVersion varbinary(8) [not null]
+  SortOrder int [not null]
+  TenantId uniqueidentifier [not null]
+  TourAddonId uniqueidentifier [not null]
+  TourScheduleId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tours.TourScheduleCapacities {
+  AllowWaitlist bit [not null]
+  AutoCloseWhenFull bit [not null]
+  BlockedSlots int [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  HeldSlots int [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MaxGuestsPerBooking int
+  MetadataJson nvarchar(max)
+  MinGuestsToOperate int
+  Notes nvarchar(2000)
+  RowVersion varbinary(8) [not null]
+  SoldSlots int [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  TotalSlots int [not null]
+  TourScheduleId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  WarningThreshold int
+}
+
+Table tours.TourSchedulePrices {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode nvarchar(10) [not null]
+  Fees decimal(18,2)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDefault bit [not null]
+  IsDeleted bit [not null]
+  IsIncludedFee bit [not null]
+  IsIncludedTax bit [not null]
+  Label nvarchar(200)
+  MaxAge int
+  MaxQuantity int
+  MetadataJson nvarchar(max)
+  MinAge int
+  MinQuantity int
+  Notes nvarchar(2000)
+  OriginalPrice decimal(18,2)
+  Price decimal(18,2) [not null]
+  PriceType int [not null]
+  RowVersion varbinary(8) [not null]
+  Taxes decimal(18,2)
+  TenantId uniqueidentifier [not null]
+  TourScheduleId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table tours.TourSchedules {
+  BookingCutoffAt datetimeoffset
+  BookingOpenAt datetimeoffset
+  CancellationNotes nvarchar(4000)
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DepartureDate date [not null]
+  DepartureTime time
+  DropoffSummary nvarchar(1000)
+  Id uniqueidentifier [pk, not null]
+  InternalNotes nvarchar(4000)
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  IsFeatured bit [not null]
+  IsGuaranteedDeparture bit [not null]
+  IsInstantConfirm bit [not null]
+  MaxGuests int
+  MeetingPointSummary nvarchar(1000)
+  MetadataJson nvarchar(max)
+  MinGuestsToOperate int
+  Name nvarchar(300)
+  Notes nvarchar(4000)
+  PickupSummary nvarchar(1000)
+  ReturnDate date [not null]
+  ReturnTime time
+  RowVersion varbinary(8) [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  TourId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table train.Routes {
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DistanceKm int [increment, not null]
+  EstimatedMinutes int [increment, not null]
+  FromStopPointId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200) [not null]
+  ProviderId uniqueidentifier [not null]
+  RowVersion varbinary(max) [not null]
+  TenantId uniqueidentifier [not null]
+  ToStopPointId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table train.RouteStops {
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DistanceFromStartKm int
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MinutesFromStart int
+  RouteId uniqueidentifier [not null]
+  RowVersion varbinary(max) [not null]
+  StopIndex int [not null]
+  StopPointId uniqueidentifier [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table train.StopPoints {
+  AddressLine nvarchar(300)
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Latitude float
+  LocationId uniqueidentifier [not null]
+  Longitude float
+  Name nvarchar(200) [not null]
+  Notes nvarchar(max)
+  RowVersion varbinary(max) [not null]
+  SortOrder int [increment, not null]
+  TenantId uniqueidentifier [not null]
+  Type int [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table train.TrainCars {
+  CabinClass nvarchar(50)
+  CarNumber nvarchar(20) [not null]
+  CarType int [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  RowVersion varbinary(max) [not null]
+  SortOrder int [increment, not null]
+  TenantId uniqueidentifier [not null]
+  TripId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table train.TrainCarSeats {
+  CarId uniqueidentifier [not null]
+  ColumnIndex int [not null]
+  CompartmentCode nvarchar(20)
+  CompartmentIndex int
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsAisle bit [not null]
+  IsDeleted bit [not null]
+  IsWindow bit [not null]
+  PriceModifier decimal(18,2)
+  RowIndex int [not null]
+  RowVersion varbinary(max) [not null]
+  SeatClass nvarchar(50)
+  SeatNumber nvarchar(30) [not null]
+  SeatType int [not null]
+  TenantId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table train.Trips {
+  ArrivalAt datetimeoffset [not null]
+  BaggagePolicyJson nvarchar(max)
+  BoardingPolicyJson nvarchar(max)
+  Code nvarchar(50) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DepartureAt datetimeoffset [not null]
+  FareRulesJson nvarchar(max)
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  Name nvarchar(200) [not null]
+  ProviderId uniqueidentifier [not null]
+  RouteId uniqueidentifier [not null]
+  RowVersion varbinary(max) [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  TrainNumber nvarchar(20) [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table train.TripSeatHolds {
+  BookingId uniqueidentifier
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  FromStopIndex int [not null]
+  FromTripStopTimeId uniqueidentifier [not null]
+  HoldExpiresAt datetimeoffset [not null]
+  HoldToken nvarchar(100) [not null]
+  Id uniqueidentifier [pk, not null]
+  IsDeleted bit [not null]
+  RowVersion varbinary(max) [not null]
+  Status int [not null]
+  TenantId uniqueidentifier [not null]
+  ToStopIndex int [not null]
+  ToTripStopTimeId uniqueidentifier [not null]
+  TrainCarSeatId uniqueidentifier [not null]
+  TripId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+  UserId uniqueidentifier
+}
+
+Table train.TripSegmentPrices {
+  BaseFare decimal(18,2) [not null]
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  CurrencyCode nvarchar(3) [not null]
+  FromStopIndex int [not null]
+  FromTripStopTimeId uniqueidentifier [not null]
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  RowVersion varbinary(max) [not null]
+  TaxesFees decimal(18,2)
+  TenantId uniqueidentifier [not null]
+  ToStopIndex int [not null]
+  TotalPrice decimal(18,2) [not null]
+  ToTripStopTimeId uniqueidentifier [not null]
+  TripId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Table train.TripStopTimes {
+  ArriveAt datetimeoffset
+  CreatedAt datetimeoffset [not null]
+  CreatedByUserId uniqueidentifier
+  DepartAt datetimeoffset
+  Id uniqueidentifier [pk, not null]
+  IsActive bit [not null]
+  IsDeleted bit [not null]
+  MinutesFromStart int
+  RowVersion varbinary(max) [not null]
+  StopIndex int [not null]
+  StopPointId uniqueidentifier [not null]
+  TenantId uniqueidentifier [not null]
+  TripId uniqueidentifier [not null]
+  UpdatedAt datetimeoffset
+  UpdatedByUserId uniqueidentifier
+}
+
+Ref: auth.RolePermissions.PermissionId > auth.Permissions.Id
+Ref: auth.UserPermissions.PermissionId > auth.Permissions.Id
+Ref: bus.Routes.FromStopPointId > bus.StopPoints.Id
+Ref: bus.Routes.ProviderId > catalog.Providers.Id
+Ref: bus.Routes.ToStopPointId > bus.StopPoints.Id
+Ref: bus.RouteStops.RouteId > bus.Routes.Id
+Ref: bus.RouteStops.StopPointId > bus.StopPoints.Id
+Ref: bus.StopPoints.LocationId > catalog.Locations.Id
+Ref: bus.Trips.ProviderId > catalog.Providers.Id
+Ref: bus.Trips.RouteId > bus.Routes.Id
+Ref: bus.Trips.VehicleId > fleet.Vehicles.Id
+Ref: bus.TripSeatHolds.FromTripStopTimeId > bus.TripStopTimes.Id
+Ref: bus.TripSeatHolds.SeatId > fleet.Seats.Id
+Ref: bus.TripSeatHolds.ToTripStopTimeId > bus.TripStopTimes.Id
+Ref: bus.TripSeatHolds.TripId > bus.Trips.Id
+Ref: bus.TripSegmentPrices.FromTripStopTimeId > bus.TripStopTimes.Id
+Ref: bus.TripSegmentPrices.ToTripStopTimeId > bus.TripStopTimes.Id
+Ref: bus.TripSegmentPrices.TripId > bus.Trips.Id
+Ref: bus.TripStopDropoffPoints.TripStopTimeId > bus.TripStopTimes.Id
+Ref: bus.TripStopPickupPoints.TripStopTimeId > bus.TripStopTimes.Id
+Ref: bus.TripStopTimes.StopPointId > bus.StopPoints.Id
+Ref: bus.TripStopTimes.TripId > bus.Trips.Id
+Ref: catalog.Locations.DistrictId > geo.Districts.Id
+Ref: catalog.Locations.ProvinceId > geo.Provinces.Id
+Ref: catalog.Locations.WardId > geo.Wards.Id
+Ref: catalog.Providers.DistrictId > geo.Districts.Id
+Ref: catalog.Providers.LocationId > catalog.Locations.Id
+Ref: catalog.Providers.ProvinceId > geo.Provinces.Id
+Ref: catalog.Providers.WardId > geo.Wards.Id
+Ref: cms.NewsPostCategories.CategoryId > cms.NewsCategories.Id
+Ref: cms.NewsPostCategories.PostId > cms.NewsPosts.Id
+Ref: cms.NewsPostRevisions.PostId > cms.NewsPosts.Id
+Ref: cms.NewsPosts.CoverMediaAssetId > cms.MediaAssets.Id
+Ref: cms.NewsPostTags.PostId > cms.NewsPosts.Id
+Ref: cms.NewsPostTags.TagId > cms.NewsTags.Id
+Ref: fleet.BusVehicleDetails.VehicleId > fleet.Vehicles.Id
+Ref: fleet.Seats.SeatMapId > fleet.SeatMaps.Id
+Ref: fleet.Vehicles.ProviderId > catalog.Providers.Id
+Ref: fleet.Vehicles.SeatMapId > fleet.SeatMaps.Id
+Ref: fleet.Vehicles.VehicleModelId > fleet.VehicleModels.Id
+Ref: flight.Aircrafts.AircraftModelId > flight.AircraftModels.Id
+Ref: flight.Aircrafts.AirlineId > flight.Airlines.Id
+Ref: flight.Airports.LocationId > catalog.Locations.Id
+Ref: flight.AncillaryDefinitions.AirlineId > flight.Airlines.Id
+Ref: flight.CabinSeatMaps.AircraftModelId > flight.AircraftModels.Id
+Ref: flight.CabinSeats.CabinSeatMapId > flight.CabinSeatMaps.Id
+Ref: flight.FareClasses.AirlineId > flight.Airlines.Id
+Ref: flight.FareRules.FareClassId > flight.FareClasses.Id
+Ref: flight.Flights.AircraftId > flight.Aircrafts.Id
+Ref: flight.Flights.AirlineId > flight.Airlines.Id
+Ref: flight.Flights.FromAirportId > flight.Airports.Id
+Ref: flight.Flights.ToAirportId > flight.Airports.Id
+Ref: flight.Offers.AirlineId > flight.Airlines.Id
+Ref: flight.Offers.FareClassId > flight.FareClasses.Id
+Ref: flight.Offers.FlightId > flight.Flights.Id
+Ref: flight.OfferSegments.FromAirportId > flight.Airports.Id
+Ref: flight.OfferSegments.OfferId > flight.Offers.Id
+Ref: flight.OfferSegments.ToAirportId > flight.Airports.Id
+Ref: flight.OfferTaxFeeLines.OfferId > flight.Offers.Id
+Ref: geo.Districts.ProvinceId > geo.Provinces.Id
+Ref: geo.Wards.DistrictId > geo.Districts.Id
+Ref: hotels.CancellationPolicies.HotelId > hotels.Hotels.Id
+Ref: hotels.CancellationPolicyRules.CancellationPolicyId > hotels.CancellationPolicies.Id
+Ref: hotels.CheckInOutRules.HotelId > hotels.Hotels.Id
+Ref: hotels.DailyRates.RatePlanRoomTypeId > hotels.RatePlanRoomTypes.Id
+Ref: hotels.ExtraServicePrices.ExtraServiceId > hotels.ExtraServices.Id
+Ref: hotels.ExtraServices.HotelId > hotels.Hotels.Id
+Ref: hotels.HotelAmenityLinks.AmenityId > hotels.HotelAmenities.Id
+Ref: hotels.HotelAmenityLinks.HotelId > hotels.Hotels.Id
+Ref: hotels.HotelContacts.HotelId > hotels.Hotels.Id
+Ref: hotels.HotelImages.HotelId > hotels.Hotels.Id
+Ref: hotels.HotelReviews.HotelId > hotels.Hotels.Id
+Ref: hotels.InventoryHolds.RoomTypeId > hotels.RoomTypes.Id
+Ref: hotels.PromoRateOverrides.RatePlanRoomTypeId > hotels.RatePlanRoomTypes.Id
+Ref: hotels.PropertyPolicies.HotelId > hotels.Hotels.Id
+Ref: hotels.RatePlanPolicies.RatePlanId > hotels.RatePlans.Id
+Ref: hotels.RatePlanRoomTypes.RatePlanId > hotels.RatePlans.Id
+Ref: hotels.RatePlanRoomTypes.RoomTypeId > hotels.RoomTypes.Id
+Ref: hotels.RatePlans.CancellationPolicyId > hotels.CancellationPolicies.Id
+Ref: hotels.RatePlans.CheckInOutRuleId > hotels.CheckInOutRules.Id
+Ref: hotels.RatePlans.HotelId > hotels.Hotels.Id
+Ref: hotels.RatePlans.PropertyPolicyId > hotels.PropertyPolicies.Id
+Ref: hotels.RoomAmenityLinks.AmenityId > hotels.RoomAmenities.Id
+Ref: hotels.RoomAmenityLinks.RoomTypeId > hotels.RoomTypes.Id
+Ref: hotels.RoomTypeBeds.BedTypeId > hotels.BedTypes.Id
+Ref: hotels.RoomTypeBeds.RoomTypeId > hotels.RoomTypes.Id
+Ref: hotels.RoomTypeImages.RoomTypeId > hotels.RoomTypes.Id
+Ref: hotels.RoomTypeInventories.RoomTypeId > hotels.RoomTypes.Id
+Ref: hotels.RoomTypeMealPlans.MealPlanId > hotels.MealPlans.Id
+Ref: hotels.RoomTypeMealPlans.RoomTypeId > hotels.RoomTypes.Id
+Ref: hotels.RoomTypeOccupancyRules.RoomTypeId > hotels.RoomTypes.Id
+Ref: hotels.RoomTypePolicies.RoomTypeId > hotels.RoomTypes.Id
+Ref: hotels.RoomTypes.HotelId > hotels.Hotels.Id
+Ref: tenants.TenantRolePermissions.PermissionId > auth.Permissions.Id
+Ref: tenants.TenantRolePermissions.TenantId > tenants.Tenants.Id
+Ref: tenants.TenantRolePermissions.TenantRoleId > tenants.TenantRoles.Id
+Ref: tenants.TenantRoles.TenantId > tenants.Tenants.Id
+Ref: tenants.TenantUserRoles.TenantId > tenants.Tenants.Id
+Ref: tenants.TenantUserRoles.TenantRoleId > tenants.TenantRoles.Id
+Ref: tenants.TenantUsers.TenantId > tenants.Tenants.Id
+Ref: tours.TourAddons.TourId > tours.Tours.Id
+Ref: tours.TourContacts.TourId > tours.Tours.Id
+Ref: tours.TourDropoffPoints.TourId > tours.Tours.Id
+Ref: tours.TourFaqs.TourId > tours.Tours.Id
+Ref: tours.TourImages.TourId > tours.Tours.Id
+Ref: tours.TourItineraryDays.TourId > tours.Tours.Id
+Ref: tours.TourItineraryItems.TourItineraryDayId > tours.TourItineraryDays.Id
+Ref: tours.TourPickupPoints.TourId > tours.Tours.Id
+Ref: tours.TourPolicies.TourId > tours.Tours.Id
+Ref: tours.TourReviews.TourId > tours.Tours.Id
+Ref: tours.TourScheduleAddonPrices.TourAddonId > tours.TourAddons.Id
+Ref: tours.TourScheduleAddonPrices.TourScheduleId > tours.TourSchedules.Id
+Ref: tours.TourScheduleCapacities.TourScheduleId > tours.TourSchedules.Id
+Ref: tours.TourSchedulePrices.TourScheduleId > tours.TourSchedules.Id
+Ref: tours.TourSchedules.TourId > tours.Tours.Id
+Ref: train.Routes.FromStopPointId > train.StopPoints.Id
+Ref: train.Routes.ToStopPointId > train.StopPoints.Id
+Ref: train.RouteStops.RouteId > train.Routes.Id
+Ref: train.RouteStops.StopPointId > train.StopPoints.Id
+Ref: train.StopPoints.LocationId > catalog.Locations.Id
+Ref: train.TrainCars.TripId > train.Trips.Id
+Ref: train.TrainCarSeats.CarId > train.TrainCars.Id
+Ref: train.Trips.RouteId > train.Routes.Id
+Ref: train.TripSeatHolds.FromTripStopTimeId > train.TripStopTimes.Id
+Ref: train.TripSeatHolds.ToTripStopTimeId > train.TripStopTimes.Id
+Ref: train.TripSeatHolds.TrainCarSeatId > train.TrainCarSeats.Id
+Ref: train.TripSeatHolds.TripId > train.Trips.Id
+Ref: train.TripSegmentPrices.FromTripStopTimeId > train.TripStopTimes.Id
+Ref: train.TripSegmentPrices.ToTripStopTimeId > train.TripStopTimes.Id
+Ref: train.TripSegmentPrices.TripId > train.Trips.Id
+Ref: train.TripStopTimes.StopPointId > train.StopPoints.Id
+Ref: train.TripStopTimes.TripId > train.Trips.Id

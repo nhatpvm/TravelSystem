@@ -1,0 +1,17 @@
+{
+  "trackingCode": "ONB-20260408-0880A9BD69",
+  "serviceType": "bus",
+  "businessName": "Phase3 Partner Bus",
+  "taxCode": "0312345678",
+  "address": "123 Duong Le Loi, Quan 1, TP HCM",
+  "contactEmail": null,
+  "contactPhone": null,
+  "status": "PendingReview",
+  "submittedAt": "2026-04-08T23:55:08.0661093+07:00",
+  "legalDocument": {
+    "originalFileName": "tmp-phase3-onboarding.pdf",
+    "storedFileName": "legal-document.pdf",
+    "contentType": "application/pdf",
+    "sizeBytes": 22
+  }
+}

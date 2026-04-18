@@ -1,0 +1,164 @@
+{
+  "startedAt": "2026-04-16T17:19:45.307Z",
+  "ok": false,
+  "pages": [
+    {
+      "route": "/checkout?product=bus&tripId=0c9c008a-75fc-4a3e-956f-44f16eba8897&fromTripStopTimeId=b147108a-d584-4c2a-884b-05f203d761d0&toTripStopTimeId=71cfa391-1d7c-4550-b781-b80b570345bc&holdToken=ui-bus-1776359985015&seatCount=1",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\01_checkout_bus.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nXác nhận vé xe khách\n1\nThông tin liên hệ\nHỌ VÀ TÊN\nSỐ ĐIỆN THOẠI\nEMAIL NHẬN XÁC NHẬN\nGHI CHÚ CHO ĐƠN HÀNG\n2\nDanh sách hành khách\nĐiền từ danh sách đã lưu\n\nNgười lớn 1\n\nTHÔNG TIN HÀNH KHÁCH\n\nYêu cầu xuất hóa đơn VAT\n\nXuất hóa đ"
+    },
+    {
+      "route": "/payment?orderCode=ORD-2026041617044423756D",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\02_payment_pending.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nThanh toán đơn hàng\nAn unexpected error occurred.\n2TMNY\nĐăng ký bản tin\n\nNhận các ưu đãi và cập nhật mới nhất từ chúng tôi\n\nĐăng ký\nLiên kết nhanh\nTrang chủ\nVề chúng tôi\nBlog\nDịch vụ\nTour\nDịch vụ\nPhiêu lưu lãng du\nDu lịch xuyê"
+    },
+    {
+      "route": "/payment?orderCode=ORD-2026041617044369396F",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\03_payment_paid.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nThanh toán đơn hàng\n\nSEPAY GATEWAY\n\nPhiên thanh toán #ORD-2026041617044369396F\nTHANH TOÁN THÀNH CÔNG\n\nDỊCH VỤ\n\nTP. Hồ Chí Minh - Đà Lạt\n\nChuyến sáng (Demo)\n\nSỐ TIỀN CẦN THANH TOÁN\n\n320.000 ₫\n\nTHỜI HẠN THANH TOÁN\n\n00:00\n\n00:09 "
+    },
+    {
+      "route": "/ticket/success?orderCode=ORD-2026041617044369396F",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\04_ticket_success.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nĐặt dịch vụ thành công!\n\nMã đơn hàng: #ORD-2026041617044369396F\n\nTải thông tin vé\n\nMÃ VÉ ĐIỆN TỬ\n\nTKT-202604161704436A885E\n\nXác thực bởi nền tảng\nDỊCH VỤ\n\nTP. Hồ Chí Minh - Đà Lạt\n\nChuyến sáng (Demo)\n\nLOẠI SẢN PHẨM\n\nXe khách\n\n"
+    },
+    {
+      "route": "/my-account/profile",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\05_profile.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nKh?ch H?ng Bus Nghi?m Thu\n\ncustomer-bus-1776359083316@example.com\n\nTHÀNH VIÊN NỀN TẢNG\n\nĐơn\n\nĐANG THEO DÕI\n\nVí\n\nSEPAY\n\nVAT\n\nHỖ TRỢ\n\nThông tin cá nhân\n\nHồ sơ lữ khách\n\nĐơn hàng của tôi\n\nTheo dõi vòng đời đơn\n\nHành khách đã lưu\n"
+    },
+    {
+      "route": "/my-account/bookings",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\06_bookings.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nKh?ch H?ng Bus Nghi?m Thu\n\ncustomer-bus-1776359083316@example.com\n\nTHÀNH VIÊN NỀN TẢNG\n\nĐơn\n\nĐANG THEO DÕI\n\nVí\n\nSEPAY\n\nVAT\n\nHỖ TRỢ\n\nThông tin cá nhân\n\nHồ sơ lữ khách\n\nĐơn hàng của tôi\n\nTheo dõi vòng đời đơn\n\nHành khách đã lưu\n"
+    },
+    {
+      "route": "/my-account/bookings/ORD-2026041617044354BE4D",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\07_booking_detail_refund.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nKh?ch H?ng Bus Nghi?m Thu\n\ncustomer-bus-1776359083316@example.com\n\nTHÀNH VIÊN NỀN TẢNG\n\nĐơn\n\nĐANG THEO DÕI\n\nVí\n\nSEPAY\n\nVAT\n\nHỖ TRỢ\n\nThông tin cá nhân\n\nHồ sơ lữ khách\n\nĐơn hàng của tôi\n\nTheo dõi vòng đời đơn\n\nHành khách đã lưu\n"
+    },
+    {
+      "route": "/my-account/bookings/ORD-2026041617044423756D/cancel",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\08_cancel_pending.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nKh?ch H?ng Bus Nghi?m Thu\n\ncustomer-bus-1776359083316@example.com\n\nTHÀNH VIÊN NỀN TẢNG\n\nĐơn\n\nĐANG THEO DÕI\n\nVí\n\nSEPAY\n\nVAT\n\nHỖ TRỢ\n\nThông tin cá nhân\n\nHồ sơ lữ khách\n\nĐơn hàng của tôi\n\nTheo dõi vòng đời đơn\n\nHành khách đã lưu\n"
+    },
+    {
+      "route": "/my-account/passengers",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\09_passengers.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nKh?ch H?ng Bus Nghi?m Thu\n\ncustomer-bus-1776359083316@example.com\n\nTHÀNH VIÊN NỀN TẢNG\n\nĐơn\n\nĐANG THEO DÕI\n\nVí\n\nSEPAY\n\nVAT\n\nHỖ TRỢ\n\nThông tin cá nhân\n\nHồ sơ lữ khách\n\nĐơn hàng của tôi\n\nTheo dõi vòng đời đơn\n\nHành khách đã lưu\n"
+    },
+    {
+      "route": "/my-account/wishlist",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\10_wishlist.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nKh?ch H?ng Bus Nghi?m Thu\n\ncustomer-bus-1776359083316@example.com\n\nTHÀNH VIÊN NỀN TẢNG\n\nĐơn\n\nĐANG THEO DÕI\n\nVí\n\nSEPAY\n\nVAT\n\nHỖ TRỢ\n\nThông tin cá nhân\n\nHồ sơ lữ khách\n\nĐơn hàng của tôi\n\nTheo dõi vòng đời đơn\n\nHành khách đã lưu\n"
+    },
+    {
+      "route": "/my-account/notifications",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\11_notifications.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nKh?ch H?ng Bus Nghi?m Thu\n\ncustomer-bus-1776359083316@example.com\n\nTHÀNH VIÊN NỀN TẢNG\n\nĐơn\n\nĐANG THEO DÕI\n\nVí\n\nSEPAY\n\nVAT\n\nHỖ TRỢ\n\nThông tin cá nhân\n\nHồ sơ lữ khách\n\nĐơn hàng của tôi\n\nTheo dõi vòng đời đơn\n\nHành khách đã lưu\n"
+    },
+    {
+      "route": "/my-account/payments",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\12_payments.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nKh?ch H?ng Bus Nghi?m Thu\n\ncustomer-bus-1776359083316@example.com\n\nTHÀNH VIÊN NỀN TẢNG\n\nĐơn\n\nĐANG THEO DÕI\n\nVí\n\nSEPAY\n\nVAT\n\nHỖ TRỢ\n\nThông tin cá nhân\n\nHồ sơ lữ khách\n\nĐơn hàng của tôi\n\nTheo dõi vòng đời đơn\n\nHành khách đã lưu\n"
+    },
+    {
+      "route": "/my-account/payment-history",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\13_payment_history.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nKh?ch H?ng Bus Nghi?m Thu\n\ncustomer-bus-1776359083316@example.com\n\nTHÀNH VIÊN NỀN TẢNG\n\nĐơn\n\nĐANG THEO DÕI\n\nVí\n\nSEPAY\n\nVAT\n\nHỖ TRỢ\n\nThông tin cá nhân\n\nHồ sơ lữ khách\n\nĐơn hàng của tôi\n\nTheo dõi vòng đời đơn\n\nHành khách đã lưu\n"
+    },
+    {
+      "route": "/my-account/vat-invoice",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\14_vat_invoice.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nKh?ch H?ng Bus Nghi?m Thu\n\ncustomer-bus-1776359083316@example.com\n\nTHÀNH VIÊN NỀN TẢNG\n\nĐơn\n\nĐANG THEO DÕI\n\nVí\n\nSEPAY\n\nVAT\n\nHỖ TRỢ\n\nThông tin cá nhân\n\nHồ sơ lữ khách\n\nĐơn hàng của tôi\n\nTheo dõi vòng đời đơn\n\nHành khách đã lưu\n"
+    },
+    {
+      "route": "/my-account/settings",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\15_settings.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nKh?ch H?ng Bus Nghi?m Thu\n\ncustomer-bus-1776359083316@example.com\n\nTHÀNH VIÊN NỀN TẢNG\n\nĐơn\n\nĐANG THEO DÕI\n\nVí\n\nSEPAY\n\nVAT\n\nHỖ TRỢ\n\nThông tin cá nhân\n\nHồ sơ lữ khách\n\nĐơn hàng của tôi\n\nTheo dõi vòng đời đơn\n\nHành khách đã lưu\n"
+    },
+    {
+      "route": "/my-account/security",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-artifacts\\16_security.png",
+      "snippet": "2TMNY\nTheo dõi chúng tôi\ninfo@touron.com\nChủ nhật đến Thứ sáu: 8:00 sáng - 7:00 tối, Úc\n+256 214 203 215\n2TMNY\nTrang chủ\nDịch vụ\nKhám phá\nThông tin\nTài khoản\nYêu cầu báo giá\nKh?ch H?ng Bus Nghi?m Thu\n\ncustomer-bus-1776359083316@example.com\n\nTHÀNH VIÊN NỀN TẢNG\n\nĐơn\n\nĐANG THEO DÕI\n\nVí\n\nSEPAY\n\nVAT\n\nHỖ TRỢ\n\nThông tin cá nhân\n\nHồ sơ lữ khách\n\nĐơn hàng của tôi\n\nTheo dõi vòng đời đơn\n\nHành khách đã lưu\n"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "url": "http://127.0.0.1:4173/payment?orderCode=ORD-2026041617044423756D",
+      "message": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+    },
+    {
+      "url": "http://127.0.0.1:4173/payment?orderCode=ORD-2026041617044423756D",
+      "message": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+    }
+  ],
+  "pageErrors": [],
+  "apiErrors": [
+    {
+      "page": "http://127.0.0.1:4173/payment?orderCode=ORD-2026041617044423756D",
+      "url": "http://127.0.0.1:4173/api/v1/customer/orders/ORD-2026041617044423756D/payment-init",
+      "status": 500
+    },
+    {
+      "page": "http://127.0.0.1:4173/payment?orderCode=ORD-2026041617044423756D",
+      "url": "http://127.0.0.1:4173/api/v1/customer/orders/ORD-2026041617044423756D/payment-init",
+      "status": 500
+    }
+  ],
+  "warnings": [
+    {
+      "route": "/ticket/success?orderCode=ORD-2026041617044369396F",
+      "warning": "Detected potential mojibake on page body."
+    },
+    {
+      "route": "/my-account/profile",
+      "warning": "Detected potential mojibake on page body."
+    },
+    {
+      "route": "/my-account/bookings",
+      "warning": "Detected potential mojibake on page body."
+    },
+    {
+      "route": "/my-account/bookings/ORD-2026041617044354BE4D",
+      "warning": "Detected potential mojibake on page body."
+    },
+    {
+      "route": "/my-account/bookings/ORD-2026041617044423756D/cancel",
+      "warning": "Detected potential mojibake on page body."
+    },
+    {
+      "route": "/my-account/passengers",
+      "warning": "Detected potential mojibake on page body."
+    },
+    {
+      "route": "/my-account/wishlist",
+      "warning": "Detected potential mojibake on page body."
+    },
+    {
+      "route": "/my-account/notifications",
+      "warning": "Detected potential mojibake on page body."
+    },
+    {
+      "route": "/my-account/payments",
+      "warning": "Detected potential mojibake on page body."
+    },
+    {
+      "route": "/my-account/payment-history",
+      "warning": "Detected potential mojibake on page body."
+    },
+    {
+      "route": "/my-account/vat-invoice",
+      "warning": "Detected potential mojibake on page body."
+    },
+    {
+      "route": "/my-account/settings",
+      "warning": "Detected potential mojibake on page body."
+    },
+    {
+      "route": "/my-account/security",
+      "warning": "Detected potential mojibake on page body."
+    }
+  ],
+  "finishedAt": "2026-04-16T17:20:33.057Z"
+}

@@ -1,0 +1,58 @@
+Using launch settings from d:\FPT\TicketBooking.V3\TicketBooking.Api\Properties\launchSettings.json...
+Building...
+[22:19:30 INF] Ensured user 'qlnx' with role 'QLNX'.
+[22:19:30 INF] Ensured user 'qlks' with role 'QLKS'.
+[22:19:30 INF] Ensured user 'qlvt' with role 'QLVT'.
+[22:19:30 INF] Ensured user 'qlvmm' with role 'QLVMM'.
+[22:19:30 INF] Ensured user 'qltour' with role 'QLTour'.
+[22:19:30 INF] Ensured user 'scanner_nx' with role 'Customer'.
+[22:19:30 INF] Ensured user 'customer' with role 'Customer'.
+[22:19:30 INF] Identity seed completed.
+[22:19:30 INF] Tenant NX001 already exists.
+[22:19:30 INF] Tenant VT001 already exists.
+[22:19:30 INF] Tenant VMM001 already exists.
+[22:19:30 INF] Tenant KS001 already exists.
+[22:19:30 INF] Tenant TOUR001 already exists.
+[22:19:30 INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+[22:19:30 INF] Permissions seed completed.
+[22:19:31 INF] BUS demo seed completed for tenant NX001.
+[22:19:31 INF] TRAIN demo seed completed for tenant VT001.
+[22:19:32 INF] Flight demo seed completed for tenant VMM001.
+[22:19:32 INF] CmsDemoSeed completed for tenant NX001.
+[22:19:32 INF] Hotel demo seed starting for 6 tenant(s). Days=14
+[22:19:32 INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+[22:19:33 INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+[22:19:33 INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+[22:19:33 INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+[22:19:33 INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+[22:19:34 INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+[22:19:34 INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+[22:19:34 INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+[22:19:34 INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+[22:19:34 INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+[22:19:34 INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+[22:19:34 INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+[22:19:34 INF] Hotel demo seed finished.
+[22:19:34 INF] Now listening on: http://localhost:5183
+[22:19:34 INF] Application started. Press Ctrl+C to shut down.
+[22:19:34 INF] Hosting environment: Development
+[22:19:34 INF] Content root path: d:\FPT\TicketBooking.V3\TicketBooking.Api
+[22:20:04 WRN] Failed to determine the https port for redirect.
+[22:20:04 INF] Registered new customer: phase.one.user (auth.phase1.1775661604@ticketbooking.local)
+[22:20:04 INF] HTTP POST /api/v1/auth/register responded 201 in 232.6410 ms
+[22:20:05 INF] HTTP POST /api/v1/auth/login responded 200 in 111.9311 ms
+[22:20:05 INF] HTTP GET /api/v1/auth/me responded 200 in 43.5336 ms
+[22:20:05 INF] HTTP PUT /api/v1/auth/me responded 200 in 18.4678 ms
+[22:20:05 INF] Password changed for phase.one.user (auth.phase1.1775661604@ticketbooking.local)
+[22:20:05 INF] HTTP POST /api/v1/auth/change-password responded 200 in 126.1385 ms
+[22:20:05 INF] HTTP POST /api/v1/auth/logout responded 401 in 4.9035 ms
+[22:20:05 INF] HTTP POST /api/v1/auth/login responded 200 in 56.5280 ms
+[22:20:05 WRN] PASSWORD RESET TOKEN generated for phase.one.user/auth.phase1.1775661604@ticketbooking.local. (DEV should read token from response/logs)
+[22:20:05 WRN] PASSWORD RESET TOKEN (DEV): CfDJ8Mr0lXVjWXtHkA1+JcgIca70Q1vhDC+KukyDHrGXP3J3y2NSy7r/bTrfckINTforf/6LFAInxnzff5brAQo98Xs/bnm6fb6a2K+22VP0LoqjBZkkRjfY0rN2T+8mI5brWtUHXhqcn9mEUkUfuWvZTHOnj83M3VxOUjj0e1539YeqeLA37ugU88KOMjMDThQK1x2TC1N3+itLQpBJKuEKh4d9sZxwJJ7T4zi6+s4RFg5A
+[22:20:05 INF] HTTP POST /api/v1/auth/forgot-password responded 200 in 17.1145 ms
+[22:20:05 INF] Password reset succeeded for phase.one.user (auth.phase1.1775661604@ticketbooking.local)
+[22:20:05 INF] HTTP POST /api/v1/auth/reset-password responded 200 in 68.6147 ms
+[22:20:05 INF] HTTP POST /api/v1/auth/login responded 200 in 59.0787 ms
+[22:20:05 INF] HTTP POST /api/v1/auth/login responded 200 in 54.3045 ms
+[22:20:15 INF] HTTP POST /api/v1/auth/login responded 200 in 54.3885 ms
+[22:20:15 INF] HTTP POST /api/v1/auth/logout responded 200 in 9.5283 ms

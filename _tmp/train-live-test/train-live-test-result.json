@@ -1,0 +1,255 @@
+{
+  "generatedAt": "2026-04-12T08:28:44.243Z",
+  "frontendUrl": "http://127.0.0.1:4178",
+  "apiUrl": "http://127.0.0.1:5183/api/v1",
+  "public": {
+    "resultsScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\01_public_train_results.png",
+    "detailScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\02_public_train_detail.png",
+    "seatSelectionScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\03_public_train_seat_selection.png",
+    "loginRedirectScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\04_public_train_login_redirect.png",
+    "seatSelectionAfterLoginScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\05_public_train_seat_selection_after_login.png",
+    "checkoutUrl": "http://127.0.0.1:4178/checkout?tripId=178ec23f-a3da-40cb-b8e6-486f82f56c03&fromTripStopTimeId=6aeb5678-f061-45a1-b2f9-79400822ae18&toTripStopTimeId=3e1f96dd-0b9d-4e35-b3a2-ad29bf5bdfc9&holdToken=c80c6872c32547fea1e8a9724fa89bc2&seatCount=1&product=train",
+    "checkoutScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\06_public_train_checkout.png",
+    "selectedSeat": "001",
+    "holdToken": "c80c6872c32547fea1e8a9724fa89bc2"
+  },
+  "tenant": {
+    "afterReleaseScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\18_tenant_train_seat_holds_after_release.png"
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "apiErrors": [],
+  "ui": [
+    {
+      "area": "public",
+      "step": "results",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\01_public_train_results.png"
+    },
+    {
+      "area": "public",
+      "step": "detail",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\02_public_train_detail.png"
+    },
+    {
+      "area": "public",
+      "step": "seat-selection",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\03_public_train_seat_selection.png"
+    },
+    {
+      "area": "public",
+      "step": "login-redirect",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\04_public_train_login_redirect.png"
+    },
+    {
+      "area": "public",
+      "step": "seat-selection-after-login",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\05_public_train_seat_selection_after_login.png"
+    },
+    {
+      "area": "public",
+      "step": "checkout",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\06_public_train_checkout.png"
+    },
+    {
+      "area": "tenant",
+      "step": "07_tenant_train_inventory",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\07_tenant_train_inventory.png"
+    },
+    {
+      "area": "tenant",
+      "step": "08_tenant_train_operations",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\08_tenant_train_operations.png"
+    },
+    {
+      "area": "tenant",
+      "step": "09_tenant_train_stop_points",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\09_tenant_train_stop_points.png"
+    },
+    {
+      "area": "tenant",
+      "step": "10_tenant_train_routes",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\10_tenant_train_routes.png"
+    },
+    {
+      "area": "tenant",
+      "step": "11_tenant_train_trip_stop_times",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\11_tenant_train_trip_stop_times.png"
+    },
+    {
+      "area": "tenant",
+      "step": "12_tenant_train_segment_prices",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\12_tenant_train_segment_prices.png"
+    },
+    {
+      "area": "tenant",
+      "step": "13_tenant_train_providers",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\13_tenant_train_providers.png"
+    },
+    {
+      "area": "tenant",
+      "step": "14_tenant_train_cars",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\14_tenant_train_cars.png"
+    },
+    {
+      "area": "tenant",
+      "step": "15_tenant_train_car_seats",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\15_tenant_train_car_seats.png"
+    },
+    {
+      "area": "tenant",
+      "step": "16_tenant_train_trip_seats",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\16_tenant_train_trip_seats.png"
+    },
+    {
+      "area": "tenant",
+      "step": "17_tenant_train_seat_holds_before_release",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\17_tenant_train_seat_holds_before_release.png"
+    },
+    {
+      "area": "tenant",
+      "step": "seat-holds-after-release",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\train-live-test\\artifacts\\18_tenant_train_seat_holds_after_release.png"
+    }
+  ],
+  "ok": true,
+  "demo": {
+    "departDate": "2026-04-13",
+    "from": {
+      "id": "8a3103e9-e53c-4889-8071-673c2a6f1b0a",
+      "name": "TP. Hồ Chí Minh",
+      "shortName": "TP. Hồ Chí Minh",
+      "code": "HCM",
+      "type": 1,
+      "provinceId": null,
+      "districtId": null,
+      "wardId": null,
+      "addressLine": null,
+      "trainStationCode": null,
+      "stopPointCount": 1
+    },
+    "to": {
+      "id": "e46e4ea4-80b0-416c-ba69-5c298d8bb077",
+      "name": "Đà Nẵng",
+      "shortName": "Đà Nẵng",
+      "code": "DAD",
+      "type": 1,
+      "provinceId": null,
+      "districtId": null,
+      "wardId": null,
+      "addressLine": null,
+      "trainStationCode": null,
+      "stopPointCount": 1
+    },
+    "trip": {
+      "tripId": "178ec23f-a3da-40cb-b8e6-486f82f56c03",
+      "trainNumber": "SE1",
+      "code": "VT001-TRIP-1",
+      "name": "Chuyến SE1 (Demo)",
+      "tenant": {
+        "id": "8f759d36-942d-4666-bda8-195ccfc7939a",
+        "code": "VT001",
+        "name": "Vé tàu VT001",
+        "type": 2
+      },
+      "provider": {
+        "id": "2d2efa8f-14cf-49fc-8ca7-8bb79d1ad1e0",
+        "name": "Đường Sắt Demo VT001",
+        "slug": "duong-sat-demo-vt001",
+        "logoUrl": null
+      },
+      "departureAt": "2026-04-13T06:00:00+07:00",
+      "arrivalAt": "2026-04-13T21:00:00+07:00",
+      "segment": {
+        "fromTripStopTimeId": "6aeb5678-f061-45a1-b2f9-79400822ae18",
+        "toTripStopTimeId": "3e1f96dd-0b9d-4e35-b3a2-ad29bf5bdfc9",
+        "fromStopIndex": 0,
+        "toStopIndex": 1
+      },
+      "capacitySeatCount": 72,
+      "heldSeatCount": 0,
+      "occupiedSeatCount": 0,
+      "availableSeatCount": 72,
+      "canBook": true,
+      "price": 570000,
+      "currency": "VND",
+      "carOptions": [
+        {
+          "id": "f66e730e-64d6-41ba-92e1-1d360b2d6507",
+          "carNumber": "01",
+          "carType": 1,
+          "cabinClass": "Economy",
+          "sortOrder": 1,
+          "seatCount": 48,
+          "availableSeatCount": 48,
+          "price": 570000,
+          "currency": "VND"
+        },
+        {
+          "id": "f6ebf512-11de-4f0d-9661-8b1c186e5038",
+          "carNumber": "02",
+          "carType": 2,
+          "cabinClass": "Sleeper",
+          "sortOrder": 2,
+          "seatCount": 24,
+          "availableSeatCount": 24,
+          "price": 570000,
+          "currency": "VND"
+        }
+      ]
+    },
+    "managerTrip": {
+      "id": "178ec23f-a3da-40cb-b8e6-486f82f56c03",
+      "providerId": "2d2efa8f-14cf-49fc-8ca7-8bb79d1ad1e0",
+      "routeId": "005b7c4d-d06e-439a-ace2-ca11cbb64984",
+      "trainNumber": "SE1",
+      "code": "VT001-TRIP-1",
+      "name": "Chuyến SE1 (Demo)",
+      "status": 2,
+      "departureAt": "2026-04-13T06:00:00+07:00",
+      "arrivalAt": "2026-04-14T12:00:00+07:00",
+      "isActive": true,
+      "provider": {
+        "id": "2d2efa8f-14cf-49fc-8ca7-8bb79d1ad1e0",
+        "code": "VT001-TRAIN",
+        "name": "Đường Sắt Demo VT001",
+        "slug": "duong-sat-demo-vt001",
+        "supportPhone": "0900 000 000",
+        "logoUrl": null,
+        "isActive": true
+      },
+      "route": {
+        "id": "005b7c4d-d06e-439a-ace2-ca11cbb64984",
+        "providerId": "2d2efa8f-14cf-49fc-8ca7-8bb79d1ad1e0",
+        "code": "SGN-DAD-HAN",
+        "name": "TP.HCM → Đà Nẵng → Hà Nội",
+        "fromStopPointId": "f7618409-cea8-4178-af7e-ca2363e6fd08",
+        "toStopPointId": "ecb153fc-3f61-4ffe-b1dc-903a37f9e76e",
+        "estimatedMinutes": 0,
+        "distanceKm": 0,
+        "isActive": true
+      }
+    },
+    "managerCar": {
+      "id": "f66e730e-64d6-41ba-92e1-1d360b2d6507",
+      "tripId": "178ec23f-a3da-40cb-b8e6-486f82f56c03",
+      "carNumber": "01",
+      "carType": 1,
+      "cabinClass": "Economy",
+      "sortOrder": 1,
+      "isActive": true,
+      "seatCount": 48,
+      "trip": {
+        "id": "178ec23f-a3da-40cb-b8e6-486f82f56c03",
+        "providerId": "2d2efa8f-14cf-49fc-8ca7-8bb79d1ad1e0",
+        "routeId": "005b7c4d-d06e-439a-ace2-ca11cbb64984",
+        "trainNumber": "SE1",
+        "code": "VT001-TRIP-1",
+        "name": "Chuyến SE1 (Demo)",
+        "status": 2,
+        "departureAt": "2026-04-13T06:00:00+07:00",
+        "arrivalAt": "2026-04-14T12:00:00+07:00",
+        "isActive": true
+      }
+    }
+  }
+}

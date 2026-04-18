@@ -1,0 +1,65 @@
+Using launch settings from d:\FPT\TicketBooking.V3\TicketBooking.Api\Properties\launchSettings.json...
+Building...
+[23:09:19 INF] Ensured user 'qlnx' with role 'QLNX'.
+[23:09:19 INF] Ensured user 'qlks' with role 'QLKS'.
+[23:09:19 INF] Ensured user 'qlvt' with role 'QLVT'.
+[23:09:19 INF] Ensured user 'qlvmm' with role 'QLVMM'.
+[23:09:19 INF] Ensured user 'qltour' with role 'QLTour'.
+[23:09:19 INF] Ensured user 'scanner_nx' with role 'Customer'.
+[23:09:19 INF] Ensured user 'customer' with role 'Customer'.
+[23:09:19 INF] Identity seed completed.
+[23:09:19 INF] Tenant NX001 already exists.
+[23:09:19 INF] Tenant VT001 already exists.
+[23:09:19 INF] Tenant VMM001 already exists.
+[23:09:19 INF] Tenant KS001 already exists.
+[23:09:19 INF] Tenant TOUR001 already exists.
+[23:09:19 INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+[23:09:20 INF] Permissions seed completed.
+[23:09:20 INF] BUS demo seed completed for tenant NX001.
+[23:09:21 INF] TRAIN demo seed completed for tenant VT001.
+[23:09:21 INF] Flight demo seed completed for tenant VMM001.
+[23:09:21 INF] CmsDemoSeed completed for tenant NX001.
+[23:09:21 INF] Hotel demo seed starting for 6 tenant(s). Days=14
+[23:09:22 INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+[23:09:23 INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+[23:09:23 INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+[23:09:23 INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+[23:09:23 INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+[23:09:23 INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+[23:09:23 INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+[23:09:23 INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+[23:09:23 INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+[23:09:23 INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+[23:09:23 INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+[23:09:23 INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+[23:09:23 INF] Hotel demo seed finished.
+[23:09:23 INF] Now listening on: http://localhost:5183
+[23:09:23 INF] Application started. Press Ctrl+C to shut down.
+[23:09:23 INF] Hosting environment: Development
+[23:09:23 INF] Content root path: d:\FPT\TicketBooking.V3\TicketBooking.Api
+[23:10:19 WRN] Failed to determine the https port for redirect.
+[23:10:19 INF] HTTP POST /api/v1/auth/login responded 200 in 235.6017 ms
+[23:10:20 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 127.0409 ms
+[23:10:20 INF] HTTP POST /api/v1/auth/refresh responded 200 in 47.7551 ms
+[23:10:20 INF] HTTP POST /api/v1/admin/roles responded 201 in 50.2500 ms
+[23:10:20 INF] HTTP PUT /api/v1/admin/roles/0731ec81-43b7-4c88-9d2e-292679808c73 responded 200 in 24.3053 ms
+[23:10:20 INF] HTTP POST /api/v1/admin/auth/permissions responded 201 in 21.8512 ms
+[23:10:20 INF] HTTP POST /api/v1/admin/auth/role-permissions responded 201 in 43.1160 ms
+[23:10:20 INF] HTTP POST /api/v1/admin/users responded 201 in 100.3126 ms
+[23:10:21 INF] HTTP PUT /api/v1/admin/users/fd07db7a-208a-40e8-b00d-b47e1f236225 responded 200 in 27.6110 ms
+[23:10:21 INF] HTTP GET /api/v1/admin/users/fd07db7a-208a-40e8-b00d-b47e1f236225 responded 200 in 15.4440 ms
+[23:10:21 INF] HTTP GET /api/v1/admin/users/fd07db7a-208a-40e8-b00d-b47e1f236225/effective-permissions responded 200 in 22.7773 ms
+[23:10:21 INF] HTTP POST /api/v1/admin/auth/user-permissions responded 201 in 51.9872 ms
+[23:10:21 INF] HTTP GET /api/v1/admin/users/fd07db7a-208a-40e8-b00d-b47e1f236225/effective-permissions responded 200 in 9.9660 ms
+[23:10:21 INF] HTTP POST /api/v1/auth/login responded 200 in 67.8832 ms
+[23:10:21 INF] HTTP POST /api/v1/admin/users/fd07db7a-208a-40e8-b00d-b47e1f236225/reset-password responded 200 in 75.0931 ms
+[23:10:21 INF] HTTP POST /api/v1/auth/refresh responded 401 in 9.0001 ms
+[23:10:21 INF] HTTP POST /api/v1/auth/login responded 200 in 61.7123 ms
+[23:10:21 INF] HTTP DELETE /api/v1/admin/auth/user-permissions/68d2c005-6e5d-4718-a98b-34b30cae9606 responded 200 in 15.0995 ms
+[23:10:21 INF] HTTP DELETE /api/v1/admin/auth/role-permissions/ee6c56a5-77dd-44dd-a74b-d83596ff5893 responded 200 in 14.9057 ms
+[23:10:21 INF] HTTP DELETE /api/v1/admin/auth/permissions/59e62527-283b-4cb1-a3c9-b23ca478e48d responded 200 in 15.0708 ms
+[23:10:21 INF] HTTP PUT /api/v1/admin/users/fd07db7a-208a-40e8-b00d-b47e1f236225/roles responded 200 in 34.8951 ms
+[23:10:21 INF] HTTP PUT /api/v1/admin/users/fd07db7a-208a-40e8-b00d-b47e1f236225/active responded 200 in 14.8212 ms
+[23:10:21 INF] HTTP DELETE /api/v1/admin/roles/0731ec81-43b7-4c88-9d2e-292679808c73 responded 200 in 34.8935 ms
+[23:10:21 INF] HTTP POST /api/v1/auth/logout-all responded 200 in 18.0981 ms
+[23:10:21 INF] HTTP POST /api/v1/auth/refresh responded 401 in 2.2856 ms

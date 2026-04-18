@@ -1,0 +1,292 @@
+{
+  "generatedAt": "2026-04-12T16:54:59.528Z",
+  "frontendUrl": "http://127.0.0.1:4177",
+  "apiUrl": "http://127.0.0.1:5183/api/v1",
+  "demo": {
+    "departDate": "2026-04-13",
+    "tenantId": "47997b25-a35b-4291-a7ca-2521e14ea6e4",
+    "tenantCode": "VMM001",
+    "offerId": "142603ab-71b1-4daf-9937-01ba5c474ad0",
+    "flightNumber": "VN201",
+    "seatMapId": "8e4358bb-c00f-4ba4-8d4a-114736a837ac"
+  },
+  "api": {
+    "publicSearchCount": 2,
+    "publicAncillaryCount": 2,
+    "publicSeatCount": 120,
+    "managerFlights": 41,
+    "managerOffers": 41,
+    "managerSeatMaps": 2,
+    "adminAirlines": 2,
+    "adminFlights": 41,
+    "adminOffers": 41,
+    "adminTaxFeeLines": 0,
+    "adminCabinSeats": 120
+  },
+  "public": {
+    "resultsScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\01_public_flight_results.png",
+    "detailScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\02_public_flight_detail.png",
+    "seatSelectionScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\03_public_flight_seat_selection.png",
+    "selectedSeat": "1A",
+    "loginRedirectScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\04_public_flight_login_redirect.png",
+    "seatSelectionAfterLoginScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\05_public_flight_seat_selection_after_login.png",
+    "selectedSeatAfterLogin": "1A",
+    "checkoutScreenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\06_public_flight_checkout.png"
+  },
+  "tenant": {
+    "operatorHeader": "FLIGHT OPERATOR\n\nVé máy bay VMM001\n\nQuản lý vé máy bay",
+    "menu": {
+      "flightInventory": 1,
+      "flightOperations": 1,
+      "flightProviders": 1,
+      "busInventory": 0,
+      "trainInventory": 0,
+      "hotelInventory": 0,
+      "tourInventory": 0
+    },
+    "routeGuardOk": true,
+    "inventory": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_inventory.png",
+    "operations-overview": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_operations.png",
+    "airlines": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_airlines.png",
+    "airports": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_airports.png",
+    "fare-classes": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_fare_classes.png",
+    "fare-rules": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_fare_rules.png",
+    "flights": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_flights.png",
+    "offers": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_offers.png",
+    "tax-fee-lines": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_tax_fee_lines.png",
+    "providers-overview": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_providers.png",
+    "aircraft-models": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_aircraft_models.png",
+    "aircrafts": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_aircrafts.png",
+    "seat-maps": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_seat_maps.png",
+    "seats": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_seats.png",
+    "ancillaries": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_ancillaries.png"
+  },
+  "admin": {
+    "tenantOptions": [
+      "Vé máy bay VMM001"
+    ],
+    "overview": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_overview.png",
+    "airlines": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_airlines.png",
+    "airports": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_airports.png",
+    "aircraft-models": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_aircraft_models.png",
+    "aircrafts": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_aircrafts.png",
+    "fare-classes": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_fare_classes.png",
+    "fare-rules": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_fare_rules.png",
+    "flights": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_flights.png",
+    "offers": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_offers.png",
+    "tax-fee-lines": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_tax_fee_lines.png",
+    "seat-maps": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_seat_maps.png",
+    "seats": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_seats.png",
+    "ancillaries": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_ancillaries.png"
+  },
+  "ui": [
+    {
+      "area": "public",
+      "step": "results",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\01_public_flight_results.png",
+      "url": "http://127.0.0.1:4177/flight/results?from=SGN&to=HAN&date=2026-04-13&passengers=1"
+    },
+    {
+      "area": "public",
+      "step": "detail",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\02_public_flight_detail.png",
+      "url": "http://127.0.0.1:4177/flight/detail?offerId=142603ab-71b1-4daf-9937-01ba5c474ad0"
+    },
+    {
+      "area": "public",
+      "step": "seat-selection",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\03_public_flight_seat_selection.png",
+      "url": "http://127.0.0.1:4177/flight/seat-selection?offerId=142603ab-71b1-4daf-9937-01ba5c474ad0"
+    },
+    {
+      "area": "public",
+      "step": "login-redirect",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\04_public_flight_login_redirect.png",
+      "url": "http://127.0.0.1:4177/auth/login"
+    },
+    {
+      "area": "public",
+      "step": "seat-selection-after-login",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\05_public_flight_seat_selection_after_login.png",
+      "url": "http://127.0.0.1:4177/flight/seat-selection?offerId=142603ab-71b1-4daf-9937-01ba5c474ad0"
+    },
+    {
+      "area": "public",
+      "step": "checkout",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\06_public_flight_checkout.png",
+      "url": "http://127.0.0.1:4177/checkout?product=flight&offerId=142603ab-71b1-4daf-9937-01ba5c474ad0&seatId=345d62f3-0767-4268-9276-50a7f281d207&seatNumber=1A&seatPriceModifier=0"
+    },
+    {
+      "area": "tenant",
+      "step": "inventory",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_inventory.png",
+      "url": "http://127.0.0.1:4177/tenant/inventory/flight"
+    },
+    {
+      "area": "tenant",
+      "step": "operations-overview",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_operations.png",
+      "url": "http://127.0.0.1:4177/tenant/operations/flight"
+    },
+    {
+      "area": "tenant",
+      "step": "airlines",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_airlines.png",
+      "url": "http://127.0.0.1:4177/tenant/operations/flight/airlines"
+    },
+    {
+      "area": "tenant",
+      "step": "airports",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_airports.png",
+      "url": "http://127.0.0.1:4177/tenant/operations/flight/airports"
+    },
+    {
+      "area": "tenant",
+      "step": "fare-classes",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_fare_classes.png",
+      "url": "http://127.0.0.1:4177/tenant/operations/flight/fare-classes"
+    },
+    {
+      "area": "tenant",
+      "step": "fare-rules",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_fare_rules.png",
+      "url": "http://127.0.0.1:4177/tenant/operations/flight/fare-rules"
+    },
+    {
+      "area": "tenant",
+      "step": "flights",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_flights.png",
+      "url": "http://127.0.0.1:4177/tenant/operations/flight/flights"
+    },
+    {
+      "area": "tenant",
+      "step": "offers",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_offers.png",
+      "url": "http://127.0.0.1:4177/tenant/operations/flight/offers"
+    },
+    {
+      "area": "tenant",
+      "step": "tax-fee-lines",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_tax_fee_lines.png",
+      "url": "http://127.0.0.1:4177/tenant/operations/flight/tax-fee-lines?offerId=142603ab-71b1-4daf-9937-01ba5c474ad0"
+    },
+    {
+      "area": "tenant",
+      "step": "providers-overview",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_providers.png",
+      "url": "http://127.0.0.1:4177/tenant/providers/flight"
+    },
+    {
+      "area": "tenant",
+      "step": "aircraft-models",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_aircraft_models.png",
+      "url": "http://127.0.0.1:4177/tenant/providers/flight/aircraft-models"
+    },
+    {
+      "area": "tenant",
+      "step": "aircrafts",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_aircrafts.png",
+      "url": "http://127.0.0.1:4177/tenant/providers/flight/aircrafts"
+    },
+    {
+      "area": "tenant",
+      "step": "seat-maps",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_seat_maps.png",
+      "url": "http://127.0.0.1:4177/tenant/providers/flight/seat-maps"
+    },
+    {
+      "area": "tenant",
+      "step": "seats",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_seats.png",
+      "url": "http://127.0.0.1:4177/tenant/providers/flight/seats?cabinSeatMapId=8e4358bb-c00f-4ba4-8d4a-114736a837ac"
+    },
+    {
+      "area": "tenant",
+      "step": "ancillaries",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\tenant_flight_ancillaries.png",
+      "url": "http://127.0.0.1:4177/tenant/providers/flight/ancillaries"
+    },
+    {
+      "area": "admin",
+      "step": "overview",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_overview.png",
+      "url": "http://127.0.0.1:4177/admin/flight"
+    },
+    {
+      "area": "admin",
+      "step": "airlines",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_airlines.png",
+      "url": "http://127.0.0.1:4177/admin/flight/airlines"
+    },
+    {
+      "area": "admin",
+      "step": "airports",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_airports.png",
+      "url": "http://127.0.0.1:4177/admin/flight/airports"
+    },
+    {
+      "area": "admin",
+      "step": "aircraft-models",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_aircraft_models.png",
+      "url": "http://127.0.0.1:4177/admin/flight/aircraft-models"
+    },
+    {
+      "area": "admin",
+      "step": "aircrafts",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_aircrafts.png",
+      "url": "http://127.0.0.1:4177/admin/flight/aircrafts"
+    },
+    {
+      "area": "admin",
+      "step": "fare-classes",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_fare_classes.png",
+      "url": "http://127.0.0.1:4177/admin/flight/fare-classes"
+    },
+    {
+      "area": "admin",
+      "step": "fare-rules",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_fare_rules.png",
+      "url": "http://127.0.0.1:4177/admin/flight/fare-rules"
+    },
+    {
+      "area": "admin",
+      "step": "flights",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_flights.png",
+      "url": "http://127.0.0.1:4177/admin/flight/flights"
+    },
+    {
+      "area": "admin",
+      "step": "offers",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_offers.png",
+      "url": "http://127.0.0.1:4177/admin/flight/offers"
+    },
+    {
+      "area": "admin",
+      "step": "tax-fee-lines",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_tax_fee_lines.png",
+      "url": "http://127.0.0.1:4177/admin/flight/tax-fee-lines?offerId=142603ab-71b1-4daf-9937-01ba5c474ad0"
+    },
+    {
+      "area": "admin",
+      "step": "seat-maps",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_seat_maps.png",
+      "url": "http://127.0.0.1:4177/admin/flight/seat-maps"
+    },
+    {
+      "area": "admin",
+      "step": "seats",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_seats.png",
+      "url": "http://127.0.0.1:4177/admin/flight/seats?cabinSeatMapId=8e4358bb-c00f-4ba4-8d4a-114736a837ac"
+    },
+    {
+      "area": "admin",
+      "step": "ancillaries",
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\flight-live-test\\artifacts\\admin_flight_ancillaries.png",
+      "url": "http://127.0.0.1:4177/admin/flight/ancillaries"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "apiErrors": [],
+  "ok": true
+}

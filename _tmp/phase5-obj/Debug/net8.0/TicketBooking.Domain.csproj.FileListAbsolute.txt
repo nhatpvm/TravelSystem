@@ -1,0 +1,5 @@
+d:\FPT\TicketBooking.V3\_tmp\phase5-obj\Debug\net8.0\TicketBooking.Domain.csproj.AssemblyReference.cache
+d:\FPT\TicketBooking.V3\_tmp\phase5-obj\Debug\net8.0\TicketBooking.Domain.GeneratedMSBuildEditorConfig.editorconfig
+d:\FPT\TicketBooking.V3\_tmp\phase5-obj\Debug\net8.0\TicketBooking.Domain.AssemblyInfoInputs.cache
+d:\FPT\TicketBooking.V3\_tmp\phase5-obj\Debug\net8.0\TicketBooking.Domain.AssemblyInfo.cs
+d:\FPT\TicketBooking.V3\_tmp\phase5-obj\Debug\net8.0\TicketBooking.Domain.csproj.CoreCompileInputs.cache

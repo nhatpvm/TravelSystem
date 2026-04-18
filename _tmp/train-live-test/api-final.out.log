@@ -1,0 +1,367 @@
+Using launch settings from d:\FPT\TicketBooking.V3\TicketBooking.Api\Properties\launchSettings.json...
+Building...
+[15:28:00 INF] Ensured user 'qlnx' with role 'QLNX'.
+[15:28:00 INF] Ensured user 'qlks' with role 'QLKS'.
+[15:28:00 INF] Ensured user 'qlvt' with role 'QLVT'.
+[15:28:00 INF] Ensured user 'qlvmm' with role 'QLVMM'.
+[15:28:00 INF] Ensured user 'qltour' with role 'QLTour'.
+[15:28:00 INF] Ensured user 'scanner_nx' with role 'Customer'.
+[15:28:00 INF] Ensured user 'customer' with role 'Customer'.
+[15:28:00 INF] Identity seed completed.
+[15:28:00 INF] Tenant NX001 already exists.
+[15:28:00 INF] Tenant VT001 already exists.
+[15:28:00 INF] Tenant VMM001 already exists.
+[15:28:00 INF] Tenant KS001 already exists.
+[15:28:00 INF] Tenant TOUR001 already exists.
+[15:28:00 INF] Updated tenant link 'qlnx' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[15:28:00 INF] Updated tenant link 'admin' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[15:28:00 INF] Updated tenant link 'qlvt' -> tenant 8f759d36-942d-4666-bda8-195ccfc7939a.
+[15:28:00 INF] Updated tenant link 'admin' -> tenant 8f759d36-942d-4666-bda8-195ccfc7939a.
+[15:28:00 INF] Updated tenant link 'qlvmm' -> tenant 47997b25-a35b-4291-a7ca-2521e14ea6e4.
+[15:28:00 INF] Updated tenant link 'admin' -> tenant 47997b25-a35b-4291-a7ca-2521e14ea6e4.
+[15:28:00 INF] Updated tenant link 'qlks' -> tenant 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+[15:28:00 INF] Updated tenant link 'admin' -> tenant 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+[15:28:00 INF] Updated tenant link 'qltour' -> tenant dfb80807-d1db-43b0-a62f-9b744f1dde4f.
+[15:28:00 INF] Updated tenant link 'admin' -> tenant dfb80807-d1db-43b0-a62f-9b744f1dde4f.
+[15:28:00 INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+[15:28:00 INF] Permissions seed completed.
+[15:28:01 INF] Tenant system role seed completed.
+[15:28:01 INF] Updated TenantUser link 'customer' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[15:28:01 INF] Updated TenantUser link 'scanner_nx' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[15:28:01 INF] TenantRoles seed completed for NX001.
+[15:28:01 INF] BUS demo seed completed for tenant NX001.
+[15:28:02 INF] TRAIN demo seed completed for tenant VT001.
+[15:28:03 INF] Flight demo seed completed for tenant VMM001.
+[15:28:03 INF] CmsDemoSeed completed for tenant NX001.
+[15:28:04 INF] Hotel demo seed starting for 6 tenant(s). Days=14
+[15:28:04 INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+[15:28:05 INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+[15:28:05 INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+[15:28:05 INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+[15:28:05 INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+[15:28:05 INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+[15:28:05 INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+[15:28:06 INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+[15:28:06 INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+[15:28:06 INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+[15:28:06 INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+[15:28:06 INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+[15:28:06 INF] Hotel demo seed finished.
+[15:28:07 INF] Now listening on: http://127.0.0.1:5183
+[15:28:07 INF] Application started. Press Ctrl+C to shut down.
+[15:28:07 INF] Hosting environment: Development
+[15:28:07 INF] Content root path: d:\FPT\TicketBooking.V3\TicketBooking.Api
+[15:28:44 WRN] Failed to determine the https port for redirect.
+[15:28:44 INF] HTTP GET /api/v1/train/search/locations responded 200 in 158.5248 ms
+[15:28:44 INF] HTTP GET /api/v1/train/search/trips responded 200 in 215.3218 ms
+[15:28:45 INF] HTTP POST /api/v1/auth/login responded 200 in 200.1324 ms
+[15:28:45 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 161.7118 ms
+[15:28:50 INF] HTTP GET /api/v1/train/search/locations responded 200 in 19.2979 ms
+[15:28:50 INF] HTTP GET /api/v1/train/search/locations responded 200 in 22.8165 ms
+[15:28:50 INF] HTTP GET /api/v1/train/search/trips responded 200 in 93.2656 ms
+[15:28:50 INF] HTTP GET /api/v1/train/search/trips responded 200 in 102.7562 ms
+[15:28:51 INF] HTTP GET /api/v1/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 159.9418 ms
+[15:28:51 INF] HTTP GET /api/v1/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 159.9418 ms
+[15:28:51 INF] HTTP GET /api/v1/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 45.1972 ms
+[15:28:51 INF] HTTP GET /api/v1/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 44.9179 ms
+[15:28:51 INF] HTTP GET /api/v1/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03/seats responded 200 in 91.6689 ms
+[15:28:51 INF] HTTP GET /api/v1/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03/seats responded 200 in 92.4076 ms
+[15:28:52 INF] HTTP POST /api/v1/auth/login responded 200 in 122.8188 ms
+[15:28:53 INF] HTTP GET /api/v1/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03/seats responded 200 in 26.2279 ms
+[15:28:53 INF] HTTP GET /api/v1/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03/seats responded 200 in 26.1179 ms
+[15:28:53 INF] HTTP GET /api/v1/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 45.7821 ms
+[15:28:53 INF] HTTP GET /api/v1/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 45.6319 ms
+[15:28:53 WRN] Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+[15:28:53 INF] HTTP POST /api/v1/train/seat-holds responded 200 in 206.4145 ms
+[15:28:53 INF] HTTP GET /api/v1/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 52.6437 ms
+[15:28:53 INF] HTTP GET /api/v1/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 52.6438 ms
+[15:28:55 INF] HTTP POST /api/v1/auth/login responded 200 in 167.9809 ms
+[15:28:55 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 73.5267 ms
+[15:28:55 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 92.8265 ms
+[15:28:57 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 37.0491 ms
+[15:28:57 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 37.0490 ms
+[15:28:57 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 46.0741 ms
+[15:28:57 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 45.9510 ms
+[15:28:58 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 18.7953 ms
+[15:28:58 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 18.7952 ms
+[15:28:58 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 45.4962 ms
+[15:28:58 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 45.4961 ms
+[15:28:59 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 16.4618 ms
+[15:28:59 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 16.0104 ms
+[15:28:59 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 40.6809 ms
+[15:28:59 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 40.3398 ms
+[15:29:00 INF] HTTP GET /api/v1/qlvt/train/stop-points responded 200 in 35.3843 ms
+[15:29:00 INF] HTTP GET /api/v1/qlvt/train/stop-points responded 200 in 35.3844 ms
+[15:29:00 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 44.6107 ms
+[15:29:00 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 44.6106 ms
+[15:29:02 INF] HTTP GET /api/v1/qlvt/train/routes responded 200 in 35.5727 ms
+[15:29:02 INF] HTTP GET /api/v1/qlvt/train/routes responded 200 in 35.5717 ms
+[15:29:02 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 48.2489 ms
+[15:29:02 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 49.1205 ms
+[15:29:02 INF] HTTP GET /api/v1/qlvt/train/routes/1a05d814-eb74-4a5a-b8ea-20f9b46309c4 responded 200 in 20.5306 ms
+[15:29:02 INF] HTTP GET /api/v1/qlvt/train/routes/1a05d814-eb74-4a5a-b8ea-20f9b46309c4 responded 200 in 41.4217 ms
+[15:29:03 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 18.4227 ms
+[15:29:03 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 18.3124 ms
+[15:29:03 INF] HTTP GET /api/v1/qlvt/train/trip-stop-times/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 48.2309 ms
+[15:29:03 INF] HTTP GET /api/v1/qlvt/train/trip-stop-times/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 48.3123 ms
+[15:29:03 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 80.3101 ms
+[15:29:03 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 82.3829 ms
+[15:29:04 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 31.4769 ms
+[15:29:04 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 35.5211 ms
+[15:29:04 INF] HTTP GET /api/v1/qlvt/train/trip-stop-times/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 42.7539 ms
+[15:29:04 INF] HTTP GET /api/v1/qlvt/train/trip-stop-times/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 48.3600 ms
+[15:29:04 INF] HTTP GET /api/v1/qlvt/train/trip-segment-prices/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 60.6885 ms
+[15:29:04 INF] HTTP GET /api/v1/qlvt/train/trip-segment-prices/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 68.1463 ms
+[15:29:06 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 72.1245 ms
+[15:29:06 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 69.0402 ms
+[15:29:06 INF] HTTP GET /api/v1/qlvt/train/cars responded 200 in 85.6309 ms
+[15:29:06 INF] HTTP GET /api/v1/qlvt/train/cars responded 200 in 91.2441 ms
+[15:29:06 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 127.6093 ms
+[15:29:06 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 128.1717 ms
+[15:29:06 INF] HTTP GET /api/v1/qlvt/train/seat-holds/trip/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 31.2946 ms
+[15:29:07 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 17.6152 ms
+[15:29:07 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 18.1143 ms
+[15:29:07 INF] HTTP GET /api/v1/qlvt/train/cars responded 200 in 21.3338 ms
+[15:29:07 INF] HTTP GET /api/v1/qlvt/train/cars responded 200 in 21.2331 ms
+[15:29:07 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 43.0959 ms
+[15:29:07 INF] HTTP GET /api/v1/qlvt/train/options responded 200 in 43.8592 ms
+[15:29:08 INF] HTTP GET /api/v1/qlvt/train/cars responded 200 in 17.6761 ms
+[15:29:08 INF] HTTP GET /api/v1/qlvt/train/cars responded 200 in 17.6760 ms
+[15:29:08 INF] HTTP GET /api/v1/qlvt/train/cars/f66e730e-64d6-41ba-92e1-1d360b2d6507 responded 200 in 40.0746 ms
+[15:29:08 INF] HTTP GET /api/v1/qlvt/train/cars/f66e730e-64d6-41ba-92e1-1d360b2d6507 responded 200 in 40.0663 ms
+[15:29:10 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 16.8970 ms
+[15:29:10 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 16.9111 ms
+[15:29:10 INF] HTTP GET /api/v1/qlvt/train/trip-stop-times/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 20.1803 ms
+[15:29:10 INF] HTTP GET /api/v1/qlvt/train/trip-stop-times/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 20.1625 ms
+[15:29:10 INF] HTTP GET /api/v1/qlvt/train/trips/178ec23f-a3da-40cb-b8e6-486f82f56c03/seats responded 200 in 78.1675 ms
+[15:29:11 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 15.7618 ms
+[15:29:11 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 15.6417 ms
+[15:29:11 INF] HTTP GET /api/v1/qlvt/train/seat-holds/trip/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 25.0724 ms
+[15:29:11 INF] HTTP GET /api/v1/qlvt/train/seat-holds/trip/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 25.1186 ms
+[15:29:12 INF] HTTP DELETE /api/v1/qlvt/train/seat-holds/c80c6872c32547fea1e8a9724fa89bc2 responded 200 in 33.2745 ms
+[15:29:12 INF] HTTP GET /api/v1/qlvt/train/seat-holds/trip/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 10.9892 ms
+[15:29:14 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 16.6065 ms
+[15:29:14 INF] HTTP GET /api/v1/qlvt/train/trips responded 200 in 16.6478 ms
+[15:29:14 INF] HTTP GET /api/v1/qlvt/train/seat-holds/trip/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 21.4178 ms
+[15:29:14 INF] HTTP GET /api/v1/qlvt/train/seat-holds/trip/178ec23f-a3da-40cb-b8e6-486f82f56c03 responded 200 in 22.8289 ms
+[15:32:06 INF] HTTP POST /api/v1/auth/login responded 200 in 118.4678 ms
+[15:32:06 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 22.9362 ms
+[15:32:06 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 21.0008 ms
+[15:32:06 INF] HTTP GET /api/v1/admin/tenants responded 200 in 78.4797 ms
+[15:32:06 INF] HTTP GET /api/v1/admin/tenants responded 200 in 11.1248 ms
+[15:32:06 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 48.9849 ms
+[15:32:06 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 49.9037 ms
+[15:33:33 INF] HTTP POST /api/v1/auth/login responded 200 in 95.8958 ms
+[15:33:33 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 24.1116 ms
+[15:33:33 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 28.2297 ms
+[15:33:33 INF] HTTP GET /api/v1/admin/tenants responded 200 in 36.3507 ms
+[15:33:33 INF] HTTP GET /api/v1/admin/tenants responded 200 in 5.7003 ms
+[15:33:33 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 19.8544 ms
+[15:33:33 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 19.8615 ms
+[15:33:33 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 23.6986 ms
+[15:33:33 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 25.7166 ms
+[15:33:33 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 25.8923 ms
+[15:33:33 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 27.5195 ms
+[15:33:34 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 9.2487 ms
+[15:33:34 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 16.4942 ms
+[15:33:34 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 16.4710 ms
+[15:33:34 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 23.6905 ms
+[15:33:34 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 23.9685 ms
+[15:33:34 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 26.0583 ms
+[15:33:34 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 26.1451 ms
+[15:33:34 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 14.3144 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 14.3235 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 15.2556 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 14.2663 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 26.5863 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 27.0990 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 7.3460 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/tenants responded 200 in 47.4654 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 21.3333 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 8.1666 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 21.5829 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 23.3130 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 13.1637 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 22.3161 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 35.8636 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 17.7943 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/tenants responded 200 in 52.4688 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 33.0470 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 34.0422 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 34.4640 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 33.6642 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 45.1806 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 68.2661 ms
+[15:33:36 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 21.8644 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 13.7063 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 13.1308 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 13.9898 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 22.3297 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 27.8868 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 5.1138 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 9.4647 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 15.1086 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 15.1517 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 15.1911 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/tenants responded 200 in 46.9498 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 5.3520 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 5.1304 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 5.7002 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/tenants responded 200 in 10.0125 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 4.7777 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/train/routes/1a05d814-eb74-4a5a-b8ea-20f9b46309c4 responded 200 in 31.2529 ms
+[15:33:37 INF] HTTP GET /api/v1/admin/train/routes/1a05d814-eb74-4a5a-b8ea-20f9b46309c4 responded 200 in 5.0570 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 16.0109 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 16.0826 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 15.9688 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 24.0306 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 7.8004 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 10.1273 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 37.5183 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 7.4676 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 5.9676 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 6.8439 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/tenants responded 200 in 49.5194 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/train/trip-stop-times/trips/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 26.3698 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 5.3874 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 5.5371 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 4.7275 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 3.8419 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/train/trip-stop-times/trips/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 4.4256 ms
+[15:33:38 INF] HTTP GET /api/v1/admin/tenants responded 200 in 5.8830 ms
+[15:33:39 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 16.2715 ms
+[15:33:39 INF] HTTP GET /api/v1/admin/train/trip-stop-times/trips/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 24.4758 ms
+[15:33:39 INF] HTTP GET /api/v1/admin/train/trip-segment-prices/trips/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 29.9572 ms
+[15:33:39 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 16.1200 ms
+[15:33:39 INF] HTTP GET /api/v1/admin/tenants responded 200 in 39.1135 ms
+[15:33:39 INF] HTTP GET /api/v1/admin/train/trip-segment-prices/trips/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 13.2675 ms
+[15:33:39 INF] HTTP GET /api/v1/admin/train/trip-stop-times/trips/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 19.9239 ms
+[15:33:39 INF] HTTP GET /api/v1/admin/tenants responded 200 in 27.4912 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 14.8939 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 15.9092 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 16.9626 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 23.6928 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 27.7242 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 4.2592 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 7.4744 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 9.5388 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 6.3123 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 4.4030 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 5.9631 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 4.3288 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 3.9080 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 3.9699 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/tenants responded 200 in 49.1702 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 4.6431 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/tenants responded 200 in 4.2454 ms
+[15:33:40 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 3.8394 ms
+[15:34:49 INF] HTTP POST /api/v1/auth/login responded 200 in 97.1147 ms
+[15:34:49 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 18.9597 ms
+[15:34:49 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 17.1856 ms
+[15:34:50 INF] HTTP GET /api/v1/admin/tenants responded 200 in 34.8734 ms
+[15:34:50 INF] HTTP GET /api/v1/admin/tenants responded 200 in 31.3447 ms
+[15:34:50 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 19.3430 ms
+[15:34:50 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 19.8603 ms
+[15:34:50 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 19.4460 ms
+[15:34:50 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 20.2006 ms
+[15:34:50 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 29.8396 ms
+[15:34:50 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 29.0694 ms
+[15:34:50 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 4.6981 ms
+[15:34:51 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 12.5042 ms
+[15:34:51 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 12.5046 ms
+[15:34:51 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 13.3856 ms
+[15:34:51 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 11.9449 ms
+[15:34:51 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 20.2526 ms
+[15:34:51 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 23.5236 ms
+[15:34:51 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 5.3845 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 13.7810 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 14.1431 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 13.8340 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 23.1809 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 4.8436 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 4.8820 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 28.3760 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 6.7226 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 6.7092 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 4.2209 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 4.2221 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 4.3114 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 4.5760 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/tenants responded 200 in 47.7561 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 5.8921 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/tenants responded 200 in 6.1023 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 4.3867 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 4.6761 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 4.4245 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 4.4387 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 4.6167 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 5.6673 ms
+[15:34:52 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 4.3725 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 14.4233 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 16.3197 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 16.3853 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 24.9939 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 4.9363 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 4.9365 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 6.9221 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 30.5971 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 6.2568 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 3.8213 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 3.0173 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 3.9129 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 3.3262 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/tenants responded 200 in 45.3842 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 3.5992 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/tenants responded 200 in 5.2752 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/train/routes/1a05d814-eb74-4a5a-b8ea-20f9b46309c4 responded 200 in 8.8515 ms
+[15:34:53 INF] HTTP GET /api/v1/admin/train/routes/1a05d814-eb74-4a5a-b8ea-20f9b46309c4 responded 200 in 5.4365 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 14.6680 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 15.5321 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 14.5415 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 24.8114 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 6.9678 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 10.3014 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/train/trip-stop-times/trips/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 13.5005 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 36.4037 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 6.1740 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 5.6685 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 5.8694 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 5.2335 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/tenants responded 200 in 51.0123 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/train/trip-stop-times/trips/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 5.5156 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 3.1513 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 4.7430 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 3.7429 ms
+[15:34:54 INF] HTTP GET /api/v1/admin/tenants responded 200 in 5.1919 ms
+[15:34:55 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 15.1806 ms
+[15:34:55 INF] HTTP GET /api/v1/admin/train/trip-stop-times/trips/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 18.5273 ms
+[15:34:55 INF] HTTP GET /api/v1/admin/train/trip-segment-prices/trips/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 18.4729 ms
+[15:34:55 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 5.0509 ms
+[15:34:55 INF] HTTP GET /api/v1/admin/train/trip-stop-times/trips/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 5.2976 ms
+[15:34:55 INF] HTTP GET /api/v1/admin/train/trip-segment-prices/trips/acf4e9b0-d123-4add-b02e-4df70cb1998b responded 200 in 5.3892 ms
+[15:34:55 INF] HTTP GET /api/v1/admin/tenants responded 200 in 34.5146 ms
+[15:34:55 INF] HTTP GET /api/v1/admin/tenants responded 200 in 5.9728 ms
+[15:34:56 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 16.4148 ms
+[15:34:56 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 15.7230 ms
+[15:34:56 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 16.4945 ms
+[15:34:56 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 24.8485 ms
+[15:34:56 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 25.5988 ms
+[15:34:56 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 15.5997 ms
+[15:34:56 INF] HTTP GET /api/v1/admin/train/stop-points responded 200 in 8.8138 ms
+[15:34:56 INF] HTTP GET /api/v1/admin/tenants responded 200 in 41.5023 ms
+[15:34:56 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 8.5577 ms
+[15:34:56 INF] HTTP GET /api/v1/admin/train/routes responded 200 in 15.1102 ms
+[15:34:56 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 16.2961 ms
+[15:34:57 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 11.4993 ms
+[15:34:57 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 11.4959 ms
+[15:34:57 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 11.5056 ms
+[15:34:57 INF] HTTP GET /api/v1/admin/catalog/locations responded 200 in 17.9818 ms
+[15:34:57 INF] HTTP GET /api/v1/admin/catalog/providers responded 200 in 18.3521 ms
+[15:34:57 INF] HTTP GET /api/v1/admin/tenants responded 200 in 19.1367 ms
+[15:34:57 INF] HTTP GET /api/v1/admin/train/trips responded 200 in 5.9584 ms
+[15:34:58 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 13.8556 ms
+[15:34:58 INF] HTTP GET /api/v1/admin/train/cars responded 200 in 4.1402 ms
+[15:34:58 INF] HTTP GET /api/v1/admin/tenants responded 200 in 29.9755 ms
+[15:34:58 INF] HTTP GET /api/v1/admin/train/cars/50118962-b07c-45ed-bdfe-01673ad2c3a4 responded 200 in 33.9771 ms
+[15:34:58 INF] HTTP GET /api/v1/admin/tenants responded 200 in 7.3841 ms
+[15:34:58 INF] HTTP GET /api/v1/admin/train/cars/50118962-b07c-45ed-bdfe-01673ad2c3a4 responded 200 in 5.4901 ms

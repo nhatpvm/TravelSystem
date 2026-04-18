@@ -1,0 +1,16 @@
+﻿$ErrorActionPreference='Stop'
+if(-not $BaseUrl){throw 'BaseUrl is required'}
+if(-not $StatePath){throw 'StatePath is required'}
+if(-not $LogPath){throw 'LogPath is required'}
+function J([string]$Text){ if([string]::IsNullOrWhiteSpace($Text)){ return $null }; try { return $Text | ConvertFrom-Json } catch { return $null } }
+function Load-State { if(Test-Path $StatePath){ $raw = Get-Content $StatePath -Raw | ConvertFrom-Json; $map=@{}; foreach($p in $raw.PSObject.Properties){ $map[$p.Name]=$p.Value }; return $map }; return @{} }
+function Save-State { $script:State | ConvertTo-Json -Depth 20 | Set-Content $StatePath -Encoding UTF8 }
+$script:State = Load-State
+function Log-Result($name,$method,$path,$scenario,$expected,$actual,$pass,$note='',$snippet=''){ $line = [pscustomobject]@{ name=$name; method=$method; path=$path; scenario=$scenario; expected=$expected; actual=$actual; pass=$pass; note=$note; snippet=$snippet }; ($line | ConvertTo-Json -Compress) | Add-Content $LogPath -Encoding UTF8 }
+function Skip-Result($name,$method,$path,$scenario,$note){ Log-Result $name $method $path $scenario 'SKIP' 'SKIP' $true $note '' }
+function True([bool]$cond,[string]$msg){ if(-not $cond){ throw $msg } }
+function Headers($token='',$tenant=''){ $h=@{ Accept='application/json' }; if(-not [string]::IsNullOrWhiteSpace($token)){ $h.Authorization="Bearer $token" }; if(-not [string]::IsNullOrWhiteSpace($tenant)){ $h['X-TenantId']=$tenant }; return $h }
+function Call($name,$method,$path,$scenario,$expected,$headers,$body=$null){ $uri="$BaseUrl$path"; $status=0; $text=''; try { if($null -ne $body){ $json=$body | ConvertTo-Json -Depth 50; $resp=Invoke-WebRequest -UseBasicParsing -Method $method -Uri $uri -Headers $headers -ContentType 'application/json' -Body $json } else { $resp=Invoke-WebRequest -UseBasicParsing -Method $method -Uri $uri -Headers $headers }; $status=[int]$resp.StatusCode; $text=[string]$resp.Content } catch { if($_.Exception.Response){ $raw=$_.Exception.Response; $status=[int]$raw.StatusCode; $stream=$raw.GetResponseStream(); if($stream){ $reader=New-Object System.IO.StreamReader($stream); $text=$reader.ReadToEnd(); $reader.Dispose() } } else { throw } }; $pass = if($expected -is [System.Array]){ $expected -contains $status } else { $status -eq [int]$expected }; $expectedText = if($expected -is [System.Array]){ $expected -join ',' } else { [string]$expected }; $snippet = if($text.Length -gt 500){ $text.Substring(0,500) } else { $text }; Log-Result $name $method $path $scenario $expectedText $status $pass '' $snippet; if(-not $pass){ throw "[$name] Expected $expectedText but got $status at $path. $snippet" }; return [pscustomobject]@{ Status=$status; Text=$text; Json=(J $text) } }
+function Has-Item($items,$prop,$value){ foreach($item in @($items)){ if($null -ne $item -and $item.PSObject.Properties.Name -contains $prop -and $item.$prop -eq $value){ return $true } }; return $false }
+function Need-Item($items,$prop,$value,$msg){ True (Has-Item $items $prop $value) $msg }
+function RatePlanMapId($detail){ $list=@($detail.roomTypes); True ($list.Count -gt 0) 'Rate plan detail has no roomTypes'; True ($null -ne $list[0].id) 'Rate plan detail has no mapping id'; return [string]$list[0].id }

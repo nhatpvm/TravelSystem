@@ -1,0 +1,43 @@
+{
+  "orderCode": "ORD-20260416175420FEBD17",
+  "results": [
+    {
+      "route": "checkout",
+      "url": "http://127.0.0.1:4173/checkout?product=tour&tourId=f5060fb1-d057-44ad-abdf-1a6465886c6c&scheduleId=8cba0918-b9b9-451d-8c79-1ee14910637e&packageId=5f9688f9-a7b3-46c1-a6bd-903bff1525ca&adult=2&child=0",
+      "mojibake": false,
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-customer-final\\checkout.png"
+    },
+    {
+      "route": "payment",
+      "url": "http://127.0.0.1:4173/payment?orderCode=ORD-20260416175420FEBD17",
+      "mojibake": true,
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-customer-final\\payment.png"
+    },
+    {
+      "route": "ticket",
+      "url": "http://127.0.0.1:4173/ticket/success?orderCode=ORD-20260416175420FEBD17",
+      "mojibake": true,
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-customer-final\\ticket.png"
+    },
+    {
+      "route": "bookings",
+      "url": "http://127.0.0.1:4173/my-account/bookings",
+      "mojibake": true,
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-customer-final\\bookings.png"
+    },
+    {
+      "route": "payments",
+      "url": "http://127.0.0.1:4173/my-account/payments",
+      "mojibake": true,
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-customer-final\\payments.png"
+    },
+    {
+      "route": "vat",
+      "url": "http://127.0.0.1:4173/my-account/vat-invoice",
+      "mojibake": false,
+      "screenshot": "d:\\FPT\\TicketBooking.V3\\_tmp\\customer-live-test\\ui-customer-final\\vat.png"
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": []
+}
