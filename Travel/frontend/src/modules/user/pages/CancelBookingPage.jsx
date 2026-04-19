@@ -242,6 +242,12 @@ export default function CancelBookingPage() {
               <button type="button" onClick={() => navigate(`/my-account/bookings/${order.orderCode}`)} className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:bg-[#1EB4D4] transition-all">
                 Về trang chi tiết đơn hàng
               </button>
+              <Link
+                to={`/support?tab=create&orderCode=${encodeURIComponent(order.orderCode)}&category=${encodeURIComponent('Thanh toán & hoàn tiền')}&subject=${encodeURIComponent(`Theo dõi hoàn tiền cho đơn ${order.orderCode}`)}&content=${encodeURIComponent('Khách muốn support theo dõi trạng thái hủy / refund / settlement liên quan tới đơn hàng này.')}`}
+                className="block w-full py-4 bg-white text-slate-700 border border-slate-200 rounded-2xl font-black text-xs uppercase tracking-widest shadow-sm hover:border-[#1EB4D4] hover:text-[#1EB4D4] transition-all"
+              >
+                Gửi support theo dõi refund
+              </Link>
               <p className="text-[11px] font-bold text-slate-400">Nền tảng sẽ tiếp tục đồng bộ trạng thái hoàn / hủy cho customer, tenant và admin.</p>
             </div>
           </motion.div>

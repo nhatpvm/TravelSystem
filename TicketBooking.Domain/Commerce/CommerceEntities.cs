@@ -95,6 +95,23 @@ public enum CustomerSupportTicketStatus
     Closed = 4
 }
 
+public enum CustomerSettlementStatus
+{
+    Unsettled = 1,
+    InSettlement = 2,
+    Settled = 3,
+    Adjusted = 4,
+    OnHold = 5
+}
+
+public enum CustomerSettlementBatchStatus
+{
+    Draft = 1,
+    Processing = 2,
+    Completed = 3,
+    Cancelled = 4
+}
+
 public sealed class CustomerOrder
 {
     public Guid Id { get; set; }
@@ -122,6 +139,7 @@ public sealed class CustomerOrder
     public CustomerPaymentStatus PaymentStatus { get; set; } = CustomerPaymentStatus.Pending;
     public CustomerTicketStatus TicketStatus { get; set; } = CustomerTicketStatus.Pending;
     public CustomerRefundStatus RefundStatus { get; set; } = CustomerRefundStatus.None;
+    public CustomerSettlementStatus SettlementStatus { get; set; } = CustomerSettlementStatus.Unsettled;
 
     public string ContactFullName { get; set; } = "";
     public string ContactPhone { get; set; } = "";
@@ -138,6 +156,8 @@ public sealed class CustomerOrder
     public DateTimeOffset? TicketIssuedAt { get; set; }
     public DateTimeOffset? CancelledAt { get; set; }
     public DateTimeOffset? CompletedAt { get; set; }
+    public DateTimeOffset? SettledAt { get; set; }
+    public Guid? SettlementBatchId { get; set; }
 
     public bool IsDeleted { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
@@ -391,6 +411,89 @@ public sealed class CustomerSupportTicket
     public DateTimeOffset? FirstResponseAt { get; set; }
     public DateTimeOffset? ResolvedAt { get; set; }
     public DateTimeOffset? LastActivityAt { get; set; }
+
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public Guid? CreatedByUserId { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? UpdatedByUserId { get; set; }
+    public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+}
+
+public sealed class CustomerTenantPayoutAccount
+{
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+
+    public string BankName { get; set; } = "";
+    public string AccountNumber { get; set; } = "";
+    public string AccountHolder { get; set; } = "";
+    public string? BankBranch { get; set; }
+    public string? Note { get; set; }
+    public bool IsDefault { get; set; }
+    public bool IsVerified { get; set; }
+    public DateTimeOffset? VerifiedAt { get; set; }
+
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public Guid? CreatedByUserId { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? UpdatedByUserId { get; set; }
+    public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+}
+
+public sealed class CustomerSettlementBatch
+{
+    public Guid Id { get; set; }
+    public string BatchCode { get; set; } = "";
+    public int PeriodYear { get; set; }
+    public int PeriodMonth { get; set; }
+    public DateOnly StartDate { get; set; }
+    public DateOnly EndDate { get; set; }
+    public CustomerSettlementBatchStatus Status { get; set; } = CustomerSettlementBatchStatus.Draft;
+    public string CurrencyCode { get; set; } = "VND";
+
+    public decimal TotalGrossAmount { get; set; }
+    public decimal TotalCommissionAmount { get; set; }
+    public decimal TotalCommissionAdjustmentAmount { get; set; }
+    public decimal TotalTenantNetAmount { get; set; }
+    public decimal TotalRefundAmount { get; set; }
+    public decimal TotalNetPayoutAmount { get; set; }
+
+    public int TenantCount { get; set; }
+    public int LineCount { get; set; }
+    public string? Notes { get; set; }
+    public DateTimeOffset? ApprovedAt { get; set; }
+    public DateTimeOffset? PaidAt { get; set; }
+
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public Guid? CreatedByUserId { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? UpdatedByUserId { get; set; }
+    public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+}
+
+public sealed class CustomerSettlementBatchLine
+{
+    public Guid Id { get; set; }
+    public Guid BatchId { get; set; }
+    public Guid TenantId { get; set; }
+    public Guid? OrderId { get; set; }
+    public Guid? PaymentId { get; set; }
+    public Guid? RefundRequestId { get; set; }
+
+    public CustomerSettlementStatus Status { get; set; } = CustomerSettlementStatus.InSettlement;
+    public string CurrencyCode { get; set; } = "VND";
+    public decimal GrossAmount { get; set; }
+    public decimal CommissionAmount { get; set; }
+    public decimal CommissionAdjustmentAmount { get; set; }
+    public decimal TenantNetAmount { get; set; }
+    public decimal RefundAmount { get; set; }
+    public decimal NetPayoutAmount { get; set; }
+    public string Description { get; set; } = "";
+    public string? MetadataJson { get; set; }
+    public DateTimeOffset? SettledAt { get; set; }
 
     public bool IsDeleted { get; set; }
     public DateTimeOffset CreatedAt { get; set; }

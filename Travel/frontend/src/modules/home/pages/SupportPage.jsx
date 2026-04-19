@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
   AlertCircle,
   ArrowRight,
@@ -66,6 +66,7 @@ function formatTicketTime(item) {
 }
 
 export default function SupportPage() {
+  const [searchParams] = useSearchParams();
   const { isAuthenticated, isReady, user } = useAuthSession();
   const [tab, setTab] = useState('create');
   const [form, setForm] = useState(INITIAL_FORM);
@@ -77,6 +78,33 @@ export default function SupportPage() {
   const [success, setSuccess] = useState('');
   const [searchCode, setSearchCode] = useState('');
   const [openFaq, setOpenFaq] = useState(null);
+
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    const subject = searchParams.get('subject');
+    const category = searchParams.get('category');
+    const orderCode = searchParams.get('orderCode');
+    const content = searchParams.get('content');
+    const lookup = searchParams.get('lookup');
+
+    if (tabParam) {
+      setTab(tabParam);
+    }
+
+    if (lookup) {
+      setSearchCode(lookup);
+    }
+
+    if (subject || category || orderCode || content) {
+      setForm((current) => ({
+        ...current,
+        subject: subject || current.subject,
+        category: category || current.category,
+        orderCode: orderCode || current.orderCode,
+        content: content || current.content,
+      }));
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (!user) {

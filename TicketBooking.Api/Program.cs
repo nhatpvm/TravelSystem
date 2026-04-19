@@ -198,6 +198,7 @@ builder.Services.Configure<SePayGatewayOptions>(builder.Configuration.GetSection
 builder.Services.AddScoped<SePayGatewayService>();
 builder.Services.AddScoped<CustomerNotificationService>();
 builder.Services.AddScoped<CustomerOrderService>();
+builder.Services.AddScoped<CommerceBackofficeService>();
 
 // ===== Tour services =====
 builder.Services.AddScoped<TourBookabilityService>();

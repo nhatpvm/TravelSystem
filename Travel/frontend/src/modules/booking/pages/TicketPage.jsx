@@ -185,9 +185,17 @@ export default function TicketPage() {
                 <div className="w-12 h-12 bg-white text-blue-600 rounded-2xl flex items-center justify-center shadow-sm">
                   <Info size={24} />
                 </div>
-                <p className="text-xs font-bold text-slate-600 leading-relaxed">
-                  Bạn đã nhận được xác nhận thanh toán thành công. Tenant tương ứng và admin hệ thống đã nhìn thấy giao dịch này trong dashboard tài chính/đơn hàng theo đúng phạm vi dữ liệu.
-                </p>
+                <div className="flex-1">
+                  <p className="text-xs font-bold text-slate-600 leading-relaxed">
+                    Bạn đã nhận được xác nhận thanh toán thành công. Tenant tương ứng và admin hệ thống đã nhìn thấy giao dịch này trong dashboard tài chính/đơn hàng theo đúng phạm vi dữ liệu.
+                  </p>
+                  <Link
+                    to={`/support?tab=create&orderCode=${encodeURIComponent(order?.orderCode || orderCode)}&category=${encodeURIComponent('Vé xe / tàu / máy bay')}&subject=${encodeURIComponent(`Hỗ trợ vé / voucher cho đơn ${order?.orderCode || orderCode}`)}&content=${encodeURIComponent('Khách cần hỗ trợ hậu mãi liên quan tới vé hoặc voucher đã phát hành.')}`}
+                    className="inline-flex mt-4 px-4 py-2 bg-white text-blue-600 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all"
+                  >
+                    Báo support về vé / voucher
+                  </Link>
+                </div>
               </div>
             </>
           )}

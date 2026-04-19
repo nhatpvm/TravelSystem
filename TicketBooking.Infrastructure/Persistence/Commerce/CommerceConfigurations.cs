@@ -20,6 +20,7 @@ public sealed class CustomerOrderConfiguration : IEntityTypeConfiguration<Custom
         b.Property(x => x.TenantNetAmount).HasPrecision(18, 2);
         b.Property(x => x.PayableAmount).HasPrecision(18, 2);
         b.Property(x => x.RefundedAmount).HasPrecision(18, 2);
+        b.Property(x => x.SettlementStatus).HasDefaultValue(CustomerSettlementStatus.Unsettled);
         b.Property(x => x.ContactFullName).HasMaxLength(200).IsRequired();
         b.Property(x => x.ContactPhone).HasMaxLength(50).IsRequired();
         b.Property(x => x.ContactEmail).HasMaxLength(200).IsRequired();
@@ -32,6 +33,7 @@ public sealed class CustomerOrderConfiguration : IEntityTypeConfiguration<Custom
         b.HasIndex(x => x.OrderCode).IsUnique();
         b.HasIndex(x => new { x.UserId, x.Status, x.PaymentStatus, x.IsDeleted });
         b.HasIndex(x => new { x.TenantId, x.ProductType, x.Status, x.IsDeleted });
+        b.HasIndex(x => new { x.TenantId, x.SettlementStatus, x.IsDeleted });
         b.HasIndex(x => new { x.TenantId, x.SourceBookingId });
         b.HasIndex(x => new { x.TenantId, x.SourceReservationId });
     }
@@ -236,5 +238,75 @@ public sealed class CustomerSupportTicketConfiguration : IEntityTypeConfiguratio
         b.HasIndex(x => new { x.UserId, x.Status, x.IsDeleted, x.CreatedAt });
         b.HasIndex(x => new { x.TenantId, x.Status, x.IsDeleted });
         b.HasIndex(x => new { x.OrderId, x.IsDeleted });
+    }
+}
+
+public sealed class CustomerTenantPayoutAccountConfiguration : IEntityTypeConfiguration<CustomerTenantPayoutAccount>
+{
+    public void Configure(EntityTypeBuilder<CustomerTenantPayoutAccount> b)
+    {
+        b.ToTable("CustomerTenantPayoutAccounts", "commerce");
+        b.HasKey(x => x.Id);
+
+        b.Property(x => x.BankName).HasMaxLength(200).IsRequired();
+        b.Property(x => x.AccountNumber).HasMaxLength(100).IsRequired();
+        b.Property(x => x.AccountHolder).HasMaxLength(200).IsRequired();
+        b.Property(x => x.BankBranch).HasMaxLength(200);
+        b.Property(x => x.Note).HasMaxLength(2000);
+        b.Property(x => x.RowVersion).IsRowVersion().IsConcurrencyToken();
+
+        b.HasIndex(x => new { x.TenantId, x.IsDeleted });
+        b.HasIndex(x => new { x.TenantId, x.IsDefault, x.IsDeleted });
+    }
+}
+
+public sealed class CustomerSettlementBatchConfiguration : IEntityTypeConfiguration<CustomerSettlementBatch>
+{
+    public void Configure(EntityTypeBuilder<CustomerSettlementBatch> b)
+    {
+        b.ToTable("CustomerSettlementBatches", "commerce");
+        b.HasKey(x => x.Id);
+
+        b.Property(x => x.BatchCode).HasMaxLength(50).IsRequired();
+        b.Property(x => x.Status).HasDefaultValue(CustomerSettlementBatchStatus.Draft);
+        b.Property(x => x.CurrencyCode).HasMaxLength(10).IsRequired();
+        b.Property(x => x.TotalGrossAmount).HasPrecision(18, 2);
+        b.Property(x => x.TotalCommissionAmount).HasPrecision(18, 2);
+        b.Property(x => x.TotalCommissionAdjustmentAmount).HasPrecision(18, 2);
+        b.Property(x => x.TotalTenantNetAmount).HasPrecision(18, 2);
+        b.Property(x => x.TotalRefundAmount).HasPrecision(18, 2);
+        b.Property(x => x.TotalNetPayoutAmount).HasPrecision(18, 2);
+        b.Property(x => x.Notes).HasMaxLength(2000);
+        b.Property(x => x.RowVersion).IsRowVersion().IsConcurrencyToken();
+
+        b.HasIndex(x => x.BatchCode).IsUnique();
+        b.HasIndex(x => new { x.PeriodYear, x.PeriodMonth, x.IsDeleted });
+        b.HasIndex(x => new { x.Status, x.IsDeleted, x.CreatedAt });
+    }
+}
+
+public sealed class CustomerSettlementBatchLineConfiguration : IEntityTypeConfiguration<CustomerSettlementBatchLine>
+{
+    public void Configure(EntityTypeBuilder<CustomerSettlementBatchLine> b)
+    {
+        b.ToTable("CustomerSettlementBatchLines", "commerce");
+        b.HasKey(x => x.Id);
+
+        b.Property(x => x.Status).HasDefaultValue(CustomerSettlementStatus.InSettlement);
+        b.Property(x => x.CurrencyCode).HasMaxLength(10).IsRequired();
+        b.Property(x => x.GrossAmount).HasPrecision(18, 2);
+        b.Property(x => x.CommissionAmount).HasPrecision(18, 2);
+        b.Property(x => x.CommissionAdjustmentAmount).HasPrecision(18, 2);
+        b.Property(x => x.TenantNetAmount).HasPrecision(18, 2);
+        b.Property(x => x.RefundAmount).HasPrecision(18, 2);
+        b.Property(x => x.NetPayoutAmount).HasPrecision(18, 2);
+        b.Property(x => x.Description).HasMaxLength(500).IsRequired();
+        b.Property(x => x.MetadataJson).HasColumnType("nvarchar(max)");
+        b.Property(x => x.RowVersion).IsRowVersion().IsConcurrencyToken();
+
+        b.HasIndex(x => new { x.BatchId, x.TenantId, x.IsDeleted });
+        b.HasIndex(x => new { x.OrderId, x.IsDeleted });
+        b.HasIndex(x => new { x.RefundRequestId, x.IsDeleted });
+        b.HasIndex(x => new { x.Status, x.IsDeleted, x.CreatedAt });
     }
 }

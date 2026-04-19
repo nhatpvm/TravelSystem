@@ -145,15 +145,50 @@ public sealed class SePayGatewayService
         return null;
     }
 
+    public async Task<SePayGatewayOperationResult> CancelOrderByInvoiceAsync(string invoiceNumber, CancellationToken ct = default)
+    {
+        EnsureConfigured();
+
+        if (string.IsNullOrWhiteSpace(invoiceNumber))
+        {
+            return new SePayGatewayOperationResult
+            {
+                Succeeded = false,
+            };
+        }
+
+        using var request = new HttpRequestMessage(
+            HttpMethod.Post,
+            $"{_options.ApiBaseUrl.TrimEnd('/')}/v1/order/cancel");
+        request.Headers.Authorization = new AuthenticationHeaderValue("Basic", BuildBasicAuthToken());
+        request.Content = new StringContent(
+            JsonSerializer.Serialize(new
+            {
+                order_invoice_number = invoiceNumber.Trim(),
+            }),
+            Encoding.UTF8,
+            "application/json");
+
+        var client = _httpClientFactory.CreateClient(nameof(SePayGatewayService));
+        using var response = await client.SendAsync(request, ct);
+        var content = await response.Content.ReadAsStringAsync(ct);
+
+        return new SePayGatewayOperationResult
+        {
+            Succeeded = response.IsSuccessStatusCode,
+            StatusCode = (int)response.StatusCode,
+            RawPayloadJson = string.IsNullOrWhiteSpace(content) ? null : content,
+        };
+    }
+
     public static CustomerPaymentStatus MapPaymentStatus(string? status)
     {
         return status?.Trim().ToUpperInvariant() switch
         {
-            "CAPTURED" => CustomerPaymentStatus.Paid,
-            "CANCELLED" => CustomerPaymentStatus.Cancelled,
-            "CANCELED" => CustomerPaymentStatus.Cancelled,
-            "EXPIRED" => CustomerPaymentStatus.Expired,
-            "FAILED" => CustomerPaymentStatus.Failed,
+            "CAPTURED" or "PAID" or "APPROVED" => CustomerPaymentStatus.Paid,
+            "CANCELLED" or "CANCELED" or "VOID" or "VOIDED" => CustomerPaymentStatus.Cancelled,
+            "EXPIRED" or "TIMEOUT" => CustomerPaymentStatus.Expired,
+            "FAILED" or "FAIL" or "DECLINED" or "REJECTED" or "ERROR" => CustomerPaymentStatus.Failed,
             _ => CustomerPaymentStatus.Pending,
         };
     }
@@ -246,4 +281,11 @@ public sealed class SePayOrderSyncResult
     public CustomerOrderStatus OrderStatus { get; set; }
     public decimal? PaidAmount { get; set; }
     public string RawPayloadJson { get; set; } = "{}";
+}
+
+public sealed class SePayGatewayOperationResult
+{
+    public bool Succeeded { get; set; }
+    public int StatusCode { get; set; }
+    public string? RawPayloadJson { get; set; }
 }

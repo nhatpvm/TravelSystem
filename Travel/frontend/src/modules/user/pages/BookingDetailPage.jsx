@@ -259,6 +259,12 @@ export default function BookingDetailPage() {
                     Xem vé điện tử / voucher
                   </Link>
                 ) : null}
+                <Link
+                  to={`/support?tab=create&orderCode=${encodeURIComponent(order.orderCode)}&category=${encodeURIComponent('Thanh toán & hoàn tiền')}&subject=${encodeURIComponent(`Hỗ trợ sau bán cho đơn ${order.orderCode}`)}&content=${encodeURIComponent('Khách cần hỗ trợ theo dõi payment / refund / ticket cho đơn hàng này.')}`}
+                  className="w-full py-3 bg-white text-slate-700 border border-slate-200 rounded-xl text-[10px] font-black uppercase tracking-widest text-center hover:border-[#1EB4D4] hover:text-[#1EB4D4] transition-all"
+                >
+                  Gửi support cho đơn này
+                </Link>
               </div>
             </div>
           </div>

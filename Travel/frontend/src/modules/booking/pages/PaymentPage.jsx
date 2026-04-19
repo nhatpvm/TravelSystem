@@ -252,6 +252,13 @@ export default function PaymentPage() {
                       Xem vé / voucher <CheckCircle2 size={16} />
                     </Link>
                   ) : null}
+
+                  <Link
+                    to={`/support?tab=create&orderCode=${encodeURIComponent(order?.orderCode || '')}&category=${encodeURIComponent('Thanh toán & hoàn tiền')}&subject=${encodeURIComponent(`Hỗ trợ thanh toán cho đơn ${order?.orderCode || orderCode}`)}&content=${encodeURIComponent('Khách cần hỗ trợ kiểm tra trạng thái payment / webhook / SePay redirect cho đơn hàng này.')}`}
+                    className="w-full h-12 bg-white border border-slate-100 text-slate-700 rounded-2xl font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-3 hover:border-blue-200 hover:text-blue-600 transition-all"
+                  >
+                    Cần hỗ trợ thanh toán
+                  </Link>
                 </div>
               </div>
 

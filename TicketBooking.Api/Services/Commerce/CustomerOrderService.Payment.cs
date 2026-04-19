@@ -21,7 +21,13 @@ public sealed partial class CustomerOrderService
         if (payment.Status != CustomerPaymentStatus.Pending)
             return await MapOrderDetailAsync(order.Id, ct);
 
-        await MarkOrderAsUnpaidFinalAsync(order, payment, CustomerPaymentStatus.Cancelled, userId, ct);
+        await MarkOrderAsUnpaidFinalAsync(
+            order,
+            payment,
+            CustomerPaymentStatus.Cancelled,
+            userId,
+            ct,
+            shouldCancelProviderOrder: true);
         await _db.SaveChangesAsync(ct);
         return await MapOrderDetailAsync(order.Id, ct);
     }
@@ -167,33 +173,47 @@ public sealed partial class CustomerOrderService
         if (string.IsNullOrWhiteSpace(payload.ProviderInvoiceNumber))
             return false;
 
-        var payment = await _db.CustomerPayments
-            .FirstOrDefaultAsync(x =>
-                x.ProviderInvoiceNumber == payload.ProviderInvoiceNumber &&
-                !x.IsDeleted, ct);
-
-        if (payment is null)
-            return true;
-
-        var order = await _db.CustomerOrders
-            .FirstOrDefaultAsync(x => x.Id == payment.OrderId && !x.IsDeleted, ct);
-
-        if (order is null)
-            return true;
-
-        var sync = new SePayOrderSyncResult
+        try
         {
-            ProviderInvoiceNumber = payload.ProviderInvoiceNumber,
-            ProviderOrderId = payload.ProviderOrderId,
-            RawStatus = payload.RawStatus,
-            PaymentStatus = SePayGatewayService.MapPaymentStatus(payload.RawStatus),
-            OrderStatus = SePayGatewayService.MapOrderStatus(payload.RawStatus),
-            PaidAmount = payload.Amount,
-            RawPayloadJson = rawBody,
-        };
+            var payment = await _db.CustomerPayments
+                .FirstOrDefaultAsync(x =>
+                    x.ProviderInvoiceNumber == payload.ProviderInvoiceNumber &&
+                    !x.IsDeleted, ct);
 
-        await ApplySyncedPaymentStateAsync(order, payment, sync, order.UserId, ct, fromWebhook: true);
-        return true;
+            if (payment is null)
+                return true;
+
+            var order = await _db.CustomerOrders
+                .FirstOrDefaultAsync(x => x.Id == payment.OrderId && !x.IsDeleted, ct);
+
+            if (order is null)
+                return true;
+
+            var sync = new SePayOrderSyncResult
+            {
+                ProviderInvoiceNumber = payload.ProviderInvoiceNumber,
+                ProviderOrderId = payload.ProviderOrderId,
+                RawStatus = payload.RawStatus,
+                PaymentStatus = SePayGatewayService.MapPaymentStatus(payload.RawStatus),
+                OrderStatus = SePayGatewayService.MapOrderStatus(payload.RawStatus),
+                PaidAmount = payload.Amount,
+                RawPayloadJson = rawBody,
+            };
+
+            await ApplySyncedPaymentStateAsync(order, payment, sync, order.UserId, ct, fromWebhook: true);
+            return true;
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            return await IsGatewayWebhookAlreadyAppliedAsync(payload, ct);
+        }
+        catch (DbUpdateException)
+        {
+            if (await IsGatewayWebhookAlreadyAppliedAsync(payload, ct))
+                return true;
+
+            throw;
+        }
     }
 
     private async Task ApplySyncedPaymentStateAsync(
@@ -213,15 +233,29 @@ public sealed partial class CustomerOrderService
         payment.UpdatedAt = now;
         payment.UpdatedByUserId = actorUserId;
 
+        if (fromWebhook)
+        {
+            payment.LastWebhookJson = syncResult.RawPayloadJson;
+            payment.WebhookReceivedAt = now;
+        }
+
+        if (IsPaidTerminal(order, payment) || IsUnpaidTerminal(order, payment))
+        {
+            await _db.SaveChangesAsync(ct);
+            return;
+        }
+
         switch (syncResult.PaymentStatus)
         {
             case CustomerPaymentStatus.Paid when payment.Status != CustomerPaymentStatus.Paid:
                 payment.Status = CustomerPaymentStatus.Paid;
                 payment.PaidAmount = syncResult.PaidAmount.GetValueOrDefault(payment.Amount);
                 payment.PaidAt = payment.PaidAt ?? now;
+                payment.FailureReason = null;
                 order.PaymentStatus = CustomerPaymentStatus.Paid;
                 order.Status = CustomerOrderStatus.Paid;
                 order.PaidAt = order.PaidAt ?? now;
+                order.FailureReason = null;
                 order.UpdatedAt = now;
                 order.UpdatedByUserId = actorUserId;
 
@@ -241,20 +275,8 @@ public sealed partial class CustomerOrderService
             case CustomerPaymentStatus.Cancelled:
             case CustomerPaymentStatus.Expired:
             case CustomerPaymentStatus.Failed:
-                payment.Status = syncResult.PaymentStatus;
-                if (syncResult.PaymentStatus == CustomerPaymentStatus.Cancelled)
-                    payment.CancelledAt ??= now;
-                if (syncResult.PaymentStatus == CustomerPaymentStatus.Failed)
-                    payment.FailedAt ??= now;
-
                 await MarkOrderAsUnpaidFinalAsync(order, payment, syncResult.PaymentStatus, actorUserId, ct);
                 break;
-        }
-
-        if (fromWebhook)
-        {
-            payment.LastWebhookJson = syncResult.RawPayloadJson;
-            payment.WebhookReceivedAt = now;
         }
 
         await _db.SaveChangesAsync(ct);
@@ -289,8 +311,31 @@ public sealed partial class CustomerOrderService
         CustomerPayment payment,
         CustomerPaymentStatus finalStatus,
         Guid actorUserId,
-        CancellationToken ct)
+        CancellationToken ct,
+        bool shouldCancelProviderOrder = false)
     {
+        if (IsPaidTerminal(order, payment))
+            return;
+
+        var now = DateTimeOffset.UtcNow;
+        var failureReason = finalStatus switch
+        {
+            CustomerPaymentStatus.Cancelled => "Khách hàng đã hủy hoặc đóng phiên thanh toán.",
+            CustomerPaymentStatus.Expired => "Phiên thanh toán đã hết hạn.",
+            CustomerPaymentStatus.Failed => "Thanh toán không thành công.",
+            _ => payment.FailureReason,
+        };
+
+        payment.Status = finalStatus;
+        payment.FailureReason = failureReason;
+        payment.CancelledAt = finalStatus == CustomerPaymentStatus.Cancelled ? payment.CancelledAt ?? now : payment.CancelledAt;
+        payment.FailedAt = finalStatus == CustomerPaymentStatus.Failed ? payment.FailedAt ?? now : payment.FailedAt;
+        payment.UpdatedAt = now;
+        payment.UpdatedByUserId = actorUserId;
+
+        if (shouldCancelProviderOrder)
+            await TryCancelGatewayOrderAsync(payment, ct);
+
         if (order.Status is CustomerOrderStatus.Cancelled or CustomerOrderStatus.Expired or CustomerOrderStatus.Failed)
             return;
 
@@ -302,15 +347,9 @@ public sealed partial class CustomerOrderService
             CustomerPaymentStatus.Failed => CustomerOrderStatus.Failed,
             _ => order.Status,
         };
-        order.FailureReason = finalStatus switch
-        {
-            CustomerPaymentStatus.Cancelled => "Khách hàng đã hủy hoặc đóng phiên thanh toán.",
-            CustomerPaymentStatus.Expired => "Phiên thanh toán đã hết hạn.",
-            CustomerPaymentStatus.Failed => "Thanh toán không thành công.",
-            _ => order.FailureReason,
-        };
-        order.CancelledAt = finalStatus == CustomerPaymentStatus.Cancelled ? DateTimeOffset.UtcNow : order.CancelledAt;
-        order.UpdatedAt = DateTimeOffset.UtcNow;
+        order.FailureReason = failureReason;
+        order.CancelledAt = finalStatus == CustomerPaymentStatus.Cancelled ? order.CancelledAt ?? now : order.CancelledAt;
+        order.UpdatedAt = now;
         order.UpdatedByUserId = actorUserId;
 
         await ReleaseOrderResourcesAsync(order, actorUserId, ct, finalStatus);
@@ -334,7 +373,13 @@ public sealed partial class CustomerOrderService
         if (order.ExpiresAt > DateTimeOffset.UtcNow)
             return;
 
-        await MarkOrderAsUnpaidFinalAsync(order, payment, CustomerPaymentStatus.Expired, order.UserId, ct);
+        await MarkOrderAsUnpaidFinalAsync(
+            order,
+            payment,
+            CustomerPaymentStatus.Expired,
+            order.UserId,
+            ct,
+            shouldCancelProviderOrder: true);
         await _db.SaveChangesAsync(ct);
     }
 
@@ -360,7 +405,13 @@ public sealed partial class CustomerOrderService
             if (order is null || payment is null || payment.Status != CustomerPaymentStatus.Pending)
                 continue;
 
-            await MarkOrderAsUnpaidFinalAsync(order, payment, CustomerPaymentStatus.Expired, order.UserId, ct);
+            await MarkOrderAsUnpaidFinalAsync(
+                order,
+                payment,
+                CustomerPaymentStatus.Expired,
+                order.UserId,
+                ct,
+                shouldCancelProviderOrder: true);
         }
 
         if (dueOrderIds.Count > 0)
@@ -648,17 +699,99 @@ public sealed partial class CustomerOrderService
         {
             if (string.Equals(transactionStatus, "APPROVED", StringComparison.OrdinalIgnoreCase))
                 return "CAPTURED";
+            if (string.Equals(transactionStatus, "FAILED", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(transactionStatus, "DECLINED", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(transactionStatus, "REJECTED", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(transactionStatus, "ERROR", StringComparison.OrdinalIgnoreCase))
+            {
+                return "FAILED";
+            }
+            if (string.Equals(transactionStatus, "VOID", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(transactionStatus, "VOIDED", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(transactionStatus, "CANCELLED", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(transactionStatus, "CANCELED", StringComparison.OrdinalIgnoreCase))
+            {
+                return "CANCELLED";
+            }
 
             return transactionStatus!;
         }
 
         if (string.Equals(notificationType, "ORDER_PAID", StringComparison.OrdinalIgnoreCase))
             return "CAPTURED";
-
-        if (string.Equals(notificationType, "TRANSACTION_VOID", StringComparison.OrdinalIgnoreCase))
+        if (string.Equals(notificationType, "TRANSACTION_VOID", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(notificationType, "ORDER_CANCELLED", StringComparison.OrdinalIgnoreCase))
             return "CANCELLED";
+        if (string.Equals(notificationType, "ORDER_FAILED", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(notificationType, "PAYMENT_FAILED", StringComparison.OrdinalIgnoreCase))
+        {
+            return "FAILED";
+        }
+        if (string.Equals(notificationType, "ORDER_EXPIRED", StringComparison.OrdinalIgnoreCase))
+            return "EXPIRED";
 
         return incomingTransferByDefault ? "CAPTURED" : "PENDING";
+    }
+
+    private async Task<bool> IsGatewayWebhookAlreadyAppliedAsync(SePayWebhookPayload payload, CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(payload.ProviderInvoiceNumber))
+            return false;
+
+        var payment = await _db.CustomerPayments
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x =>
+                x.ProviderInvoiceNumber == payload.ProviderInvoiceNumber &&
+                !x.IsDeleted, ct);
+
+        if (payment is null)
+            return true;
+
+        var order = await _db.CustomerOrders
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == payment.OrderId && !x.IsDeleted, ct);
+
+        if (order is null)
+            return true;
+
+        return IsPaidTerminal(order, payment) || IsUnpaidTerminal(order, payment);
+    }
+
+    private async Task TryCancelGatewayOrderAsync(CustomerPayment payment, CancellationToken ct)
+    {
+        if (!_sePayGatewayService.IsConfigured ||
+            payment.Provider != CustomerPaymentProvider.SePay ||
+            string.IsNullOrWhiteSpace(payment.ProviderInvoiceNumber) ||
+            (string.IsNullOrWhiteSpace(payment.RequestPayloadJson) && string.IsNullOrWhiteSpace(payment.ProviderOrderId)))
+        {
+            return;
+        }
+
+        try
+        {
+            var result = await _sePayGatewayService.CancelOrderByInvoiceAsync(payment.ProviderInvoiceNumber, ct);
+            if (!string.IsNullOrWhiteSpace(result.RawPayloadJson))
+                payment.ProviderResponseJson = result.RawPayloadJson;
+        }
+        catch
+        {
+            // Local order cancellation/expiry should still complete even if the provider cancel call fails.
+        }
+    }
+
+    private static bool IsPaidTerminal(CustomerOrder order, CustomerPayment payment)
+    {
+        return payment.Status == CustomerPaymentStatus.Paid ||
+               order.PaymentStatus == CustomerPaymentStatus.Paid ||
+               order.Status is CustomerOrderStatus.Paid or CustomerOrderStatus.TicketIssued or CustomerOrderStatus.Completed ||
+               order.TicketStatus == CustomerTicketStatus.Issued;
+    }
+
+    private static bool IsUnpaidTerminal(CustomerOrder order, CustomerPayment payment)
+    {
+        return payment.Status is CustomerPaymentStatus.Cancelled or CustomerPaymentStatus.Expired or CustomerPaymentStatus.Failed ||
+               order.PaymentStatus is CustomerPaymentStatus.Cancelled or CustomerPaymentStatus.Expired or CustomerPaymentStatus.Failed ||
+               order.Status is CustomerOrderStatus.Cancelled or CustomerOrderStatus.Expired or CustomerOrderStatus.Failed;
     }
 
     private static string? GetWebhookString(JsonElement root, params string[] names)

@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Settings, Building2, Globe, Bell, Shield, CreditCard, Save, ChevronRight, Link, AlertTriangle } from 'lucide-react';
+import {
+  getTenantCommerceFinance,
+  upsertTenantCommercePayoutAccount,
+} from '../../../services/commerceBackofficeService';
 
 const TABS = [
   { id: 'general',  icon: <Building2 size={16} />, label: 'Thông tin chung' },
@@ -16,10 +20,82 @@ export default function TenantSettingsPage() {
   const [autoConfirm, setAutoConfirm] = useState(true);
   const [vatEnabled, setVatEnabled] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  const [paymentForm, setPaymentForm] = useState({
+    bankName: '',
+    accountNumber: '',
+    accountHolder: '',
+    bankBranch: '',
+    note: '',
+    isVerified: false,
+    updatedAt: '',
+  });
 
-  const handleSave = () => {
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2500);
+  useEffect(() => {
+    let active = true;
+
+    getTenantCommerceFinance()
+      .then((response) => {
+        if (!active) {
+          return;
+        }
+
+        const payout = response?.payoutAccount;
+        setPaymentForm({
+          bankName: payout?.bankName || '',
+          accountNumber: payout?.accountNumber || '',
+          accountHolder: payout?.accountHolder || '',
+          bankBranch: payout?.bankBranch || '',
+          note: payout?.note || '',
+          isVerified: !!payout?.isVerified,
+          updatedAt: payout?.updatedAt || '',
+        });
+      })
+      .catch(() => {
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const handleSave = async () => {
+    setError('');
+
+    if (activeTab !== 'payment') {
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+      return;
+    }
+
+    setSaving(true);
+
+    try {
+      const response = await upsertTenantCommercePayoutAccount({
+        bankName: paymentForm.bankName,
+        accountNumber: paymentForm.accountNumber,
+        accountHolder: paymentForm.accountHolder,
+        bankBranch: paymentForm.bankBranch || undefined,
+        note: paymentForm.note || undefined,
+      });
+
+      setPaymentForm({
+        bankName: response?.bankName || '',
+        accountNumber: response?.accountNumber || '',
+        accountHolder: response?.accountHolder || '',
+        bankBranch: response?.bankBranch || '',
+        note: response?.note || '',
+        isVerified: !!response?.isVerified,
+        updatedAt: response?.updatedAt || '',
+      });
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+    } catch (requestError) {
+      setError(requestError.message || 'Không thể lưu thông tin payout.');
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -30,10 +106,16 @@ export default function TenantSettingsPage() {
           <h1 className="text-2xl font-black text-slate-900">Cài đặt hệ thống</h1>
           <p className="text-slate-500 text-sm mt-1">Cấu hình tài khoản đối tác và các tuỳ chọn vận hành</p>
         </div>
-        <button onClick={handleSave} className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm shadow-lg transition-all ${saved ? 'bg-emerald-500 text-white' : 'bg-slate-900 text-white hover:bg-blue-600'}`}>
-          <Save size={16} /> {saved ? 'Đã lưu!' : 'Lưu thay đổi'}
+        <button onClick={handleSave} disabled={saving} className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm shadow-lg transition-all ${saved ? 'bg-emerald-500 text-white' : 'bg-slate-900 text-white hover:bg-blue-600'} disabled:opacity-60`}>
+          <Save size={16} /> {saving ? 'Đang lưu...' : saved ? 'Đã lưu!' : 'Lưu thay đổi'}
         </button>
       </div>
+
+      {error ? (
+        <div className="mb-6 rounded-2xl border border-rose-100 bg-rose-50 px-5 py-4 text-sm font-bold text-rose-600">
+          {error}
+        </div>
+      ) : null}
 
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Sidebar tabs */}
@@ -182,24 +264,38 @@ export default function TenantSettingsPage() {
                 <h2 className="font-black text-slate-900 text-sm uppercase tracking-widest border-b border-slate-100 pb-4">Thông tin thanh toán</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   {[
-                    { label: 'Ngân hàng', value: 'Vietcombank (VCB)' },
-                    { label: 'Số tài khoản', value: '0123 4567 8901' },
-                    { label: 'Chủ tài khoản', value: 'HOANG LONG TRAVEL CO LTD' },
-                    { label: 'Chi nhánh', value: 'Hà Nội' },
+                    { key: 'bankName', label: 'Ngân hàng' },
+                    { key: 'accountNumber', label: 'Số tài khoản' },
+                    { key: 'accountHolder', label: 'Chủ tài khoản' },
+                    { key: 'bankBranch', label: 'Chi nhánh' },
                   ].map((f, i) => (
                     <div key={i} className="space-y-2">
                       <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{f.label}</label>
-                      <input defaultValue={f.value} className="w-full bg-slate-50 rounded-xl py-3 px-4 font-bold text-slate-900 text-sm border-2 border-transparent focus:border-blue-200 focus:bg-white outline-none transition-all" />
+                      <input
+                        value={paymentForm[f.key]}
+                        onChange={(event) => setPaymentForm((current) => ({ ...current, [f.key]: event.target.value }))}
+                        className="w-full bg-slate-50 rounded-xl py-3 px-4 font-bold text-slate-900 text-sm border-2 border-transparent focus:border-blue-200 focus:bg-white outline-none transition-all"
+                      />
                     </div>
                   ))}
                 </div>
 
                 <div className="p-5 bg-blue-50 rounded-2xl">
-                  <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-2">API Key tích hợp</p>
-                  <div className="flex items-center gap-3">
-                    <code className="flex-1 font-mono text-xs text-blue-800 bg-blue-100 px-3 py-2 rounded-xl font-bold truncate">sk_live_hl_••••••••••••••••••••••••</code>
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all">Tạo mới</button>
+                  <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-2">Trạng thái payout account</p>
+                  <div className="space-y-2 text-sm font-bold text-blue-800">
+                    <p>{paymentForm.isVerified ? 'Tài khoản đã được xác minh.' : 'Tài khoản đang chờ admin xác minh hoặc vừa thay đổi thông tin quan trọng.'}</p>
+                    <p className="text-xs text-blue-600">Cập nhật gần nhất: {paymentForm.updatedAt ? new Date(paymentForm.updatedAt).toLocaleString('vi-VN') : 'Chưa có dữ liệu'}</p>
                   </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Ghi chú đối soát</label>
+                  <textarea
+                    rows={3}
+                    value={paymentForm.note}
+                    onChange={(event) => setPaymentForm((current) => ({ ...current, note: event.target.value }))}
+                    className="w-full bg-slate-50 rounded-xl py-3 px-4 font-medium text-slate-900 text-sm border-2 border-transparent focus:border-blue-200 focus:bg-white outline-none transition-all resize-none"
+                  />
                 </div>
               </div>
             )}
