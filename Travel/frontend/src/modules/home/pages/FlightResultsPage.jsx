@@ -2,8 +2,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Plane, Calendar, Users, Filter, MapPin, Search, ChevronRight, ShieldCheck, Zap } from 'lucide-react';
 import MainLayout from '../../../shared/components/layouts/MainLayout';
 import { motion } from 'framer-motion';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { searchFlightAirports, searchFlights } from '../../../services/flightService';
+import { trackRecentSearch } from '../../../services/customerCommerceService';
+import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import { formatCurrency, formatDate, formatTime, getCabinClassLabel } from '../../tenant/flight/utils/presentation';
 
 const SORT_TABS = [
@@ -89,7 +91,9 @@ function getFlightDuration(item) {
 }
 
 const FlightResultsPage = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuthSession();
   const [searchParams] = useSearchParams();
   const [form, setForm] = useState(() => buildInitialForm(searchParams));
   const [activeTab, setActiveTab] = useState('all');
@@ -195,6 +199,26 @@ const FlightResultsPage = () => {
   const sortedFlights = useMemo(() => sortFlights(flights, activeTab), [flights, activeTab]);
   const fromAirport = findAirportByCode(airports, form.from);
   const toAirport = findAirportByCode(airports, form.to);
+
+  useEffect(() => {
+    if (!isAuthenticated || !form.from || !form.to || !form.date) {
+      return;
+    }
+
+    trackRecentSearch({
+      productType: 'flight',
+      searchKey: `flight:${form.from}:${form.to}:${form.date}:${form.passengers || '1'}`,
+      queryText: `${fromAirport?.name || form.from} - ${toAirport?.name || form.to}`,
+      summaryText: `${fromAirport?.iataCode || form.from} -> ${toAirport?.iataCode || form.to}`,
+      searchUrl: `${location.pathname}${location.search}`,
+      criteriaJson: JSON.stringify({
+        from: form.from,
+        to: form.to,
+        date: form.date,
+        passengers: form.passengers || '1',
+      }),
+    }).catch(() => {});
+  }, [form.date, form.from, form.passengers, form.to, fromAirport?.iataCode, fromAirport?.name, isAuthenticated, location.pathname, location.search, toAirport?.iataCode, toAirport?.name]);
 
   return (
     <MainLayout>

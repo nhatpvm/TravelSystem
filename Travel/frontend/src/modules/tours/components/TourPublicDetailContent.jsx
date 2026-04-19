@@ -25,6 +25,7 @@ import {
   addWishlistItem,
   deleteWishlistItem,
   listWishlistItems,
+  trackRecentView,
 } from '../../../services/customerCommerceService';
 import { getCustomerLocale } from '../../../services/customerPreferences';
 import {
@@ -287,6 +288,29 @@ export default function TourPublicDetailContent({ tourId, useFeaturedFallback = 
       active = false;
     };
   }, [resolvedTourId, session.isAuthenticated]);
+
+  useEffect(() => {
+    if (!session.isAuthenticated || !tour || !resolvedTourId) {
+      return;
+    }
+
+    const activeSchedule = tour?.upcomingSchedules?.find((item) => item.id === selectedScheduleId) || null;
+    const priceValue = quote?.totalAmount || activeSchedule?.adultPrice || tour.upcomingSchedules?.[0]?.adultPrice || undefined;
+    const currencyCode = quote?.currencyCode || activeSchedule?.currencyCode || 'VND';
+
+    trackRecentView({
+      productType: 'tour',
+      targetId: resolvedTourId,
+      title: tour.name,
+      subtitle: getTourTypeLabel(tour.type),
+      locationText: [tour.province, tour.city].filter(Boolean).join(', '),
+      priceValue,
+      priceText: priceValue ? formatCurrency(priceValue, currencyCode) : undefined,
+      currencyCode,
+      imageUrl: activeImage || gallery[0] || tour.coverImageUrl,
+      targetUrl: `${location.pathname}${location.search}`,
+    }).catch(() => {});
+  }, [activeImage, gallery, location.pathname, location.search, quote, resolvedTourId, selectedScheduleId, session.isAuthenticated, tour]);
 
   const selectedSchedule = useMemo(
     () => tour?.upcomingSchedules?.find((item) => item.id === selectedScheduleId) || null,

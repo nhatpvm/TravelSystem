@@ -1,9 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { ChevronRight, List, Map as MapIcon, MapPin, Search, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import MainLayout from '../../../shared/components/layouts/MainLayout';
 import { listPublicHotels } from '../../../services/hotelService';
+import { trackRecentSearch } from '../../../services/customerCommerceService';
+import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import { formatCurrency } from '../../tenant/hotel/utils/presentation';
 
 function estimateNightlyPrice(hotel) {
@@ -11,6 +13,8 @@ function estimateNightlyPrice(hotel) {
 }
 
 export default function HotelResultsPage() {
+  const location = useLocation();
+  const { isAuthenticated } = useAuthSession();
   const [searchParams, setSearchParams] = useSearchParams();
   const [viewType, setViewType] = useState('grid');
   const [loading, setLoading] = useState(true);
@@ -72,6 +76,21 @@ export default function HotelResultsPage() {
 
     return nextItems;
   }, [items, filters]);
+
+  useEffect(() => {
+    if (!isAuthenticated || (!filters.q.trim() && !filters.city.trim() && !filters.starMin && !filters.starMax)) {
+      return;
+    }
+
+    trackRecentSearch({
+      productType: 'hotel',
+      searchKey: `hotel:${filters.q.trim()}:${filters.city.trim()}:${filters.starMin}:${filters.starMax}`,
+      queryText: filters.q.trim() || filters.city.trim() || 'Hotel search',
+      summaryText: filters.city.trim() || filters.q.trim() || 'Tìm khách sạn',
+      searchUrl: `${location.pathname}${location.search}`,
+      criteriaJson: JSON.stringify(filters),
+    }).catch(() => {});
+  }, [filters, isAuthenticated, location.pathname, location.search]);
 
   function handleSearch(event) {
     event.preventDefault();

@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-do
 import { Plane, ChevronLeft, Briefcase, ArrowRight, Heart, Info, ShieldCheck, CheckCircle, Clock } from 'lucide-react';
 import MainLayout from '../../../shared/components/layouts/MainLayout';
 import { getFlightOfferAncillaries, getFlightOfferDetails } from '../../../services/flightService';
-import { addWishlistItem, deleteWishlistItem, listWishlistItems } from '../../../services/customerCommerceService';
+import { addWishlistItem, deleteWishlistItem, listWishlistItems, trackRecentView } from '../../../services/customerCommerceService';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import { formatCurrency, formatDateTime, formatTime, getCabinClassLabel } from '../../tenant/flight/utils/presentation';
 
@@ -133,6 +133,25 @@ const FlightDetailPage = () => {
 
   const route = useMemo(() => getRoute(detail), [detail]);
   const ancillaryPreview = useMemo(() => getAncillaryPreview(ancillaries), [ancillaries]);
+
+  useEffect(() => {
+    if (!session.isAuthenticated || !detail || !offerId) {
+      return;
+    }
+
+    trackRecentView({
+      productType: 'flight',
+      targetId: offerId,
+      title: `${route.fromCode} - ${route.toCode}`,
+      subtitle: detail?.airline?.name || 'Hang bay',
+      locationText: `${route.fromName} -> ${route.toName}`,
+      priceValue: detail?.offer?.totalPrice || undefined,
+      priceText: formatCurrency(detail?.offer?.totalPrice || 0, detail?.offer?.currencyCode),
+      currencyCode: detail?.offer?.currencyCode || 'VND',
+      imageUrl: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=2000',
+      targetUrl: `${location.pathname}${location.search}`,
+    }).catch(() => {});
+  }, [detail, location.pathname, location.search, offerId, route.fromCode, route.fromName, route.toCode, route.toName, session.isAuthenticated]);
 
   async function handleToggleWishlist() {
     if (!detail || !offerId) {

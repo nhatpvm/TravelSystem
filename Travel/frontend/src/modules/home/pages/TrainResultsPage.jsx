@@ -2,8 +2,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Train, Clock, MapPin, ChevronRight, Plus, ShieldCheck, Search } from 'lucide-react';
 import MainLayout from '../../../shared/components/layouts/MainLayout';
 import { motion } from 'framer-motion';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { searchTrainLocations, searchTrainTrips } from '../../../services/trainService';
+import { trackRecentSearch } from '../../../services/customerCommerceService';
+import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import {
   buildTodayDateValue,
   formatCurrency,
@@ -72,7 +74,9 @@ function getOptionLabel(option) {
 }
 
 const TrainResultsPage = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuthSession();
   const [searchParams] = useSearchParams();
   const [form, setForm] = useState(() => buildInitialForm(searchParams));
   const [activeTab, setActiveTab] = useState('all');
@@ -178,6 +182,26 @@ const TrainResultsPage = () => {
   const selectedFromName = getLocationName(locations, form.fromLocationId);
   const selectedToName = getLocationName(locations, form.toLocationId);
   const sortedTrips = useMemo(() => sortTrips(trips, activeTab), [trips, activeTab]);
+
+  useEffect(() => {
+    if (!isAuthenticated || !form.fromLocationId || !form.toLocationId || !form.departDate) {
+      return;
+    }
+
+    trackRecentSearch({
+      productType: 'train',
+      searchKey: `train:${form.fromLocationId}:${form.toLocationId}:${form.departDate}:${form.passengers || '1'}`,
+      queryText: `${selectedFromName} - ${selectedToName}`,
+      summaryText: `${selectedFromName} -> ${selectedToName}`,
+      searchUrl: `${location.pathname}${location.search}`,
+      criteriaJson: JSON.stringify({
+        fromLocationId: form.fromLocationId,
+        toLocationId: form.toLocationId,
+        departDate: form.departDate,
+        passengers: form.passengers || '1',
+      }),
+    }).catch(() => {});
+  }, [form.departDate, form.fromLocationId, form.passengers, form.toLocationId, isAuthenticated, location.pathname, location.search, selectedFromName, selectedToName]);
 
   return (
     <MainLayout>

@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import MainLayout from '../../../shared/components/layouts/MainLayout';
 import { getTrainTripDetail } from '../../../services/trainService';
-import { addWishlistItem, deleteWishlistItem, listWishlistItems } from '../../../services/customerCommerceService';
+import { addWishlistItem, deleteWishlistItem, listWishlistItems, trackRecentView } from '../../../services/customerCommerceService';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import {
   formatCurrency,
@@ -136,6 +136,25 @@ export default function TrainDetailPage() {
       active = false;
     };
   }, [session.isAuthenticated, tripId]);
+
+  useEffect(() => {
+    if (!session.isAuthenticated || !detail || !tripId) {
+      return;
+    }
+
+    trackRecentView({
+      productType: 'train',
+      targetId: tripId,
+      title: `${routeTitle.from} - ${routeTitle.to}`,
+      subtitle: detail?.provider?.name || 'Doi tac duong sat',
+      locationText: `${routeTitle.from} -> ${routeTitle.to}`,
+      priceValue: activeOption?.price || detail?.segment?.price || undefined,
+      priceText: formatCurrency(activeOption?.price || detail?.segment?.price || 0, detail?.segment?.currency),
+      currencyCode: detail?.segment?.currency || 'VND',
+      imageUrl: 'https://images.unsplash.com/photo-1551009175-15bdf9dcb580?auto=format&fit=crop&q=80&w=2000',
+      targetUrl: `${location.pathname}${location.search}`,
+    }).catch(() => {});
+  }, [activeOption?.price, detail, location.pathname, location.search, routeTitle.from, routeTitle.to, session.isAuthenticated, tripId]);
 
   const stops = detail?.stops || [];
   const routeTitle = resolveRouteTitle(stops);

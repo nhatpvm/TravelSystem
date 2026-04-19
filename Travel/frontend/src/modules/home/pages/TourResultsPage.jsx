@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import MainLayout from '../../../shared/components/layouts/MainLayout';
 import { listPublicTours } from '../../../services/tourService';
-import { addWishlistItem, deleteWishlistItem, listWishlistItems } from '../../../services/customerCommerceService';
+import { addWishlistItem, deleteWishlistItem, listWishlistItems, trackRecentSearch } from '../../../services/customerCommerceService';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import {
   formatCurrency,
@@ -180,6 +180,25 @@ export default function TourResultsPage() {
 
   const categories = useMemo(() => buildCategoryList(items), [items]);
   const filteredTours = useMemo(() => sortTours(items, sort), [items, sort]);
+
+  useEffect(() => {
+    if (!session.isAuthenticated) {
+      return;
+    }
+
+    trackRecentSearch({
+      productType: 'tour',
+      searchKey: `tour:${search.trim()}:${category}:${sort}`,
+      queryText: search.trim() || category,
+      summaryText: category && category !== 'Táº¥t cáº£' ? category : 'Tìm tour',
+      searchUrl: `${location.pathname}${location.search}`,
+      criteriaJson: JSON.stringify({
+        q: search.trim(),
+        province: category !== 'Táº¥t cáº£' ? category : '',
+        sort,
+      }),
+    }).catch(() => {});
+  }, [category, location.pathname, location.search, search, session.isAuthenticated, sort]);
 
   const toggleLike = async (tour) => {
     const targetId = String(tour.id);

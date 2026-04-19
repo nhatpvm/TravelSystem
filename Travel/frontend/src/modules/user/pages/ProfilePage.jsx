@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Plane, Camera, MapPin, Edit2, User, Mail, Phone, Calendar, Star, Globe, Award, Compass } from 'lucide-react';
+import { Plane, Camera, MapPin, Edit2, User, Mail, Phone, Calendar, Star, Globe, Award, Compass, Clock3, Search, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { getMe, updateMe } from '../../../services/auth';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import { getUserDisplayName, getUserJoinYear } from '../../auth/types';
-import { listCustomerOrders, listWishlistItems } from '../../../services/customerCommerceService';
+import {
+  deleteCheckoutDraft,
+  listCheckoutDrafts,
+  listCustomerOrders,
+  listRecentSearches,
+  listRecentViews,
+  listWishlistItems,
+} from '../../../services/customerCommerceService';
+import { formatCustomerProductLabel } from '../../booking/utils/customerCommerce';
 
 const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=300';
 
@@ -15,6 +24,9 @@ const ProfilePage = () => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [checkoutDrafts, setCheckoutDrafts] = useState([]);
+  const [recentViews, setRecentViews] = useState([]);
+  const [recentSearches, setRecentSearches] = useState([]);
   const [stats, setStats] = useState(() => ({
     trips: 0,
     destinationCount: 0,
@@ -39,10 +51,13 @@ const ProfilePage = () => {
       setError('');
 
       try {
-        const [response, ordersResponse, wishlistResponse] = await Promise.all([
+        const [response, ordersResponse, wishlistResponse, checkoutDraftResponse, recentViewResponse, recentSearchResponse] = await Promise.all([
           getMe(),
           listCustomerOrders({ page: 1, pageSize: 100 }),
           listWishlistItems(),
+          listCheckoutDrafts({ limit: 3 }),
+          listRecentViews({ limit: 6 }),
+          listRecentSearches({ limit: 6 }),
         ]);
 
         if (!active) {
@@ -58,6 +73,9 @@ const ProfilePage = () => {
         const orderItems = Array.isArray(ordersResponse?.items) ? ordersResponse.items : [];
         const wishlistItems = Array.isArray(wishlistResponse) ? wishlistResponse : [];
         const destinations = extractDestinations(orderItems);
+        setCheckoutDrafts(Array.isArray(checkoutDraftResponse) ? checkoutDraftResponse : []);
+        setRecentViews(Array.isArray(recentViewResponse) ? recentViewResponse : []);
+        setRecentSearches(Array.isArray(recentSearchResponse) ? recentSearchResponse : []);
         setStats({
           trips: orderItems.length,
           destinationCount: destinations.length,
@@ -126,6 +144,16 @@ const ProfilePage = () => {
 
   const displayName = form.fullName || getUserDisplayName(user);
   const joinYear = getUserJoinYear({ createdAt: form.createdAt || user?.createdAt });
+
+  const handleRemoveDraft = async (draftId) => {
+    try {
+      await deleteCheckoutDraft(draftId);
+      setCheckoutDrafts((current) => current.filter((item) => item.id !== draftId));
+      setSuccess('Checkout dang dở đã được dọn khỏi tài khoản.');
+    } catch (requestError) {
+      setError(requestError.message || 'Không thể xóa checkout dang dở.');
+    }
+  };
 
   return (
     <motion.div
@@ -280,6 +308,112 @@ const ProfilePage = () => {
           </motion.div>
         )}
       </div>
+
+      <div className="grid grid-cols-1 gap-6">
+        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-100/60 p-8">
+          <div className="flex items-center justify-between gap-4 mb-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#1EB4D4]/10 rounded-xl flex items-center justify-center text-[#1EB4D4]">
+                <Clock3 size={20} />
+              </div>
+              <div>
+                <h2 className="text-xl font-black text-slate-900 tracking-tight">Checkout dang dở</h2>
+                <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Quay lại đúng bước đang nhập</p>
+              </div>
+            </div>
+          </div>
+
+          {checkoutDrafts.length === 0 ? (
+            <div className="rounded-[1.5rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-bold text-slate-500">
+              Chưa có checkout dang dở nào được lưu.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {checkoutDrafts.map((item) => (
+                <div key={item.id} className="rounded-[2rem] border border-slate-100 bg-slate-50 p-5">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">{formatCustomerProductLabel(item.productType)}</p>
+                  <h3 className="text-lg font-black text-slate-900">{item.title}</h3>
+                  <p className="text-sm font-bold text-slate-500 mt-1">{item.subtitle || 'Sẵn sàng quay lại bước checkout trước đó'}</p>
+                  <p className="text-[11px] font-bold text-slate-400 mt-4">
+                    Cập nhật {formatRelativeTime(item.lastActivityAt)}
+                  </p>
+                  <div className="flex items-center gap-3 mt-5">
+                    <Link to={item.resumeUrl} className="inline-flex items-center gap-2 px-4 py-3 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-[#1EB4D4] transition-all">
+                      Tiếp tục <ArrowRight size={14} />
+                    </Link>
+                    <button type="button" onClick={() => handleRemoveDraft(item.id)} className="px-4 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-500 hover:bg-white transition-all">
+                      Xóa
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-100/60 p-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 bg-[#1EB4D4]/10 rounded-xl flex items-center justify-center text-[#1EB4D4]">
+              <Compass size={20} />
+            </div>
+            <div>
+              <h2 className="text-xl font-black text-slate-900 tracking-tight">Đã xem gần đây</h2>
+              <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Quay lại nhanh các dịch vụ đang cân nhắc</p>
+            </div>
+          </div>
+
+          {recentViews.length === 0 ? (
+            <div className="rounded-[1.5rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-bold text-slate-500">
+              Chưa có lịch sử xem gần đây.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {recentViews.map((item) => (
+                <Link key={item.id} to={item.targetUrl || '/'} className="rounded-[2rem] border border-slate-100 overflow-hidden bg-slate-50 hover:bg-white hover:shadow-lg transition-all">
+                  <div className="h-36 bg-slate-200 overflow-hidden">
+                    <img src={item.imageUrl || DEFAULT_AVATAR} alt={item.title} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="p-5">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">{formatCustomerProductLabel(item.productType)}</p>
+                    <h3 className="text-base font-black text-slate-900 line-clamp-2">{item.title}</h3>
+                    <p className="text-sm font-bold text-slate-500 mt-1 line-clamp-2">{item.subtitle || item.locationText || 'Dịch vụ bạn vừa xem gần đây'}</p>
+                    <p className="text-[11px] font-bold text-slate-400 mt-4">Xem {formatRelativeTime(item.viewedAt)}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-100/60 p-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 bg-[#1EB4D4]/10 rounded-xl flex items-center justify-center text-[#1EB4D4]">
+              <Search size={20} />
+            </div>
+            <div>
+              <h2 className="text-xl font-black text-slate-900 tracking-tight">Tìm kiếm gần đây</h2>
+              <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Mở lại đúng bộ lọc bạn đã dùng</p>
+            </div>
+          </div>
+
+          {recentSearches.length === 0 ? (
+            <div className="rounded-[1.5rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-bold text-slate-500">
+              Chưa có lịch sử tìm kiếm gần đây.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {recentSearches.map((item) => (
+                <Link key={item.id} to={item.searchUrl} className="rounded-[2rem] border border-slate-100 bg-slate-50 p-5 hover:bg-white hover:shadow-lg transition-all">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">{formatCustomerProductLabel(item.productType)}</p>
+                  <h3 className="text-base font-black text-slate-900">{item.summaryText || item.queryText || 'Mở lại tìm kiếm gần đây'}</h3>
+                  <p className="text-sm font-bold text-slate-500 mt-1 line-clamp-2">{item.queryText || 'Bộ lọc tìm kiếm đã lưu trong tài khoản'}</p>
+                  <p className="text-[11px] font-bold text-slate-400 mt-4">Tìm {formatRelativeTime(item.searchedAt)}</p>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
     </motion.div>
   );
 };
@@ -317,6 +451,27 @@ function extractDestinations(orderItems) {
   });
 
   return Array.from(destinationSet).slice(0, 12);
+}
+
+function formatRelativeTime(value) {
+  if (!value) {
+    return 'vừa xong';
+  }
+
+  const target = new Date(value).getTime();
+  const diffMinutes = Math.max(1, Math.round((Date.now() - target) / 60000));
+
+  if (diffMinutes < 60) {
+    return `${diffMinutes} phút trước`;
+  }
+
+  const diffHours = Math.round(diffMinutes / 60);
+  if (diffHours < 24) {
+    return `${diffHours} giờ trước`;
+  }
+
+  const diffDays = Math.round(diffHours / 24);
+  return `${diffDays} ngày trước`;
 }
 
 export default ProfilePage;

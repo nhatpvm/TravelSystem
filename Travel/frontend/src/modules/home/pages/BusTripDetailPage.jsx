@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'reac
 import { ArrowRight, Bus, ChevronLeft, Clock, Coffee, Heart, Info, MapPin, ShieldCheck, Snowflake, Star, Wifi } from 'lucide-react';
 import MainLayout from '../../../shared/components/layouts/MainLayout';
 import { getBusTripDetail } from '../../../services/busService';
-import { addWishlistItem, deleteWishlistItem, listWishlistItems } from '../../../services/customerCommerceService';
+import { addWishlistItem, deleteWishlistItem, listWishlistItems, trackRecentView } from '../../../services/customerCommerceService';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import { formatCurrency, formatDateTime, formatTime, parseAmenities } from '../../tenant/bus/utils/presentation';
 
@@ -115,6 +115,27 @@ export default function BusTripDetailPage() {
       active = false;
     };
   }, [id, session.isAuthenticated]);
+
+  useEffect(() => {
+    if (!session.isAuthenticated || !detail || !id) {
+      return;
+    }
+
+    trackRecentView({
+      productType: 'bus',
+      targetId: id,
+      title: `${routeTitle.from} - ${routeTitle.to}`,
+      subtitle: detail?.provider?.name || detail?.tenant?.name || 'Nha xe doi tac',
+      locationText: `${routeTitle.from} -> ${routeTitle.to}`,
+      priceValue: detail?.segment?.price || undefined,
+      priceText: detail?.segment?.price
+        ? formatCurrency(detail.segment.price, detail.segment.currency)
+        : undefined,
+      currencyCode: detail?.segment?.currency || 'VND',
+      imageUrl: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=2000',
+      targetUrl: `${location.pathname}${location.search}`,
+    }).catch(() => {});
+  }, [detail, id, location.pathname, location.search, routeTitle.from, routeTitle.to, session.isAuthenticated]);
 
   const stops = detail?.stops || [];
   const routeTitle = resolveRouteTitle(stops);

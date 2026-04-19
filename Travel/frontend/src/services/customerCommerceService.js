@@ -55,6 +55,38 @@ export function listSavedPassengers() {
   return api.get('/customer/account/passengers');
 }
 
+export function listCheckoutDrafts(params = {}) {
+  return api.get(`/customer/account/checkout-drafts${toQuery(params)}`);
+}
+
+export function upsertCheckoutDraft(payload) {
+  return api.put('/customer/account/checkout-drafts', payload);
+}
+
+export function markCheckoutDraftResumed(id) {
+  return api.post(`/customer/account/checkout-drafts/${id}/resume`, {});
+}
+
+export function deleteCheckoutDraft(id) {
+  return api.delete(`/customer/account/checkout-drafts/${id}`);
+}
+
+export function listRecentViews(params = {}) {
+  return api.get(`/customer/account/recent-views${toQuery(params)}`);
+}
+
+export function trackRecentView(payload) {
+  return api.post('/customer/account/recent-views', payload);
+}
+
+export function listRecentSearches(params = {}) {
+  return api.get(`/customer/account/recent-searches${toQuery(params)}`);
+}
+
+export function trackRecentSearch(payload) {
+  return api.post('/customer/account/recent-searches', payload);
+}
+
 export function getCustomerAccountPreferences() {
   return api.get('/customer/account/preferences');
 }

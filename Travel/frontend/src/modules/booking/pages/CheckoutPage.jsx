@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   User,
   Mail,
@@ -20,7 +20,14 @@ import { getBusTripDetail } from '../../../services/busService';
 import { getTrainTripDetail } from '../../../services/trainService';
 import { getFlightOfferAncillaries, getFlightOfferDetails } from '../../../services/flightService';
 import { getPublicTourById, quoteTour } from '../../../services/tourService';
-import { createCustomerOrder, listSavedPassengers } from '../../../services/customerCommerceService';
+import {
+  createCustomerOrder,
+  deleteCheckoutDraft,
+  listCheckoutDrafts,
+  listSavedPassengers,
+  markCheckoutDraftResumed,
+  upsertCheckoutDraft,
+} from '../../../services/customerCommerceService';
 import { formatCurrency, formatDateTime, formatTime } from '../../tenant/train/utils/presentation';
 
 function buildPassengerTypes(product, seatCount, adults, children) {
@@ -51,6 +58,135 @@ function syncPassengers(existing, passengerTypes) {
     phoneNumber: existing[index]?.phoneNumber || '',
     notes: existing[index]?.notes || '',
   }));
+}
+
+function mapSavedPassengerType(passenger) {
+  const value = Number(passenger?.passengerType || 0);
+  if (value === 2) {
+    return 'child';
+  }
+
+  if (value === 3) {
+    return 'infant';
+  }
+
+  return 'adult';
+}
+
+function getPassengerCompleteness(passenger) {
+  return [
+    passenger?.fullName,
+    passenger?.dateOfBirth,
+    passenger?.idNumber,
+    passenger?.passportNumber,
+    passenger?.email,
+    passenger?.phoneNumber,
+  ].filter((item) => String(item || '').trim().length > 0).length;
+}
+
+function sortSavedPassengers(items) {
+  return [...items].sort((left, right) => {
+    if (Boolean(left?.isDefault) !== Boolean(right?.isDefault)) {
+      return left?.isDefault ? -1 : 1;
+    }
+
+    const completenessDiff = getPassengerCompleteness(right) - getPassengerCompleteness(left);
+    if (completenessDiff !== 0) {
+      return completenessDiff;
+    }
+
+    return String(left?.fullName || '').localeCompare(String(right?.fullName || ''), 'vi');
+  });
+}
+
+function buildPassengerAssignments(savedPassengers, passengerTypes) {
+  const orderedPassengers = sortSavedPassengers(savedPassengers);
+  const remaining = [...orderedPassengers];
+
+  return passengerTypes.map((targetType) => {
+    const sameTypeIndex = remaining.findIndex((item) => mapSavedPassengerType(item) === targetType);
+    const fallbackIndex = remaining.findIndex(() => true);
+    const selectedIndex = sameTypeIndex >= 0 ? sameTypeIndex : fallbackIndex;
+
+    if (selectedIndex < 0) {
+      return null;
+    }
+
+    const [selected] = remaining.splice(selectedIndex, 1);
+    return selected || null;
+  });
+}
+
+function mergePassengerDraft(existingPassenger, savedPassenger, fallbackPassenger) {
+  if (!savedPassenger) {
+    return existingPassenger;
+  }
+
+  return {
+    ...existingPassenger,
+    fullName: existingPassenger.fullName || savedPassenger.fullName || '',
+    passengerType: existingPassenger.passengerType,
+    gender: existingPassenger.gender || savedPassenger.gender || '',
+    dateOfBirth: existingPassenger.dateOfBirth || savedPassenger.dateOfBirth || '',
+    nationalityCode: existingPassenger.nationalityCode || savedPassenger.nationalityCode || '',
+    idNumber: existingPassenger.idNumber || savedPassenger.idNumber || '',
+    passportNumber: existingPassenger.passportNumber || savedPassenger.passportNumber || '',
+    email: existingPassenger.email || savedPassenger.email || fallbackPassenger?.email || '',
+    phoneNumber: existingPassenger.phoneNumber || savedPassenger.phoneNumber || fallbackPassenger?.phoneNumber || '',
+    notes: existingPassenger.notes || savedPassenger.notes || '',
+  };
+}
+
+function buildCheckoutKey(parts) {
+  const search = new URLSearchParams();
+
+  Object.entries(parts).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === '') {
+      return;
+    }
+
+    search.set(key, String(value));
+  });
+
+  return search.toString();
+}
+
+function normalizeDraftPassenger(passenger) {
+  return {
+    fullName: passenger?.fullName || '',
+    passengerType: passenger?.passengerType || 'adult',
+    gender: passenger?.gender || '',
+    dateOfBirth: passenger?.dateOfBirth || '',
+    nationalityCode: passenger?.nationalityCode || '',
+    idNumber: passenger?.idNumber || '',
+    passportNumber: passenger?.passportNumber || '',
+    email: passenger?.email || '',
+    phoneNumber: passenger?.phoneNumber || '',
+    notes: passenger?.notes || '',
+  };
+}
+
+function parseCheckoutDraftSnapshot(snapshot) {
+  if (!snapshot || typeof snapshot !== 'object') {
+    return null;
+  }
+
+  return {
+    useVAT: Boolean(snapshot.useVAT),
+    contact: {
+      fullName: snapshot.contact?.fullName || '',
+      phone: snapshot.contact?.phone || '',
+      email: snapshot.contact?.email || '',
+      note: snapshot.contact?.note || '',
+      companyName: snapshot.contact?.companyName || '',
+      taxCode: snapshot.contact?.taxCode || '',
+      companyAddress: snapshot.contact?.companyAddress || '',
+      invoiceEmail: snapshot.contact?.invoiceEmail || '',
+    },
+    passengers: Array.isArray(snapshot.passengers)
+      ? snapshot.passengers.map(normalizeDraftPassenger)
+      : [],
+  };
 }
 
 function getTrainRoute(detail) {
@@ -177,6 +313,10 @@ const CheckoutPage = () => {
   const [sourceDetail, setSourceDetail] = useState(null);
   const [flightAncillaries, setFlightAncillaries] = useState([]);
   const [tourQuote, setTourQuote] = useState(null);
+  const [draftReady, setDraftReady] = useState(!isAuthenticated);
+  const [currentDraftId, setCurrentDraftId] = useState('');
+  const [draftStatus, setDraftStatus] = useState('');
+  const restoredDraftRef = useRef(false);
 
   useEffect(() => {
     setContact((current) => ({
@@ -230,54 +370,9 @@ const CheckoutPage = () => {
       return;
     }
 
-    const orderedPassengers = [...savedPassengers].sort((left, right) => {
-      if (left.isDefault === right.isDefault) {
-        return String(left.fullName || '').localeCompare(String(right.fullName || ''), 'vi');
-      }
-
-      return left.isDefault ? -1 : 1;
-    });
-
-    const primaryPassenger = orderedPassengers[0];
-
-    setContact((current) => ({
-      ...current,
-      fullName: current.fullName || primaryPassenger?.fullName || user?.fullName || '',
-      phone: current.phone || primaryPassenger?.phoneNumber || user?.phoneNumber || '',
-      email: current.email || primaryPassenger?.email || user?.email || '',
-      invoiceEmail: current.invoiceEmail || primaryPassenger?.email || user?.email || '',
-    }));
-
-    setPassengers((current) => {
-      const hasPassengerData = current.some((item) => String(item.fullName || '').trim().length > 0);
-      if (hasPassengerData) {
-        return current;
-      }
-
-      return current.map((item, index) => {
-        const savedPassenger = orderedPassengers[index];
-        if (!savedPassenger) {
-          return item;
-        }
-
-        return {
-          ...item,
-          fullName: savedPassenger.fullName || item.fullName,
-          passengerType: Number(savedPassenger.passengerType) === 2 ? 'child' : Number(savedPassenger.passengerType) === 3 ? 'infant' : item.passengerType,
-          gender: savedPassenger.gender || item.gender,
-          dateOfBirth: savedPassenger.dateOfBirth || item.dateOfBirth,
-          nationalityCode: savedPassenger.nationalityCode || item.nationalityCode,
-          idNumber: savedPassenger.idNumber || item.idNumber,
-          passportNumber: savedPassenger.passportNumber || item.passportNumber,
-          email: savedPassenger.email || item.email || primaryPassenger?.email || user?.email || '',
-          phoneNumber: savedPassenger.phoneNumber || item.phoneNumber || primaryPassenger?.phoneNumber || user?.phoneNumber || '',
-          notes: savedPassenger.notes || item.notes,
-        };
-      });
-    });
-
+    applySavedPassengersToState();
     setAutoFilledSavedPassengers(true);
-  }, [autoFilledSavedPassengers, isAuthenticated, savedPassengers, user]);
+  }, [autoFilledSavedPassengers, isAuthenticated, savedPassengers, user, passengerTypes]);
 
   useEffect(() => {
     if (isHotel || !product) {
@@ -406,6 +501,194 @@ const CheckoutPage = () => {
             ? 'Xác nhận đặt tour'
             : 'Xác nhận thanh toán';
 
+  const checkoutKey = useMemo(() => buildCheckoutKey({
+    product,
+    tripId,
+    fromTripStopTimeId,
+    toTripStopTimeId,
+    holdToken,
+    seatCount,
+    offerId,
+    seatNumber,
+    seatPriceModifier,
+    ancillaryIds: ancillaryIds.join(','),
+    hotelId,
+    roomTypeId,
+    ratePlanId,
+    tourId,
+    scheduleId,
+    packageId,
+    checkInDate,
+    checkOutDate,
+    roomCount,
+    adultCount,
+    childCount,
+    totalPrice: hotelTotalPrice,
+  }), [
+    product,
+    tripId,
+    fromTripStopTimeId,
+    toTripStopTimeId,
+    holdToken,
+    seatCount,
+    offerId,
+    seatNumber,
+    seatPriceModifier,
+    ancillaryIds,
+    hotelId,
+    roomTypeId,
+    ratePlanId,
+    tourId,
+    scheduleId,
+    packageId,
+    checkInDate,
+    checkOutDate,
+    roomCount,
+    adultCount,
+    childCount,
+    hotelTotalPrice,
+  ]);
+
+  const draftTitle = isBus
+    ? `${busRoute.from} - ${busRoute.to}`
+    : isTrain
+      ? `${trainRoute.from} - ${trainRoute.to}`
+      : isFlight
+        ? `${flightRoute.fromCode} - ${flightRoute.toCode}`
+        : isHotel
+          ? hotelName
+          : sourceDetail?.name || 'Tour du lich';
+
+  const draftSubtitle = isBus
+    ? sourceDetail?.provider?.name || 'Checkout xe khach'
+    : isTrain
+      ? sourceDetail?.provider?.name || 'Checkout tau hoa'
+      : isFlight
+        ? sourceDetail?.flight?.flightNumber || 'Checkout may bay'
+        : isHotel
+          ? `${roomTypeName} - ${ratePlanName}`
+          : tourQuote?.package?.packageName || sourceDetail?.province || 'Checkout tour';
+
+  const draftResumeUrl = `${location.pathname}${location.search}`;
+
+  function applySavedPassengersToState() {
+    if (!savedPassengers.length) {
+      return;
+    }
+
+    const orderedPassengers = sortSavedPassengers(savedPassengers);
+    const primaryPassenger = orderedPassengers[0];
+    const assignments = buildPassengerAssignments(savedPassengers, passengerTypes);
+
+    setContact((current) => ({
+      ...current,
+      fullName: current.fullName || primaryPassenger?.fullName || user?.fullName || '',
+      phone: current.phone || primaryPassenger?.phoneNumber || user?.phoneNumber || '',
+      email: current.email || primaryPassenger?.email || user?.email || '',
+      invoiceEmail: current.invoiceEmail || primaryPassenger?.email || user?.email || '',
+    }));
+
+    setPassengers((current) => current.map((item, index) => mergePassengerDraft(
+      item,
+      assignments[index],
+      primaryPassenger,
+    )));
+  }
+
+  useEffect(() => {
+    if (!isAuthenticated || !checkoutKey) {
+      restoredDraftRef.current = false;
+      setCurrentDraftId('');
+      setDraftStatus('');
+      setDraftReady(true);
+      return;
+    }
+
+    let active = true;
+    setDraftReady(false);
+
+    listCheckoutDrafts({ checkoutKey, limit: 1 })
+      .then(async (items) => {
+        if (!active) {
+          return;
+        }
+
+        const draft = Array.isArray(items) ? items[0] : null;
+        setCurrentDraftId(draft?.id || '');
+
+        if (!draft || restoredDraftRef.current) {
+          return;
+        }
+
+        const parsedSnapshot = parseCheckoutDraftSnapshot(draft.snapshot);
+        if (!parsedSnapshot) {
+          return;
+        }
+
+        setUseVAT(Boolean(parsedSnapshot.useVAT));
+        setContact((current) => ({
+          ...current,
+          ...parsedSnapshot.contact,
+        }));
+        setPassengers(syncPassengers(parsedSnapshot.passengers || [], passengerTypes));
+        restoredDraftRef.current = true;
+        setDraftStatus('Da khoi phuc checkout dang do gan nhat.');
+
+        try {
+          await markCheckoutDraftResumed(draft.id);
+        } catch {
+          // Ignore resume counter errors to keep restore flow smooth.
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setCurrentDraftId('');
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setDraftReady(true);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [checkoutKey, isAuthenticated, passengerTypes]);
+
+  useEffect(() => {
+    if (!isAuthenticated || !draftReady || !checkoutKey || !product) {
+      return undefined;
+    }
+
+    const snapshotJson = JSON.stringify({
+      useVAT,
+      contact,
+      passengers,
+    });
+
+    const timer = window.setTimeout(() => {
+      upsertCheckoutDraft({
+        productType: product,
+        checkoutKey,
+        title: draftTitle,
+        subtitle: draftSubtitle,
+        resumeUrl: draftResumeUrl,
+        snapshotJson,
+      })
+        .then((draft) => {
+          setCurrentDraftId(draft?.id || '');
+        })
+        .catch(() => {
+          // Keep checkout flow usable if autosave fails.
+        });
+    }, 900);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [checkoutKey, contact, draftReady, draftResumeUrl, draftSubtitle, draftTitle, isAuthenticated, passengers, product, useVAT]);
+
   function handlePassengerChange(index, field, value) {
     setPassengers((current) => current.map((item, itemIndex) => (
       itemIndex === index
@@ -419,43 +702,9 @@ const CheckoutPage = () => {
       return;
     }
 
-    const orderedPassengers = [...savedPassengers].sort((left, right) => {
-      if (left.isDefault === right.isDefault) {
-        return String(left.fullName || '').localeCompare(String(right.fullName || ''), 'vi');
-      }
-
-      return left.isDefault ? -1 : 1;
-    });
-
-    setContact((current) => ({
-      ...current,
-      fullName: current.fullName || orderedPassengers[0]?.fullName || user?.fullName || '',
-      phone: current.phone || orderedPassengers[0]?.phoneNumber || user?.phoneNumber || '',
-      email: current.email || orderedPassengers[0]?.email || user?.email || '',
-      invoiceEmail: current.invoiceEmail || orderedPassengers[0]?.email || user?.email || '',
-    }));
-
-    setPassengers((current) => current.map((item, index) => {
-      const savedPassenger = orderedPassengers[index];
-      if (!savedPassenger) {
-        return item;
-      }
-
-      return {
-        ...item,
-        fullName: savedPassenger.fullName || item.fullName,
-        passengerType: Number(savedPassenger.passengerType) === 2 ? 'child' : Number(savedPassenger.passengerType) === 3 ? 'infant' : item.passengerType,
-        gender: savedPassenger.gender || item.gender,
-        dateOfBirth: savedPassenger.dateOfBirth || item.dateOfBirth,
-        nationalityCode: savedPassenger.nationalityCode || item.nationalityCode,
-        idNumber: savedPassenger.idNumber || item.idNumber,
-        passportNumber: savedPassenger.passportNumber || item.passportNumber,
-        email: savedPassenger.email || item.email || contact.email,
-        phoneNumber: savedPassenger.phoneNumber || item.phoneNumber || contact.phone,
-        notes: savedPassenger.notes || item.notes,
-      };
-    }));
+    applySavedPassengersToState();
     setAutoFilledSavedPassengers(true);
+    setDraftStatus('Da dien nhanh thong tin tu danh sach hanh khach da luu.');
   }
 
   async function handleSubmit() {
@@ -516,6 +765,9 @@ const CheckoutPage = () => {
 
     try {
       const order = await createCustomerOrder(payload);
+      if (currentDraftId) {
+        deleteCheckoutDraft(currentDraftId).catch(() => {});
+      }
       navigate(`/payment?orderCode=${encodeURIComponent(order.orderCode)}`);
     } catch (requestError) {
       setError(requestError.message || 'Không thể tạo đơn hàng để chuyển sang bước thanh toán.');
@@ -529,6 +781,12 @@ const CheckoutPage = () => {
       <div className="min-h-screen bg-slate-50 pt-32 pb-20">
         <div className="container mx-auto px-4 max-w-6xl">
           <h1 className="text-3xl font-black text-slate-900 mb-8">{pageTitle}</h1>
+
+          {draftStatus ? (
+            <div className="mb-6 rounded-[2rem] border border-sky-100 bg-sky-50 px-6 py-4 text-sm font-bold text-sky-700">
+              {draftStatus}
+            </div>
+          ) : null}
 
           {error ? (
             <div className="mb-6 rounded-[2rem] border border-rose-100 bg-rose-50 px-6 py-4 text-sm font-bold text-rose-600">

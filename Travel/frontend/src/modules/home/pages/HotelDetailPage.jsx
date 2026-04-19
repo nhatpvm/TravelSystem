@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import MainLayout from '../../../shared/components/layouts/MainLayout';
 import { getHotelAvailability, getHotelGallery, getHotelReviews, getPublicHotel } from '../../../services/hotelService';
-import { addWishlistItem, deleteWishlistItem, listWishlistItems } from '../../../services/customerCommerceService';
+import { addWishlistItem, deleteWishlistItem, listWishlistItems, trackRecentView } from '../../../services/customerCommerceService';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import { formatCurrency, formatDateOnly, formatTimeOnly } from '../../tenant/hotel/utils/presentation';
 
@@ -148,6 +148,27 @@ export default function HotelDetailPage() {
       availableUnits: 0,
       options: [],
     })) : [];
+
+  useEffect(() => {
+    if (!session.isAuthenticated || !hotel || !id) {
+      return;
+    }
+
+    trackRecentView({
+      productType: 'hotel',
+      targetId: id,
+      title: hotel.name,
+      subtitle: hotel.shortDescription || hotel.email || 'Khach san tren nen tang',
+      locationText: [hotel.addressLine, hotel.city, hotel.province].filter(Boolean).join(', '),
+      priceValue: availability?.roomTypes?.[0]?.options?.[0]?.totalPrice || undefined,
+      priceText: availability?.roomTypes?.[0]?.options?.[0]?.totalPrice
+        ? formatCurrency(availability.roomTypes[0].options[0].totalPrice, availability.roomTypes[0].options[0].currencyCode || 'VND')
+        : undefined,
+      currencyCode: availability?.roomTypes?.[0]?.options?.[0]?.currencyCode || 'VND',
+      imageUrl: hotel.coverImageUrl || photos[0],
+      targetUrl: `${location.pathname}${location.search}`,
+    }).catch(() => {});
+  }, [availability, hotel, id, location.pathname, location.search, photos, session.isAuthenticated]);
 
   function handleBookRoom(room, option) {
     if (!id || !room?.roomTypeId || !option?.ratePlanId) {

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Filter, SortAsc, Bus, Clock, MapPin, ChevronRight, Star, Info, ShieldCheck, Search } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import MainLayout from '../../../shared/components/layouts/MainLayout';
 import { searchBusLocations, searchBusTrips } from '../../../services/busService';
+import { trackRecentSearch } from '../../../services/customerCommerceService';
+import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import { buildTodayDateValue, formatCurrency, formatDate, formatTime } from '../../tenant/bus/utils/presentation';
 
 const SORT_TABS = [
@@ -36,7 +38,9 @@ function sortTrips(items, activeTab) {
 }
 
 const BusResultsPage = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuthSession();
   const [searchParams] = useSearchParams();
   const [form, setForm] = useState(() => buildInitialForm(searchParams));
   const [activeTab, setActiveTab] = useState('default');
@@ -130,6 +134,26 @@ const BusResultsPage = () => {
   const selectedFromName = getLocationName(locations, form.fromLocationId);
   const selectedToName = getLocationName(locations, form.toLocationId);
   const sortedTrips = sortTrips(trips, activeTab);
+
+  useEffect(() => {
+    if (!isAuthenticated || !form.fromLocationId || !form.toLocationId || !form.departDate) {
+      return;
+    }
+
+    trackRecentSearch({
+      productType: 'bus',
+      searchKey: `bus:${form.fromLocationId}:${form.toLocationId}:${form.departDate}:${form.passengers || '1'}`,
+      queryText: `${selectedFromName} - ${selectedToName}`,
+      summaryText: `${selectedFromName} -> ${selectedToName}`,
+      searchUrl: `${location.pathname}${location.search}`,
+      criteriaJson: JSON.stringify({
+        fromLocationId: form.fromLocationId,
+        toLocationId: form.toLocationId,
+        departDate: form.departDate,
+        passengers: form.passengers || '1',
+      }),
+    }).catch(() => {});
+  }, [form.departDate, form.fromLocationId, form.passengers, form.toLocationId, isAuthenticated, location.pathname, location.search, selectedFromName, selectedToName]);
 
   return (
     <MainLayout>
