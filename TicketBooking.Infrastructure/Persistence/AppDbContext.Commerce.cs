@@ -15,6 +15,9 @@ public sealed partial class AppDbContext
     public DbSet<CustomerNotification> CustomerNotifications => Set<CustomerNotification>();
     public DbSet<CustomerVatInvoiceRequest> CustomerVatInvoiceRequests => Set<CustomerVatInvoiceRequest>();
     public DbSet<CustomerAccountPreference> CustomerAccountPreferences => Set<CustomerAccountPreference>();
+    public DbSet<CustomerCheckoutDraft> CustomerCheckoutDrafts => Set<CustomerCheckoutDraft>();
+    public DbSet<CustomerRecentView> CustomerRecentViews => Set<CustomerRecentView>();
+    public DbSet<CustomerRecentSearch> CustomerRecentSearches => Set<CustomerRecentSearch>();
     public DbSet<CustomerSupportTicket> CustomerSupportTickets => Set<CustomerSupportTicket>();
     public DbSet<CustomerTenantPayoutAccount> CustomerTenantPayoutAccounts => Set<CustomerTenantPayoutAccount>();
     public DbSet<CustomerSettlementBatch> CustomerSettlementBatches => Set<CustomerSettlementBatch>();

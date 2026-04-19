@@ -159,3 +159,87 @@ public sealed class UpdateCustomerAccountPreferenceRequest
     public bool SmsNotificationsEnabled { get; set; }
     public bool PushNotificationsEnabled { get; set; } = true;
 }
+
+public sealed class CustomerCheckoutDraftDto
+{
+    public Guid Id { get; set; }
+    public CustomerProductType ProductType { get; set; }
+    public string CheckoutKey { get; set; } = "";
+    public string Title { get; set; } = "";
+    public string? Subtitle { get; set; }
+    public string ResumeUrl { get; set; } = "";
+    public JsonElement Snapshot { get; set; }
+    public DateTimeOffset LastActivityAt { get; set; }
+    public int ResumeCount { get; set; }
+    public DateTimeOffset? ExpiresAt { get; set; }
+}
+
+public sealed class UpsertCustomerCheckoutDraftRequest
+{
+    public string ProductType { get; set; } = "";
+    public string CheckoutKey { get; set; } = "";
+    public string Title { get; set; } = "";
+    public string? Subtitle { get; set; }
+    public string ResumeUrl { get; set; } = "";
+    public string SnapshotJson { get; set; } = "{}";
+}
+
+public sealed class CustomerRecentViewDto
+{
+    public Guid Id { get; set; }
+    public CustomerProductType ProductType { get; set; }
+    public Guid? TargetId { get; set; }
+    public string? TargetSlug { get; set; }
+    public string Title { get; set; } = "";
+    public string? Subtitle { get; set; }
+    public string? LocationText { get; set; }
+    public string? PriceText { get; set; }
+    public decimal? PriceValue { get; set; }
+    public string? CurrencyCode { get; set; }
+    public string? ImageUrl { get; set; }
+    public string? TargetUrl { get; set; }
+    public JsonElement Metadata { get; set; }
+    public DateTimeOffset ViewedAt { get; set; }
+    public int ViewCount { get; set; }
+}
+
+public sealed class TrackCustomerRecentViewRequest
+{
+    public string ProductType { get; set; } = "";
+    public Guid? TargetId { get; set; }
+    public string? TargetSlug { get; set; }
+    public string Title { get; set; } = "";
+    public string? Subtitle { get; set; }
+    public string? LocationText { get; set; }
+    public string? PriceText { get; set; }
+    public decimal? PriceValue { get; set; }
+    public string? CurrencyCode { get; set; }
+    public string? ImageUrl { get; set; }
+    public string? TargetUrl { get; set; }
+    public string? MetadataJson { get; set; }
+}
+
+public sealed class CustomerRecentSearchDto
+{
+    public Guid Id { get; set; }
+    public CustomerProductType ProductType { get; set; }
+    public string SearchKey { get; set; } = "";
+    public string? QueryText { get; set; }
+    public string? SummaryText { get; set; }
+    public string SearchUrl { get; set; } = "";
+    public JsonElement Criteria { get; set; }
+    public JsonElement Metadata { get; set; }
+    public DateTimeOffset SearchedAt { get; set; }
+    public int SearchCount { get; set; }
+}
+
+public sealed class TrackCustomerRecentSearchRequest
+{
+    public string ProductType { get; set; } = "";
+    public string SearchKey { get; set; } = "";
+    public string? QueryText { get; set; }
+    public string? SummaryText { get; set; }
+    public string SearchUrl { get; set; } = "";
+    public string CriteriaJson { get; set; } = "{}";
+    public string? MetadataJson { get; set; }
+}

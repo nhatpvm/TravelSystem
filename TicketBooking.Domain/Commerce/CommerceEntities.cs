@@ -391,6 +391,80 @@ public sealed class CustomerAccountPreference
     public byte[] RowVersion { get; set; } = Array.Empty<byte>();
 }
 
+public sealed class CustomerCheckoutDraft
+{
+    public Guid Id { get; set; }
+    public Guid UserId { get; set; }
+
+    public CustomerProductType ProductType { get; set; }
+    public string CheckoutKey { get; set; } = "";
+    public string Title { get; set; } = "";
+    public string? Subtitle { get; set; }
+    public string ResumeUrl { get; set; } = "";
+    public string SnapshotJson { get; set; } = "{}";
+    public DateTimeOffset LastActivityAt { get; set; }
+    public int ResumeCount { get; set; }
+    public DateTimeOffset? ExpiresAt { get; set; }
+
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public Guid? CreatedByUserId { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? UpdatedByUserId { get; set; }
+    public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+}
+
+public sealed class CustomerRecentView
+{
+    public Guid Id { get; set; }
+    public Guid UserId { get; set; }
+
+    public CustomerProductType ProductType { get; set; }
+    public Guid? TargetId { get; set; }
+    public string? TargetSlug { get; set; }
+    public string Title { get; set; } = "";
+    public string? Subtitle { get; set; }
+    public string? LocationText { get; set; }
+    public string? PriceText { get; set; }
+    public decimal? PriceValue { get; set; }
+    public string? CurrencyCode { get; set; }
+    public string? ImageUrl { get; set; }
+    public string? TargetUrl { get; set; }
+    public string? MetadataJson { get; set; }
+    public DateTimeOffset ViewedAt { get; set; }
+    public int ViewCount { get; set; }
+
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public Guid? CreatedByUserId { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? UpdatedByUserId { get; set; }
+    public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+}
+
+public sealed class CustomerRecentSearch
+{
+    public Guid Id { get; set; }
+    public Guid UserId { get; set; }
+
+    public CustomerProductType ProductType { get; set; }
+    public string SearchKey { get; set; } = "";
+    public string? QueryText { get; set; }
+    public string? SummaryText { get; set; }
+    public string SearchUrl { get; set; } = "";
+    public string CriteriaJson { get; set; } = "{}";
+    public string? MetadataJson { get; set; }
+    public DateTimeOffset SearchedAt { get; set; }
+    public int SearchCount { get; set; }
+
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public Guid? CreatedByUserId { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? UpdatedByUserId { get; set; }
+    public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+}
+
 public sealed class CustomerSupportTicket
 {
     public Guid Id { get; set; }

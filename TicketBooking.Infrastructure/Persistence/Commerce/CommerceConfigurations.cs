@@ -218,6 +218,70 @@ public sealed class CustomerAccountPreferenceConfiguration : IEntityTypeConfigur
     }
 }
 
+public sealed class CustomerCheckoutDraftConfiguration : IEntityTypeConfiguration<CustomerCheckoutDraft>
+{
+    public void Configure(EntityTypeBuilder<CustomerCheckoutDraft> b)
+    {
+        b.ToTable("CustomerCheckoutDrafts", "commerce");
+        b.HasKey(x => x.Id);
+
+        b.Property(x => x.CheckoutKey).HasMaxLength(200).IsRequired();
+        b.Property(x => x.Title).HasMaxLength(300).IsRequired();
+        b.Property(x => x.Subtitle).HasMaxLength(500);
+        b.Property(x => x.ResumeUrl).HasMaxLength(1000).IsRequired();
+        b.Property(x => x.SnapshotJson).HasColumnType("nvarchar(max)").IsRequired();
+        b.Property(x => x.RowVersion).IsRowVersion().IsConcurrencyToken();
+
+        b.HasIndex(x => new { x.UserId, x.CheckoutKey, x.IsDeleted });
+        b.HasIndex(x => new { x.UserId, x.LastActivityAt, x.IsDeleted });
+    }
+}
+
+public sealed class CustomerRecentViewConfiguration : IEntityTypeConfiguration<CustomerRecentView>
+{
+    public void Configure(EntityTypeBuilder<CustomerRecentView> b)
+    {
+        b.ToTable("CustomerRecentViews", "commerce");
+        b.HasKey(x => x.Id);
+
+        b.Property(x => x.TargetSlug).HasMaxLength(200);
+        b.Property(x => x.Title).HasMaxLength(300).IsRequired();
+        b.Property(x => x.Subtitle).HasMaxLength(500);
+        b.Property(x => x.LocationText).HasMaxLength(300);
+        b.Property(x => x.PriceText).HasMaxLength(100);
+        b.Property(x => x.PriceValue).HasPrecision(18, 2);
+        b.Property(x => x.CurrencyCode).HasMaxLength(10);
+        b.Property(x => x.ImageUrl).HasMaxLength(500);
+        b.Property(x => x.TargetUrl).HasMaxLength(1000);
+        b.Property(x => x.MetadataJson).HasColumnType("nvarchar(max)");
+        b.Property(x => x.RowVersion).IsRowVersion().IsConcurrencyToken();
+
+        b.HasIndex(x => new { x.UserId, x.ProductType, x.TargetId, x.IsDeleted });
+        b.HasIndex(x => new { x.UserId, x.ProductType, x.TargetSlug, x.IsDeleted });
+        b.HasIndex(x => new { x.UserId, x.ViewedAt, x.IsDeleted });
+    }
+}
+
+public sealed class CustomerRecentSearchConfiguration : IEntityTypeConfiguration<CustomerRecentSearch>
+{
+    public void Configure(EntityTypeBuilder<CustomerRecentSearch> b)
+    {
+        b.ToTable("CustomerRecentSearches", "commerce");
+        b.HasKey(x => x.Id);
+
+        b.Property(x => x.SearchKey).HasMaxLength(200).IsRequired();
+        b.Property(x => x.QueryText).HasMaxLength(300);
+        b.Property(x => x.SummaryText).HasMaxLength(500);
+        b.Property(x => x.SearchUrl).HasMaxLength(1000).IsRequired();
+        b.Property(x => x.CriteriaJson).HasColumnType("nvarchar(max)").IsRequired();
+        b.Property(x => x.MetadataJson).HasColumnType("nvarchar(max)");
+        b.Property(x => x.RowVersion).IsRowVersion().IsConcurrencyToken();
+
+        b.HasIndex(x => new { x.UserId, x.ProductType, x.SearchKey, x.IsDeleted });
+        b.HasIndex(x => new { x.UserId, x.SearchedAt, x.IsDeleted });
+    }
+}
+
 public sealed class CustomerSupportTicketConfiguration : IEntityTypeConfiguration<CustomerSupportTicket>
 {
     public void Configure(EntityTypeBuilder<CustomerSupportTicket> b)

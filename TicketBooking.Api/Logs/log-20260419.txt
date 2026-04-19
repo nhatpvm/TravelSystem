@@ -1,0 +1,430 @@
+2026-04-19 23:10:11.239 +07:00 [WRN] The 'CustomerSettlementStatus' property 'SettlementStatus' on entity type 'CustomerOrder' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:10:11.276 +07:00 [WRN] The 'CustomerSettlementBatchStatus' property 'Status' on entity type 'CustomerSettlementBatch' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementBatchStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:10:11.279 +07:00 [WRN] The 'CustomerSettlementStatus' property 'Status' on entity type 'CustomerSettlementBatchLine' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:10:12.879 +07:00 [INF] Ensured user 'qlnx' with role 'QLNX'.
+2026-04-19 23:10:12.888 +07:00 [INF] Ensured user 'qlks' with role 'QLKS'.
+2026-04-19 23:10:12.898 +07:00 [INF] Ensured user 'qlvt' with role 'QLVT'.
+2026-04-19 23:10:12.906 +07:00 [INF] Ensured user 'qlvmm' with role 'QLVMM'.
+2026-04-19 23:10:12.914 +07:00 [INF] Ensured user 'qltour' with role 'QLTour'.
+2026-04-19 23:10:12.919 +07:00 [INF] Ensured user 'scanner_nx' with role 'Customer'.
+2026-04-19 23:10:12.925 +07:00 [INF] Ensured user 'customer' with role 'Customer'.
+2026-04-19 23:10:12.927 +07:00 [INF] Identity seed completed.
+2026-04-19 23:10:13.026 +07:00 [INF] Tenant NX001 already exists.
+2026-04-19 23:10:13.029 +07:00 [INF] Tenant VT001 already exists.
+2026-04-19 23:10:13.032 +07:00 [INF] Tenant VMM001 already exists.
+2026-04-19 23:10:13.035 +07:00 [INF] Tenant KS001 already exists.
+2026-04-19 23:10:13.038 +07:00 [INF] Tenant TOUR001 already exists.
+2026-04-19 23:10:13.157 +07:00 [INF] Updated tenant link 'qlnx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-19 23:10:13.189 +07:00 [INF] Updated tenant link 'admin' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-19 23:10:13.337 +07:00 [INF] Updated tenant link 'qlvt' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-19 23:10:13.344 +07:00 [INF] Updated tenant link 'admin' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-19 23:10:13.361 +07:00 [INF] Updated tenant link 'qlvmm' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-19 23:10:13.370 +07:00 [INF] Updated tenant link 'admin' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-19 23:10:13.384 +07:00 [INF] Updated tenant link 'qlks' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-19 23:10:13.393 +07:00 [INF] Updated tenant link 'admin' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-19 23:10:13.409 +07:00 [INF] Updated tenant link 'qltour' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-19 23:10:13.416 +07:00 [INF] Updated tenant link 'admin' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-19 23:10:13.423 +07:00 [INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+2026-04-19 23:10:13.555 +07:00 [INF] Permissions seed completed.
+2026-04-19 23:10:14.157 +07:00 [INF] Tenant system role seed completed.
+2026-04-19 23:10:14.219 +07:00 [INF] Updated TenantUser link 'customer' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-19 23:10:14.262 +07:00 [INF] Updated TenantUser link 'scanner_nx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-19 23:10:14.312 +07:00 [INF] TenantRoles seed completed for NX001.
+2026-04-19 23:10:15.170 +07:00 [INF] BUS demo seed completed for tenant NX001.
+2026-04-19 23:10:15.904 +07:00 [INF] TRAIN demo seed completed for tenant VT001.
+2026-04-19 23:10:16.804 +07:00 [INF] Flight demo seed completed for tenant VMM001.
+2026-04-19 23:10:17.183 +07:00 [INF] CmsDemoSeed completed for tenant NX001.
+2026-04-19 23:10:17.328 +07:00 [INF] Hotel demo seed starting for 6 tenant(s). Days=14
+2026-04-19 23:10:17.474 +07:00 [INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-19 23:10:18.980 +07:00 [INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+2026-04-19 23:10:18.988 +07:00 [INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-19 23:10:19.207 +07:00 [INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+2026-04-19 23:10:19.213 +07:00 [INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-19 23:10:19.371 +07:00 [INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+2026-04-19 23:10:19.378 +07:00 [INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-19 23:10:19.616 +07:00 [INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+2026-04-19 23:10:19.622 +07:00 [INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-19 23:10:19.904 +07:00 [INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+2026-04-19 23:10:19.911 +07:00 [INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-19 23:10:20.085 +07:00 [INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+2026-04-19 23:10:20.087 +07:00 [INF] Hotel demo seed finished.
+2026-04-19 23:10:20.828 +07:00 [INF] Now listening on: http://localhost:5183
+2026-04-19 23:10:20.829 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-19 23:10:20.830 +07:00 [INF] Hosting environment: Development
+2026-04-19 23:10:20.831 +07:00 [INF] Content root path: D:\FPT\TicketBooking.V3\TicketBooking.Api
+2026-04-19 23:10:43.154 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-04-19 23:10:43.251 +07:00 [INF] HTTP POST /api/v1/auth/logout responded 401 in 97.5909 ms
+2026-04-19 23:10:43.447 +07:00 [INF] HTTP POST /api/v1/auth/refresh responded 401 in 161.2353 ms
+2026-04-19 23:10:56.782 +07:00 [INF] HTTP POST /api/v1/auth/login responded 401 in 150.5152 ms
+2026-04-19 23:11:01.389 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 216.7138 ms
+2026-04-19 23:11:01.528 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 72.9283 ms
+2026-04-19 23:11:04.705 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 51.0606 ms
+2026-04-19 23:11:04.718 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 7.0422 ms
+2026-04-19 23:11:04.929 +07:00 [INF] HTTP GET /api/v1/tours responded 200 in 276.0295 ms
+2026-04-19 23:11:04.953 +07:00 [INF] HTTP GET /api/v1/tours responded 200 in 16.4842 ms
+2026-04-19 23:11:06.549 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/gallery responded 200 in 33.9378 ms
+2026-04-19 23:11:06.560 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/policies responded 200 in 42.9320 ms
+2026-04-19 23:11:06.570 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/addons responded 200 in 53.0021 ms
+2026-04-19 23:11:06.572 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 6.2254 ms
+2026-04-19 23:11:06.579 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/itinerary responded 200 in 63.3611 ms
+2026-04-19 23:11:06.582 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/gallery responded 200 in 5.7082 ms
+2026-04-19 23:11:06.584 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/faqs responded 200 in 67.6241 ms
+2026-04-19 23:11:06.585 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/policies responded 200 in 7.0648 ms
+2026-04-19 23:11:06.594 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/addons responded 200 in 8.7192 ms
+2026-04-19 23:11:06.595 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 5.8275 ms
+2026-04-19 23:11:06.601 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/itinerary responded 200 in 7.9706 ms
+2026-04-19 23:11:06.601 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/faqs responded 200 in 7.9859 ms
+2026-04-19 23:11:06.608 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/reviews responded 200 in 52.0812 ms
+2026-04-19 23:11:06.620 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/reviews responded 200 in 7.0775 ms
+2026-04-19 23:11:06.641 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c responded 200 in 125.5236 ms
+2026-04-19 23:11:06.657 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c responded 200 in 16.3649 ms
+2026-04-19 23:11:06.815 +07:00 [INF] HTTP POST /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/quote responded 400 in 63.9622 ms
+2026-04-19 23:11:09.379 +07:00 [INF] HTTP POST /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/quote responded 400 in 6.0425 ms
+2026-04-19 23:11:10.998 +07:00 [INF] HTTP POST /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/quote responded 400 in 9.0765 ms
+2026-04-19 23:11:10.998 +07:00 [INF] HTTP POST /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/quote responded 400 in 9.0266 ms
+2026-04-19 23:11:11.007 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c responded 200 in 18.8133 ms
+2026-04-19 23:11:11.018 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 29.3876 ms
+2026-04-19 23:11:11.030 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 6.2594 ms
+2026-04-19 23:11:11.032 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c responded 200 in 20.7297 ms
+2026-04-19 23:11:14.007 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/gallery responded 200 in 5.6683 ms
+2026-04-19 23:11:14.009 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/itinerary responded 200 in 6.5857 ms
+2026-04-19 23:11:14.009 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/policies responded 200 in 7.8409 ms
+2026-04-19 23:11:14.010 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/faqs responded 200 in 7.8822 ms
+2026-04-19 23:11:14.016 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/addons responded 200 in 14.1265 ms
+2026-04-19 23:11:14.025 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c responded 200 in 30.3646 ms
+2026-04-19 23:11:14.026 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 6.3591 ms
+2026-04-19 23:11:14.026 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/reviews responded 200 in 9.5339 ms
+2026-04-19 23:11:14.026 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/gallery responded 200 in 3.9210 ms
+2026-04-19 23:11:14.033 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/itinerary responded 200 in 8.6922 ms
+2026-04-19 23:11:14.037 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/policies responded 200 in 9.4108 ms
+2026-04-19 23:11:14.044 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/faqs responded 200 in 11.4844 ms
+2026-04-19 23:11:14.046 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/addons responded 200 in 9.1077 ms
+2026-04-19 23:11:14.049 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 7.0670 ms
+2026-04-19 23:11:14.052 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/reviews responded 200 in 8.4984 ms
+2026-04-19 23:11:14.059 +07:00 [INF] HTTP GET /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c responded 200 in 19.8424 ms
+2026-04-19 23:11:14.134 +07:00 [INF] HTTP POST /api/v1/tours/f5060fb1-d057-44ad-abdf-1a6465886c6c/quote responded 400 in 5.2147 ms
+2026-04-19 23:11:29.541 +07:00 [INF] HTTP GET /api/v1/search/flights/airports responded 200 in 63.2937 ms
+2026-04-19 23:11:29.552 +07:00 [INF] HTTP GET /api/v1/search/flights/airports responded 200 in 6.1304 ms
+2026-04-19 23:11:29.964 +07:00 [INF] HTTP GET /api/v1/search/flights responded 200 in 312.2829 ms
+2026-04-19 23:11:31.330 +07:00 [INF] HTTP GET /api/v1/bus/search/locations responded 200 in 62.6613 ms
+2026-04-19 23:11:31.340 +07:00 [INF] HTTP GET /api/v1/bus/search/locations responded 200 in 3.8676 ms
+2026-04-19 23:11:32.837 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 36.4816 ms
+2026-04-19 23:11:32.848 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 6.1815 ms
+2026-04-19 23:11:35.343 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 7.1859 ms
+2026-04-19 23:11:35.355 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 7.6720 ms
+2026-04-19 23:11:35.405 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/reviews responded 200 in 68.4538 ms
+2026-04-19 23:11:35.410 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0 responded 200 in 75.7904 ms
+2026-04-19 23:11:35.563 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/reviews responded 200 in 151.5773 ms
+2026-04-19 23:11:35.564 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0 responded 200 in 146.7396 ms
+2026-04-19 23:11:35.571 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/gallery responded 200 in 236.3777 ms
+2026-04-19 23:11:35.586 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/gallery responded 200 in 9.2091 ms
+2026-04-19 23:11:35.648 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/availability responded 200 in 313.5455 ms
+2026-04-19 23:11:35.667 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/availability responded 200 in 13.2769 ms
+2026-04-19 23:11:37.624 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0 responded 200 in 4.1739 ms
+2026-04-19 23:11:37.625 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/gallery responded 200 in 5.0526 ms
+2026-04-19 23:11:37.628 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/reviews responded 200 in 8.0824 ms
+2026-04-19 23:11:37.633 +07:00 [INF] HTTP GET /api/v1/hotels/8d1e2ea0-495f-41b8-af53-4ae953d833b0/availability responded 200 in 12.7101 ms
+2026-04-19 23:11:41.751 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 9.8653 ms
+2026-04-19 23:11:41.770 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 29.6077 ms
+2026-04-19 23:11:41.772 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 7.7740 ms
+2026-04-19 23:11:41.784 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 7.7059 ms
+2026-04-19 23:11:42.474 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 733.8281 ms
+2026-04-19 23:11:42.490 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 11.0749 ms
+2026-04-19 23:11:45.983 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 14.0515 ms
+2026-04-19 23:11:45.995 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 7.7023 ms
+2026-04-19 23:11:49.054 +07:00 [INF] HTTP GET /api/v1/customer/orders/ORD-2026041713283039790E responded 200 in 83.8459 ms
+2026-04-19 23:11:49.067 +07:00 [INF] HTTP GET /api/v1/customer/orders/ORD-2026041713283039790E responded 200 in 9.4584 ms
+2026-04-19 23:12:08.000 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 13.8992 ms
+2026-04-19 23:12:08.000 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 13.8992 ms
+2026-04-19 23:12:08.012 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 25.2816 ms
+2026-04-19 23:12:08.021 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 13.1925 ms
+2026-04-19 23:12:08.021 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 13.1925 ms
+2026-04-19 23:12:08.038 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 21.8751 ms
+2026-04-19 23:12:08.637 +07:00 [INF] HTTP POST /api/v1/auth/logout responded 200 in 22.5563 ms
+2026-04-19 23:12:18.775 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 129.7330 ms
+2026-04-19 23:12:18.854 +07:00 [INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 68.8173 ms
+2026-04-19 23:12:18.867 +07:00 [INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 9.5244 ms
+2026-04-19 23:12:18.943 +07:00 [INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 81.4420 ms
+2026-04-19 23:12:18.959 +07:00 [INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 12.1818 ms
+2026-04-19 23:12:19.000 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 11.0516 ms
+2026-04-19 23:12:19.092 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 9.5859 ms
+2026-04-19 23:12:19.098 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 13.6556 ms
+2026-04-19 23:12:19.108 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 7.8808 ms
+2026-04-19 23:12:19.111 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 7.1585 ms
+2026-04-19 23:12:19.111 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 27.5872 ms
+2026-04-19 23:12:19.127 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 9.9369 ms
+2026-04-19 23:12:21.889 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 9.4319 ms
+2026-04-19 23:12:21.901 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 7.8907 ms
+2026-04-19 23:12:25.946 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 6.1622 ms
+2026-04-19 23:12:25.957 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 6.2510 ms
+2026-04-19 23:12:30.494 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 41.4853 ms
+2026-04-19 23:12:30.507 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 6.8399 ms
+2026-04-19 23:12:30.558 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 105.7562 ms
+2026-04-19 23:12:30.572 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 9.7167 ms
+2026-04-19 23:12:32.101 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 6.9414 ms
+2026-04-19 23:12:32.108 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 14.7333 ms
+2026-04-19 23:12:32.113 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 8.2543 ms
+2026-04-19 23:12:32.126 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 13.5719 ms
+2026-04-19 23:12:32.973 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 12.0691 ms
+2026-04-19 23:12:32.980 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 23.1704 ms
+2026-04-19 23:12:32.989 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 11.5168 ms
+2026-04-19 23:12:33.000 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 13.5391 ms
+2026-04-19 23:12:37.356 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.7547 ms
+2026-04-19 23:12:37.363 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 12.2799 ms
+2026-04-19 23:12:37.369 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 8.2890 ms
+2026-04-19 23:12:37.379 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 12.1046 ms
+2026-04-19 23:12:47.748 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 7.5057 ms
+2026-04-19 23:12:47.755 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 14.5865 ms
+2026-04-19 23:12:47.762 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 10.0322 ms
+2026-04-19 23:12:47.774 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 14.5772 ms
+2026-04-19 23:12:48.619 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 6.3019 ms
+2026-04-19 23:12:48.626 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 13.3475 ms
+2026-04-19 23:12:48.631 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 8.6616 ms
+2026-04-19 23:12:48.640 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 27.7763 ms
+2026-04-19 23:12:48.646 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 15.8821 ms
+2026-04-19 23:12:48.653 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 8.9915 ms
+2026-04-19 23:12:48.697 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/seat-holds/trip/4d2c3144-1279-46c5-97ca-cafc89bc2217 responded 200 in 35.9204 ms
+2026-04-19 23:12:54.998 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 5.5805 ms
+2026-04-19 23:12:55.004 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 11.6231 ms
+2026-04-19 23:12:55.010 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 7.5295 ms
+2026-04-19 23:12:55.020 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 11.3441 ms
+2026-04-19 23:12:56.532 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 7.4204 ms
+2026-04-19 23:12:56.532 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 7.4205 ms
+2026-04-19 23:12:56.533 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 16.8091 ms
+2026-04-19 23:12:56.546 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 7.4693 ms
+2026-04-19 23:12:56.546 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 7.4360 ms
+2026-04-19 23:12:56.555 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 16.3015 ms
+2026-04-19 23:12:56.572 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/seat-holds/trip/4d2c3144-1279-46c5-97ca-cafc89bc2217 responded 200 in 14.3884 ms
+2026-04-19 23:12:57.738 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 5.6765 ms
+2026-04-19 23:12:57.745 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 12.1068 ms
+2026-04-19 23:12:57.751 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 8.5601 ms
+2026-04-19 23:12:57.762 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 12.6342 ms
+2026-04-19 23:13:03.746 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 18.0686 ms
+2026-04-19 23:13:03.756 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 24.0691 ms
+2026-04-19 23:13:03.760 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 9.1813 ms
+2026-04-19 23:13:03.772 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 10.4894 ms
+2026-04-19 23:13:07.020 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 10.5879 ms
+2026-04-19 23:13:07.034 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 10.2110 ms
+2026-04-19 23:13:07.054 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/stop-points responded 200 in 44.9161 ms
+2026-04-19 23:13:07.067 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/stop-points responded 200 in 8.4667 ms
+2026-04-19 23:13:10.571 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/routes responded 200 in 42.5019 ms
+2026-04-19 23:13:10.577 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 46.9795 ms
+2026-04-19 23:13:10.595 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/routes responded 200 in 19.9476 ms
+2026-04-19 23:13:10.612 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 30.0292 ms
+2026-04-19 23:13:10.626 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/routes/5f6a9391-7438-49e0-bcf8-5dae93637292 responded 200 in 40.2046 ms
+2026-04-19 23:13:10.650 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/routes/5f6a9391-7438-49e0-bcf8-5dae93637292 responded 200 in 20.0106 ms
+2026-04-19 23:13:24.877 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 18.0087 ms
+2026-04-19 23:13:24.879 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 19.1516 ms
+2026-04-19 23:13:24.888 +07:00 [INF] HTTP GET /api/v1/qlnx/fleet/bus-vehicle-details responded 200 in 5.8778 ms
+2026-04-19 23:13:24.888 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/trips responded 200 in 5.8324 ms
+2026-04-19 23:13:24.899 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 39.5859 ms
+2026-04-19 23:13:24.912 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/options responded 200 in 9.2426 ms
+2026-04-19 23:13:24.930 +07:00 [INF] HTTP GET /api/v1/qlnx/bus/seat-holds/trip/4d2c3144-1279-46c5-97ca-cafc89bc2217 responded 200 in 13.4451 ms
+2026-04-19 23:13:26.617 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 403 in 8.1040 ms
+2026-04-19 23:13:26.630 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 403 in 5.8513 ms
+2026-04-19 23:13:35.644 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 403 in 7.9964 ms
+2026-04-19 23:13:35.658 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 403 in 7.5252 ms
+2026-04-19 23:13:36.432 +07:00 [INF] HTTP GET /api/v1/tenant/staff responded 200 in 162.5723 ms
+2026-04-19 23:13:36.463 +07:00 [INF] HTTP GET /api/v1/tenant/staff responded 200 in 25.9672 ms
+2026-04-19 23:13:37.513 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 403 in 4.7598 ms
+2026-04-19 23:13:37.525 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 403 in 5.5318 ms
+2026-04-19 23:13:38.577 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 403 in 11.4913 ms
+2026-04-19 23:13:38.593 +07:00 [INF] HTTP GET /api/v1/ql-tour/tours responded 403 in 8.2646 ms
+2026-04-19 23:32:12.953 +07:00 [WRN] The 'CustomerSettlementStatus' property 'SettlementStatus' on entity type 'CustomerOrder' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:32:12.980 +07:00 [WRN] The 'CustomerSettlementBatchStatus' property 'Status' on entity type 'CustomerSettlementBatch' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementBatchStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:32:12.980 +07:00 [WRN] The 'CustomerSettlementStatus' property 'Status' on entity type 'CustomerSettlementBatchLine' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:32:14.837 +07:00 [WRN] The 'CustomerSettlementStatus' property 'SettlementStatus' on entity type 'CustomerOrder' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:32:14.838 +07:00 [WRN] The 'CustomerSettlementBatchStatus' property 'Status' on entity type 'CustomerSettlementBatch' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementBatchStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:32:14.838 +07:00 [WRN] The 'CustomerSettlementStatus' property 'Status' on entity type 'CustomerSettlementBatchLine' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:32:56.570 +07:00 [WRN] The 'CustomerSettlementStatus' property 'SettlementStatus' on entity type 'CustomerOrder' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:32:56.596 +07:00 [WRN] The 'CustomerSettlementBatchStatus' property 'Status' on entity type 'CustomerSettlementBatch' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementBatchStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:32:56.596 +07:00 [WRN] The 'CustomerSettlementStatus' property 'Status' on entity type 'CustomerSettlementBatchLine' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:33:45.293 +07:00 [WRN] The 'CustomerSettlementStatus' property 'SettlementStatus' on entity type 'CustomerOrder' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:33:45.320 +07:00 [WRN] The 'CustomerSettlementBatchStatus' property 'Status' on entity type 'CustomerSettlementBatch' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementBatchStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:33:45.321 +07:00 [WRN] The 'CustomerSettlementStatus' property 'Status' on entity type 'CustomerSettlementBatchLine' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+2026-04-19 23:33:46.275 +07:00 [INF] Ensured user 'qlnx' with role 'QLNX'.
+2026-04-19 23:33:46.280 +07:00 [INF] Ensured user 'qlks' with role 'QLKS'.
+2026-04-19 23:33:46.283 +07:00 [INF] Ensured user 'qlvt' with role 'QLVT'.
+2026-04-19 23:33:46.287 +07:00 [INF] Ensured user 'qlvmm' with role 'QLVMM'.
+2026-04-19 23:33:46.290 +07:00 [INF] Ensured user 'qltour' with role 'QLTour'.
+2026-04-19 23:33:46.293 +07:00 [INF] Ensured user 'scanner_nx' with role 'Customer'.
+2026-04-19 23:33:46.295 +07:00 [INF] Ensured user 'customer' with role 'Customer'.
+2026-04-19 23:33:46.296 +07:00 [INF] Identity seed completed.
+2026-04-19 23:33:46.379 +07:00 [INF] Tenant NX001 already exists.
+2026-04-19 23:33:46.381 +07:00 [INF] Tenant VT001 already exists.
+2026-04-19 23:33:46.382 +07:00 [INF] Tenant VMM001 already exists.
+2026-04-19 23:33:46.384 +07:00 [INF] Tenant KS001 already exists.
+2026-04-19 23:33:46.385 +07:00 [INF] Tenant TOUR001 already exists.
+2026-04-19 23:33:46.437 +07:00 [INF] Updated tenant link 'qlnx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-19 23:33:46.447 +07:00 [INF] Updated tenant link 'admin' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-19 23:33:46.525 +07:00 [INF] Updated tenant link 'qlvt' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-19 23:33:46.527 +07:00 [INF] Updated tenant link 'admin' -> tenant "8f759d36-942d-4666-bda8-195ccfc7939a".
+2026-04-19 23:33:46.532 +07:00 [INF] Updated tenant link 'qlvmm' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-19 23:33:46.534 +07:00 [INF] Updated tenant link 'admin' -> tenant "47997b25-a35b-4291-a7ca-2521e14ea6e4".
+2026-04-19 23:33:46.537 +07:00 [INF] Updated tenant link 'qlks' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-19 23:33:46.539 +07:00 [INF] Updated tenant link 'admin' -> tenant "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7".
+2026-04-19 23:33:46.544 +07:00 [INF] Updated tenant link 'qltour' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-19 23:33:46.546 +07:00 [INF] Updated tenant link 'admin' -> tenant "dfb80807-d1db-43b0-a62f-9b744f1dde4f".
+2026-04-19 23:33:46.549 +07:00 [INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+2026-04-19 23:33:46.656 +07:00 [INF] Permissions seed completed.
+2026-04-19 23:33:47.005 +07:00 [INF] Tenant system role seed completed.
+2026-04-19 23:33:47.044 +07:00 [INF] Updated TenantUser link 'customer' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-19 23:33:47.063 +07:00 [INF] Updated TenantUser link 'scanner_nx' -> tenant "16604939-0d6a-4a9d-b828-6e9797dd1ffd".
+2026-04-19 23:33:47.072 +07:00 [INF] TenantRoles seed completed for NX001.
+2026-04-19 23:33:47.631 +07:00 [INF] BUS demo seed completed for tenant NX001.
+2026-04-19 23:33:48.040 +07:00 [INF] TRAIN demo seed completed for tenant VT001.
+2026-04-19 23:33:48.607 +07:00 [INF] Flight demo seed completed for tenant VMM001.
+2026-04-19 23:33:48.917 +07:00 [INF] CmsDemoSeed completed for tenant NX001.
+2026-04-19 23:33:49.012 +07:00 [INF] Hotel demo seed starting for 6 tenant(s). Days=14
+2026-04-19 23:33:49.089 +07:00 [INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-19 23:33:50.129 +07:00 [INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+2026-04-19 23:33:50.132 +07:00 [INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-19 23:33:50.201 +07:00 [INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+2026-04-19 23:33:50.203 +07:00 [INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-19 23:33:50.268 +07:00 [INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+2026-04-19 23:33:50.270 +07:00 [INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-19 23:33:50.353 +07:00 [INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+2026-04-19 23:33:50.355 +07:00 [INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-19 23:33:50.416 +07:00 [INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+2026-04-19 23:33:50.418 +07:00 [INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+2026-04-19 23:33:50.478 +07:00 [INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+2026-04-19 23:33:50.479 +07:00 [INF] Hotel demo seed finished.
+2026-04-19 23:33:50.932 +07:00 [INF] Now listening on: http://127.0.0.1:5183
+2026-04-19 23:33:50.932 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-19 23:33:50.932 +07:00 [INF] Hosting environment: Development
+2026-04-19 23:33:50.933 +07:00 [INF] Content root path: D:\FPT\TicketBooking.V3\TicketBooking.Api
+2026-04-19 23:34:49.424 +07:00 [WRN] Failed to determine the https port for redirect.
+2026-04-19 23:34:49.671 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 247.8912 ms
+2026-04-19 23:34:49.851 +07:00 [INF] HTTP PUT /api/v1/customer/account/checkout-drafts responded 200 in 151.3378 ms
+2026-04-19 23:34:49.881 +07:00 [INF] HTTP POST /api/v1/customer/account/checkout-drafts/820b6039-0d1b-41e4-aa7d-7509c5ed6ae1/resume responded 200 in 26.3472 ms
+2026-04-19 23:34:49.911 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 27.8232 ms
+2026-04-19 23:34:49.981 +07:00 [INF] HTTP POST /api/v1/customer/account/recent-searches responded 200 in 62.2239 ms
+2026-04-19 23:34:49.999 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 16.2378 ms
+2026-04-19 23:34:50.003 +07:00 [INF] HTTP GET /api/v1/hotels/public responded 404 in 0.9375 ms
+2026-04-19 23:34:50.113 +07:00 [INF] HTTP POST /api/v1/customer/account/recent-views responded 400 in 32.8528 ms
+2026-04-19 23:34:50.138 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 18.1455 ms
+2026-04-19 23:35:27.898 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 85.9706 ms
+2026-04-19 23:35:27.940 +07:00 [INF] HTTP PUT /api/v1/customer/account/checkout-drafts responded 200 in 17.5953 ms
+2026-04-19 23:35:27.951 +07:00 [INF] HTTP POST /api/v1/customer/account/checkout-drafts/820b6039-0d1b-41e4-aa7d-7509c5ed6ae1/resume responded 200 in 8.6030 ms
+2026-04-19 23:35:27.959 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 6.2777 ms
+2026-04-19 23:35:27.983 +07:00 [INF] HTTP POST /api/v1/customer/account/recent-searches responded 200 in 15.8273 ms
+2026-04-19 23:35:27.989 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 5.1499 ms
+2026-04-19 23:35:28.031 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 39.4182 ms
+2026-04-19 23:35:28.122 +07:00 [INF] HTTP POST /api/v1/customer/account/recent-views responded 200 in 72.5297 ms
+2026-04-19 23:35:28.129 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 5.7389 ms
+2026-04-19 23:36:03.205 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 69.2973 ms
+2026-04-19 23:36:03.218 +07:00 [INF] HTTP PUT /api/v1/customer/account/checkout-drafts responded 200 in 6.5362 ms
+2026-04-19 23:36:03.225 +07:00 [INF] HTTP POST /api/v1/customer/account/checkout-drafts/820b6039-0d1b-41e4-aa7d-7509c5ed6ae1/resume responded 200 in 4.6011 ms
+2026-04-19 23:36:03.231 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 3.9741 ms
+2026-04-19 23:36:03.238 +07:00 [INF] HTTP POST /api/v1/customer/account/recent-searches responded 200 in 5.6487 ms
+2026-04-19 23:36:03.242 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 3.1684 ms
+2026-04-19 23:36:03.246 +07:00 [INF] HTTP GET /api/v1/hotels responded 200 in 2.6297 ms
+2026-04-19 23:36:03.273 +07:00 [INF] HTTP POST /api/v1/customer/account/recent-views responded 200 in 16.3696 ms
+2026-04-19 23:36:03.278 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 3.6639 ms
+2026-04-19 23:38:53.047 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 122.0573 ms
+2026-04-19 23:39:45.733 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 98.1341 ms
+2026-04-19 23:40:42.946 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 98.6669 ms
+2026-04-19 23:40:45.489 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 14.0799 ms
+2026-04-19 23:40:45.498 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 22.9664 ms
+2026-04-19 23:40:45.499 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 46.5612 ms
+2026-04-19 23:40:45.500 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 34.4377 ms
+2026-04-19 23:40:45.505 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 9.3989 ms
+2026-04-19 23:40:45.515 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 3.0017 ms
+2026-04-19 23:40:45.516 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 2.6494 ms
+2026-04-19 23:40:45.517 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 4.4293 ms
+2026-04-19 23:40:45.517 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 42.5828 ms
+2026-04-19 23:40:45.520 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 8.5049 ms
+2026-04-19 23:40:45.528 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 4.1525 ms
+2026-04-19 23:40:45.528 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 3.6594 ms
+2026-04-19 23:40:45.600 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 124.9881 ms
+2026-04-19 23:40:45.618 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 14.3011 ms
+2026-04-19 23:41:51.539 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 92.8869 ms
+2026-04-19 23:41:52.922 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 16.8678 ms
+2026-04-19 23:41:52.934 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 10.6798 ms
+2026-04-19 23:41:52.934 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 10.7711 ms
+2026-04-19 23:41:52.937 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 10.7975 ms
+2026-04-19 23:41:52.944 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 16.7848 ms
+2026-04-19 23:41:52.946 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 20.9052 ms
+2026-04-19 23:41:52.951 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 4.1717 ms
+2026-04-19 23:41:52.951 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 3.7429 ms
+2026-04-19 23:41:52.952 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 3.3696 ms
+2026-04-19 23:41:52.958 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 4.2349 ms
+2026-04-19 23:41:52.961 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 4.4825 ms
+2026-04-19 23:41:52.961 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 4.1122 ms
+2026-04-19 23:41:52.963 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 39.4242 ms
+2026-04-19 23:41:52.973 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 6.6258 ms
+2026-04-19 23:41:54.844 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 12.2942 ms
+2026-04-19 23:41:54.852 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 3.9552 ms
+2026-04-19 23:41:54.860 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 27.7261 ms
+2026-04-19 23:41:54.866 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 2.5850 ms
+2026-04-19 23:42:21.324 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 88.6820 ms
+2026-04-19 23:42:21.340 +07:00 [INF] HTTP PUT /api/v1/customer/account/checkout-drafts responded 200 in 10.7009 ms
+2026-04-19 23:42:28.235 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 80.2771 ms
+2026-04-19 23:42:29.570 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 4.1406 ms
+2026-04-19 23:42:29.583 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 3.4756 ms
+2026-04-19 23:42:29.584 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 3.0106 ms
+2026-04-19 23:42:29.585 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 2.7166 ms
+2026-04-19 23:42:29.584 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 2.8661 ms
+2026-04-19 23:42:29.585 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 5.1721 ms
+2026-04-19 23:42:29.586 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 3.1378 ms
+2026-04-19 23:42:29.596 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 5.8720 ms
+2026-04-19 23:42:29.602 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 4.0373 ms
+2026-04-19 23:42:29.604 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 2.5074 ms
+2026-04-19 23:42:29.604 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 2.5742 ms
+2026-04-19 23:42:29.604 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 2.7055 ms
+2026-04-19 23:42:29.604 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 4.5820 ms
+2026-04-19 23:42:29.605 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 2.4678 ms
+2026-04-19 23:42:54.378 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 101.6711 ms
+2026-04-19 23:42:55.449 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 10.8157 ms
+2026-04-19 23:42:55.468 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 12.8883 ms
+2026-04-19 23:42:55.468 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 9.7644 ms
+2026-04-19 23:42:55.473 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 14.1444 ms
+2026-04-19 23:42:55.473 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 15.3499 ms
+2026-04-19 23:42:55.474 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 15.9036 ms
+2026-04-19 23:42:55.477 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 20.7694 ms
+2026-04-19 23:42:55.480 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 7.2916 ms
+2026-04-19 23:42:55.481 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 6.9334 ms
+2026-04-19 23:42:55.491 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 3.0001 ms
+2026-04-19 23:42:55.491 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 2.4002 ms
+2026-04-19 23:42:55.491 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 3.0095 ms
+2026-04-19 23:42:55.491 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 3.0145 ms
+2026-04-19 23:42:55.493 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 4.6321 ms
+2026-04-19 23:42:57.427 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 10.8334 ms
+2026-04-19 23:42:57.431 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 14.8294 ms
+2026-04-19 23:42:57.434 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 3.7947 ms
+2026-04-19 23:42:57.438 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 3.9464 ms
+2026-04-19 23:42:57.468 +07:00 [INF] HTTP POST /api/v1/customer/account/checkout-drafts/60a9d5e1-4fe7-4696-84c5-ba6460b9acd7/resume responded 200 in 8.6154 ms
+2026-04-19 23:43:11.635 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 78.0112 ms
+2026-04-19 23:43:11.662 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 8.7160 ms
+2026-04-19 23:43:36.792 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 79.8048 ms
+2026-04-19 23:43:39.226 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 6.1912 ms
+2026-04-19 23:43:39.229 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 3.3139 ms
+2026-04-19 23:43:39.231 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 4.9373 ms
+2026-04-19 23:43:39.235 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 5.1051 ms
+2026-04-19 23:43:39.240 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 3.6588 ms
+2026-04-19 23:43:39.240 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 3.7152 ms
+2026-04-19 23:43:39.294 +07:00 [INF] HTTP POST /api/v1/customer/account/checkout-drafts/60a9d5e1-4fe7-4696-84c5-ba6460b9acd7/resume responded 200 in 9.2823 ms
+2026-04-19 23:43:40.271 +07:00 [INF] HTTP PUT /api/v1/customer/account/checkout-drafts responded 200 in 12.5355 ms
+2026-04-19 23:44:05.485 +07:00 [INF] HTTP POST /api/v1/auth/login responded 200 in 131.2670 ms
+2026-04-19 23:44:06.382 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 11.3028 ms
+2026-04-19 23:44:06.392 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 2.8814 ms
+2026-04-19 23:44:06.399 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 8.4600 ms
+2026-04-19 23:44:06.399 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 8.4669 ms
+2026-04-19 23:44:06.399 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 8.0266 ms
+2026-04-19 23:44:06.402 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 11.0513 ms
+2026-04-19 23:44:06.403 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 3.4974 ms
+2026-04-19 23:44:06.405 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 15.4473 ms
+2026-04-19 23:44:06.414 +07:00 [INF] HTTP GET /api/v1/customer/account/wishlist responded 200 in 2.2497 ms
+2026-04-19 23:44:06.414 +07:00 [INF] HTTP GET /api/v1/auth/me responded 200 in 2.6006 ms
+2026-04-19 23:44:06.415 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-views responded 200 in 2.8061 ms
+2026-04-19 23:44:06.414 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 2.7850 ms
+2026-04-19 23:44:06.414 +07:00 [INF] HTTP GET /api/v1/customer/account/recent-searches responded 200 in 2.5847 ms
+2026-04-19 23:44:06.416 +07:00 [INF] HTTP GET /api/v1/customer/orders responded 200 in 4.5011 ms
+2026-04-19 23:44:08.337 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 3.0817 ms
+2026-04-19 23:44:08.342 +07:00 [INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 1.5698 ms
+2026-04-19 23:44:08.342 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 2.9111 ms
+2026-04-19 23:44:08.344 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 5.1160 ms
+2026-04-19 23:44:08.349 +07:00 [INF] HTTP GET /api/v1/customer/account/passengers responded 200 in 2.9132 ms
+2026-04-19 23:44:08.350 +07:00 [INF] HTTP GET /api/v1/customer/account/checkout-drafts responded 200 in 2.9444 ms
+2026-04-19 23:44:08.396 +07:00 [INF] HTTP POST /api/v1/customer/account/checkout-drafts/60a9d5e1-4fe7-4696-84c5-ba6460b9acd7/resume responded 200 in 9.1800 ms
+2026-04-19 23:44:09.405 +07:00 [INF] HTTP PUT /api/v1/customer/account/checkout-drafts responded 200 in 11.6430 ms

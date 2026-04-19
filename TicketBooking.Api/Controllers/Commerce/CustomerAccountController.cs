@@ -82,6 +82,365 @@ public sealed class CustomerAccountController : ControllerBase
         return Ok(MapPreference(preference));
     }
 
+    [HttpGet("checkout-drafts")]
+    public async Task<ActionResult<List<CustomerCheckoutDraftDto>>> ListCheckoutDrafts(
+        [FromQuery] int limit = 5,
+        [FromQuery] string? checkoutKey = null,
+        CancellationToken ct = default)
+    {
+        var userId = GetCurrentUserId();
+        if (!userId.HasValue)
+            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ xem checkout dang dá»Ÿ." });
+
+        var now = DateTimeOffset.UtcNow;
+        var normalizedCheckoutKey = Normalize(checkoutKey);
+        var safeLimit = Math.Clamp(limit, 1, 12);
+
+        var query = _db.CustomerCheckoutDrafts
+            .AsNoTracking()
+            .Where(x =>
+                x.UserId == userId.Value &&
+                !x.IsDeleted &&
+                (!x.ExpiresAt.HasValue || x.ExpiresAt > now));
+
+        if (normalizedCheckoutKey is not null)
+            query = query.Where(x => x.CheckoutKey == normalizedCheckoutKey);
+
+        var items = await query
+            .OrderByDescending(x => x.LastActivityAt)
+            .Take(safeLimit)
+            .Select(x => new CustomerCheckoutDraftDto
+            {
+                Id = x.Id,
+                ProductType = x.ProductType,
+                CheckoutKey = x.CheckoutKey,
+                Title = x.Title,
+                Subtitle = x.Subtitle,
+                ResumeUrl = x.ResumeUrl,
+                Snapshot = ParseJson(x.SnapshotJson),
+                LastActivityAt = x.LastActivityAt,
+                ResumeCount = x.ResumeCount,
+                ExpiresAt = x.ExpiresAt,
+            })
+            .ToListAsync(ct);
+
+        return Ok(items);
+    }
+
+    [HttpPut("checkout-drafts")]
+    public async Task<ActionResult<CustomerCheckoutDraftDto>> UpsertCheckoutDraft(
+        [FromBody] UpsertCustomerCheckoutDraftRequest request,
+        CancellationToken ct = default)
+    {
+        var userId = GetCurrentUserId();
+        if (!userId.HasValue)
+            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ lÆ°u checkout dang dá»Ÿ." });
+
+        request ??= new UpsertCustomerCheckoutDraftRequest();
+
+        if (string.IsNullOrWhiteSpace(request.CheckoutKey) ||
+            string.IsNullOrWhiteSpace(request.Title) ||
+            string.IsNullOrWhiteSpace(request.ResumeUrl))
+        {
+            return BadRequest(new { message = "Checkout dang dá»Ÿ cáº§n cÃ³ khÃ³a, tiÃªu Ä‘á» vÃ  Ä‘Æ°á»ng dáº«n tiáº¿p tá»¥c." });
+        }
+
+        CustomerProductType productType;
+        try
+        {
+            productType = ParseProductType(request.ProductType);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+
+        var snapshotJson = NormalizeJson(request.SnapshotJson);
+        var now = DateTimeOffset.UtcNow;
+        var checkoutKey = request.CheckoutKey.Trim();
+        var draft = await _db.CustomerCheckoutDrafts
+            .FirstOrDefaultAsync(x => x.UserId == userId.Value && x.CheckoutKey == checkoutKey && !x.IsDeleted, ct);
+
+        if (draft is null)
+        {
+            draft = new CustomerCheckoutDraft
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId.Value,
+                ProductType = productType,
+                CheckoutKey = checkoutKey,
+                CreatedAt = now,
+                CreatedByUserId = userId.Value,
+            };
+
+            _db.CustomerCheckoutDrafts.Add(draft);
+        }
+
+        draft.ProductType = productType;
+        draft.Title = request.Title.Trim();
+        draft.Subtitle = Normalize(request.Subtitle);
+        draft.ResumeUrl = request.ResumeUrl.Trim();
+        draft.SnapshotJson = snapshotJson;
+        draft.LastActivityAt = now;
+        draft.ExpiresAt = now.AddDays(14);
+        draft.UpdatedAt = now;
+        draft.UpdatedByUserId = userId.Value;
+
+        await _db.SaveChangesAsync(ct);
+        await TrimCheckoutDraftsAsync(userId.Value, ct);
+
+        return Ok(MapCheckoutDraft(draft));
+    }
+
+    [HttpPost("checkout-drafts/{id:guid}/resume")]
+    public async Task<ActionResult<CustomerCheckoutDraftDto>> MarkCheckoutDraftResumed(Guid id, CancellationToken ct = default)
+    {
+        var userId = GetCurrentUserId();
+        if (!userId.HasValue)
+            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ tiáº¿p tá»¥c checkout." });
+
+        var draft = await _db.CustomerCheckoutDrafts
+            .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId.Value && !x.IsDeleted, ct);
+
+        if (draft is null)
+            return NotFound(new { message = "KhÃ´ng tÃ¬m tháº¥y checkout dang dá»Ÿ." });
+
+        draft.ResumeCount += 1;
+        draft.LastActivityAt = DateTimeOffset.UtcNow;
+        draft.UpdatedAt = draft.LastActivityAt;
+        draft.UpdatedByUserId = userId.Value;
+
+        await _db.SaveChangesAsync(ct);
+        return Ok(MapCheckoutDraft(draft));
+    }
+
+    [HttpDelete("checkout-drafts/{id:guid}")]
+    public async Task<IActionResult> DeleteCheckoutDraft(Guid id, CancellationToken ct = default)
+    {
+        var userId = GetCurrentUserId();
+        if (!userId.HasValue)
+            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ xÃ³a checkout dang dá»Ÿ." });
+
+        var draft = await _db.CustomerCheckoutDrafts
+            .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId.Value && !x.IsDeleted, ct);
+
+        if (draft is null)
+            return NotFound(new { message = "KhÃ´ng tÃ¬m tháº¥y checkout dang dá»Ÿ." });
+
+        draft.IsDeleted = true;
+        draft.UpdatedAt = DateTimeOffset.UtcNow;
+        draft.UpdatedByUserId = userId.Value;
+        await _db.SaveChangesAsync(ct);
+
+        return Ok(new { ok = true });
+    }
+
+    [HttpGet("recent-views")]
+    public async Task<ActionResult<List<CustomerRecentViewDto>>> ListRecentViews(
+        [FromQuery] int limit = 8,
+        CancellationToken ct = default)
+    {
+        var userId = GetCurrentUserId();
+        if (!userId.HasValue)
+            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ xem má»¥c Ä‘Ã£ xem gáº§n Ä‘Ã¢y." });
+
+        var items = await _db.CustomerRecentViews
+            .AsNoTracking()
+            .Where(x => x.UserId == userId.Value && !x.IsDeleted)
+            .OrderByDescending(x => x.ViewedAt)
+            .Take(Math.Clamp(limit, 1, 24))
+            .Select(x => new CustomerRecentViewDto
+            {
+                Id = x.Id,
+                ProductType = x.ProductType,
+                TargetId = x.TargetId,
+                TargetSlug = x.TargetSlug,
+                Title = x.Title,
+                Subtitle = x.Subtitle,
+                LocationText = x.LocationText,
+                PriceText = x.PriceText,
+                PriceValue = x.PriceValue,
+                CurrencyCode = x.CurrencyCode,
+                ImageUrl = x.ImageUrl,
+                TargetUrl = x.TargetUrl,
+                Metadata = ParseJson(x.MetadataJson),
+                ViewedAt = x.ViewedAt,
+                ViewCount = x.ViewCount,
+            })
+            .ToListAsync(ct);
+
+        return Ok(items);
+    }
+
+    [HttpPost("recent-views")]
+    public async Task<ActionResult<CustomerRecentViewDto>> TrackRecentView(
+        [FromBody] TrackCustomerRecentViewRequest request,
+        CancellationToken ct = default)
+    {
+        var userId = GetCurrentUserId();
+        if (!userId.HasValue)
+            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ lÆ°u lá»‹ch sá»­ xem." });
+
+        request ??= new TrackCustomerRecentViewRequest();
+
+        if (string.IsNullOrWhiteSpace(request.Title))
+            return BadRequest(new { message = "Má»¥c Ä‘Ã£ xem cáº§n cÃ³ tiÃªu Ä‘á»." });
+
+        var targetSlug = Normalize(request.TargetSlug);
+        if (!request.TargetId.HasValue && targetSlug is null)
+            return BadRequest(new { message = "Má»¥c Ä‘Ã£ xem cáº§n cÃ³ Ä‘á»‹nh danh hoáº·c slug." });
+
+        CustomerProductType productType;
+        try
+        {
+            productType = ParseProductType(request.ProductType);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+
+        var now = DateTimeOffset.UtcNow;
+        var item = await _db.CustomerRecentViews
+            .Where(x => x.UserId == userId.Value && x.ProductType == productType && !x.IsDeleted)
+            .Where(x =>
+                (request.TargetId.HasValue && x.TargetId == request.TargetId) ||
+                (targetSlug != null && x.TargetSlug == targetSlug))
+            .OrderByDescending(x => x.ViewedAt)
+            .FirstOrDefaultAsync(ct);
+
+        if (item is null)
+        {
+            item = new CustomerRecentView
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId.Value,
+                ProductType = productType,
+                CreatedAt = now,
+                CreatedByUserId = userId.Value,
+            };
+
+            _db.CustomerRecentViews.Add(item);
+        }
+
+        item.TargetId = request.TargetId ?? item.TargetId;
+        item.TargetSlug = targetSlug ?? item.TargetSlug;
+        item.Title = request.Title.Trim();
+        item.Subtitle = Normalize(request.Subtitle);
+        item.LocationText = Normalize(request.LocationText);
+        item.PriceText = Normalize(request.PriceText);
+        item.PriceValue = request.PriceValue;
+        item.CurrencyCode = Normalize(request.CurrencyCode);
+        item.ImageUrl = Normalize(request.ImageUrl);
+        item.TargetUrl = Normalize(request.TargetUrl);
+        item.MetadataJson = Normalize(request.MetadataJson);
+        item.ViewedAt = now;
+        item.ViewCount = Math.Max(0, item.ViewCount) + 1;
+        item.UpdatedAt = now;
+        item.UpdatedByUserId = userId.Value;
+
+        await _db.SaveChangesAsync(ct);
+        await TrimRecentViewsAsync(userId.Value, ct);
+
+        return Ok(MapRecentView(item));
+    }
+
+    [HttpGet("recent-searches")]
+    public async Task<ActionResult<List<CustomerRecentSearchDto>>> ListRecentSearches(
+        [FromQuery] int limit = 8,
+        CancellationToken ct = default)
+    {
+        var userId = GetCurrentUserId();
+        if (!userId.HasValue)
+            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ xem lá»‹ch sá»­ tÃ¬m kiáº¿m." });
+
+        var items = await _db.CustomerRecentSearches
+            .AsNoTracking()
+            .Where(x => x.UserId == userId.Value && !x.IsDeleted)
+            .OrderByDescending(x => x.SearchedAt)
+            .Take(Math.Clamp(limit, 1, 24))
+            .Select(x => new CustomerRecentSearchDto
+            {
+                Id = x.Id,
+                ProductType = x.ProductType,
+                SearchKey = x.SearchKey,
+                QueryText = x.QueryText,
+                SummaryText = x.SummaryText,
+                SearchUrl = x.SearchUrl,
+                Criteria = ParseJson(x.CriteriaJson),
+                Metadata = ParseJson(x.MetadataJson),
+                SearchedAt = x.SearchedAt,
+                SearchCount = x.SearchCount,
+            })
+            .ToListAsync(ct);
+
+        return Ok(items);
+    }
+
+    [HttpPost("recent-searches")]
+    public async Task<ActionResult<CustomerRecentSearchDto>> TrackRecentSearch(
+        [FromBody] TrackCustomerRecentSearchRequest request,
+        CancellationToken ct = default)
+    {
+        var userId = GetCurrentUserId();
+        if (!userId.HasValue)
+            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ lÆ°u lá»‹ch sá»­ tÃ¬m kiáº¿m." });
+
+        request ??= new TrackCustomerRecentSearchRequest();
+
+        if (string.IsNullOrWhiteSpace(request.SearchKey) || string.IsNullOrWhiteSpace(request.SearchUrl))
+            return BadRequest(new { message = "Lá»‹ch sá»­ tÃ¬m kiáº¿m cáº§n cÃ³ khÃ³a vÃ  Ä‘Æ°á»ng dáº«n." });
+
+        CustomerProductType productType;
+        try
+        {
+            productType = ParseProductType(request.ProductType);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+
+        var now = DateTimeOffset.UtcNow;
+        var criteriaJson = NormalizeJson(request.CriteriaJson);
+        var item = await _db.CustomerRecentSearches
+            .FirstOrDefaultAsync(x =>
+                x.UserId == userId.Value &&
+                x.ProductType == productType &&
+                x.SearchKey == request.SearchKey.Trim() &&
+                !x.IsDeleted, ct);
+
+        if (item is null)
+        {
+            item = new CustomerRecentSearch
+            {
+                Id = Guid.NewGuid(),
+                UserId = userId.Value,
+                ProductType = productType,
+                SearchKey = request.SearchKey.Trim(),
+                CreatedAt = now,
+                CreatedByUserId = userId.Value,
+            };
+
+            _db.CustomerRecentSearches.Add(item);
+        }
+
+        item.QueryText = Normalize(request.QueryText);
+        item.SummaryText = Normalize(request.SummaryText);
+        item.SearchUrl = request.SearchUrl.Trim();
+        item.CriteriaJson = criteriaJson;
+        item.MetadataJson = Normalize(request.MetadataJson);
+        item.SearchedAt = now;
+        item.SearchCount = Math.Max(0, item.SearchCount) + 1;
+        item.UpdatedAt = now;
+        item.UpdatedByUserId = userId.Value;
+
+        await _db.SaveChangesAsync(ct);
+        await TrimRecentSearchesAsync(userId.Value, ct);
+
+        return Ok(MapRecentSearch(item));
+    }
+
     [HttpGet("passengers")]
     public async Task<ActionResult<List<CustomerSavedPassengerDto>>> ListPassengers(CancellationToken ct = default)
     {
@@ -835,6 +1194,62 @@ public sealed class CustomerAccountController : ControllerBase
         };
     }
 
+    private static CustomerCheckoutDraftDto MapCheckoutDraft(CustomerCheckoutDraft draft)
+    {
+        return new CustomerCheckoutDraftDto
+        {
+            Id = draft.Id,
+            ProductType = draft.ProductType,
+            CheckoutKey = draft.CheckoutKey,
+            Title = draft.Title,
+            Subtitle = draft.Subtitle,
+            ResumeUrl = draft.ResumeUrl,
+            Snapshot = ParseJson(draft.SnapshotJson),
+            LastActivityAt = draft.LastActivityAt,
+            ResumeCount = draft.ResumeCount,
+            ExpiresAt = draft.ExpiresAt,
+        };
+    }
+
+    private static CustomerRecentViewDto MapRecentView(CustomerRecentView item)
+    {
+        return new CustomerRecentViewDto
+        {
+            Id = item.Id,
+            ProductType = item.ProductType,
+            TargetId = item.TargetId,
+            TargetSlug = item.TargetSlug,
+            Title = item.Title,
+            Subtitle = item.Subtitle,
+            LocationText = item.LocationText,
+            PriceText = item.PriceText,
+            PriceValue = item.PriceValue,
+            CurrencyCode = item.CurrencyCode,
+            ImageUrl = item.ImageUrl,
+            TargetUrl = item.TargetUrl,
+            Metadata = ParseJson(item.MetadataJson),
+            ViewedAt = item.ViewedAt,
+            ViewCount = item.ViewCount,
+        };
+    }
+
+    private static CustomerRecentSearchDto MapRecentSearch(CustomerRecentSearch item)
+    {
+        return new CustomerRecentSearchDto
+        {
+            Id = item.Id,
+            ProductType = item.ProductType,
+            SearchKey = item.SearchKey,
+            QueryText = item.QueryText,
+            SummaryText = item.SummaryText,
+            SearchUrl = item.SearchUrl,
+            Criteria = ParseJson(item.CriteriaJson),
+            Metadata = ParseJson(item.MetadataJson),
+            SearchedAt = item.SearchedAt,
+            SearchCount = item.SearchCount,
+        };
+    }
+
     private static CustomerAccountPreferenceDto MapPreference(CustomerAccountPreference? preference)
     {
         return new CustomerAccountPreferenceDto
@@ -847,6 +1262,69 @@ public sealed class CustomerAccountController : ControllerBase
             PushNotificationsEnabled = preference?.PushNotificationsEnabled ?? true,
             UpdatedAt = preference?.UpdatedAt,
         };
+    }
+
+    private async Task TrimCheckoutDraftsAsync(Guid userId, CancellationToken ct)
+    {
+        var staleItems = await _db.CustomerCheckoutDrafts
+            .Where(x => x.UserId == userId && !x.IsDeleted)
+            .OrderByDescending(x => x.LastActivityAt)
+            .Skip(5)
+            .ToListAsync(ct);
+
+        if (staleItems.Count == 0)
+            return;
+
+        foreach (var item in staleItems)
+        {
+            item.IsDeleted = true;
+            item.UpdatedAt = DateTimeOffset.UtcNow;
+            item.UpdatedByUserId = userId;
+        }
+
+        await _db.SaveChangesAsync(ct);
+    }
+
+    private async Task TrimRecentViewsAsync(Guid userId, CancellationToken ct)
+    {
+        var staleItems = await _db.CustomerRecentViews
+            .Where(x => x.UserId == userId && !x.IsDeleted)
+            .OrderByDescending(x => x.ViewedAt)
+            .Skip(20)
+            .ToListAsync(ct);
+
+        if (staleItems.Count == 0)
+            return;
+
+        foreach (var item in staleItems)
+        {
+            item.IsDeleted = true;
+            item.UpdatedAt = DateTimeOffset.UtcNow;
+            item.UpdatedByUserId = userId;
+        }
+
+        await _db.SaveChangesAsync(ct);
+    }
+
+    private async Task TrimRecentSearchesAsync(Guid userId, CancellationToken ct)
+    {
+        var staleItems = await _db.CustomerRecentSearches
+            .Where(x => x.UserId == userId && !x.IsDeleted)
+            .OrderByDescending(x => x.SearchedAt)
+            .Skip(20)
+            .ToListAsync(ct);
+
+        if (staleItems.Count == 0)
+            return;
+
+        foreach (var item in staleItems)
+        {
+            item.IsDeleted = true;
+            item.UpdatedAt = DateTimeOffset.UtcNow;
+            item.UpdatedByUserId = userId;
+        }
+
+        await _db.SaveChangesAsync(ct);
     }
 
     private static string NormalizeLanguageCode(string? value)
@@ -885,6 +1363,21 @@ public sealed class CustomerAccountController : ControllerBase
             "dark" => "dark",
             _ => "light",
         };
+    }
+
+    private static string NormalizeJson(string? json)
+    {
+        if (string.IsNullOrWhiteSpace(json))
+            return "{}";
+
+        try
+        {
+            return JsonDocument.Parse(json).RootElement.GetRawText();
+        }
+        catch
+        {
+            return "{}";
+        }
     }
 
     private static JsonElement ParseJson(string? json)

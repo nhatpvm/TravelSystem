@@ -155,10 +155,6 @@
       "RelativeMoniker": "D:0:0:{E1E1B050-5E2B-1570-02E4-E97265D76374}|TicketBooking.Api\\TicketBooking.Api.csproj|solutionrelative:ticketbooking.api\\controllers\\tours\\admin\\tourfaqsadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1E1B050-5E2B-1570-02E4-E97265D76374}|TicketBooking.Api\\TicketBooking.Api.csproj|d:\\fpt\\ticketbooking.v3\\ticketbooking.api\\logs\\log-20260401.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{E1E1B050-5E2B-1570-02E4-E97265D76374}|TicketBooking.Api\\TicketBooking.Api.csproj|solutionrelative:ticketbooking.api\\logs\\log-20260401.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E1E1B050-5E2B-1570-02E4-E97265D76374}|TicketBooking.Api\\TicketBooking.Api.csproj|d:\\fpt\\ticketbooking.v3\\ticketbooking.api\\middlewares\\tenantcontextmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1E1B050-5E2B-1570-02E4-E97265D76374}|TicketBooking.Api\\TicketBooking.Api.csproj|solutionrelative:ticketbooking.api\\middlewares\\tenantcontextmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -1049,6 +1045,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{A1190DE7-684E-406D-BB09-D4224B799065}|TicketBooking.Domain\\TicketBooking.Domain.csproj|d:\\fpt\\ticketbooking.v3\\ticketbooking.domain\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A1190DE7-684E-406D-BB09-D4224B799065}|TicketBooking.Domain\\TicketBooking.Domain.csproj|solutionrelative:ticketbooking.domain\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Logs\\log-20260401.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TicketBooking.Api\\Logs\\log-20260401.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -1519,7 +1519,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 261,
               "Title": "log-20260401.txt",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Logs\\log-20260401.txt",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Logs\\log-20260401.txt",
@@ -1531,7 +1531,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 38,
               "Title": "TenantContextMiddleware.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Middlewares\\TenantContextMiddleware.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Middlewares\\TenantContextMiddleware.cs",
@@ -1543,7 +1543,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 40,
               "Title": "QlksRatePlansController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Manager\\QlksRatePlansController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Manager\\QlksRatePlansController.cs",
@@ -1555,7 +1555,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 41,
               "Title": "HotelAvailabilityController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Public\\HotelAvailabilityController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Public\\HotelAvailabilityController.cs",
@@ -1567,7 +1567,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 42,
               "Title": "HotelGalleryController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Public\\HotelGalleryController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Public\\HotelGalleryController.cs",
@@ -1579,7 +1579,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 39,
               "Title": "QlksRoomTypesController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Manager\\QlksRoomTypesController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Manager\\QlksRoomTypesController.cs",
@@ -1591,7 +1591,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 43,
               "Title": "HotelReviewsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Public\\HotelReviewsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Public\\HotelReviewsController.cs",
@@ -1603,7 +1603,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 44,
               "Title": "HotelsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Public\\HotelsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Public\\HotelsController.cs",
@@ -1615,7 +1615,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 45,
               "Title": "QlksPoliciesController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Manager\\QlksPoliciesController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Manager\\QlksPoliciesController.cs",
@@ -1627,7 +1627,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 46,
               "Title": "QlksExtraServicesController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Manager\\QlksExtraServicesController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Manager\\QlksExtraServicesController.cs",
@@ -1639,7 +1639,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 47,
               "Title": "QlksHotelsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Manager\\QlksHotelsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Manager\\QlksHotelsController.cs",
@@ -1651,7 +1651,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 48,
               "Title": "QlksAriController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Manager\\QlksAriController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Manager\\QlksAriController.cs",
@@ -1663,7 +1663,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 49,
               "Title": "RoomTypesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\RoomTypesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\RoomTypesAdminController.cs",
@@ -1675,7 +1675,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 50,
               "Title": "RoomTypePoliciesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\RoomTypePoliciesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\RoomTypePoliciesAdminController.cs",
@@ -1687,7 +1687,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 52,
               "Title": "RoomAmenitiesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\RoomAmenitiesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\RoomAmenitiesAdminController.cs",
@@ -1699,7 +1699,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 53,
               "Title": "RatePlansAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\RatePlansAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\RatePlansAdminController.cs",
@@ -1711,7 +1711,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 54,
               "Title": "PromoRateOverridesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\PromoRateOverridesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\PromoRateOverridesAdminController.cs",
@@ -1723,7 +1723,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 51,
               "Title": "RoomTypeImagesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\RoomTypeImagesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\RoomTypeImagesAdminController.cs",
@@ -1735,7 +1735,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 56,
               "Title": "HotelsPoliciesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\HotelsPoliciesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\HotelsPoliciesAdminController.cs",
@@ -1747,7 +1747,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 57,
               "Title": "HotelsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\HotelsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\HotelsAdminController.cs",
@@ -1759,7 +1759,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 58,
               "Title": "HotelReviewsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\HotelReviewsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\HotelReviewsAdminController.cs",
@@ -1771,7 +1771,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 55,
               "Title": "MealPlansAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\MealPlansAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\MealPlansAdminController.cs",
@@ -1783,7 +1783,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 60,
               "Title": "HotelContactsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\HotelContactsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\HotelContactsAdminController.cs",
@@ -1795,7 +1795,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 61,
               "Title": "HotelAmenitiesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\HotelAmenitiesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\HotelAmenitiesAdminController.cs",
@@ -1807,7 +1807,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 62,
               "Title": "ExtraServicesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\ExtraServicesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\ExtraServicesAdminController.cs",
@@ -1819,7 +1819,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 59,
               "Title": "HotelImagesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\HotelImagesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\HotelImagesAdminController.cs",
@@ -1831,7 +1831,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 63,
               "Title": "BedTypesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\BedTypesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\BedTypesAdminController.cs",
@@ -1843,7 +1843,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 64,
               "Title": "AriAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Hotels\\Admin\\AriAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Hotels\\Admin\\AriAdminController.cs",
@@ -1855,7 +1855,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 65,
               "Title": "ProvidersAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Catalog\\ProvidersAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Catalog\\ProvidersAdminController.cs",
@@ -1867,7 +1867,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 66,
               "Title": "HotelEntities.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Hotels\\HotelEntities.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Hotels\\HotelEntities.cs",
@@ -1879,7 +1879,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 67,
               "Title": "FlightAircraftsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightAircraftsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightAircraftsAdminController.cs",
@@ -1891,7 +1891,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 68,
               "Title": "FlightAircraftModelsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightAircraftModelsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightAircraftModelsAdminController.cs",
@@ -1903,7 +1903,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 69,
               "Title": "HotelDemoSeed.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Seed\\HotelDemoSeed.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Seed\\HotelDemoSeed.cs",
@@ -1915,7 +1915,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 70,
               "Title": "FlightAirlinesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightAirlinesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightAirlinesAdminController.cs",
@@ -1927,7 +1927,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 71,
               "Title": "AppDbContext.Hotels.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\AppDbContext.Hotels.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\AppDbContext.Hotels.cs",
@@ -1939,7 +1939,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 73,
+              "DocumentIndex": 72,
               "Title": "HotelConfigurations.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Hotel\\HotelConfigurations.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Hotel\\HotelConfigurations.cs",
@@ -1951,7 +1951,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 74,
+              "DocumentIndex": 73,
               "Title": "FlightSeatMapsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Public\\FlightSeatMapsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Public\\FlightSeatMapsController.cs",
@@ -1963,7 +1963,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 75,
+              "DocumentIndex": 74,
               "Title": "FlightSearchController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Public\\FlightSearchController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Public\\FlightSearchController.cs",
@@ -1975,7 +1975,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 76,
+              "DocumentIndex": 75,
               "Title": "FlightOfferDetailsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Public\\FlightOfferDetailsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Public\\FlightOfferDetailsController.cs",
@@ -1987,7 +1987,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 77,
+              "DocumentIndex": 76,
               "Title": "FlightOfferAncillariesController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Public\\FlightOfferAncillariesController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Public\\FlightOfferAncillariesController.cs",
@@ -1999,7 +1999,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 78,
+              "DocumentIndex": 77,
               "Title": "QLVMMFlightSeatMapsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\QLVMM\\QLVMMFlightSeatMapsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\QLVMM\\QLVMMFlightSeatMapsController.cs",
@@ -2011,7 +2011,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 79,
+              "DocumentIndex": 78,
               "Title": "QLVMMFlightOffersController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\QLVMM\\QLVMMFlightOffersController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\QLVMM\\QLVMMFlightOffersController.cs",
@@ -2023,7 +2023,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 80,
+              "DocumentIndex": 79,
               "Title": "QLVMMFlightFlightsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\QLVMM\\QLVMMFlightFlightsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\QLVMM\\QLVMMFlightFlightsController.cs",
@@ -2035,7 +2035,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 81,
+              "DocumentIndex": 80,
               "Title": "QLVMMFlightAncillariesController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\QLVMM\\QLVMMFlightAncillariesController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\QLVMM\\QLVMMFlightAncillariesController.cs",
@@ -2047,7 +2047,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 82,
+              "DocumentIndex": 81,
               "Title": "TenantHeaderOperationFilter.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Swagger\\TenantHeaderOperationFilter.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Swagger\\TenantHeaderOperationFilter.cs",
@@ -2059,7 +2059,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 83,
+              "DocumentIndex": 82,
               "Title": "FlightsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightsAdminController.cs",
@@ -2071,7 +2071,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 84,
+              "DocumentIndex": 83,
               "Title": "FlightOfferTaxFeeLinesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightOfferTaxFeeLinesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightOfferTaxFeeLinesAdminController.cs",
@@ -2083,7 +2083,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 85,
+              "DocumentIndex": 84,
               "Title": "FlightOffersAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightOffersAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightOffersAdminController.cs",
@@ -2095,7 +2095,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 86,
+              "DocumentIndex": 85,
               "Title": "FlightFareRulesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightFareRulesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightFareRulesAdminController.cs",
@@ -2107,7 +2107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 87,
+              "DocumentIndex": 86,
               "Title": "FlightFareClassesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightFareClassesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightFareClassesAdminController.cs",
@@ -2119,7 +2119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 88,
+              "DocumentIndex": 87,
               "Title": "FlightCabinSeatsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightCabinSeatsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightCabinSeatsAdminController.cs",
@@ -2131,7 +2131,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 89,
+              "DocumentIndex": 88,
               "Title": "FlightCabinSeatMapsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightCabinSeatMapsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightCabinSeatMapsAdminController.cs",
@@ -2143,7 +2143,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 90,
+              "DocumentIndex": 89,
               "Title": "FlightAncillaryDefinitionsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightAncillaryDefinitionsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightAncillaryDefinitionsAdminController.cs",
@@ -2155,7 +2155,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 91,
+              "DocumentIndex": 90,
               "Title": "FlightAirportsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightAirportsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Flight\\Admin\\FlightAirportsAdminController.cs",
@@ -2167,7 +2167,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 94,
+              "DocumentIndex": 93,
               "Title": "FlightOfferAncillaryContracts.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Contracts\\Flight\\FlightOfferAncillaryContracts.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Contracts\\Flight\\FlightOfferAncillaryContracts.cs",
@@ -2179,7 +2179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 95,
+              "DocumentIndex": 94,
               "Title": "AppDbContext.Geo.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\AppDbContext.Geo.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\AppDbContext.Geo.cs",
@@ -2191,7 +2191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 93,
+              "DocumentIndex": 92,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\AppDbContext.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\AppDbContext.cs",
@@ -2203,7 +2203,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 92,
+              "DocumentIndex": 91,
               "Title": "AppDbContext.Auth.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\AppDbContext.Auth.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\AppDbContext.Auth.cs",
@@ -2215,7 +2215,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 96,
+              "DocumentIndex": 95,
               "Title": "AppDbContext.Fleet.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\AppDbContext.Fleet.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\AppDbContext.Fleet.cs",
@@ -2227,7 +2227,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 98,
+              "DocumentIndex": 97,
               "Title": "Class1.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Application\\Class1.cs",
               "RelativeDocumentMoniker": "TicketBooking.Application\\Class1.cs",
@@ -2239,7 +2239,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 97,
+              "DocumentIndex": 96,
               "Title": "AppDbContext.Flight.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\AppDbContext.Flight.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\AppDbContext.Flight.cs",
@@ -2251,7 +2251,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 99,
+              "DocumentIndex": 98,
               "Title": "FlightOfferAncillaryQueryService.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Flight\\FlightOfferAncillaryQueryService.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Flight\\FlightOfferAncillaryQueryService.cs",
@@ -2263,7 +2263,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 100,
+              "DocumentIndex": 99,
               "Title": "IFlightOfferAncillaryQueryService.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Flight\\IFlightOfferAncillaryQueryService.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Flight\\IFlightOfferAncillaryQueryService.cs",
@@ -2275,7 +2275,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 102,
+              "DocumentIndex": 101,
               "Title": "FlightConfigurations.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Flight\\FlightConfigurations.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Flight\\FlightConfigurations.cs",
@@ -2287,7 +2287,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 101,
+              "DocumentIndex": 100,
               "Title": "FlightOfferDetailsContracts.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Contracts\\Flight\\FlightOfferDetailsContracts.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Contracts\\Flight\\FlightOfferDetailsContracts.cs",
@@ -2299,7 +2299,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 103,
+              "DocumentIndex": 102,
               "Title": "FlightEntities.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Flight\\FlightEntities.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Flight\\FlightEntities.cs",
@@ -2311,7 +2311,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 104,
+              "DocumentIndex": 103,
               "Title": "FlightDemoSeed.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Seed\\FlightDemoSeed.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Seed\\FlightDemoSeed.cs",
@@ -2323,7 +2323,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 105,
+              "DocumentIndex": 104,
               "Title": "BusSearchTripsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Public\\BusSearchTripsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Public\\BusSearchTripsController.cs",
@@ -2335,7 +2335,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 106,
+              "DocumentIndex": 105,
               "Title": "ITenantContext.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Tenancy\\ITenantContext.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Tenancy\\ITenantContext.cs",
@@ -2347,7 +2347,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 107,
+              "DocumentIndex": 106,
               "Title": "AuditTenantSoftDeleteInterceptor.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Interceptors\\AuditTenantSoftDeleteInterceptor.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Interceptors\\AuditTenantSoftDeleteInterceptor.cs",
@@ -2359,7 +2359,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 108,
+              "DocumentIndex": 107,
               "Title": "TrainSeatHoldsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Public\\TrainSeatHoldsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Public\\TrainSeatHoldsController.cs",
@@ -2371,7 +2371,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 109,
+              "DocumentIndex": 108,
               "Title": "TrainTripSeatsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Public\\TrainTripSeatsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Public\\TrainTripSeatsController.cs",
@@ -2383,7 +2383,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 110,
+              "DocumentIndex": 109,
               "Title": "TrainSearchTripsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Public\\TrainSearchTripsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Public\\TrainSearchTripsController.cs",
@@ -2395,7 +2395,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 111,
+              "DocumentIndex": 110,
               "Title": "BusTripSeatHoldsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Public\\BusTripSeatHoldsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Public\\BusTripSeatHoldsController.cs",
@@ -2407,7 +2407,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 112,
+              "DocumentIndex": 111,
               "Title": "BusTripSeatsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Public\\BusTripSeatsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Public\\BusTripSeatsController.cs",
@@ -2419,7 +2419,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 113,
+              "DocumentIndex": 112,
               "Title": "QlVtTrainTripSeatsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainTripSeatsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainTripSeatsController.cs",
@@ -2431,7 +2431,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 114,
+              "DocumentIndex": 113,
               "Title": "20260325152327_Train_HoldTokenIndexes_Fix.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Migrations\\20260325152327_Train_HoldTokenIndexes_Fix.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Migrations\\20260325152327_Train_HoldTokenIndexes_Fix.cs",
@@ -2443,7 +2443,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 115,
+              "DocumentIndex": 114,
               "Title": "QlVtTrainTripSegmentPricesController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainTripSegmentPricesController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainTripSegmentPricesController.cs",
@@ -2455,7 +2455,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 116,
+              "DocumentIndex": 115,
               "Title": "TrainCarSeatsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Admin\\TrainCarSeatsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Admin\\TrainCarSeatsAdminController.cs",
@@ -2467,7 +2467,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 117,
+              "DocumentIndex": 116,
               "Title": "QlVtTrainSeatHoldsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainSeatHoldsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainSeatHoldsController.cs",
@@ -2479,7 +2479,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 118,
+              "DocumentIndex": 117,
               "Title": "TrainConfigurations.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Train\\TrainConfigurations.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Train\\TrainConfigurations.cs",
@@ -2491,7 +2491,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 119,
+              "DocumentIndex": 118,
               "Title": "TrainDemoSeed.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Seed\\TrainDemoSeed.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Seed\\TrainDemoSeed.cs",
@@ -2503,7 +2503,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 120,
+              "DocumentIndex": 119,
               "Title": "AppDbContext.Train.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\AppDbContext.Train.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\AppDbContext.Train.cs",
@@ -2515,7 +2515,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 121,
+              "DocumentIndex": 120,
               "Title": "TrainEntities.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Train\\TrainEntities.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Train\\TrainEntities.cs",
@@ -2527,7 +2527,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 122,
+              "DocumentIndex": 121,
               "Title": "QlVtTrainTripStopTimesController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainTripStopTimesController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainTripStopTimesController.cs",
@@ -2539,7 +2539,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 123,
+              "DocumentIndex": 122,
               "Title": "QlVtTrainTripsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainTripsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainTripsController.cs",
@@ -2551,7 +2551,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 124,
+              "DocumentIndex": 123,
               "Title": "QlVtTrainStopPointsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainStopPointsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainStopPointsController.cs",
@@ -2563,7 +2563,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 125,
+              "DocumentIndex": 124,
               "Title": "QlVtTrainRoutesController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainRoutesController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainRoutesController.cs",
@@ -2575,7 +2575,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 126,
+              "DocumentIndex": 125,
               "Title": "QlVtTrainCarSeatsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainCarSeatsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainCarSeatsController.cs",
@@ -2587,7 +2587,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 127,
+              "DocumentIndex": 126,
               "Title": "QlVtTrainCarsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainCarsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Manager\\QlVtTrainCarsController.cs",
@@ -2599,7 +2599,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 128,
+              "DocumentIndex": 127,
               "Title": "TrainTripStopTimesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Admin\\TrainTripStopTimesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Admin\\TrainTripStopTimesAdminController.cs",
@@ -2611,7 +2611,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 129,
+              "DocumentIndex": 128,
               "Title": "TrainTripSegmentPricesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Admin\\TrainTripSegmentPricesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Admin\\TrainTripSegmentPricesAdminController.cs",
@@ -2623,7 +2623,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 130,
+              "DocumentIndex": 129,
               "Title": "TrainTripsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Admin\\TrainTripsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Admin\\TrainTripsAdminController.cs",
@@ -2635,7 +2635,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 131,
+              "DocumentIndex": 130,
               "Title": "TrainStopPointsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Admin\\TrainStopPointsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Admin\\TrainStopPointsAdminController.cs",
@@ -2647,7 +2647,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 132,
+              "DocumentIndex": 131,
               "Title": "TrainRoutesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Admin\\TrainRoutesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Admin\\TrainRoutesAdminController.cs",
@@ -2659,7 +2659,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 133,
+              "DocumentIndex": 132,
               "Title": "TrainCarsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Train\\Admin\\TrainCarsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Train\\Admin\\TrainCarsAdminController.cs",
@@ -2671,7 +2671,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 134,
+              "DocumentIndex": 133,
               "Title": "BusRoutesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Admin\\BusRoutesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Admin\\BusRoutesAdminController.cs",
@@ -2683,7 +2683,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 135,
+              "DocumentIndex": 134,
               "Title": "20260325055820_Phase10_Flight_Updatee.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Migrations\\20260325055820_Phase10_Flight_Updatee.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Migrations\\20260325055820_Phase10_Flight_Updatee.cs",
@@ -2695,7 +2695,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 136,
+              "DocumentIndex": 135,
               "Title": "BusConfigurations.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Bus\\BusConfigurations.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Bus\\BusConfigurations.cs",
@@ -2707,7 +2707,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 137,
+              "DocumentIndex": 136,
               "Title": "20260316152913_Phase10_Flight_Update.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Migrations\\20260316152913_Phase10_Flight_Update.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Migrations\\20260316152913_Phase10_Flight_Update.cs",
@@ -2719,7 +2719,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 138,
+              "DocumentIndex": 137,
               "Title": "20260305032838_Phase11_Hotels_Init.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Migrations\\20260305032838_Phase11_Hotels_Init.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Migrations\\20260305032838_Phase11_Hotels_Init.cs",
@@ -2731,7 +2731,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 139,
+              "DocumentIndex": 138,
               "Title": "QlNxTripStopTimesController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxTripStopTimesController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxTripStopTimesController.cs",
@@ -2743,7 +2743,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 140,
+              "DocumentIndex": 139,
               "Title": "BusTripStopTimesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Admin\\BusTripStopTimesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Admin\\BusTripStopTimesAdminController.cs",
@@ -2755,7 +2755,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 141,
+              "DocumentIndex": 140,
               "Title": "BusTripStopPointsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Admin\\BusTripStopPointsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Admin\\BusTripStopPointsAdminController.cs",
@@ -2767,7 +2767,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 142,
+              "DocumentIndex": 141,
               "Title": "BusStopPointsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Admin\\BusStopPointsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Admin\\BusStopPointsAdminController.cs",
@@ -2779,7 +2779,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 143,
+              "DocumentIndex": 142,
               "Title": "QlNxTripsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxTripsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxTripsController.cs",
@@ -2791,7 +2791,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 144,
+              "DocumentIndex": 143,
               "Title": "BusTripsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Admin\\BusTripsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Admin\\BusTripsAdminController.cs",
@@ -2803,7 +2803,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 145,
+              "DocumentIndex": 144,
               "Title": "BusVehicleDetailsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Admin\\BusVehicleDetailsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Admin\\BusVehicleDetailsAdminController.cs",
@@ -2815,7 +2815,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 146,
+              "DocumentIndex": 145,
               "Title": "QlNxBusVehicleDetailsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxBusVehicleDetailsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxBusVehicleDetailsController.cs",
@@ -2827,7 +2827,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 147,
+              "DocumentIndex": 146,
               "Title": "QlNxTripSeatHoldsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxTripSeatHoldsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxTripSeatHoldsController.cs",
@@ -2839,7 +2839,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 148,
+              "DocumentIndex": 147,
               "Title": "BusDemoSeed.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Seed\\BusDemoSeed.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Seed\\BusDemoSeed.cs",
@@ -2851,7 +2851,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 149,
+              "DocumentIndex": 148,
               "Title": "AppDbContext.Bus.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\AppDbContext.Bus.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\AppDbContext.Bus.cs",
@@ -2863,7 +2863,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 150,
+              "DocumentIndex": 149,
               "Title": "BusEntities.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Bus\\BusEntities.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Bus\\BusEntities.cs",
@@ -2875,7 +2875,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 151,
+              "DocumentIndex": 150,
               "Title": "QlNxTripStopPointsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxTripStopPointsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxTripStopPointsController.cs",
@@ -2887,7 +2887,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 152,
+              "DocumentIndex": 151,
               "Title": "QlNxTripSegmentPricesController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxTripSegmentPricesController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxTripSegmentPricesController.cs",
@@ -2899,7 +2899,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 153,
+              "DocumentIndex": 152,
               "Title": "QlNxTripSeatsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxTripSeatsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxTripSeatsController.cs",
@@ -2911,7 +2911,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 154,
+              "DocumentIndex": 153,
               "Title": "QlNxRoutesController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxRoutesController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Manager\\QlNxRoutesController.cs",
@@ -2923,7 +2923,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 155,
+              "DocumentIndex": 154,
               "Title": "BusTripSegmentPricesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Bus\\Admin\\BusTripSegmentPricesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Bus\\Admin\\BusTripSegmentPricesAdminController.cs",
@@ -2935,7 +2935,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 156,
+              "DocumentIndex": 155,
               "Title": "AppDbContext.Cms.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\AppDbContext.Cms.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\AppDbContext.Cms.cs",
@@ -2947,7 +2947,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 157,
+              "DocumentIndex": 156,
               "Title": "FleetEntities.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Fleet\\FleetEntities.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Fleet\\FleetEntities.cs",
@@ -2959,7 +2959,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 158,
+              "DocumentIndex": 157,
               "Title": "VehiclesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Fleet\\VehiclesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Fleet\\VehiclesAdminController.cs",
@@ -2971,7 +2971,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 159,
+              "DocumentIndex": 158,
               "Title": "LocationsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Catalog\\LocationsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Catalog\\LocationsAdminController.cs",
@@ -2983,7 +2983,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 160,
+              "DocumentIndex": 159,
               "Title": "GeoReadController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Geo\\GeoReadController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Geo\\GeoReadController.cs",
@@ -2995,7 +2995,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 161,
+              "DocumentIndex": 160,
               "Title": "AdminGeoSyncController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Geo\\AdminGeoSyncController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Geo\\AdminGeoSyncController.cs",
@@ -3007,7 +3007,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 162,
+              "DocumentIndex": 161,
               "Title": "VehicleModelsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Fleet\\VehicleModelsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Fleet\\VehicleModelsAdminController.cs",
@@ -3019,7 +3019,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 163,
+              "DocumentIndex": 162,
               "Title": "SeatsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Fleet\\SeatsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Fleet\\SeatsAdminController.cs",
@@ -3031,7 +3031,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 164,
+              "DocumentIndex": 163,
               "Title": "SeatMapsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Fleet\\SeatMapsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Fleet\\SeatMapsAdminController.cs",
@@ -3043,7 +3043,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 165,
+              "DocumentIndex": 164,
               "Title": "DbmlExportController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Dev\\DbmlExportController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Dev\\DbmlExportController.cs",
@@ -3055,7 +3055,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 166,
+              "DocumentIndex": 165,
               "Title": "CmsPublicController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Public\\CmsPublicController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Public\\CmsPublicController.cs",
@@ -3067,7 +3067,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 167,
+              "DocumentIndex": 166,
               "Title": "CmsManagerCategoriesController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerCategoriesController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerCategoriesController.cs",
@@ -3079,7 +3079,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 168,
+              "DocumentIndex": 167,
               "Title": "SiteSettingsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Admin\\SiteSettingsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Admin\\SiteSettingsAdminController.cs",
@@ -3091,7 +3091,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 169,
+              "DocumentIndex": 168,
               "Title": "NewsTagsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Admin\\NewsTagsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Admin\\NewsTagsAdminController.cs",
@@ -3103,7 +3103,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 170,
+              "DocumentIndex": 169,
               "Title": "NewsRedirectsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Admin\\NewsRedirectsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Admin\\NewsRedirectsAdminController.cs",
@@ -3115,7 +3115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 171,
+              "DocumentIndex": 170,
               "Title": "NewsPostsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Admin\\NewsPostsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Admin\\NewsPostsAdminController.cs",
@@ -3127,7 +3127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 172,
+              "DocumentIndex": 171,
               "Title": "NewsCategoriesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Admin\\NewsCategoriesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Admin\\NewsCategoriesAdminController.cs",
@@ -3139,7 +3139,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 173,
+              "DocumentIndex": 172,
               "Title": "MediaAssetsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Admin\\MediaAssetsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Admin\\MediaAssetsAdminController.cs",
@@ -3151,7 +3151,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 174,
+              "DocumentIndex": 173,
               "Title": "PermissionsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Auth\\PermissionsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Auth\\PermissionsAdminController.cs",
@@ -3163,7 +3163,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 175,
+              "DocumentIndex": 174,
               "Title": "PermissionPolicyProvider.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Auth\\PermissionPolicyProvider.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Auth\\PermissionPolicyProvider.cs",
@@ -3175,7 +3175,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 176,
+              "DocumentIndex": 175,
               "Title": "AuthController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Auth\\AuthController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Auth\\AuthController.cs",
@@ -3187,7 +3187,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 177,
+              "DocumentIndex": 176,
               "Title": "AuthLogoutController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Auth\\AuthLogoutController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Auth\\AuthLogoutController.cs",
@@ -3199,7 +3199,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 178,
+              "DocumentIndex": 177,
               "Title": "FleetConfigurations.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Fleet\\FleetConfigurations.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Fleet\\FleetConfigurations.cs",
@@ -3211,7 +3211,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 179,
+              "DocumentIndex": 178,
               "Title": "CatalogEntities.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Catalog\\CatalogEntities.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Catalog\\CatalogEntities.cs",
@@ -3223,7 +3223,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 181,
+              "DocumentIndex": 180,
               "Title": "CatalogConfigurations.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Catalog\\CatalogConfigurations.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Catalog\\CatalogConfigurations.cs",
@@ -3235,7 +3235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 180,
+              "DocumentIndex": 179,
               "Title": "AppDbContext.Catalog.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\AppDbContext.Catalog.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\AppDbContext.Catalog.cs",
@@ -3247,7 +3247,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 182,
+              "DocumentIndex": 181,
               "Title": "AdminTenantsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Tenancy\\AdminTenantsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Tenancy\\AdminTenantsController.cs",
@@ -3259,7 +3259,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 183,
+              "DocumentIndex": 182,
               "Title": "GeoSyncLogConfiguration.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Geo\\GeoSyncLogConfiguration.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Geo\\GeoSyncLogConfiguration.cs",
@@ -3271,7 +3271,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 184,
+              "DocumentIndex": 183,
               "Title": "GeoConfigurations.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Geo\\GeoConfigurations.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Geo\\GeoConfigurations.cs",
@@ -3283,7 +3283,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 185,
+              "DocumentIndex": 184,
               "Title": "GeoSyncLog.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Geo\\GeoSyncLog.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Geo\\GeoSyncLog.cs",
@@ -3295,7 +3295,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 186,
+              "DocumentIndex": 185,
               "Title": "GeoEntities.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Geo\\GeoEntities.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Geo\\GeoEntities.cs",
@@ -3307,7 +3307,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 187,
+              "DocumentIndex": 186,
               "Title": "GeoSyncLogsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Geo\\GeoSyncLogsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Geo\\GeoSyncLogsAdminController.cs",
@@ -3319,7 +3319,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 188,
+              "DocumentIndex": 187,
               "Title": "AppDbContext.Tour.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\AppDbContext.Tour.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\AppDbContext.Tour.cs",
@@ -3331,7 +3331,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 189,
+              "DocumentIndex": 188,
               "Title": "AppDbContext.Tenants.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\AppDbContext.Tenants.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\AppDbContext.Tenants.cs",
@@ -3343,7 +3343,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 190,
+              "DocumentIndex": 189,
               "Title": "TenantRolesSeed.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Seed\\TenantRolesSeed.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Seed\\TenantRolesSeed.cs",
@@ -3355,7 +3355,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 191,
+              "DocumentIndex": 190,
               "Title": "TenantsSeed.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Seed\\TenantsSeed.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Seed\\TenantsSeed.cs",
@@ -3367,7 +3367,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 192,
+              "DocumentIndex": 191,
               "Title": "TenantsConfigurations.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Configurations\\TenantsConfigurations.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Configurations\\TenantsConfigurations.cs",
@@ -3379,7 +3379,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 193,
+              "DocumentIndex": 192,
               "Title": "TenantRolesConfigurations.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Configurations\\TenantRolesConfigurations.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Configurations\\TenantRolesConfigurations.cs",
@@ -3391,7 +3391,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 194,
+              "DocumentIndex": 193,
               "Title": "TenantEntities.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tenants\\TenantEntities.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tenants\\TenantEntities.cs",
@@ -3403,7 +3403,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 195,
+              "DocumentIndex": 194,
               "Title": "TenantUsersAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Tenancy\\TenantUsersAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Tenancy\\TenantUsersAdminController.cs",
@@ -3415,7 +3415,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 196,
+              "DocumentIndex": 195,
               "Title": "TenantUserRolesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Tenancy\\TenantUserRolesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Tenancy\\TenantUserRolesAdminController.cs",
@@ -3427,7 +3427,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 197,
+              "DocumentIndex": 196,
               "Title": "TenantRolesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Tenancy\\TenantRolesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Tenancy\\TenantRolesAdminController.cs",
@@ -3439,7 +3439,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 198,
+              "DocumentIndex": 197,
               "Title": "TenantRolePermissionsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Tenancy\\TenantRolePermissionsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Tenancy\\TenantRolePermissionsAdminController.cs",
@@ -3451,7 +3451,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 199,
+              "DocumentIndex": 198,
               "Title": "TenancyController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Tenancy\\TenancyController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Tenancy\\TenancyController.cs",
@@ -3463,7 +3463,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 200,
+              "DocumentIndex": 199,
               "Title": "SeedQueryExtensions.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Seed\\SeedQueryExtensions.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Seed\\SeedQueryExtensions.cs",
@@ -3475,7 +3475,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 201,
+              "DocumentIndex": 200,
               "Title": "PermissionsSeed.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Seed\\PermissionsSeed.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Seed\\PermissionsSeed.cs",
@@ -3487,7 +3487,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 202,
+              "DocumentIndex": 201,
               "Title": "IdentitySeed.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Seed\\IdentitySeed.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Seed\\IdentitySeed.cs",
@@ -3499,7 +3499,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 203,
+              "DocumentIndex": 202,
               "Title": "DbModelConventions.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\DbModelConventions.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\DbModelConventions.cs",
@@ -3511,7 +3511,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 204,
+              "DocumentIndex": 203,
               "Title": "AppIdentityModels.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Identity\\AppIdentityModels.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Identity\\AppIdentityModels.cs",
@@ -3523,7 +3523,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 205,
+              "DocumentIndex": 204,
               "Title": "PermissionService.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Auth\\PermissionService.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Auth\\PermissionService.cs",
@@ -3535,7 +3535,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 206,
+              "DocumentIndex": 205,
               "Title": "PermissionAuthorizationHandler.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Auth\\PermissionAuthorizationHandler.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Auth\\PermissionAuthorizationHandler.cs",
@@ -3547,7 +3547,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 207,
+              "DocumentIndex": 206,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\appsettings.json",
               "RelativeDocumentMoniker": "TicketBooking.Api\\appsettings.json",
@@ -3559,7 +3559,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 208,
+              "DocumentIndex": 207,
               "Title": "UsersAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Auth\\UsersAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Auth\\UsersAdminController.cs",
@@ -3571,7 +3571,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 209,
+              "DocumentIndex": 208,
               "Title": "UserPermissionsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Auth\\UserPermissionsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Auth\\UserPermissionsAdminController.cs",
@@ -3583,7 +3583,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 210,
+              "DocumentIndex": 209,
               "Title": "RolesAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Auth\\RolesAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Auth\\RolesAdminController.cs",
@@ -3595,7 +3595,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 211,
+              "DocumentIndex": 210,
               "Title": "RolePermissionsAdminController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Auth\\RolePermissionsAdminController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Auth\\RolePermissionsAdminController.cs",
@@ -3607,7 +3607,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 212,
+              "DocumentIndex": 211,
               "Title": "PermissionsTestController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Auth\\PermissionsTestController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Auth\\PermissionsTestController.cs",
@@ -3619,7 +3619,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 213,
+              "DocumentIndex": 212,
               "Title": "AppDbContextModelSnapshot.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Migrations\\AppDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Migrations\\AppDbContextModelSnapshot.cs",
@@ -3631,7 +3631,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 214,
+              "DocumentIndex": 213,
               "Title": "CmsManagerRedirectsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerRedirectsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerRedirectsController.cs",
@@ -3643,7 +3643,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 215,
+              "DocumentIndex": 214,
               "Title": "CmsManagerPostsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerPostsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerPostsController.cs",
@@ -3655,7 +3655,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 216,
+              "DocumentIndex": 215,
               "Title": "CmsManagerMediaAssetsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerMediaAssetsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerMediaAssetsController.cs",
@@ -3667,7 +3667,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 217,
+              "DocumentIndex": 216,
               "Title": "CmsManagerTagsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerTagsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerTagsController.cs",
@@ -3679,7 +3679,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 218,
+              "DocumentIndex": 217,
               "Title": "CmsPublishingBackgroundService.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Cms\\CmsPublishingBackgroundService.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Cms\\CmsPublishingBackgroundService.cs",
@@ -3691,7 +3691,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 219,
+              "DocumentIndex": 218,
               "Title": "CmsManagerSeoAuditController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerSeoAuditController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerSeoAuditController.cs",
@@ -3703,7 +3703,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 220,
+              "DocumentIndex": 219,
               "Title": "CmsManagerPreviewController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerPreviewController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerPreviewController.cs",
@@ -3715,7 +3715,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 221,
+              "DocumentIndex": 220,
               "Title": "CmsManagerOptionsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerOptionsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerOptionsController.cs",
@@ -3727,7 +3727,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 222,
+              "DocumentIndex": 221,
               "Title": "CmsManagerPostRevisionsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerPostRevisionsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerPostRevisionsController.cs",
@@ -3739,7 +3739,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 223,
+              "DocumentIndex": 222,
               "Title": "CmsManagerSiteSettingsController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerSiteSettingsController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Cms\\Manager\\CmsManagerSiteSettingsController.cs",
@@ -3751,7 +3751,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 224,
+              "DocumentIndex": 223,
               "Title": "CmsServiceCollectionExtensions.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Cms\\CmsServiceCollectionExtensions.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Cms\\CmsServiceCollectionExtensions.cs",
@@ -3763,7 +3763,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 226,
+              "DocumentIndex": 225,
               "Title": "CmsRevisionService.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Cms\\CmsRevisionService.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Cms\\CmsRevisionService.cs",
@@ -3775,7 +3775,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 225,
+              "DocumentIndex": 224,
               "Title": "CmsSeoDefaultsService.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Cms\\CmsSeoDefaultsService.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Cms\\CmsSeoDefaultsService.cs",
@@ -3787,7 +3787,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 227,
+              "DocumentIndex": 226,
               "Title": "CmsRedirectService.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Cms\\CmsRedirectService.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Cms\\CmsRedirectService.cs",
@@ -3799,7 +3799,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 228,
+              "DocumentIndex": 227,
               "Title": "CmsReadingTimeService.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Cms\\CmsReadingTimeService.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Cms\\CmsReadingTimeService.cs",
@@ -3811,7 +3811,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 229,
+              "DocumentIndex": 228,
               "Title": "CmsHtmlSanitizer.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Cms\\CmsHtmlSanitizer.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Cms\\CmsHtmlSanitizer.cs",
@@ -3823,7 +3823,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 230,
+              "DocumentIndex": 229,
               "Title": "CmsPublicQueryService.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Cms\\CmsPublicQueryService.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Cms\\CmsPublicQueryService.cs",
@@ -3835,7 +3835,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 231,
+              "DocumentIndex": 230,
               "Title": "CmsSlugService.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Cms\\CmsSlugService.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Cms\\CmsSlugService.cs",
@@ -3847,7 +3847,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 232,
+              "DocumentIndex": 231,
               "Title": "TourAvailabilityController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Tours\\Public\\TourAvailabilityController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Tours\\Public\\TourAvailabilityController.cs",
@@ -3859,7 +3859,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 234,
+              "DocumentIndex": 233,
               "Title": "CmsEntities.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Cms\\CmsEntities.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Cms\\CmsEntities.cs",
@@ -3871,7 +3871,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 233,
+              "DocumentIndex": 232,
               "Title": "CmsConfigurations.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Cms\\CmsConfigurations.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Cms\\CmsConfigurations.cs",
@@ -3883,7 +3883,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 235,
+              "DocumentIndex": 234,
               "Title": "TourQuoteBuilder.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Tours\\TourQuoteBuilder.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Tours\\TourQuoteBuilder.cs",
@@ -3895,7 +3895,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 236,
+              "DocumentIndex": 235,
               "Title": "TourPriceCalculator.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Tours\\TourPriceCalculator.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Tours\\TourPriceCalculator.cs",
@@ -3907,7 +3907,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 237,
+              "DocumentIndex": 236,
               "Title": "TourAvailabilityService.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Services\\Tours\\TourAvailabilityService.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Services\\Tours\\TourAvailabilityService.cs",
@@ -3919,7 +3919,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 238,
+              "DocumentIndex": 237,
               "Title": "SchemaExportController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Dev\\SchemaExportController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Dev\\SchemaExportController.cs",
@@ -3931,7 +3931,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 239,
+              "DocumentIndex": 238,
               "Title": "20260310144602_Phase11_Tours_Init.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Migrations\\20260310144602_Phase11_Tours_Init.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Migrations\\20260310144602_Phase11_Tours_Init.cs",
@@ -3943,7 +3943,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 240,
+              "DocumentIndex": 239,
               "Title": "TourDemoSeed.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Seed\\TourDemoSeed.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Seed\\TourDemoSeed.cs",
@@ -3955,7 +3955,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 242,
+              "DocumentIndex": 241,
               "Title": "TourDropoffPoint.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourDropoffPoint.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourDropoffPoint.cs",
@@ -3967,7 +3967,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 243,
+              "DocumentIndex": 242,
               "Title": "TourPickupPoint.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourPickupPoint.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourPickupPoint.cs",
@@ -3979,7 +3979,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 244,
+              "DocumentIndex": 243,
               "Title": "TourFaq.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourFaq.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourFaq.cs",
@@ -3991,7 +3991,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 245,
+              "DocumentIndex": 244,
               "Title": "TourReview.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourReview.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourReview.cs",
@@ -4003,7 +4003,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 246,
+              "DocumentIndex": 245,
               "Title": "TourContact.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourContact.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourContact.cs",
@@ -4015,7 +4015,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 247,
+              "DocumentIndex": 246,
               "Title": "TourImage.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourImage.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourImage.cs",
@@ -4027,7 +4027,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 241,
+              "DocumentIndex": 240,
               "Title": "Tour.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\Tour.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\Tour.cs",
@@ -4039,7 +4039,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 249,
+              "DocumentIndex": 248,
               "Title": "TourPolicy.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourPolicy.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourPolicy.cs",
@@ -4051,7 +4051,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 250,
+              "DocumentIndex": 249,
               "Title": "TourScheduleAddonPrice.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourScheduleAddonPrice.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourScheduleAddonPrice.cs",
@@ -4063,7 +4063,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 251,
+              "DocumentIndex": 250,
               "Title": "TourAddon.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourAddon.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourAddon.cs",
@@ -4075,7 +4075,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 252,
+              "DocumentIndex": 251,
               "Title": "TourItineraryItem.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourItineraryItem.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourItineraryItem.cs",
@@ -4087,7 +4087,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 248,
+              "DocumentIndex": 247,
               "Title": "TourSchedulePrice.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourSchedulePrice.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourSchedulePrice.cs",
@@ -4099,7 +4099,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 253,
+              "DocumentIndex": 252,
               "Title": "TourItineraryDay.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourItineraryDay.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourItineraryDay.cs",
@@ -4111,7 +4111,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 254,
+              "DocumentIndex": 253,
               "Title": "TourScheduleCapacity.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourScheduleCapacity.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourScheduleCapacity.cs",
@@ -4123,7 +4123,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 255,
+              "DocumentIndex": 254,
               "Title": "TourSchedule.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Tours\\TourSchedule.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Tours\\TourSchedule.cs",
@@ -4135,7 +4135,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 256,
+              "DocumentIndex": 255,
               "Title": "CmsDemoSeed.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Seed\\CmsDemoSeed.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Seed\\CmsDemoSeed.cs",
@@ -4147,7 +4147,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 257,
+              "DocumentIndex": 256,
               "Title": "TicketBooking.Api.http",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\TicketBooking.Api.http",
               "RelativeDocumentMoniker": "TicketBooking.Api\\TicketBooking.Api.http",
@@ -4159,7 +4159,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 258,
+              "DocumentIndex": 257,
               "Title": "TicketScanTestController.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Api\\Controllers\\Dev\\TicketScanTestController.cs",
               "RelativeDocumentMoniker": "TicketBooking.Api\\Controllers\\Dev\\TicketScanTestController.cs",
@@ -4171,7 +4171,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 259,
+              "DocumentIndex": 258,
               "Title": "AuthConfigurations.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Persistence\\Configurations\\AuthConfigurations.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Persistence\\Configurations\\AuthConfigurations.cs",
@@ -4183,7 +4183,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 260,
+              "DocumentIndex": 259,
               "Title": "Class1.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Infrastructure\\Class1.cs",
               "RelativeDocumentMoniker": "TicketBooking.Infrastructure\\Class1.cs",
@@ -4195,7 +4195,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 261,
+              "DocumentIndex": 260,
               "Title": "Class1.cs",
               "DocumentMoniker": "D:\\FPT\\TicketBooking.V3\\TicketBooking.Domain\\Class1.cs",
               "RelativeDocumentMoniker": "TicketBooking.Domain\\Class1.cs",
