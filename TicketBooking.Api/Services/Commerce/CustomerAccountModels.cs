@@ -243,3 +243,17 @@ public sealed class TrackCustomerRecentSearchRequest
     public string CriteriaJson { get; set; } = "{}";
     public string? MetadataJson { get; set; }
 }
+
+public sealed class CustomerPersonalizedSuggestionDto
+{
+    public string Id { get; set; } = "";
+    public CustomerProductType ProductType { get; set; }
+    public string Title { get; set; } = "";
+    public string? Subtitle { get; set; }
+    public string? ImageUrl { get; set; }
+    public string? PriceText { get; set; }
+    public string? TargetUrl { get; set; }
+    public string ReasonText { get; set; } = "";
+    public string SourceType { get; set; } = "";
+    public decimal Score { get; set; }
+}

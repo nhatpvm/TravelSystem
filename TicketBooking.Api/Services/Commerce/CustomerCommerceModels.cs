@@ -204,6 +204,39 @@ public sealed class CustomerRefundDto
     public DateTimeOffset? CompletedAt { get; set; }
 }
 
+public sealed class CustomerOrderTimelineEventDto
+{
+    public string Key { get; set; } = "";
+    public string Title { get; set; } = "";
+    public string? Description { get; set; }
+    public DateTimeOffset OccurredAt { get; set; }
+    public string Tone { get; set; } = "default";
+    public bool IsCurrent { get; set; }
+    public string? ActionUrl { get; set; }
+}
+
+public sealed class CustomerRefundEstimateDto
+{
+    public string EligibleAction { get; set; } = "none";
+    public CustomerSettlementStatus SettlementStatus { get; set; }
+    public string CurrencyCode { get; set; } = "VND";
+    public decimal GrossAmount { get; set; }
+    public decimal PaidAmount { get; set; }
+    public decimal RefundedAmount { get; set; }
+    public decimal RemainingRefundableAmount { get; set; }
+    public decimal SuggestedAmount { get; set; }
+    public decimal EstimatedRefundAmount { get; set; }
+    public decimal EstimatedCommissionReversalAmount { get; set; }
+    public decimal EstimatedTenantAdjustmentAmount { get; set; }
+    public bool SupportsPartialRefund { get; set; }
+    public bool RequiresAdminReview { get; set; }
+    public string TimingNote { get; set; } = "";
+    public string SettlementImpact { get; set; } = "";
+    public string StatusNote { get; set; } = "";
+    public List<string> RuleSummary { get; set; } = new();
+    public List<string> WarningMessages { get; set; } = new();
+}
+
 public sealed class SePayCheckoutFormDto
 {
     public string ActionUrl { get; set; } = "";

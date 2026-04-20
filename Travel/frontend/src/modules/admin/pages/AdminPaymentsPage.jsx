@@ -11,7 +11,7 @@ import {
   Search,
   XCircle,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { listAdminCommercePayments } from '../../../services/commerceBackofficeService';
 import {
   CUSTOMER_PAYMENT_STATUS,
@@ -54,7 +54,8 @@ function getCallbackConfig(item) {
 }
 
 export default function AdminPaymentsPage() {
-  const [search, setSearch] = useState('');
+  const [searchParams] = useSearchParams();
+  const [search, setSearch] = useState(() => searchParams.get('q') || '');
   const [statusFilter, setStatusFilter] = useState('all');
   const [expanded, setExpanded] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -67,6 +68,10 @@ export default function AdminPaymentsPage() {
     totalAmount: 0,
   });
   const [payments, setPayments] = useState([]);
+
+  useEffect(() => {
+    setSearch(searchParams.get('q') || '');
+  }, [searchParams]);
 
   async function loadPayments(nextRefreshing = false) {
     if (nextRefreshing) {

@@ -1,0 +1,37 @@
+{
+    "summary":  {
+                    "totalCount":  1,
+                    "pendingCount":  0,
+                    "approvedCount":  0,
+                    "completedCount":  1,
+                    "rejectedCount":  0,
+                    "pendingAmount":  0
+                },
+    "items":  [
+                  {
+                      "id":  "b2a79232-5327-4e0f-bca4-c7099bdbab3e",
+                      "orderId":  "c1f70922-fd57-4d0d-a400-43b8fc555a23",
+                      "paymentId":  "335a7fb9-17cc-41d8-8f1c-6cbe2e9fec47",
+                      "tenantId":  "dfb80807-d1db-43b0-a62f-9b744f1dde4f",
+                      "tenantName":  "Tour TOUR001",
+                      "refundCode":  "RFD-20260418154815F21667",
+                      "orderCode":  "ORD-202604181548157478CE",
+                      "customerName":  "Khách Hàng Nghi?m Thu",
+                      "serviceTitle":  "Tour test Phase 7 20260410011353",
+                      "productType":  5,
+                      "status":  6,
+                      "settlementStatus":  4,
+                      "currencyCode":  "VND",
+                      "requestedAmount":  7000000.00,
+                      "approvedAmount":  6500000.00,
+                      "refundedAmount":  6400000.00,
+                      "reasonCode":  "CUSTOMER_REQUEST",
+                      "reasonText":  "Khách d?i l?ch cá nhân trong bài test customer commerce",
+                      "internalNote":  "Manual refund confirmed from platform bank account.",
+                      "refundReference":  "MB-REF-20260420-001",
+                      "requestedAt":  "2026-04-18T15:48:15.909755+00:00",
+                      "reviewedAt":  "2026-04-20T15:15:17.0810505+00:00",
+                      "completedAt":  "2026-04-20T15:15:48.2065928+00:00"
+                  }
+              ]
+}

@@ -251,6 +251,7 @@ public sealed class CustomerRefundRequest
 
     public string ReasonCode { get; set; } = "";
     public string? ReasonText { get; set; }
+    public string? RefundReference { get; set; }
     public string? ReviewNote { get; set; }
     public string? SnapshotJson { get; set; }
 

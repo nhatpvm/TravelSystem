@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   CheckCircle2,
+  Copy,
   Download,
   MapPin,
   Calendar,
@@ -15,10 +16,24 @@ import { Link, useSearchParams } from 'react-router-dom';
 import MainLayout from '../../../shared/components/layouts/MainLayout';
 import { getCustomerOrder, getCustomerTicket } from '../../../services/customerCommerceService';
 import {
+  formatCustomerPaymentStatusLabel,
   formatCustomerProductLabel,
+  formatCustomerRefundStatusLabel,
   getOrderSnapshot,
 } from '../utils/customerCommerce';
 import { formatCurrency, formatDateTime } from '../../tenant/train/utils/presentation';
+
+function getStatusToneClass(value) {
+  if (value && value.toLowerCase().includes('hoàn')) {
+    return 'bg-sky-100 text-sky-700';
+  }
+
+  if (value && value.toLowerCase().includes('thành công')) {
+    return 'bg-emerald-100 text-emerald-700';
+  }
+
+  return 'bg-slate-100 text-slate-600';
+}
 
 export default function TicketPage() {
   const [searchParams] = useSearchParams();
@@ -27,6 +42,7 @@ export default function TicketPage() {
   const [ticket, setTicket] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [copyMessage, setCopyMessage] = useState('');
 
   useEffect(() => {
     if (!orderCode) {
@@ -69,12 +85,36 @@ export default function TicketPage() {
     };
   }, [orderCode]);
 
+  useEffect(() => {
+    if (!copyMessage) {
+      return undefined;
+    }
+
+    const timeoutId = window.setTimeout(() => setCopyMessage(''), 1800);
+    return () => window.clearTimeout(timeoutId);
+  }, [copyMessage]);
+
   const snapshot = useMemo(() => getOrderSnapshot(order), [order]);
   const ticketSnapshot = ticket?.snapshot || {};
   const title = ticket?.title || snapshot?.title || order?.orderCode || 'Vé điện tử';
   const subtitle = ticket?.subtitle || snapshot?.subtitle || snapshot?.providerName || '';
   const departureText = snapshot?.departureAt ? formatDateTime(snapshot.departureAt) : '--';
   const arrivalText = snapshot?.arrivalAt ? formatDateTime(snapshot.arrivalAt) : '--';
+  const paymentLabel = formatCustomerPaymentStatusLabel(order?.paymentStatus);
+  const refundLabel = formatCustomerRefundStatusLabel(order?.refundStatus);
+
+  async function handleCopy(value, label) {
+    if (!value) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopyMessage(`Đã sao chép ${label}.`);
+    } catch {
+      setCopyMessage(`Không thể sao chép ${label.toLowerCase()}.`);
+    }
+  }
 
   return (
     <MainLayout>
@@ -98,6 +138,9 @@ export default function TicketPage() {
                   <div>
                     <h1 className="text-3xl font-black text-slate-900">Đặt dịch vụ thành công!</h1>
                     <p className="text-slate-500 font-medium">Mã đơn hàng: <span className="text-blue-600 font-bold">#{order?.orderCode}</span></p>
+                    {copyMessage ? (
+                      <p className="text-[11px] font-bold text-emerald-600 mt-2">{copyMessage}</p>
+                    ) : null}
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -122,7 +165,12 @@ export default function TicketPage() {
                     />
                   </div>
                   <p className="text-[10px] font-black text-blue-400 uppercase tracking-[0.3em] mb-1">Mã vé điện tử</p>
-                  <p className="text-2xl font-black tracking-tighter text-center">{ticket?.ticketCode || order?.orderCode}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-2xl font-black tracking-tighter text-center">{ticket?.ticketCode || order?.orderCode}</p>
+                    <button type="button" onClick={() => handleCopy(ticket?.ticketCode || order?.orderCode, 'mã vé')} className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all">
+                      <Copy size={14} />
+                    </button>
+                  </div>
 
                   <div className="mt-12 flex items-center gap-2 text-[10px] font-bold text-slate-500 italic">
                     <ShieldCheck size={14} /> Xác thực bởi nền tảng
@@ -161,22 +209,48 @@ export default function TicketPage() {
                       <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Tổng tiền</p>
                       <p className="font-black text-blue-600 text-xl">{formatCurrency(order?.payableAmount || 0, order?.currencyCode || 'VND')}</p>
                     </div>
+                    <div>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Payment</p>
+                      <span className={`inline-flex items-center px-3 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest ${getStatusToneClass(paymentLabel)}`}>
+                        {paymentLabel}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Refund</p>
+                      <span className={`inline-flex items-center px-3 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest ${getStatusToneClass(refundLabel)}`}>
+                        {refundLabel}
+                      </span>
+                    </div>
                     <div className="md:col-span-2">
                       <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-1"><MapPin size={12} /> Ghi chú vận hành</p>
                       <p className="text-xs font-bold text-slate-600">{snapshot?.ticketNote || ticketSnapshot?.ticketNote || 'Vui lòng xuất trình mã đơn hàng hoặc mã vé khi làm thủ tục với đối tác.'}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Mã thanh toán</p>
+                      <div className="flex items-center gap-2">
+                        <p className="font-bold text-slate-900 line-clamp-1">{order?.payment?.paymentCode || order?.payment?.providerInvoiceNumber || '--'}</p>
+                        <button type="button" onClick={() => handleCopy(order?.payment?.paymentCode || order?.payment?.providerInvoiceNumber, 'mã thanh toán')} className="w-8 h-8 rounded-xl bg-slate-50 hover:bg-slate-100 flex items-center justify-center transition-all">
+                          <Copy size={12} />
+                        </button>
+                      </div>
                     </div>
                   </div>
 
                   <div className="my-10 h-px w-full border-t border-dashed border-slate-200" />
 
-                  <div className="flex items-center justify-between gap-6">
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                     <div>
                       <p className="text-xs font-black text-slate-900">{snapshot?.providerName || 'Đối tác cung cấp dịch vụ'}</p>
                       <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Phát hành lúc {ticket?.issuedAt ? formatDateTime(ticket.issuedAt) : '--'}</p>
                     </div>
-                    <Link to="/my-account/bookings" className="text-xs font-black text-slate-900 uppercase tracking-widest hover:text-blue-600 border-b-2 border-slate-900 hover:border-blue-600 transition-all">
-                      Xem tất cả đơn của tôi
-                    </Link>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <Link to={`/my-account/bookings/${encodeURIComponent(order?.orderCode || orderCode)}`} className="text-xs font-black text-slate-900 uppercase tracking-widest hover:text-blue-600 border-b-2 border-slate-900 hover:border-blue-600 transition-all">
+                        Xem chi tiết đơn
+                      </Link>
+                      <Link to="/my-account/bookings" className="text-xs font-black text-slate-500 uppercase tracking-widest hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all">
+                        Tất cả đơn của tôi
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -187,14 +261,22 @@ export default function TicketPage() {
                 </div>
                 <div className="flex-1">
                   <p className="text-xs font-bold text-slate-600 leading-relaxed">
-                    Bạn đã nhận được xác nhận thanh toán thành công. Tenant tương ứng và admin hệ thống đã nhìn thấy giao dịch này trong dashboard tài chính/đơn hàng theo đúng phạm vi dữ liệu.
+                    Vé/voucher này được phát hành từ backend sau khi SePay xác nhận payment hợp lệ. Nếu có thay đổi về refund hoặc hỗ trợ hậu mãi, bạn có thể quay lại trang đơn hàng để xem timeline và dùng deep-link support bên dưới.
                   </p>
-                  <Link
-                    to={`/support?tab=create&orderCode=${encodeURIComponent(order?.orderCode || orderCode)}&category=${encodeURIComponent('Vé xe / tàu / máy bay')}&subject=${encodeURIComponent(`Hỗ trợ vé / voucher cho đơn ${order?.orderCode || orderCode}`)}&content=${encodeURIComponent('Khách cần hỗ trợ hậu mãi liên quan tới vé hoặc voucher đã phát hành.')}`}
-                    className="inline-flex mt-4 px-4 py-2 bg-white text-blue-600 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all"
-                  >
-                    Báo support về vé / voucher
-                  </Link>
+                  <div className="flex flex-wrap gap-3 mt-4">
+                    <Link
+                      to={`/support?tab=create&orderCode=${encodeURIComponent(order?.orderCode || orderCode)}&category=${encodeURIComponent('Vé xe / tàu / máy bay')}&subject=${encodeURIComponent(`Hỗ trợ vé / voucher cho đơn ${order?.orderCode || orderCode}`)}&content=${encodeURIComponent('Khách cần hỗ trợ hậu mãi liên quan tới vé hoặc voucher đã phát hành.')}`}
+                      className="inline-flex px-4 py-2 bg-white text-blue-600 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all"
+                    >
+                      Báo support về vé / voucher
+                    </Link>
+                    <Link
+                      to={`/my-account/bookings/${encodeURIComponent(order?.orderCode || orderCode)}/cancel`}
+                      className="inline-flex px-4 py-2 bg-white text-slate-700 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:border-[#1EB4D4] hover:text-[#1EB4D4] border border-slate-200 transition-all"
+                    >
+                      Hủy / hoàn nếu cần
+                    </Link>
+                  </div>
                 </div>
               </div>
             </>

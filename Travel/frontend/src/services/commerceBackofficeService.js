@@ -15,32 +15,40 @@ function toQuery(params = {}) {
   return query ? `?${query}` : '';
 }
 
+function withTenantHeader(tenantId) {
+  return tenantId ? { headers: { 'X-TenantId': tenantId } } : undefined;
+}
+
 export function listAdminCommercePayments(params = {}) {
   return api.get(`/admin/commerce/payments${toQuery(params)}`);
+}
+
+export function listAdminCommerceBookings(params = {}) {
+  return api.get(`/admin/commerce/bookings${toQuery(params)}`);
 }
 
 export function listAdminCommerceRefunds(params = {}) {
   return api.get(`/admin/commerce/refunds${toQuery(params)}`);
 }
 
-export function approveAdminCommerceRefund(refundId, payload = {}) {
-  return api.post(`/admin/commerce/refunds/${refundId}/approve`, payload);
+export function approveAdminCommerceRefund(refundId, payload = {}, tenantId = null) {
+  return api.post(`/admin/commerce/refunds/${refundId}/approve`, payload, withTenantHeader(tenantId));
 }
 
-export function rejectAdminCommerceRefund(refundId, payload = {}) {
-  return api.post(`/admin/commerce/refunds/${refundId}/reject`, payload);
+export function rejectAdminCommerceRefund(refundId, payload = {}, tenantId = null) {
+  return api.post(`/admin/commerce/refunds/${refundId}/reject`, payload, withTenantHeader(tenantId));
 }
 
-export function completeAdminCommerceRefund(refundId, payload = {}) {
-  return api.post(`/admin/commerce/refunds/${refundId}/complete`, payload);
+export function completeAdminCommerceRefund(refundId, payload = {}, tenantId = null) {
+  return api.post(`/admin/commerce/refunds/${refundId}/complete`, payload, withTenantHeader(tenantId));
 }
 
 export function listAdminCommerceSupportTickets(params = {}) {
   return api.get(`/admin/commerce/support-tickets${toQuery(params)}`);
 }
 
-export function replyAdminCommerceSupportTicket(ticketId, payload = {}) {
-  return api.post(`/admin/commerce/support-tickets/${ticketId}/reply`, payload);
+export function replyAdminCommerceSupportTicket(ticketId, payload = {}, tenantId = null) {
+  return api.post(`/admin/commerce/support-tickets/${ticketId}/reply`, payload, withTenantHeader(tenantId));
 }
 
 export function getAdminCommerceSettlements() {

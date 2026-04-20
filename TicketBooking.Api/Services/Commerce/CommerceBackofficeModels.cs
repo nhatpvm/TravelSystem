@@ -79,7 +79,8 @@ public sealed class AdminCommerceRefundItemDto
     public decimal? RefundedAmount { get; set; }
     public string ReasonCode { get; set; } = "";
     public string? ReasonText { get; set; }
-    public string? ReviewNote { get; set; }
+    public string? InternalNote { get; set; }
+    public string? RefundReference { get; set; }
     public DateTimeOffset RequestedAt { get; set; }
     public DateTimeOffset? ReviewedAt { get; set; }
     public DateTimeOffset? CompletedAt { get; set; }
@@ -88,12 +89,15 @@ public sealed class AdminCommerceRefundItemDto
 public sealed class ReviewRefundRequest
 {
     public decimal? ApprovedAmount { get; set; }
+    public string? InternalNote { get; set; }
     public string? ReviewNote { get; set; }
 }
 
 public sealed class CompleteRefundRequest
 {
     public decimal? RefundedAmount { get; set; }
+    public string? RefundReference { get; set; }
+    public string? InternalNote { get; set; }
     public string? ReviewNote { get; set; }
 }
 

@@ -101,6 +101,7 @@ public sealed class CustomerRefundRequestConfiguration : IEntityTypeConfiguratio
         b.Property(x => x.RefundedAmount).HasPrecision(18, 2);
         b.Property(x => x.ReasonCode).HasMaxLength(100).IsRequired();
         b.Property(x => x.ReasonText).HasMaxLength(2000);
+        b.Property(x => x.RefundReference).HasMaxLength(200);
         b.Property(x => x.ReviewNote).HasMaxLength(2000);
         b.Property(x => x.SnapshotJson).HasColumnType("nvarchar(max)");
         b.Property(x => x.RowVersion).IsRowVersion().IsConcurrencyToken();

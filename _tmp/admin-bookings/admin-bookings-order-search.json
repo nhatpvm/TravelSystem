@@ -1,0 +1,52 @@
+{
+    "summary":  {
+                    "totalCount":  1,
+                    "pendingCount":  0,
+                    "paidCount":  1,
+                    "cancelledCount":  0,
+                    "refundAttentionCount":  0,
+                    "totalGrossAmount":  800000.00,
+                    "totalCommissionAmount":  80000.00,
+                    "totalTenantNetAmount":  720000.00,
+                    "totalRefundedAmount":  0.00
+                },
+    "items":  [
+                  {
+                      "id":  "14a0cd36-71e9-40d2-854f-c9c25bbe9238",
+                      "tenantId":  "32110ffc-3d5b-409b-8bbb-8fb3286d9cc7",
+                      "orderCode":  "ORD-2026042012595167BB39",
+                      "currencyCode":  "VND",
+                      "customerName":  "Customer Demo",
+                      "contactEmail":  "customer@ticketbooking.local",
+                      "contactPhone":  "0900000009",
+                      "tenantName":  "Khách s?n KS001",
+                      "serviceTitle":  "Demo Hotel KS001",
+                      "serviceSubtitle":  "Standard King",
+                      "productType":  4,
+                      "status":  3,
+                      "paymentStatus":  2,
+                      "ticketStatus":  2,
+                      "refundStatus":  0,
+                      "settlementStatus":  1,
+                      "grossAmount":  800000.00,
+                      "platformCommissionAmount":  80000.00,
+                      "tenantNetAmount":  720000.00,
+                      "payableAmount":  800000.00,
+                      "refundedAmount":  0.00,
+                      "createdAt":  "2026-04-20T19:59:51.3300757+07:00",
+                      "expiresAt":  "2026-04-20T13:14:51.249829+00:00",
+                      "paidAt":  "2026-04-20T12:59:57.8408327+00:00",
+                      "ticketIssuedAt":  "2026-04-20T12:59:57.8634315+00:00",
+                      "cancelledAt":  null,
+                      "completedAt":  null,
+                      "failureReason":  null,
+                      "paymentCode":  "PAY-20260420125951AD18F9",
+                      "providerInvoiceNumber":  "ORD-2026042012595167BB39",
+                      "ticketCode":  "TKT-20260420125957B7E020",
+                      "latestRefundCode":  null,
+                      "latestRefundAmount":  null,
+                      "supportTicketCount":  0,
+                      "openSupportTicketCount":  0
+                  }
+              ]
+}

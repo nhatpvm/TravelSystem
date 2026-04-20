@@ -9,6 +9,7 @@ import {
   deleteCheckoutDraft,
   listCheckoutDrafts,
   listCustomerOrders,
+  listPersonalizedSuggestions,
   listRecentSearches,
   listRecentViews,
   listWishlistItems,
@@ -27,6 +28,7 @@ const ProfilePage = () => {
   const [checkoutDrafts, setCheckoutDrafts] = useState([]);
   const [recentViews, setRecentViews] = useState([]);
   const [recentSearches, setRecentSearches] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
   const [stats, setStats] = useState(() => ({
     trips: 0,
     destinationCount: 0,
@@ -51,13 +53,14 @@ const ProfilePage = () => {
       setError('');
 
       try {
-        const [response, ordersResponse, wishlistResponse, checkoutDraftResponse, recentViewResponse, recentSearchResponse] = await Promise.all([
+        const [response, ordersResponse, wishlistResponse, checkoutDraftResponse, recentViewResponse, recentSearchResponse, suggestionResponse] = await Promise.all([
           getMe(),
           listCustomerOrders({ page: 1, pageSize: 100 }),
           listWishlistItems(),
           listCheckoutDrafts({ limit: 3 }),
           listRecentViews({ limit: 6 }),
           listRecentSearches({ limit: 6 }),
+          listPersonalizedSuggestions({ limit: 6 }),
         ]);
 
         if (!active) {
@@ -76,6 +79,7 @@ const ProfilePage = () => {
         setCheckoutDrafts(Array.isArray(checkoutDraftResponse) ? checkoutDraftResponse : []);
         setRecentViews(Array.isArray(recentViewResponse) ? recentViewResponse : []);
         setRecentSearches(Array.isArray(recentSearchResponse) ? recentSearchResponse : []);
+        setSuggestions(Array.isArray(suggestionResponse) ? suggestionResponse : []);
         setStats({
           trips: orderItems.length,
           destinationCount: destinations.length,
@@ -408,6 +412,45 @@ const ProfilePage = () => {
                   <h3 className="text-base font-black text-slate-900">{item.summaryText || item.queryText || 'Mở lại tìm kiếm gần đây'}</h3>
                   <p className="text-sm font-bold text-slate-500 mt-1 line-clamp-2">{item.queryText || 'Bộ lọc tìm kiếm đã lưu trong tài khoản'}</p>
                   <p className="text-[11px] font-bold text-slate-400 mt-4">Tìm {formatRelativeTime(item.searchedAt)}</p>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-100/60 p-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 bg-[#1EB4D4]/10 rounded-xl flex items-center justify-center text-[#1EB4D4]">
+              <Star size={20} />
+            </div>
+            <div>
+              <h2 className="text-xl font-black text-slate-900 tracking-tight">Gợi ý cho bạn</h2>
+              <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">Dựa trên wishlist, lịch sử xem và tìm kiếm gần đây</p>
+            </div>
+          </div>
+
+          {suggestions.length === 0 ? (
+            <div className="rounded-[1.5rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-bold text-slate-500">
+              Hệ thống sẽ bắt đầu gợi ý nhẹ hơn khi bạn có thêm hành vi xem, lưu hoặc tìm kiếm.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {suggestions.map((item) => (
+                <Link key={item.id} to={item.targetUrl || '/'} className="rounded-[2rem] border border-slate-100 overflow-hidden bg-slate-50 hover:bg-white hover:shadow-lg transition-all">
+                  {item.imageUrl ? (
+                    <div className="h-36 bg-slate-200 overflow-hidden">
+                      <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
+                    </div>
+                  ) : null}
+                  <div className="p-5">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">{formatCustomerProductLabel(item.productType)}</p>
+                    <h3 className="text-base font-black text-slate-900 line-clamp-2">{item.title}</h3>
+                    <p className="text-sm font-bold text-slate-500 mt-1 line-clamp-2">{item.subtitle || item.reasonText}</p>
+                    <p className="text-[11px] font-bold text-[#1EB4D4] mt-4">{item.reasonText}</p>
+                    {item.priceText ? (
+                      <p className="text-[11px] font-black text-slate-900 mt-2">{item.priceText}</p>
+                    ) : null}
+                  </div>
                 </Link>
               ))}
             </div>

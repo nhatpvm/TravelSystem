@@ -1,0 +1,14 @@
+{
+  "url": "http://127.0.0.1:4173/admin/refunds?q=RFD-202604161751235FD104",
+  "steps": [
+    {
+      "step": "approve",
+      "status": "skip"
+    },
+    {
+      "step": "complete",
+      "status": "skip"
+    }
+  ],
+  "detailValues": "CHI TIET YEU CAU\n\nMa hoan\nRFD-202604161751235FD104\nDon dat\nORD-202604161751233F516F\nKhach hang\nKhách Hàng Nghiệm Thu\nDich vu\nTour test Phase 7 20260410011353\nLy do\nKhách đổi lịch cá nhân trong bài test customer commerce\nSo tien yeu cau\n7.000.000 ₫\nDa duyet\n6.000.000 ₫\nDa hoan\n5.900.000 ₫\nRef hoan\nMB-REF-20260420-UI01\nNgay yeu cau\n00:51 17/04/2026\nNgay xu ly\n22:23 20/04/2026\nSO TIEN DUYET\nSO TIEN DA HOAN\nMA THAM CHIEU HOAN\nGHI CHU NOI BO"
+}

@@ -6,7 +6,7 @@ using TicketBooking.Infrastructure.Tenancy;
 
 namespace TicketBooking.Api.Services.Commerce;
 
-public sealed class CommerceBackofficeService
+public sealed partial class CommerceBackofficeService
 {
     private static readonly CustomerRefundStatus[] OpenRefundStatuses =
     {
@@ -171,7 +171,8 @@ public sealed class CommerceBackofficeService
             RefundedAmount = x.Refund.RefundedAmount,
             ReasonCode = x.Refund.ReasonCode,
             ReasonText = x.Refund.ReasonText,
-            ReviewNote = x.Refund.ReviewNote,
+            InternalNote = x.Refund.ReviewNote,
+            RefundReference = x.Refund.RefundReference,
             RequestedAt = x.Refund.RequestedAt,
             ReviewedAt = x.Refund.ReviewedAt,
             CompletedAt = x.Refund.CompletedAt,
@@ -219,7 +220,7 @@ public sealed class CommerceBackofficeService
         var now = DateTimeOffset.UtcNow;
         refund.Status = CustomerRefundStatus.Approved;
         refund.ApprovedAmount = approvedAmount;
-        refund.ReviewNote = NormalizeOptional(request.ReviewNote);
+        refund.ReviewNote = NormalizeInternalNote(request);
         refund.ReviewedAt = now;
         refund.UpdatedAt = now;
         refund.UpdatedByUserId = actorUserId;
@@ -256,7 +257,7 @@ public sealed class CommerceBackofficeService
 
         var now = DateTimeOffset.UtcNow;
         refund.Status = CustomerRefundStatus.Rejected;
-        refund.ReviewNote = NormalizeOptional(request.ReviewNote);
+        refund.ReviewNote = NormalizeInternalNote(request);
         refund.ReviewedAt = now;
         refund.UpdatedAt = now;
         refund.UpdatedByUserId = actorUserId;
@@ -298,10 +299,15 @@ public sealed class CommerceBackofficeService
         if (refund.Status is CustomerRefundStatus.Rejected or CustomerRefundStatus.RefundedPartial or CustomerRefundStatus.RefundedFull)
             throw new InvalidOperationException("Yeu cau hoan tien nay da o trang thai cuoi.");
 
+        if (refund.Status is not (CustomerRefundStatus.Approved or CustomerRefundStatus.Processing))
+            throw new InvalidOperationException("Yeu cau hoan tien can duoc duyet truoc khi xac nhan hoan tien thu cong.");
+
         var remainingRefundable = Math.Max(0m, order.PayableAmount - order.RefundedAmount);
         var refundedAmount = request.RefundedAmount ?? refund.ApprovedAmount ?? refund.RequestedAmount;
         if (refundedAmount <= 0 || refundedAmount > remainingRefundable)
             throw new InvalidOperationException("So tien hoan thuc te khong hop le.");
+
+        var refundReference = NormalizeRequired(request.RefundReference, "Vui long nhap ma tham chieu hoan tien.");
 
         var previousRefundedAmount = order.RefundedAmount;
         var totalRefundedAmount = previousRefundedAmount + refundedAmount;
@@ -310,7 +316,8 @@ public sealed class CommerceBackofficeService
 
         refund.ApprovedAmount ??= refundedAmount;
         refund.RefundedAmount = refundedAmount;
-        refund.ReviewNote = NormalizeOptional(request.ReviewNote) ?? refund.ReviewNote;
+        refund.ReviewNote = NormalizeInternalNote(request) ?? refund.ReviewNote;
+        refund.RefundReference = refundReference;
         refund.ReviewedAt ??= now;
         refund.CompletedAt = now;
         refund.Status = isFullyRefunded ? CustomerRefundStatus.RefundedFull : CustomerRefundStatus.RefundedPartial;
@@ -1212,6 +1219,16 @@ public sealed class CommerceBackofficeService
     private static string? NormalizeOptional(string? value)
     {
         return string.IsNullOrWhiteSpace(value) ? null : value.Trim();
+    }
+
+    private static string? NormalizeInternalNote(ReviewRefundRequest? request)
+    {
+        return NormalizeOptional(request?.InternalNote) ?? NormalizeOptional(request?.ReviewNote);
+    }
+
+    private static string? NormalizeInternalNote(CompleteRefundRequest? request)
+    {
+        return NormalizeOptional(request?.InternalNote) ?? NormalizeOptional(request?.ReviewNote);
     }
 
     private static string? MaskAccountNumber(string? value)

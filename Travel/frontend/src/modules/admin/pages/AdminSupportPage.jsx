@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { MessageSquare, Search, Send, RefreshCw } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
 import {
   listAdminCommerceSupportTickets,
   replyAdminCommerceSupportTicket,
@@ -39,15 +40,20 @@ function getStatusConfig(value) {
 }
 
 export default function AdminSupportPage() {
+  const [searchParams] = useSearchParams();
   const [tickets, setTickets] = useState([]);
   const [selectedId, setSelectedId] = useState('');
   const [reply, setReply] = useState('');
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(() => searchParams.get('q') || '');
   const [statusFilter, setStatusFilter] = useState('all');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+
+  useEffect(() => {
+    setSearch(searchParams.get('q') || '');
+  }, [searchParams]);
 
   async function loadTickets() {
     setLoading(true);

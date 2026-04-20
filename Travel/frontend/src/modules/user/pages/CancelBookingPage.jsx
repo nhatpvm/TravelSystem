@@ -5,6 +5,7 @@ import { AlertTriangle, ArrowLeft, Info, RefreshCw, ShieldCheck } from 'lucide-r
 import {
   cancelCustomerOrder,
   getCustomerOrder,
+  getCustomerRefundEstimate,
   requestCustomerRefund,
 } from '../../../services/customerCommerceService';
 import {
@@ -22,6 +23,14 @@ const REASONS = [
   'Lý do khác',
 ];
 
+function toAmountInput(value) {
+  if (value === null || value === undefined || Number.isNaN(Number(value))) {
+    return '';
+  }
+
+  return String(Math.max(0, Number(value)));
+}
+
 export default function CancelBookingPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,6 +38,10 @@ export default function CancelBookingPage() {
   const [reason, setReason] = useState('');
   const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState(null);
+  const [estimate, setEstimate] = useState(null);
+  const [refundAmountInput, setRefundAmountInput] = useState('');
+  const [estimateLoading, setEstimateLoading] = useState(false);
+  const [estimateError, setEstimateError] = useState('');
   const [initialLoading, setInitialLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -67,6 +80,56 @@ export default function CancelBookingPage() {
   const canCancel = canCancelPendingOrder(order);
   const canRefund = canRequestRefund(order);
   const actionLabel = canCancel ? 'Hủy đơn hàng' : 'Yêu cầu hoàn tiền';
+  const requestedRefundAmount = useMemo(() => {
+    const parsed = Number(refundAmountInput);
+    if (!Number.isFinite(parsed) || parsed <= 0) {
+      return undefined;
+    }
+
+    return parsed;
+  }, [refundAmountInput]);
+
+  useEffect(() => {
+    if (!order) {
+      return;
+    }
+
+    if (!canCancel && !canRefund) {
+      setEstimate(null);
+      return;
+    }
+
+    let active = true;
+    setEstimateLoading(true);
+    setEstimateError('');
+
+    getCustomerRefundEstimate(order.orderCode, canRefund ? { requestedAmount: requestedRefundAmount } : {})
+      .then((response) => {
+        if (!active) {
+          return;
+        }
+
+        setEstimate(response);
+        if (canRefund && !refundAmountInput) {
+          setRefundAmountInput(toAmountInput(response?.suggestedAmount));
+        }
+      })
+      .catch((requestError) => {
+        if (active) {
+          setEstimate(null);
+          setEstimateError(requestError.message || 'Không thể tải ước tính hoàn tiền.');
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setEstimateLoading(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [order, canCancel, canRefund, requestedRefundAmount, refundAmountInput]);
 
   async function handleConfirm() {
     if (!order) {
@@ -80,8 +143,9 @@ export default function CancelBookingPage() {
       if (canCancel) {
         await cancelCustomerOrder(order.orderCode);
       } else if (canRefund) {
+        const amountToRequest = estimate?.suggestedAmount ?? requestedRefundAmount ?? order.payableAmount;
         await requestCustomerRefund(order.orderCode, {
-          requestedAmount: order.payableAmount,
+          requestedAmount: amountToRequest,
           reasonCode: 'CUSTOMER_REQUEST',
           reasonText: reason,
         });
@@ -194,13 +258,97 @@ export default function CancelBookingPage() {
               </div>
             </div>
 
+            {canRefund ? (
+              <div className="bg-white rounded-3xl border border-slate-100 p-6 mb-8 shadow-sm">
+                <div className="flex items-center gap-3 mb-4">
+                  <Info className="text-[#1EB4D4]" size={18} />
+                  <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest">Ước tính hoàn tiền</h3>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Số tiền muốn yêu cầu hoàn</label>
+                    <input
+                      type="number"
+                      min="0"
+                      step="1000"
+                      value={refundAmountInput}
+                      onChange={(event) => setRefundAmountInput(event.target.value)}
+                      className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-black text-slate-900 focus:border-[#1EB4D4]/30 focus:bg-white focus:ring-0 transition-all"
+                    />
+                    <p className="text-[11px] font-bold text-slate-400 mt-2">
+                      Còn có thể hoàn tối đa {formatCurrency(estimate?.remainingRefundableAmount || 0, order.currencyCode)}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl bg-slate-50 border border-slate-100 p-4">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Kết quả dự kiến</p>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-slate-500">Customer nhận lại</span>
+                        <span className="font-black text-slate-900">{formatCurrency(estimate?.estimatedRefundAmount || 0, order.currencyCode)}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-slate-500">Commission hoàn lại</span>
+                        <span className="font-black text-slate-900">{formatCurrency(estimate?.estimatedCommissionReversalAmount || 0, order.currencyCode)}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-slate-500">Tenant bị điều chỉnh</span>
+                        <span className="font-black text-slate-900">{formatCurrency(estimate?.estimatedTenantAdjustmentAmount || 0, order.currencyCode)}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {estimateLoading ? (
+                  <div className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-500">
+                    Đang tính lại ước tính refund...
+                  </div>
+                ) : null}
+
+                {estimateError ? (
+                  <div className="rounded-2xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm font-bold text-rose-600">
+                    {estimateError}
+                  </div>
+                ) : null}
+
+                {estimate ? (
+                  <>
+                    <div className="rounded-2xl bg-amber-50 border border-amber-100 p-4 mb-4">
+                      <p className="text-sm font-black text-amber-900">{estimate.timingNote}</p>
+                      <p className="text-[11px] font-medium text-amber-700 mt-2 leading-relaxed">{estimate.settlementImpact}</p>
+                      <p className="text-[11px] font-medium text-amber-700 mt-2 leading-relaxed">{estimate.statusNote}</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div className="rounded-2xl bg-slate-50 border border-slate-100 p-4">
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Rule minh bạch</p>
+                        <div className="space-y-2">
+                          {(estimate.ruleSummary || []).map((item) => (
+                            <p key={item} className="text-[11px] font-medium text-slate-600 leading-relaxed">{item}</p>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="rounded-2xl bg-rose-50 border border-rose-100 p-4">
+                        <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest mb-2">Lưu ý trước khi gửi</p>
+                        <div className="space-y-2">
+                          {(estimate.warningMessages || []).map((item) => (
+                            <p key={item} className="text-[11px] font-medium text-rose-600 leading-relaxed">{item}</p>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+            ) : null}
+
             <div className="p-6 bg-amber-50 rounded-3xl border border-amber-100 mb-10">
               <div className="flex items-center gap-3 mb-2">
                 <Info className="text-amber-500" size={20} />
                 <h3 className="text-sm font-black text-amber-900">Lưu ý tài chính</h3>
               </div>
               <p className="text-[11px] text-amber-700/80 font-medium leading-relaxed">
-                Admin/platform là bên quản lý dòng tiền tổng. Nếu đơn đã thanh toán, yêu cầu của bạn sẽ đi vào luồng hoàn tiền và ảnh hưởng tới doanh thu đối soát của tenant.
+                Admin/platform là bên quản lý dòng tiền tổng. Nếu đơn đã thanh toán, yêu cầu của bạn sẽ đi vào luồng hoàn tiền và ảnh hưởng tới doanh thu đối soát của tenant theo rule marketplace đã chốt.
               </p>
             </div>
 
@@ -214,7 +362,7 @@ export default function CancelBookingPage() {
               <button type="button" onClick={() => setStep(1)} className="flex-1 py-4 text-center rounded-2xl font-black text-xs uppercase tracking-widest text-slate-400 hover:text-slate-600 transition-colors">
                 Thay đổi lý do
               </button>
-              <button type="button" onClick={handleConfirm} disabled={loading} className="flex-1 py-4 bg-rose-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-rose-500/20 hover:bg-rose-600 transition-all flex items-center justify-center">
+              <button type="button" onClick={handleConfirm} disabled={loading || estimateLoading} className="flex-1 py-4 bg-rose-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-rose-500/20 hover:bg-rose-600 transition-all flex items-center justify-center disabled:opacity-60">
                 {loading ? <RefreshCw className="animate-spin" size={18} /> : actionLabel}
               </button>
             </div>
@@ -234,7 +382,7 @@ export default function CancelBookingPage() {
             <div className="bg-slate-50 rounded-[2.5rem] p-8 mb-10 text-left">
               <p className="text-lg font-black text-slate-900 mb-3">Trạng thái tiếp theo</p>
               <p className="text-[13px] font-medium text-slate-600 leading-relaxed">
-                Bạn có thể quay lại trang chi tiết đơn hàng để theo dõi cập nhật. Khi có thay đổi, hệ thống sẽ đồng thời ghi nhận notification trong tài khoản của bạn.
+                Bạn có thể quay lại trang chi tiết đơn hàng để theo dõi timeline mới. Khi có thay đổi về payment / refund / support, hệ thống sẽ đồng thời ghi nhận notification trong tài khoản của bạn.
               </p>
             </div>
 

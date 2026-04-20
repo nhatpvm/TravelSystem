@@ -1,0 +1,237 @@
+Using launch settings from D:\FPT\TicketBooking.V3\TicketBooking.Api\Properties\launchSettings.json...
+Building...
+[22:12:26 WRN] The 'CustomerSettlementStatus' property 'SettlementStatus' on entity type 'CustomerOrder' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+[22:12:26 WRN] The 'CustomerSettlementBatchStatus' property 'Status' on entity type 'CustomerSettlementBatch' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementBatchStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+[22:12:26 WRN] The 'CustomerSettlementStatus' property 'Status' on entity type 'CustomerSettlementBatchLine' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+[22:12:27 INF] Ensured user 'qlnx' with role 'QLNX'.
+[22:12:27 INF] Ensured user 'qlks' with role 'QLKS'.
+[22:12:27 INF] Ensured user 'qlvt' with role 'QLVT'.
+[22:12:27 INF] Ensured user 'qlvmm' with role 'QLVMM'.
+[22:12:27 INF] Ensured user 'qltour' with role 'QLTour'.
+[22:12:27 INF] Ensured user 'scanner_nx' with role 'Customer'.
+[22:12:27 INF] Ensured user 'customer' with role 'Customer'.
+[22:12:27 INF] Identity seed completed.
+[22:12:27 INF] Tenant NX001 already exists.
+[22:12:27 INF] Tenant VT001 already exists.
+[22:12:27 INF] Tenant VMM001 already exists.
+[22:12:27 INF] Tenant KS001 already exists.
+[22:12:27 INF] Tenant TOUR001 already exists.
+[22:12:27 INF] Updated tenant link 'qlnx' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[22:12:27 INF] Updated tenant link 'admin' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[22:12:27 INF] Updated tenant link 'qlvt' -> tenant 8f759d36-942d-4666-bda8-195ccfc7939a.
+[22:12:27 INF] Updated tenant link 'admin' -> tenant 8f759d36-942d-4666-bda8-195ccfc7939a.
+[22:12:27 INF] Updated tenant link 'qlvmm' -> tenant 47997b25-a35b-4291-a7ca-2521e14ea6e4.
+[22:12:27 INF] Updated tenant link 'admin' -> tenant 47997b25-a35b-4291-a7ca-2521e14ea6e4.
+[22:12:27 INF] Updated tenant link 'qlks' -> tenant 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+[22:12:27 INF] Updated tenant link 'admin' -> tenant 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+[22:12:27 INF] Updated tenant link 'qltour' -> tenant dfb80807-d1db-43b0-a62f-9b744f1dde4f.
+[22:12:27 INF] Updated tenant link 'admin' -> tenant dfb80807-d1db-43b0-a62f-9b744f1dde4f.
+[22:12:27 INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+[22:12:27 INF] Permissions seed completed.
+[22:12:27 INF] Tenant system role seed completed.
+[22:12:27 INF] Updated TenantUser link 'customer' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[22:12:27 INF] Updated TenantUser link 'scanner_nx' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[22:12:27 INF] TenantRoles seed completed for NX001.
+[22:12:28 INF] BUS demo seed completed for tenant NX001.
+[22:12:28 INF] TRAIN demo seed completed for tenant VT001.
+[22:12:29 INF] Flight demo seed completed for tenant VMM001.
+[22:12:29 INF] CmsDemoSeed completed for tenant NX001.
+[22:12:29 INF] Hotel demo seed starting for 6 tenant(s). Days=14
+[22:12:29 INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+[22:12:30 INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+[22:12:30 INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+[22:12:30 INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+[22:12:30 INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+[22:12:31 INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+[22:12:31 INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+[22:12:31 INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+[22:12:31 INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+[22:12:31 INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+[22:12:31 INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+[22:12:31 INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+[22:12:31 INF] Hotel demo seed finished.
+[22:12:31 INF] Now listening on: http://127.0.0.1:5183
+[22:12:31 INF] Application started. Press Ctrl+C to shut down.
+[22:12:31 INF] Hosting environment: Development
+[22:12:31 INF] Content root path: D:\FPT\TicketBooking.V3\TicketBooking.Api
+[22:12:37 WRN] Failed to determine the https port for redirect.
+[22:12:37 INF] HTTP POST /api/v1/auth/login responded 200 in 193.1404 ms
+[22:12:37 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 137.1830 ms
+[22:12:49 INF] HTTP POST /api/v1/auth/login responded 200 in 99.4946 ms
+[22:12:49 INF] HTTP POST /api/v1/admin/commerce/refunds/b2a79232-5327-4e0f-bca4-c7099bdbab3e/approve responded 400 in 11.4343 ms
+[22:12:49 INF] HTTP POST /api/v1/admin/commerce/refunds/b2a79232-5327-4e0f-bca4-c7099bdbab3e/complete responded 400 in 4.0409 ms
+[22:14:19 INF] HTTP POST /api/v1/auth/login responded 200 in 83.7651 ms
+[22:14:19 INF] HTTP POST /api/v1/admin/commerce/refunds/b2a79232-5327-4e0f-bca4-c7099bdbab3e/approve responded 400 in 10.8723 ms
+[22:14:19 INF] HTTP POST /api/v1/auth/login responded 200 in 90.8110 ms
+[22:14:19 INF] HTTP GET /api/v1/admin/commerce/bookings responded 200 in 144.4934 ms
+[22:15:16 INF] HTTP POST /api/v1/auth/login responded 200 in 103.5395 ms
+[22:15:17 INF] HTTP POST /api/v1/admin/commerce/refunds/b2a79232-5327-4e0f-bca4-c7099bdbab3e/approve responded 200 in 288.0072 ms
+[22:15:48 INF] HTTP POST /api/v1/auth/login responded 200 in 87.5107 ms
+[22:15:48 INF] HTTP POST /api/v1/auth/login responded 200 in 88.1642 ms
+[22:15:48 INF] HTTP POST /api/v1/auth/login responded 200 in 66.5530 ms
+[22:15:48 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 37.6674 ms
+[22:15:48 INF] HTTP POST /api/v1/admin/commerce/refunds/62d41ae5-8fc6-48ed-9b7a-8a6d9b081811/reject responded 200 in 83.9448 ms
+[22:15:48 INF] HTTP POST /api/v1/admin/commerce/refunds/b2a79232-5327-4e0f-bca4-c7099bdbab3e/complete responded 200 in 150.3085 ms
+[22:16:06 INF] HTTP POST /api/v1/auth/login responded 200 in 60.2532 ms
+[22:16:06 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 4.8343 ms
+[22:16:06 INF] HTTP POST /api/v1/auth/login responded 200 in 73.0201 ms
+[22:16:06 INF] HTTP POST /api/v1/auth/login responded 200 in 73.8887 ms
+[22:16:06 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 21.6473 ms
+[22:16:06 INF] HTTP GET /api/v1/admin/commerce/bookings responded 200 in 87.2419 ms
+[22:17:29 INF] HTTP POST /api/v1/auth/login responded 200 in 75.3621 ms
+[22:17:29 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 46.0953 ms
+[22:17:29 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 8.6221 ms
+[22:19:31 INF] HTTP POST /api/v1/auth/login responded 200 in 84.4356 ms
+[22:19:34 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 77.2018 ms
+[22:19:35 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 6.1654 ms
+[22:19:35 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 9.6903 ms
+[22:19:35 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 6.4226 ms
+[22:19:35 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 71.8523 ms
+[22:19:35 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 10.0122 ms
+[22:19:35 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 6.7379 ms
+[22:19:35 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 7.3113 ms
+[22:19:35 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 19.2121 ms
+[22:19:35 INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 21.7834 ms
+[22:19:35 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 6.8232 ms
+[22:19:35 ERR] HTTP POST /api/v1/admin/commerce/refunds/0085bcca-255a-4539-8300-d106accfc5e7/approve responded 500 in 17.5035 ms
+System.InvalidOperationException: TenantId mismatch for entity 'CustomerNotification'. Payload TenantId = dfb80807-d1db-43b0-a62f-9b744f1dde4f, Context TenantId = 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+   at TicketBooking.Infrastructure.Persistence.Interceptors.AuditTenantSoftDeleteInterceptor.EnforceTenantOnAdded(EntityEntry entry) in D:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\Persistence\Interceptors\AuditTenantSoftDeleteInterceptor.cs:line 155
+   at TicketBooking.Infrastructure.Persistence.Interceptors.AuditTenantSoftDeleteInterceptor.ApplyRules(DbContext db) in D:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\Persistence\Interceptors\AuditTenantSoftDeleteInterceptor.cs:line 116
+   at TicketBooking.Infrastructure.Persistence.Interceptors.AuditTenantSoftDeleteInterceptor.SavingChangesAsync(DbContextEventData eventData, InterceptionResult`1 result, CancellationToken cancellationToken) in D:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\Persistence\Interceptors\AuditTenantSoftDeleteInterceptor.cs:line 53
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.SaveChangesStartingAsync(IDiagnosticsLogger`1 diagnostics, DbContext context, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at TicketBooking.Api.Services.Commerce.CustomerNotificationService.CreateAsync(Guid userId, Nullable`1 tenantId, String category, String title, String body, String actionUrl, String referenceType, Nullable`1 referenceId, String metadataJson, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerNotificationService.cs:line 45
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.NotifyRefundAsync(CustomerOrder order, CustomerRefundRequest refund, String title, String body, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 829
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.ApproveRefundAsync(Guid refundId, ReviewRefundRequest request, Guid actorUserId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 234
+   at TicketBooking.Api.Controllers.Commerce.AdminCommerceController.ApproveRefund(Guid refundId, ReviewRefundRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Commerce\AdminCommerceController.cs:line 57
+   at lambda_method11390(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 138
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+[22:19:35 ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: TenantId mismatch for entity 'CustomerNotification'. Payload TenantId = dfb80807-d1db-43b0-a62f-9b744f1dde4f, Context TenantId = 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+   at TicketBooking.Infrastructure.Persistence.Interceptors.AuditTenantSoftDeleteInterceptor.EnforceTenantOnAdded(EntityEntry entry) in D:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\Persistence\Interceptors\AuditTenantSoftDeleteInterceptor.cs:line 155
+   at TicketBooking.Infrastructure.Persistence.Interceptors.AuditTenantSoftDeleteInterceptor.ApplyRules(DbContext db) in D:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\Persistence\Interceptors\AuditTenantSoftDeleteInterceptor.cs:line 116
+   at TicketBooking.Infrastructure.Persistence.Interceptors.AuditTenantSoftDeleteInterceptor.SavingChangesAsync(DbContextEventData eventData, InterceptionResult`1 result, CancellationToken cancellationToken) in D:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\Persistence\Interceptors\AuditTenantSoftDeleteInterceptor.cs:line 53
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.SaveChangesStartingAsync(IDiagnosticsLogger`1 diagnostics, DbContext context, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at TicketBooking.Api.Services.Commerce.CustomerNotificationService.CreateAsync(Guid userId, Nullable`1 tenantId, String category, String title, String body, String actionUrl, String referenceType, Nullable`1 referenceId, String metadataJson, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerNotificationService.cs:line 45
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.NotifyRefundAsync(CustomerOrder order, CustomerRefundRequest refund, String title, String body, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 829
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.ApproveRefundAsync(Guid refundId, ReviewRefundRequest request, Guid actorUserId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 234
+   at TicketBooking.Api.Controllers.Commerce.AdminCommerceController.ApproveRefund(Guid refundId, ReviewRefundRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Commerce\AdminCommerceController.cs:line 57
+   at lambda_method11390(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 138
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+[22:22:56 INF] HTTP POST /api/v1/auth/login responded 200 in 98.2573 ms
+[22:22:57 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 21.1565 ms
+[22:23:38 INF] HTTP POST /api/v1/auth/login responded 200 in 82.9509 ms
+[22:23:41 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 23.8402 ms
+[22:23:41 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 5.3497 ms
+[22:23:41 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 5.2433 ms
+[22:23:41 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 6.5936 ms
+[22:23:41 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 26.6116 ms
+[22:23:41 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 5.4549 ms
+[22:23:41 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 6.2743 ms
+[22:23:41 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 6.4708 ms
+[22:23:41 INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 5.4450 ms
+[22:23:41 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 16.0175 ms
+[22:23:41 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 5.9060 ms
+[22:23:42 ERR] HTTP POST /api/v1/admin/commerce/refunds/0085bcca-255a-4539-8300-d106accfc5e7/complete responded 500 in 27.6400 ms
+System.InvalidOperationException: TenantId mismatch for entity 'CustomerNotification'. Payload TenantId = dfb80807-d1db-43b0-a62f-9b744f1dde4f, Context TenantId = 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+   at TicketBooking.Infrastructure.Persistence.Interceptors.AuditTenantSoftDeleteInterceptor.EnforceTenantOnAdded(EntityEntry entry) in D:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\Persistence\Interceptors\AuditTenantSoftDeleteInterceptor.cs:line 155
+   at TicketBooking.Infrastructure.Persistence.Interceptors.AuditTenantSoftDeleteInterceptor.ApplyRules(DbContext db) in D:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\Persistence\Interceptors\AuditTenantSoftDeleteInterceptor.cs:line 116
+   at TicketBooking.Infrastructure.Persistence.Interceptors.AuditTenantSoftDeleteInterceptor.SavingChangesAsync(DbContextEventData eventData, InterceptionResult`1 result, CancellationToken cancellationToken) in D:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\Persistence\Interceptors\AuditTenantSoftDeleteInterceptor.cs:line 53
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.SaveChangesStartingAsync(IDiagnosticsLogger`1 diagnostics, DbContext context, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at TicketBooking.Api.Services.Commerce.CustomerNotificationService.CreateAsync(Guid userId, Nullable`1 tenantId, String category, String title, String body, String actionUrl, String referenceType, Nullable`1 referenceId, String metadataJson, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerNotificationService.cs:line 45
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.NotifyRefundAsync(CustomerOrder order, CustomerRefundRequest refund, String title, String body, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 829
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.CompleteRefundAsync(Guid refundId, CompleteRefundRequest request, Guid actorUserId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 352
+   at TicketBooking.Api.Controllers.Commerce.AdminCommerceController.CompleteRefund(Guid refundId, CompleteRefundRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Commerce\AdminCommerceController.cs:line 75
+   at lambda_method12256(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 138
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+[22:23:42 ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: TenantId mismatch for entity 'CustomerNotification'. Payload TenantId = dfb80807-d1db-43b0-a62f-9b744f1dde4f, Context TenantId = 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+   at TicketBooking.Infrastructure.Persistence.Interceptors.AuditTenantSoftDeleteInterceptor.EnforceTenantOnAdded(EntityEntry entry) in D:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\Persistence\Interceptors\AuditTenantSoftDeleteInterceptor.cs:line 155
+   at TicketBooking.Infrastructure.Persistence.Interceptors.AuditTenantSoftDeleteInterceptor.ApplyRules(DbContext db) in D:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\Persistence\Interceptors\AuditTenantSoftDeleteInterceptor.cs:line 116
+   at TicketBooking.Infrastructure.Persistence.Interceptors.AuditTenantSoftDeleteInterceptor.SavingChangesAsync(DbContextEventData eventData, InterceptionResult`1 result, CancellationToken cancellationToken) in D:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\Persistence\Interceptors\AuditTenantSoftDeleteInterceptor.cs:line 53
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.SaveChangesStartingAsync(IDiagnosticsLogger`1 diagnostics, DbContext context, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at TicketBooking.Api.Services.Commerce.CustomerNotificationService.CreateAsync(Guid userId, Nullable`1 tenantId, String category, String title, String body, String actionUrl, String referenceType, Nullable`1 referenceId, String metadataJson, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CustomerNotificationService.cs:line 45
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.NotifyRefundAsync(CustomerOrder order, CustomerRefundRequest refund, String title, String body, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 829
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.CompleteRefundAsync(Guid refundId, CompleteRefundRequest request, Guid actorUserId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 352
+   at TicketBooking.Api.Controllers.Commerce.AdminCommerceController.CompleteRefund(Guid refundId, CompleteRefundRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Commerce\AdminCommerceController.cs:line 75
+   at lambda_method12256(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 138
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+[22:26:49 INF] HTTP POST /api/v1/auth/login responded 200 in 84.3945 ms
+[22:26:49 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 20.9764 ms
+[22:27:38 INF] HTTP POST /api/v1/auth/login responded 200 in 78.2555 ms
+[22:27:42 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 29.3094 ms
+[22:27:42 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 12.6699 ms
+[22:27:42 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 11.3122 ms
+[22:27:42 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 27.1902 ms
+[22:27:42 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 9.6060 ms
+[22:27:42 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 15.9305 ms
+[22:27:42 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 15.9593 ms
+[22:27:42 INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 10.1140 ms
+[22:27:42 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 21.3376 ms
+[22:27:42 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 12.9651 ms
+[22:27:42 INF] HTTP GET /api/v1/admin/commerce/refunds responded 200 in 6.1310 ms

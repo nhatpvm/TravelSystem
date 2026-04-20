@@ -4,11 +4,13 @@ import {
   AlertCircle,
   Bell,
   CheckCircle2,
+  Clock3,
   CreditCard,
   FileText,
   Plane,
   RefreshCw,
   ShieldCheck,
+  MessageSquareText,
   Ticket,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -29,6 +31,10 @@ function getNotificationIcon(category) {
       return <RefreshCw size={16} className="text-amber-500" />;
     case 'order':
       return <Plane size={16} className="text-sky-500" />;
+    case 'support':
+      return <MessageSquareText size={16} className="text-indigo-500" />;
+    case 'checkout':
+      return <Clock3 size={16} className="text-violet-500" />;
     default:
       return <FileText size={16} className="text-slate-400" />;
   }
@@ -44,6 +50,10 @@ function getNotificationTone(category) {
       return 'bg-amber-50';
     case 'order':
       return 'bg-indigo-50';
+    case 'support':
+      return 'bg-indigo-50';
+    case 'checkout':
+      return 'bg-violet-50';
     default:
       return 'bg-slate-50';
   }

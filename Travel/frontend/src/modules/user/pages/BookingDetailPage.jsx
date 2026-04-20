@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import {
   AlertCircle,
   ArrowLeft,
@@ -13,43 +12,55 @@ import {
   ShieldCheck,
   User,
 } from 'lucide-react';
-import { getCustomerOrder } from '../../../services/customerCommerceService';
+import {
+  getCustomerOrder,
+  getCustomerOrderTimeline,
+} from '../../../services/customerCommerceService';
 import {
   canCancelPendingOrder,
   canRequestRefund,
   formatCustomerOrderStatusLabel,
   formatCustomerPaymentStatusLabel,
   formatCustomerProductLabel,
+  formatCustomerRefundStatusLabel,
   getCustomerOrderStatusClass,
   getOrderSnapshot,
 } from '../../booking/utils/customerCommerce';
 import { formatCurrency, formatDateTime } from '../../tenant/train/utils/presentation';
 
-function buildTimeline(order) {
-  return [
-    {
-      label: 'Tạo đơn hàng',
-      time: formatDateTime(order.createdAt),
-      completed: true,
-    },
-    {
-      label: formatCustomerPaymentStatusLabel(order.paymentStatus),
-      time: order.paidAt ? formatDateTime(order.paidAt) : order.expiresAt ? `Hết hạn lúc ${formatDateTime(order.expiresAt)}` : 'Đang chờ xử lý',
-      completed: Number(order.paymentStatus) !== 1,
-      current: Number(order.paymentStatus) === 1,
-    },
-    {
-      label: formatCustomerOrderStatusLabel(order.status),
-      time: order.ticketIssuedAt ? formatDateTime(order.ticketIssuedAt) : order.failureReason || 'Hệ thống sẽ cập nhật theo vòng đời đơn hàng',
-      completed: Number(order.status) !== 1,
-      current: Number(order.status) === 1 || Number(order.status) === 2 || Number(order.status) === 8,
-    },
-  ];
+function getTimelineToneClasses(tone, isCurrent) {
+  switch (tone) {
+    case 'success':
+      return {
+        dot: 'bg-emerald-500 text-white',
+        card: 'bg-emerald-50 border-emerald-100',
+        title: 'text-emerald-900',
+      };
+    case 'warning':
+      return {
+        dot: isCurrent ? 'bg-amber-500 text-white animate-pulse' : 'bg-amber-400 text-white',
+        card: 'bg-amber-50 border-amber-100',
+        title: 'text-amber-900',
+      };
+    case 'danger':
+      return {
+        dot: 'bg-rose-500 text-white',
+        card: 'bg-rose-50 border-rose-100',
+        title: 'text-rose-900',
+      };
+    default:
+      return {
+        dot: isCurrent ? 'bg-[#1EB4D4] text-white animate-pulse' : 'bg-slate-300 text-slate-600',
+        card: 'bg-slate-50 border-slate-100',
+        title: 'text-slate-900',
+      };
+  }
 }
 
 export default function BookingDetailPage() {
   const { id } = useParams();
   const [order, setOrder] = useState(null);
+  const [timelineItems, setTimelineItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -64,11 +75,17 @@ export default function BookingDetailPage() {
     setLoading(true);
     setError('');
 
-    getCustomerOrder(id)
-      .then((response) => {
-        if (active) {
-          setOrder(response);
+    Promise.all([
+      getCustomerOrder(id),
+      getCustomerOrderTimeline(id),
+    ])
+      .then(([orderResponse, timelineResponse]) => {
+        if (!active) {
+          return;
         }
+
+        setOrder(orderResponse);
+        setTimelineItems(Array.isArray(timelineResponse) ? timelineResponse : []);
       })
       .catch((requestError) => {
         if (active) {
@@ -87,7 +104,7 @@ export default function BookingDetailPage() {
   }, [id]);
 
   const snapshot = useMemo(() => getOrderSnapshot(order), [order]);
-  const timeline = useMemo(() => (order ? buildTimeline(order) : []), [order]);
+  const timeline = useMemo(() => (Array.isArray(timelineItems) ? timelineItems : []), [timelineItems]);
   const lines = Array.isArray(snapshot?.lines) ? snapshot.lines : [];
   const showAfterSales = canCancelPendingOrder(order) || canRequestRefund(order);
 
@@ -134,19 +151,35 @@ export default function BookingDetailPage() {
             <h2 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-8 flex items-center gap-2">
               <Clock size={16} className="text-[#1EB4D4]" /> Tiến trình đơn hàng
             </h2>
-            <div className="relative flex flex-col md:flex-row justify-between items-start gap-8 md:gap-4">
-              <div className="absolute top-4 left-4 md:left-0 md:top-[1.125rem] w-0.5 md:w-full h-full md:h-0.5 bg-slate-100 -z-0" />
-              {timeline.map((step, index) => (
-                <div key={`${step.label}-${index}`} className="relative z-10 flex md:flex-col items-center md:items-start gap-4 flex-1">
-                  <div className={`w-9 h-9 rounded-full flex items-center justify-center border-4 border-white shadow-md ${step.completed ? 'bg-emerald-500 text-white' : step.current ? 'bg-[#1EB4D4] text-white animate-pulse' : 'bg-slate-200 text-slate-400'}`}>
-                    {step.completed ? <CheckCircle2 size={18} /> : <Circle size={10} fill="currentColor" />}
+            <div className="relative pl-5 space-y-4">
+              <div className="absolute left-4 top-1 bottom-1 w-0.5 bg-slate-100" />
+              {timeline.map((step, index) => {
+                const tone = getTimelineToneClasses(step.tone, step.isCurrent);
+
+                return (
+                  <div key={`${step.key || step.title}-${index}`} className="relative flex items-start gap-4">
+                    <div className={`relative z-10 mt-1 w-9 h-9 rounded-full flex items-center justify-center border-4 border-white shadow-md ${tone.dot}`}>
+                      {step.tone === 'success' ? <CheckCircle2 size={18} /> : <Circle size={10} fill="currentColor" />}
+                    </div>
+                    <div className={`flex-1 rounded-3xl border p-5 ${tone.card}`}>
+                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
+                        <div>
+                          <p className={`text-sm font-black ${tone.title}`}>{step.title}</p>
+                          <p className="text-[10px] font-bold text-slate-400 mt-1">{formatDateTime(step.occurredAt)}</p>
+                        </div>
+                        {step.isCurrent ? (
+                          <span className="inline-flex items-center px-3 py-1 rounded-xl bg-white text-[10px] font-black uppercase tracking-widest text-[#1EB4D4] border border-[#1EB4D4]/10">
+                            Mốc hiện tại
+                          </span>
+                        ) : null}
+                      </div>
+                      <p className="text-xs font-medium text-slate-600 mt-3 leading-relaxed">
+                        {step.description || 'Hệ thống đang tiếp tục cập nhật tiến trình cho đơn hàng này.'}
+                      </p>
+                    </div>
                   </div>
-                  <div className="md:mt-3">
-                    <p className={`text-sm font-black ${step.completed || step.current ? 'text-slate-900' : 'text-slate-400'}`}>{step.label}</p>
-                    <p className="text-[10px] font-bold text-slate-400 mt-0.5">{step.time}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -217,6 +250,15 @@ export default function BookingDetailPage() {
                     <p className="text-[11px] font-bold text-slate-400">{order.payment?.paymentCode || order.payment?.providerInvoiceNumber || 'Đang cập nhật payment code'}</p>
                   </div>
                 </div>
+                <div className="rounded-2xl bg-slate-50 px-4 py-3">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Refund hiện tại</p>
+                  <p className="text-sm font-black text-slate-900">{formatCustomerRefundStatusLabel(order.refundStatus)}</p>
+                  <p className="text-[11px] font-bold text-slate-400 mt-1">
+                    {order.refundedAmount > 0
+                      ? `Đã hoàn ${formatCurrency(order.refundedAmount, order.currencyCode)}`
+                      : 'Chưa phát sinh khoản refund nào trên đơn này'}
+                  </p>
+                </div>
                 {order.vatInvoiceRequested ? (
                   <div className="rounded-2xl bg-blue-50 p-4 text-[11px] font-bold text-blue-700">
                     Đơn hàng này đã yêu cầu xuất hóa đơn VAT.
@@ -232,7 +274,9 @@ export default function BookingDetailPage() {
                       <div key={item.id} className="rounded-2xl bg-white/70 p-4">
                         <p className="text-sm font-black text-slate-900">{item.refundCode}</p>
                         <p className="text-[11px] font-bold text-slate-500 mt-1">{item.reasonText || item.reasonCode}</p>
-                        <p className="text-[11px] font-bold text-amber-700 mt-2">{formatCurrency(item.requestedAmount, item.currencyCode)} • {item.status}</p>
+                        <p className="text-[11px] font-bold text-amber-700 mt-2">
+                          {formatCurrency(item.requestedAmount, item.currencyCode)} • {formatCustomerRefundStatusLabel(item.status)}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -265,6 +309,18 @@ export default function BookingDetailPage() {
                 >
                   Gửi support cho đơn này
                 </Link>
+              </div>
+
+              <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm">
+                <div className="flex gap-4">
+                  <ShieldCheck className="text-[#1EB4D4] shrink-0" size={20} />
+                  <div>
+                    <h4 className="text-xs font-black text-slate-900 uppercase tracking-wider mb-1">Theo dõi hậu mãi rõ hơn</h4>
+                    <p className="text-[11px] text-slate-500 font-medium leading-relaxed">
+                      Timeline ở trên lấy trực tiếp từ payment, ticket, refund và support event của đơn này, nên bạn có thể theo dõi từ lúc tạo đơn cho tới khi hoàn tiền mà không phải đoán trạng thái.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

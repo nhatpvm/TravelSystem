@@ -2715,6 +2715,10 @@ namespace TicketBooking.Infrastructure.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("RefundReference")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<decimal?>("RefundedAmount")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");

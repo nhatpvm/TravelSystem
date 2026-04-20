@@ -1,12 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useSearchParams } from 'react-router-dom';
 import {
   AlertCircle,
   CheckCircle2,
   Clock,
+  RefreshCw,
   RotateCcw,
   Search,
-  RefreshCw,
   XCircle,
 } from 'lucide-react';
 import {
@@ -22,11 +23,11 @@ import {
 import { formatCurrency, formatDateTime } from '../../tenant/train/utils/presentation';
 
 const FILTERS = [
-  { value: 'all', label: 'Tất cả' },
-  { value: String(CUSTOMER_REFUND_STATUS.REQUESTED), label: 'Chờ duyệt' },
-  { value: String(CUSTOMER_REFUND_STATUS.APPROVED), label: 'Đã duyệt' },
-  { value: String(CUSTOMER_REFUND_STATUS.REFUNDED_PARTIAL), label: 'Đã hoàn' },
-  { value: String(CUSTOMER_REFUND_STATUS.REJECTED), label: 'Từ chối' },
+  { value: 'all', label: 'Tat ca' },
+  { value: String(CUSTOMER_REFUND_STATUS.REQUESTED), label: 'Cho duyet' },
+  { value: String(CUSTOMER_REFUND_STATUS.APPROVED), label: 'Da duyet' },
+  { value: String(CUSTOMER_REFUND_STATUS.REFUNDED_PARTIAL), label: 'Da hoan' },
+  { value: String(CUSTOMER_REFUND_STATUS.REJECTED), label: 'Tu choi' },
 ];
 
 function getStatusConfig(value) {
@@ -53,9 +54,32 @@ function canApprove(value) {
   ].includes(Number(value || 0));
 }
 
+function canComplete(value) {
+  return Number(value || 0) === CUSTOMER_REFUND_STATUS.APPROVED;
+}
+
+function ensureAmountDraft(value, fallback) {
+  if (value === undefined || value === null || value === '') {
+    return fallback === undefined || fallback === null ? '' : String(fallback);
+  }
+
+  return String(value);
+}
+
+function parseAmountDraft(value, fallback) {
+  const raw = String(value ?? '').trim();
+  if (!raw) {
+    return fallback;
+  }
+
+  const normalized = Number(raw.replace(/,/g, ''));
+  return Number.isFinite(normalized) ? normalized : fallback;
+}
+
 export default function AdminRefundsPage() {
+  const [searchParams] = useSearchParams();
   const [filter, setFilter] = useState('all');
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(() => searchParams.get('q') || '');
   const [loading, setLoading] = useState(true);
   const [savingId, setSavingId] = useState('');
   const [error, setError] = useState('');
@@ -69,6 +93,13 @@ export default function AdminRefundsPage() {
   const [refunds, setRefunds] = useState([]);
   const [selectedId, setSelectedId] = useState('');
   const [noteDrafts, setNoteDrafts] = useState({});
+  const [approvedDrafts, setApprovedDrafts] = useState({});
+  const [refundedDrafts, setRefundedDrafts] = useState({});
+  const [referenceDrafts, setReferenceDrafts] = useState({});
+
+  useEffect(() => {
+    setSearch(searchParams.get('q') || '');
+  }, [searchParams]);
 
   async function loadRefunds() {
     setLoading(true);
@@ -83,18 +114,45 @@ export default function AdminRefundsPage() {
       const items = Array.isArray(response?.items) ? response.items : [];
       setSummary(response?.summary || {});
       setRefunds(items);
-      setSelectedId((current) => current && items.some((item) => item.id === current) ? current : items[0]?.id || '');
+      setSelectedId((current) => (current && items.some((item) => item.id === current) ? current : items[0]?.id || ''));
       setNoteDrafts((current) => {
         const next = { ...current };
         items.forEach((item) => {
           if (next[item.id] === undefined) {
-            next[item.id] = item.reviewNote || '';
+            next[item.id] = item.internalNote || '';
+          }
+        });
+        return next;
+      });
+      setApprovedDrafts((current) => {
+        const next = { ...current };
+        items.forEach((item) => {
+          if (next[item.id] === undefined) {
+            next[item.id] = ensureAmountDraft(item.approvedAmount, item.requestedAmount);
+          }
+        });
+        return next;
+      });
+      setRefundedDrafts((current) => {
+        const next = { ...current };
+        items.forEach((item) => {
+          if (next[item.id] === undefined) {
+            next[item.id] = ensureAmountDraft(item.refundedAmount, item.approvedAmount ?? item.requestedAmount);
+          }
+        });
+        return next;
+      });
+      setReferenceDrafts((current) => {
+        const next = { ...current };
+        items.forEach((item) => {
+          if (next[item.id] === undefined) {
+            next[item.id] = item.refundReference || '';
           }
         });
         return next;
       });
     } catch (requestError) {
-      setError(requestError.message || 'Không thể tải danh sách hoàn tiền.');
+      setError(requestError.message || 'Khong the tai danh sach hoan tien.');
       setSummary({
         pendingCount: 0,
         completedCount: 0,
@@ -117,8 +175,56 @@ export default function AdminRefundsPage() {
     [refunds, selectedId],
   );
 
+  function getApprovedAmount(refund) {
+    return parseAmountDraft(approvedDrafts[refund.id], refund.requestedAmount);
+  }
+
+  function getRefundedAmount(refund) {
+    return parseAmountDraft(refundedDrafts[refund.id], refund.approvedAmount || refund.requestedAmount);
+  }
+
+  function getInternalNote(refund) {
+    return noteDrafts[refund.id]?.trim() || undefined;
+  }
+
+  function getRefundReference(refund) {
+    return referenceDrafts[refund.id]?.trim() || undefined;
+  }
+
   async function handleRefundAction(refund, action) {
     if (!refund) {
+      return;
+    }
+
+    const approvedAmount = getApprovedAmount(refund);
+    const refundedAmount = getRefundedAmount(refund);
+    const internalNote = getInternalNote(refund);
+    const refundReference = getRefundReference(refund);
+
+    if (action === 'approve' && (!Number.isFinite(approvedAmount) || approvedAmount <= 0)) {
+      setError('So tien duyet phai lon hon 0.');
+      return;
+    }
+
+    if (action === 'complete') {
+      if (!Number.isFinite(refundedAmount) || refundedAmount <= 0) {
+        setError('So tien da hoan phai lon hon 0.');
+        return;
+      }
+
+      if (!refundReference) {
+        setError('Vui long nhap ma tham chieu hoan tien.');
+        return;
+      }
+    }
+
+    const confirmMessage = action === 'approve'
+      ? `Duyet refund ${refund.refundCode} voi so tien ${formatCurrency(approvedAmount, refund.currencyCode)}?`
+      : action === 'reject'
+        ? `Tu choi refund ${refund.refundCode}?`
+        : `Xac nhan da hoan tien thu cong ${formatCurrency(refundedAmount, refund.currencyCode)} cho refund ${refund.refundCode}?`;
+
+    if (!window.confirm(confirmMessage)) {
       return;
     }
 
@@ -126,49 +232,48 @@ export default function AdminRefundsPage() {
     setError('');
     setNotice('');
 
-    const reviewNote = noteDrafts[refund.id]?.trim() || undefined;
-
     try {
       if (action === 'approve') {
         await approveAdminCommerceRefund(refund.id, {
-          approvedAmount: refund.requestedAmount,
-          reviewNote,
-        });
-        setNotice('Yêu cầu hoàn tiền đã được duyệt.');
+          approvedAmount,
+          internalNote,
+        }, refund.tenantId);
+        setNotice('Yeu cau hoan tien da duoc duyet.');
       } else if (action === 'reject') {
         await rejectAdminCommerceRefund(refund.id, {
-          reviewNote: reviewNote || 'Từ chối theo quyết định admin/platform.',
-        });
-        setNotice('Yêu cầu hoàn tiền đã bị từ chối.');
+          internalNote: internalNote || 'Tu choi theo quyet dinh admin/platform.',
+        }, refund.tenantId);
+        setNotice('Yeu cau hoan tien da bi tu choi.');
       } else {
         await completeAdminCommerceRefund(refund.id, {
-          refundedAmount: refund.approvedAmount || refund.requestedAmount,
-          reviewNote: reviewNote || 'Admin đã xác nhận hoàn tiền thủ công.',
-        });
-        setNotice('Refund đã được đánh dấu hoàn tất.');
+          refundedAmount,
+          refundReference,
+          internalNote: internalNote || 'Admin da xac nhan hoan tien thu cong.',
+        }, refund.tenantId);
+        setNotice('Refund da duoc danh dau hoan tat.');
       }
 
       await loadRefunds();
     } catch (requestError) {
-      setError(requestError.message || 'Không thể cập nhật yêu cầu hoàn tiền.');
+      setError(requestError.message || 'Khong the cap nhat yeu cau hoan tien.');
     } finally {
       setSavingId('');
     }
   }
 
   const stats = [
-    { label: 'Chờ duyệt', value: summary.pendingCount || 0, className: 'bg-amber-50', icon: <Clock size={18} className="text-amber-600" /> },
-    { label: 'Đã hoàn', value: summary.completedCount || 0, className: 'bg-emerald-50', icon: <CheckCircle2 size={18} className="text-emerald-600" /> },
-    { label: 'Từ chối', value: summary.rejectedCount || 0, className: 'bg-rose-50', icon: <XCircle size={18} className="text-rose-600" /> },
-    { label: 'Tổng yêu cầu', value: summary.totalCount || 0, className: 'bg-slate-900', icon: <RotateCcw size={18} className="text-white/60" /> },
+    { label: 'Cho duyet', value: summary.pendingCount || 0, className: 'bg-amber-50', icon: <Clock size={18} className="text-amber-600" /> },
+    { label: 'Da hoan', value: summary.completedCount || 0, className: 'bg-emerald-50', icon: <CheckCircle2 size={18} className="text-emerald-600" /> },
+    { label: 'Tu choi', value: summary.rejectedCount || 0, className: 'bg-rose-50', icon: <XCircle size={18} className="text-rose-600" /> },
+    { label: 'Tong yeu cau', value: summary.totalCount || 0, className: 'bg-slate-900', icon: <RotateCcw size={18} className="text-white/60" /> },
   ];
 
   return (
     <div>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-black text-slate-900">Quản lý Hoàn tiền</h1>
-          <p className="text-slate-500 text-sm mt-1">Duyệt, từ chối và theo dõi tiến trình hoàn tiền thật của platform marketplace.</p>
+          <h1 className="text-2xl font-black text-slate-900">Quan ly Hoan tien</h1>
+          <p className="text-slate-500 text-sm mt-1">Duyet, tu choi va xac nhan hoan tien thu cong theo dung nghiep vu marketplace.</p>
         </div>
         <button
           type="button"
@@ -176,7 +281,7 @@ export default function AdminRefundsPage() {
           className="px-5 py-3 bg-slate-900 text-white rounded-2xl font-bold text-sm flex items-center gap-2 hover:bg-blue-600 transition-all shadow-lg"
         >
           <RefreshCw size={16} />
-          Tải lại
+          Tai lai
         </button>
       </div>
 
@@ -222,7 +327,7 @@ export default function AdminRefundsPage() {
           <input
             value={search}
             onChange={(event) => setSearch(event.target.value)}
-            placeholder="Mã hoàn, tên khách…"
+            placeholder="Ma hoan, ma don, ten khach..."
             className="bg-transparent py-3 flex-1 text-sm font-medium outline-none"
           />
         </div>
@@ -243,12 +348,12 @@ export default function AdminRefundsPage() {
         <div className="lg:col-span-2 space-y-3">
           {loading ? (
             <div className="bg-white rounded-2xl p-10 text-center text-slate-400 border border-slate-100">
-              <p className="font-bold">Đang tải yêu cầu hoàn tiền...</p>
+              <p className="font-bold">Dang tai yeu cau hoan tien...</p>
             </div>
           ) : refunds.length === 0 ? (
             <div className="bg-white rounded-2xl p-10 text-center text-slate-300 border border-slate-100">
               <RotateCcw size={36} className="mx-auto mb-3 opacity-30" />
-              <p className="font-bold">Không có yêu cầu nào</p>
+              <p className="font-bold">Khong co yeu cau nao</p>
             </div>
           ) : (
             refunds.map((item, index) => {
@@ -273,8 +378,8 @@ export default function AdminRefundsPage() {
                           {formatCustomerRefundStatusLabel(item.status)}
                         </span>
                       </div>
-                      <p className="text-sm font-bold text-slate-700">{item.customerName} · {item.serviceTitle || item.orderCode}</p>
-                      <p className="text-xs text-slate-400 font-bold mt-0.5">{item.reasonText || item.reasonCode} · {formatDateTime(item.requestedAt)}</p>
+                      <p className="text-sm font-bold text-slate-700">{item.customerName} - {item.serviceTitle || item.orderCode}</p>
+                      <p className="text-xs text-slate-400 font-bold mt-0.5">{item.reasonText || item.reasonCode} - {formatDateTime(item.requestedAt)}</p>
                     </div>
                     <p className="font-black text-slate-900 shrink-0">{formatCurrency(item.requestedAmount, item.currencyCode)}</p>
                   </div>
@@ -289,7 +394,7 @@ export default function AdminRefundsPage() {
                         }}
                         className="px-4 py-2 bg-emerald-50 text-emerald-700 rounded-xl text-[10px] font-black uppercase hover:bg-emerald-100 transition-all disabled:opacity-60"
                       >
-                        ✓ Duyệt
+                        Duyet
                       </button>
                       <button
                         type="button"
@@ -300,10 +405,10 @@ export default function AdminRefundsPage() {
                         }}
                         className="px-4 py-2 bg-rose-50 text-rose-600 rounded-xl text-[10px] font-black uppercase hover:bg-rose-100 transition-all disabled:opacity-60"
                       >
-                        ✕ Từ chối
+                        Tu choi
                       </button>
                     </div>
-                  ) : Number(item.status) === CUSTOMER_REFUND_STATUS.APPROVED ? (
+                  ) : canComplete(item.status) ? (
                     <button
                       type="button"
                       disabled={isSaving}
@@ -313,7 +418,7 @@ export default function AdminRefundsPage() {
                       }}
                       className="mt-3 px-4 py-2 bg-blue-50 text-blue-700 rounded-xl text-[10px] font-black uppercase hover:bg-blue-100 transition-all disabled:opacity-60"
                     >
-                      ⟳ Xác nhận đã hoàn tiền
+                      Xac nhan da hoan tien
                     </button>
                   ) : null}
                 </motion.div>
@@ -325,39 +430,104 @@ export default function AdminRefundsPage() {
         <div className="lg:col-span-1">
           {selected ? (
             <div className="sticky top-6 bg-white rounded-2xl p-6 shadow-xl shadow-slate-100/60 border border-slate-100">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Chi tiết yêu cầu</p>
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Chi tiet yeu cau</p>
               {[
-                { label: 'Mã hoàn', value: selected.refundCode },
-                { label: 'Đơn đặt', value: selected.orderCode },
-                { label: 'Khách hàng', value: selected.customerName },
-                { label: 'Dịch vụ', value: selected.serviceTitle || selected.orderCode },
-                { label: 'Lý do', value: selected.reasonText || selected.reasonCode },
-                { label: 'Số tiền', value: formatCurrency(selected.requestedAmount, selected.currencyCode) },
-                { label: 'Đã duyệt', value: selected.approvedAmount ? formatCurrency(selected.approvedAmount, selected.currencyCode) : '—' },
-                { label: 'Đã hoàn', value: selected.refundedAmount ? formatCurrency(selected.refundedAmount, selected.currencyCode) : '—' },
-                { label: 'Ngày yêu cầu', value: formatDateTime(selected.requestedAt) },
-                { label: 'Ngày xử lý', value: selected.completedAt ? formatDateTime(selected.completedAt) : selected.reviewedAt ? formatDateTime(selected.reviewedAt) : '—' },
+                { label: 'Ma hoan', value: selected.refundCode },
+                { label: 'Don dat', value: selected.orderCode },
+                { label: 'Khach hang', value: selected.customerName },
+                { label: 'Dich vu', value: selected.serviceTitle || selected.orderCode },
+                { label: 'Ly do', value: selected.reasonText || selected.reasonCode },
+                { label: 'So tien yeu cau', value: formatCurrency(selected.requestedAmount, selected.currencyCode) },
+                { label: 'Da duyet', value: selected.approvedAmount ? formatCurrency(selected.approvedAmount, selected.currencyCode) : '-' },
+                { label: 'Da hoan', value: selected.refundedAmount ? formatCurrency(selected.refundedAmount, selected.currencyCode) : '-' },
+                { label: 'Ref hoan', value: selected.refundReference || '-' },
+                { label: 'Ngay yeu cau', value: formatDateTime(selected.requestedAt) },
+                { label: 'Ngay xu ly', value: selected.completedAt ? formatDateTime(selected.completedAt) : selected.reviewedAt ? formatDateTime(selected.reviewedAt) : '-' },
               ].map((field) => (
                 <div key={field.label} className="flex justify-between py-2.5 border-b border-slate-50 last:border-0 gap-4">
                   <span className="text-xs text-slate-400 font-bold">{field.label}</span>
                   <span className="text-xs font-black text-slate-900 text-right max-w-[55%]">{field.value}</span>
                 </div>
               ))}
-              <div className="mt-4">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Ghi chú xử lý</label>
-                <textarea
-                  rows={3}
-                  value={noteDrafts[selected.id] || ''}
-                  onChange={(event) => setNoteDrafts((current) => ({ ...current, [selected.id]: event.target.value }))}
-                  placeholder="Nhập ghi chú nội bộ…"
-                  className="w-full bg-slate-50 rounded-xl p-3 text-sm font-medium outline-none border-2 border-transparent focus:border-[#1EB4D4]/30 resize-none"
-                />
+
+              <div className="mt-4 grid gap-3">
+                <div>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">So tien duyet</label>
+                  <input
+                    inputMode="decimal"
+                    value={approvedDrafts[selected.id] || ''}
+                    onChange={(event) => setApprovedDrafts((current) => ({ ...current, [selected.id]: event.target.value }))}
+                    placeholder="Nhap so tien duyet"
+                    className="w-full bg-slate-50 rounded-xl px-3 py-3 text-sm font-medium outline-none border-2 border-transparent focus:border-[#1EB4D4]/30"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">So tien da hoan</label>
+                  <input
+                    inputMode="decimal"
+                    value={refundedDrafts[selected.id] || ''}
+                    onChange={(event) => setRefundedDrafts((current) => ({ ...current, [selected.id]: event.target.value }))}
+                    placeholder="Nhap so tien hoan thuc te"
+                    className="w-full bg-slate-50 rounded-xl px-3 py-3 text-sm font-medium outline-none border-2 border-transparent focus:border-[#1EB4D4]/30"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Ma tham chieu hoan</label>
+                  <input
+                    value={referenceDrafts[selected.id] || ''}
+                    onChange={(event) => setReferenceDrafts((current) => ({ ...current, [selected.id]: event.target.value }))}
+                    placeholder="VD: MB-REF-20260420-001"
+                    className="w-full bg-slate-50 rounded-xl px-3 py-3 text-sm font-medium outline-none border-2 border-transparent focus:border-[#1EB4D4]/30"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Ghi chu noi bo</label>
+                  <textarea
+                    rows={3}
+                    value={noteDrafts[selected.id] || ''}
+                    onChange={(event) => setNoteDrafts((current) => ({ ...current, [selected.id]: event.target.value }))}
+                    placeholder="Nhap ghi chu noi bo..."
+                    className="w-full bg-slate-50 rounded-xl p-3 text-sm font-medium outline-none border-2 border-transparent focus:border-[#1EB4D4]/30 resize-none"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {canApprove(selected.status) ? (
+                  <>
+                    <button
+                      type="button"
+                      disabled={savingId === selected.id}
+                      onClick={() => handleRefundAction(selected, 'approve')}
+                      className="px-4 py-2 bg-emerald-50 text-emerald-700 rounded-xl text-[10px] font-black uppercase hover:bg-emerald-100 transition-all disabled:opacity-60"
+                    >
+                      Duyet voi so tien nhap tay
+                    </button>
+                    <button
+                      type="button"
+                      disabled={savingId === selected.id}
+                      onClick={() => handleRefundAction(selected, 'reject')}
+                      className="px-4 py-2 bg-rose-50 text-rose-600 rounded-xl text-[10px] font-black uppercase hover:bg-rose-100 transition-all disabled:opacity-60"
+                    >
+                      Tu choi
+                    </button>
+                  </>
+                ) : canComplete(selected.status) ? (
+                  <button
+                    type="button"
+                    disabled={savingId === selected.id}
+                    onClick={() => handleRefundAction(selected, 'complete')}
+                    className="px-4 py-2 bg-blue-50 text-blue-700 rounded-xl text-[10px] font-black uppercase hover:bg-blue-100 transition-all disabled:opacity-60"
+                  >
+                    Xac nhan hoan thu cong
+                  </button>
+                ) : null}
               </div>
             </div>
           ) : (
             <div className="bg-white rounded-2xl p-10 text-center text-slate-300 border border-slate-100">
               <AlertCircle size={32} className="mx-auto mb-3 opacity-30" />
-              <p className="font-bold text-sm">Chọn yêu cầu để xem chi tiết</p>
+              <p className="font-bold text-sm">Chon yeu cau de xem chi tiet</p>
             </div>
           )}
         </div>

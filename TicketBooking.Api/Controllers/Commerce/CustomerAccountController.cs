@@ -17,10 +17,12 @@ namespace TicketBooking.Api.Controllers.Commerce;
 public sealed class CustomerAccountController : ControllerBase
 {
     private readonly AppDbContext _db;
+    private readonly CustomerNotificationService _notificationService;
 
-    public CustomerAccountController(AppDbContext db)
+    public CustomerAccountController(AppDbContext db, CustomerNotificationService notificationService)
     {
         _db = db;
+        _notificationService = notificationService;
     }
 
     [HttpGet("preferences")]
@@ -211,6 +213,20 @@ public sealed class CustomerAccountController : ControllerBase
         draft.UpdatedByUserId = userId.Value;
 
         await _db.SaveChangesAsync(ct);
+        if (draft.ResumeCount == 1)
+        {
+            await _notificationService.CreateAsync(
+                userId.Value,
+                null,
+                "checkout",
+                "Đã khôi phục checkout đang dở",
+                $"Bạn có thể tiếp tục lại luồng đặt {draft.Title} từ bước gần nhất đã lưu.",
+                draft.ResumeUrl,
+                "checkout-draft",
+                draft.Id,
+                ct: ct);
+        }
+
         return Ok(MapCheckoutDraft(draft));
     }
 
@@ -375,6 +391,110 @@ public sealed class CustomerAccountController : ControllerBase
             .ToListAsync(ct);
 
         return Ok(items);
+    }
+
+    [HttpGet("personalized-suggestions")]
+    public async Task<ActionResult<List<CustomerPersonalizedSuggestionDto>>> ListPersonalizedSuggestions(
+        [FromQuery] int limit = 6,
+        CancellationToken ct = default)
+    {
+        var userId = GetCurrentUserId();
+        if (!userId.HasValue)
+            return Unauthorized(new { message = "Bạn cần đăng nhập để xem gợi ý phù hợp." });
+
+        var safeLimit = Math.Clamp(limit, 1, 12);
+        var suggestions = new List<CustomerPersonalizedSuggestionDto>();
+        var usedKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        var wishlistItems = await _db.CustomerWishlistItems
+            .AsNoTracking()
+            .Where(x => x.UserId == userId.Value && !x.IsDeleted && !string.IsNullOrWhiteSpace(x.TargetUrl))
+            .OrderByDescending(x => x.UpdatedAt ?? x.CreatedAt)
+            .Take(safeLimit)
+            .ToListAsync(ct);
+
+        foreach (var item in wishlistItems)
+        {
+            AppendSuggestion(
+                suggestions,
+                usedKeys,
+                safeLimit,
+                new CustomerPersonalizedSuggestionDto
+                {
+                    Id = $"wishlist-{item.Id:N}",
+                    ProductType = item.ProductType,
+                    Title = item.Title,
+                    Subtitle = item.Subtitle ?? item.LocationText,
+                    ImageUrl = item.ImageUrl,
+                    PriceText = item.PriceText,
+                    TargetUrl = item.TargetUrl,
+                    ReasonText = "Bạn đã lưu dịch vụ này trong wishlist.",
+                    SourceType = "wishlist",
+                    Score = 100m,
+                });
+        }
+
+        var recentViews = await _db.CustomerRecentViews
+            .AsNoTracking()
+            .Where(x => x.UserId == userId.Value && !x.IsDeleted && !string.IsNullOrWhiteSpace(x.TargetUrl))
+            .OrderByDescending(x => x.ViewedAt)
+            .Take(12)
+            .ToListAsync(ct);
+
+        foreach (var item in recentViews)
+        {
+            AppendSuggestion(
+                suggestions,
+                usedKeys,
+                safeLimit,
+                new CustomerPersonalizedSuggestionDto
+                {
+                    Id = $"view-{item.Id:N}",
+                    ProductType = item.ProductType,
+                    Title = item.Title,
+                    Subtitle = item.Subtitle ?? item.LocationText,
+                    ImageUrl = item.ImageUrl,
+                    PriceText = item.PriceText,
+                    TargetUrl = item.TargetUrl,
+                    ReasonText = item.ViewCount > 1
+                        ? "Bạn đã xem lại dịch vụ này nhiều lần gần đây."
+                        : "Dựa trên lịch sử xem gần đây của bạn.",
+                    SourceType = "recent-view",
+                    Score = 80m + Math.Min(15m, item.ViewCount),
+                });
+        }
+
+        var recentSearches = await _db.CustomerRecentSearches
+            .AsNoTracking()
+            .Where(x => x.UserId == userId.Value && !x.IsDeleted && !string.IsNullOrWhiteSpace(x.SearchUrl))
+            .OrderByDescending(x => x.SearchedAt)
+            .Take(8)
+            .ToListAsync(ct);
+
+        foreach (var item in recentSearches)
+        {
+            AppendSuggestion(
+                suggestions,
+                usedKeys,
+                safeLimit,
+                new CustomerPersonalizedSuggestionDto
+                {
+                    Id = $"search-{item.Id:N}",
+                    ProductType = item.ProductType,
+                    Title = item.SummaryText ?? item.QueryText ?? "Mở lại tìm kiếm gần đây",
+                    Subtitle = item.QueryText,
+                    TargetUrl = item.SearchUrl,
+                    ReasonText = "Mở lại bộ lọc bạn đã dùng gần đây để tiếp tục so sánh.",
+                    SourceType = "recent-search",
+                    Score = 60m + Math.Min(10m, item.SearchCount),
+                });
+        }
+
+        return Ok(suggestions
+            .OrderByDescending(x => x.Score)
+            .ThenBy(x => x.Title, StringComparer.OrdinalIgnoreCase)
+            .Take(safeLimit)
+            .ToList());
     }
 
     [HttpPost("recent-searches")]
@@ -1248,6 +1368,25 @@ public sealed class CustomerAccountController : ControllerBase
             SearchedAt = item.SearchedAt,
             SearchCount = item.SearchCount,
         };
+    }
+
+    private static void AppendSuggestion(
+        ICollection<CustomerPersonalizedSuggestionDto> items,
+        ISet<string> usedKeys,
+        int limit,
+        CustomerPersonalizedSuggestionDto suggestion)
+    {
+        if (items.Count >= limit)
+            return;
+
+        if (string.IsNullOrWhiteSpace(suggestion.TargetUrl) || string.IsNullOrWhiteSpace(suggestion.Title))
+            return;
+
+        var key = $"{suggestion.ProductType}:{suggestion.TargetUrl}".ToLowerInvariant();
+        if (!usedKeys.Add(key))
+            return;
+
+        items.Add(suggestion);
     }
 
     private static CustomerAccountPreferenceDto MapPreference(CustomerAccountPreference? preference)

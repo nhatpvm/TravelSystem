@@ -88,6 +88,31 @@ public sealed class CustomerOrdersController : ControllerBase
         return Ok(await _customerOrderService.GetOrderAsync(orderCode, userId.Value, ct));
     }
 
+    [HttpGet("{orderCode}/timeline")]
+    public async Task<ActionResult<List<CustomerOrderTimelineEventDto>>> GetTimeline(
+        string orderCode,
+        CancellationToken ct = default)
+    {
+        var userId = GetCurrentUserId();
+        if (!userId.HasValue)
+            return Unauthorized(new { message = "Bạn cần đăng nhập để theo dõi tiến trình đơn hàng." });
+
+        return Ok(await _customerOrderService.GetOrderTimelineAsync(orderCode, userId.Value, ct));
+    }
+
+    [HttpGet("{orderCode}/refund-estimate")]
+    public async Task<ActionResult<CustomerRefundEstimateDto>> GetRefundEstimate(
+        string orderCode,
+        [FromQuery] decimal? requestedAmount = null,
+        CancellationToken ct = default)
+    {
+        var userId = GetCurrentUserId();
+        if (!userId.HasValue)
+            return Unauthorized(new { message = "Bạn cần đăng nhập để xem ước tính hoàn tiền." });
+
+        return Ok(await _customerOrderService.GetRefundEstimateAsync(orderCode, userId.Value, requestedAmount, ct));
+    }
+
     [HttpPost("{orderCode}/payment-init")]
     public async Task<ActionResult<CustomerOrderDetailDto>> StartPayment(
         string orderCode,

@@ -27,6 +27,14 @@ export function getCustomerOrder(orderCode) {
   return api.get(`/customer/orders/${encodeURIComponent(orderCode)}`);
 }
 
+export function getCustomerOrderTimeline(orderCode) {
+  return api.get(`/customer/orders/${encodeURIComponent(orderCode)}/timeline`);
+}
+
+export function getCustomerRefundEstimate(orderCode, params = {}) {
+  return api.get(`/customer/orders/${encodeURIComponent(orderCode)}/refund-estimate${toQuery(params)}`);
+}
+
 export function getSupportedPaymentMethods() {
   return api.get('/customer/orders/payment-methods');
 }
@@ -85,6 +93,10 @@ export function listRecentSearches(params = {}) {
 
 export function trackRecentSearch(payload) {
   return api.post('/customer/account/recent-searches', payload);
+}
+
+export function listPersonalizedSuggestions(params = {}) {
+  return api.get(`/customer/account/personalized-suggestions${toQuery(params)}`);
 }
 
 export function getCustomerAccountPreferences() {

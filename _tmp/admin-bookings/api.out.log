@@ -1,0 +1,71 @@
+Using launch settings from D:\FPT\TicketBooking.V3\TicketBooking.Api\Properties\launchSettings.json...
+Building...
+[21:24:53 WRN] The 'CustomerSettlementStatus' property 'SettlementStatus' on entity type 'CustomerOrder' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+[21:24:53 WRN] The 'CustomerSettlementBatchStatus' property 'Status' on entity type 'CustomerSettlementBatch' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementBatchStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+[21:24:53 WRN] The 'CustomerSettlementStatus' property 'Status' on entity type 'CustomerSettlementBatchLine' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+[21:24:54 INF] Ensured user 'qlnx' with role 'QLNX'.
+[21:24:54 INF] Ensured user 'qlks' with role 'QLKS'.
+[21:24:54 INF] Ensured user 'qlvt' with role 'QLVT'.
+[21:24:54 INF] Ensured user 'qlvmm' with role 'QLVMM'.
+[21:24:54 INF] Ensured user 'qltour' with role 'QLTour'.
+[21:24:54 INF] Ensured user 'scanner_nx' with role 'Customer'.
+[21:24:54 INF] Ensured user 'customer' with role 'Customer'.
+[21:24:54 INF] Identity seed completed.
+[21:24:54 INF] Tenant NX001 already exists.
+[21:24:54 INF] Tenant VT001 already exists.
+[21:24:54 INF] Tenant VMM001 already exists.
+[21:24:54 INF] Tenant KS001 already exists.
+[21:24:54 INF] Tenant TOUR001 already exists.
+[21:24:54 INF] Updated tenant link 'qlnx' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[21:24:54 INF] Updated tenant link 'admin' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[21:24:54 INF] Updated tenant link 'qlvt' -> tenant 8f759d36-942d-4666-bda8-195ccfc7939a.
+[21:24:54 INF] Updated tenant link 'admin' -> tenant 8f759d36-942d-4666-bda8-195ccfc7939a.
+[21:24:54 INF] Updated tenant link 'qlvmm' -> tenant 47997b25-a35b-4291-a7ca-2521e14ea6e4.
+[21:24:54 INF] Updated tenant link 'admin' -> tenant 47997b25-a35b-4291-a7ca-2521e14ea6e4.
+[21:24:54 INF] Updated tenant link 'qlks' -> tenant 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+[21:24:54 INF] Updated tenant link 'admin' -> tenant 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+[21:24:54 INF] Updated tenant link 'qltour' -> tenant dfb80807-d1db-43b0-a62f-9b744f1dde4f.
+[21:24:54 INF] Updated tenant link 'admin' -> tenant dfb80807-d1db-43b0-a62f-9b744f1dde4f.
+[21:24:54 INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+[21:24:55 INF] Permissions seed completed.
+[21:24:55 INF] Tenant system role seed completed.
+[21:24:55 INF] Updated TenantUser link 'customer' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[21:24:55 INF] Updated TenantUser link 'scanner_nx' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[21:24:55 INF] TenantRoles seed completed for NX001.
+[21:24:56 INF] BUS demo seed completed for tenant NX001.
+[21:24:56 INF] TRAIN demo seed completed for tenant VT001.
+[21:24:57 INF] Flight demo seed completed for tenant VMM001.
+[21:24:57 INF] CmsDemoSeed completed for tenant NX001.
+[21:24:57 INF] Hotel demo seed starting for 6 tenant(s). Days=14
+[21:24:57 INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+[21:24:58 INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+[21:24:58 INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+[21:24:58 INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+[21:24:58 INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+[21:24:58 INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+[21:24:58 INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+[21:24:59 INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+[21:24:59 INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+[21:24:59 INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+[21:24:59 INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+[21:24:59 INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+[21:24:59 INF] Hotel demo seed finished.
+[21:24:59 INF] Now listening on: http://127.0.0.1:5183
+[21:24:59 INF] Application started. Press Ctrl+C to shut down.
+[21:24:59 INF] Hosting environment: Development
+[21:24:59 INF] Content root path: D:\FPT\TicketBooking.V3\TicketBooking.Api
+[21:25:01 WRN] Failed to determine the https port for redirect.
+[21:25:01 INF] HTTP POST /api/v1/auth/login responded 200 in 253.5512 ms
+[21:25:01 INF] HTTP GET /api/v1/admin/commerce/bookings responded 200 in 292.4429 ms
+[21:25:33 INF] HTTP POST /api/v1/auth/login responded 200 in 91.7653 ms
+[21:25:34 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 91.6981 ms
+[21:25:34 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 14.6095 ms
+[21:25:34 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 7.2717 ms
+[21:25:34 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 6.9183 ms
+[21:25:34 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 94.9866 ms
+[21:25:34 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 11.1176 ms
+[21:25:34 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 8.9417 ms
+[21:25:34 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 16.3153 ms
+[21:25:34 INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 23.6844 ms
+[21:25:34 INF] HTTP GET /api/v1/admin/commerce/bookings responded 200 in 53.0940 ms
+[21:25:34 INF] HTTP GET /api/v1/admin/commerce/bookings responded 200 in 17.9769 ms
