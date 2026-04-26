@@ -100,7 +100,7 @@ export default function AdminTrainCarsPage() {
         setLayoutForm(getDefaultLayoutForCarType(selected.carType));
       } else {
         setSelectedId('');
-        setForm((current) => ({ ...createEmptyForm(), tripId: selectedTripId || nextTrips[0]?.id || '' }));
+        setForm({ ...createEmptyForm(), tripId: selectedTripId || nextTrips[0]?.id || '' });
       }
     } catch (requestError) {
       setError(requestError.message || 'Không tải được danh sách toa tàu.');

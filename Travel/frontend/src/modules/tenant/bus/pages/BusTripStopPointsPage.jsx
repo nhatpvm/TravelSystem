@@ -294,7 +294,7 @@ const BusTripStopPointsPage = () => {
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none"
             >
               {stopTimes.map((item) => (
-                <option key={item.id} value={item.id}>Stop #{item.stopIndex}</option>
+                <option key={item.id} value={item.id}>Điểm dừng số {Number(item.stopIndex) + 1}</option>
               ))}
             </select>
           </label>
@@ -360,6 +360,21 @@ const BusTripStopPointsPage = () => {
               <p className="font-black text-slate-900">{pickupSelectedId ? 'Cập nhật điểm đón' : 'Tạo điểm đón'}</p>
               <input value={pickupForm.name} onChange={(event) => setPickupForm((current) => ({ ...current, name: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold outline-none" placeholder="Tên điểm đón" required />
               <input value={pickupForm.addressLine} onChange={(event) => setPickupForm((current) => ({ ...current, addressLine: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold outline-none" placeholder="Địa chỉ chi tiết" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <input type="number" value={pickupForm.latitude} onChange={(event) => setPickupForm((current) => ({ ...current, latitude: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold outline-none" placeholder="Vĩ độ" />
+                <input type="number" value={pickupForm.longitude} onChange={(event) => setPickupForm((current) => ({ ...current, longitude: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold outline-none" placeholder="Kinh độ" />
+                <input type="number" value={pickupForm.sortOrder} onChange={(event) => setPickupForm((current) => ({ ...current, sortOrder: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold outline-none" placeholder="Thứ tự hiển thị" />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <label className="flex items-center gap-3 text-sm font-bold text-slate-600">
+                  <input type="checkbox" checked={pickupForm.isDefault} onChange={(event) => setPickupForm((current) => ({ ...current, isDefault: event.target.checked }))} className="h-4 w-4 rounded border-slate-300" />
+                  Điểm đón mặc định
+                </label>
+                <label className="flex items-center gap-3 text-sm font-bold text-slate-600">
+                  <input type="checkbox" checked={pickupForm.isActive} onChange={(event) => setPickupForm((current) => ({ ...current, isActive: event.target.checked }))} className="h-4 w-4 rounded border-slate-300" />
+                  Đang sử dụng
+                </label>
+              </div>
               <button type="submit" className="w-full rounded-[1.5rem] bg-slate-900 px-5 py-4 text-sm font-black uppercase tracking-widest text-white">
                 Lưu điểm đón
               </button>
@@ -425,6 +440,21 @@ const BusTripStopPointsPage = () => {
               <p className="font-black text-slate-900">{dropoffSelectedId ? 'Cập nhật điểm trả' : 'Tạo điểm trả'}</p>
               <input value={dropoffForm.name} onChange={(event) => setDropoffForm((current) => ({ ...current, name: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold outline-none" placeholder="Tên điểm trả" required />
               <input value={dropoffForm.addressLine} onChange={(event) => setDropoffForm((current) => ({ ...current, addressLine: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold outline-none" placeholder="Địa chỉ chi tiết" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <input type="number" value={dropoffForm.latitude} onChange={(event) => setDropoffForm((current) => ({ ...current, latitude: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold outline-none" placeholder="Vĩ độ" />
+                <input type="number" value={dropoffForm.longitude} onChange={(event) => setDropoffForm((current) => ({ ...current, longitude: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold outline-none" placeholder="Kinh độ" />
+                <input type="number" value={dropoffForm.sortOrder} onChange={(event) => setDropoffForm((current) => ({ ...current, sortOrder: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold outline-none" placeholder="Thứ tự hiển thị" />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <label className="flex items-center gap-3 text-sm font-bold text-slate-600">
+                  <input type="checkbox" checked={dropoffForm.isDefault} onChange={(event) => setDropoffForm((current) => ({ ...current, isDefault: event.target.checked }))} className="h-4 w-4 rounded border-slate-300" />
+                  Điểm trả mặc định
+                </label>
+                <label className="flex items-center gap-3 text-sm font-bold text-slate-600">
+                  <input type="checkbox" checked={dropoffForm.isActive} onChange={(event) => setDropoffForm((current) => ({ ...current, isActive: event.target.checked }))} className="h-4 w-4 rounded border-slate-300" />
+                  Đang sử dụng
+                </label>
+              </div>
               <button type="submit" className="w-full rounded-[1.5rem] bg-slate-900 px-5 py-4 text-sm font-black uppercase tracking-widest text-white">
                 Lưu điểm trả
               </button>

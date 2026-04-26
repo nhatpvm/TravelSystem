@@ -258,3 +258,75 @@ export function deleteBusVehicleDetail(id) {
 export function restoreBusVehicleDetail(id) {
   return api.post(`/qlnx/fleet/bus-vehicle-details/${id}/restore`, {});
 }
+
+export function listBusFleetVehicles(params = {}) {
+  return api.get(`/qlnx/fleet/vehicles${toQuery(params)}`);
+}
+
+export function getBusFleetVehicle(id, params = {}) {
+  return api.get(`/qlnx/fleet/vehicles/${id}${toQuery(params)}`);
+}
+
+export function createBusFleetVehicle(payload) {
+  return api.post('/qlnx/fleet/vehicles', payload);
+}
+
+export function updateBusFleetVehicle(id, payload) {
+  return api.put(`/qlnx/fleet/vehicles/${id}`, payload);
+}
+
+export function deleteBusFleetVehicle(id) {
+  return api.delete(`/qlnx/fleet/vehicles/${id}`);
+}
+
+export function restoreBusFleetVehicle(id) {
+  return api.post(`/qlnx/fleet/vehicles/${id}/restore`, {});
+}
+
+export function listBusSeatMaps(params = {}) {
+  return api.get(`/qlnx/fleet/seat-maps${toQuery(params)}`);
+}
+
+export function getBusSeatMap(id, params = {}) {
+  return api.get(`/qlnx/fleet/seat-maps/${id}${toQuery(params)}`);
+}
+
+export function createBusSeatMap(payload) {
+  return api.post('/qlnx/fleet/seat-maps', payload);
+}
+
+export function updateBusSeatMap(id, payload) {
+  return api.put(`/qlnx/fleet/seat-maps/${id}`, payload);
+}
+
+export function deleteBusSeatMap(id) {
+  return api.delete(`/qlnx/fleet/seat-maps/${id}`);
+}
+
+export function restoreBusSeatMap(id) {
+  return api.post(`/qlnx/fleet/seat-maps/${id}/restore`, {});
+}
+
+export function generateBusSeatMapSeats(id, payload) {
+  return api.post(`/qlnx/fleet/seat-maps/${id}/generate-seats`, payload);
+}
+
+export function listBusSeatMapSeats(params = {}) {
+  return api.get(`/qlnx/fleet/seats${toQuery(params)}`);
+}
+
+export function updateBusSeat(id, payload) {
+  return api.put(`/qlnx/fleet/seats/${id}`, payload);
+}
+
+export function bulkUpdateBusSeats(payload) {
+  return api.put('/qlnx/fleet/seats/bulk', payload);
+}
+
+export function deleteBusSeat(id) {
+  return api.delete(`/qlnx/fleet/seats/${id}`);
+}
+
+export function restoreBusSeat(id) {
+  return api.post(`/qlnx/fleet/seats/${id}/restore`, {});
+}

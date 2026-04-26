@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   Activity,
@@ -56,17 +56,17 @@ const AdminLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuthSession();
-  const [headerSearch, setHeaderSearch] = useState('');
+  const headerSearchFromUrl = useMemo(() => {
+    const params = new URLSearchParams(location.search);
+    return params.get('q') || '';
+  }, [location.search]);
+  const [headerSearchDraft, setHeaderSearchDraft] = useState({ key: '', value: '' });
+  const headerSearch = headerSearchDraft.key === location.search ? headerSearchDraft.value : headerSearchFromUrl;
 
   const handleLogout = async () => {
     await logout();
     navigate('/auth/login', { replace: true });
   };
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    setHeaderSearch(params.get('q') || '');
-  }, [location.search]);
 
   const resolveSearchTarget = () => {
     const path = location.pathname;
@@ -124,7 +124,7 @@ const AdminLayout = () => {
             <input
               type="text"
               value={headerSearch}
-              onChange={(event) => setHeaderSearch(event.target.value)}
+              onChange={(event) => setHeaderSearchDraft({ key: location.search, value: event.target.value })}
               placeholder="Tìm user, tenant, booking..."
               className="bg-transparent border-none focus:outline-none text-sm w-full"
             />

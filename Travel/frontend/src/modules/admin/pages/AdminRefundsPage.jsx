@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import {
   AlertCircle,

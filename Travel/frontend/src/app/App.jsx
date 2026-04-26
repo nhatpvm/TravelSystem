@@ -114,7 +114,9 @@ import BusRoutesPage from '../modules/tenant/bus/pages/BusRoutesPage';
 import BusTripStopTimesPage from '../modules/tenant/bus/pages/BusTripStopTimesPage';
 import BusTripStopPointsPage from '../modules/tenant/bus/pages/BusTripStopPointsPage';
 import BusTripSegmentPricesPage from '../modules/tenant/bus/pages/BusTripSegmentPricesPage';
+import BusFleetVehiclesPage from '../modules/tenant/bus/pages/BusFleetVehiclesPage';
 import BusVehicleDetailsPage from '../modules/tenant/bus/pages/BusVehicleDetailsPage';
+import BusSeatMapsPage from '../modules/tenant/bus/pages/BusSeatMapsPage';
 import BusTripSeatsPage from '../modules/tenant/bus/pages/BusTripSeatsPage';
 import BusSeatHoldsPage from '../modules/tenant/bus/pages/BusSeatHoldsPage';
 import TrainStopPointsPage from '../modules/tenant/train/pages/TrainStopPointsPage';
@@ -316,7 +318,9 @@ function App() {
             <Route path="operations/tour/package-builder" element={<RequireAuth access="tenant" tenantModule="tour"><TourPackageBuilderPage /></RequireAuth>} />
             <Route path="operations/tour/reporting" element={<RequireAuth access="tenant" tenantModule="tour"><TourPackageReportingPage /></RequireAuth>} />
             <Route path="providers/bus" element={<RequireAuth access="tenant" tenantModule="bus"><BusProvidersPage /></RequireAuth>} />
+            <Route path="providers/bus/vehicles" element={<RequireAuth access="tenant" tenantModule="bus"><BusFleetVehiclesPage /></RequireAuth>} />
             <Route path="providers/bus/vehicle-details" element={<RequireAuth access="tenant" tenantModule="bus"><BusVehicleDetailsPage /></RequireAuth>} />
+            <Route path="providers/bus/seat-maps" element={<RequireAuth access="tenant" tenantModule="bus"><BusSeatMapsPage /></RequireAuth>} />
             <Route path="providers/bus/seats" element={<RequireAuth access="tenant" tenantModule="bus"><BusTripSeatsPage /></RequireAuth>} />
             <Route path="providers/bus/seat-holds" element={<RequireAuth access="tenant" tenantModule="bus"><BusSeatHoldsPage /></RequireAuth>} />
             <Route path="providers/train" element={<RequireAuth access="tenant" tenantModule="train"><TrainProvidersPage /></RequireAuth>} />

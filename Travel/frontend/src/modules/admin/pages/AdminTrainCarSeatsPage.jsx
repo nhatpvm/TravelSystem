@@ -99,7 +99,7 @@ export default function AdminTrainCarSeatsPage() {
         setForm(hydrateForm(selected));
       } else {
         setSelectedId('');
-        setForm((current) => ({ ...createEmptyForm(), carId: selectedCarId }));
+        setForm({ ...createEmptyForm(), carId: selectedCarId });
       }
     } catch (requestError) {
       setError(requestError.message || 'Không tải được danh sách ghế/giường.');

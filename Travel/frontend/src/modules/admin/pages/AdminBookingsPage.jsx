@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import {
   Bus,
   CheckCircle2,
@@ -119,21 +118,6 @@ function formatSettlementLabel(value) {
       return 'Tam giu';
     default:
       return 'Dang cap nhat';
-  }
-}
-
-function getTimelineToneClass(tone) {
-  switch (tone) {
-    case 'success':
-      return 'bg-emerald-100 text-emerald-700';
-    case 'warning':
-      return 'bg-amber-100 text-amber-700';
-    case 'danger':
-      return 'bg-rose-100 text-rose-700';
-    case 'info':
-      return 'bg-blue-100 text-blue-700';
-    default:
-      return 'bg-slate-100 text-slate-600';
   }
 }
 
@@ -359,7 +343,7 @@ export default function AdminBookingsPage() {
               Chua co don dat phu hop bo loc.
             </div>
           ) : (
-            filteredBookings.map((item, index) => {
+            filteredBookings.map((item) => {
               const isExpanded = expanded === item.id;
               const supportConfig = getSupportConfig(item);
               const detail = bookingDetails[item.id];

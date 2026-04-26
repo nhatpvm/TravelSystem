@@ -14,8 +14,12 @@ export function getBusManagementSectionPath(sectionKey = 'overview') {
       return '/tenant/operations/bus/trip-stop-points';
     case 'trip-segment-prices':
       return '/tenant/operations/bus/trip-segment-prices';
+    case 'vehicles':
+      return '/tenant/providers/bus/vehicles';
     case 'vehicle-details':
       return '/tenant/providers/bus/vehicle-details';
+    case 'seat-maps':
+      return '/tenant/providers/bus/seat-maps';
     case 'trip-seats':
       return '/tenant/providers/bus/seats';
     case 'seat-holds':

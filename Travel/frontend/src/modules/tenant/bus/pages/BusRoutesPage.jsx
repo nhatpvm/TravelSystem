@@ -437,7 +437,7 @@ const BusRoutesPage = () => {
             {routeStops.map((item, index) => (
               <div key={`route-stop-${index}`} className="rounded-[2rem] border border-slate-100 bg-slate-50 p-5 space-y-4">
                 <div className="flex items-center justify-between gap-4">
-                  <p className="text-sm font-black text-slate-900">Stop #{index}</p>
+                  <p className="text-sm font-black text-slate-900">Điểm dừng số {index + 1}</p>
                   <button
                     type="button"
                     onClick={() => setRouteStops((current) => current.filter((_, currentIndex) => currentIndex !== index).map((row, rowIndex) => ({ ...row, stopIndex: rowIndex })))}

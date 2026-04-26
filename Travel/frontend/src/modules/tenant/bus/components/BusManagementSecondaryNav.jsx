@@ -23,7 +23,9 @@ const NAV_ITEMS = [
   { key: 'trip-stop-times', label: 'Lịch dừng', icon: Clock3 },
   { key: 'trip-stop-points', label: 'Điểm đón trả', icon: LocateFixed },
   { key: 'trip-segment-prices', label: 'Giá chặng', icon: CircleDollarSign },
+  { key: 'vehicles', label: 'Xe', icon: Bus },
   { key: 'vehicle-details', label: 'Chi tiết xe', icon: Bus },
+  { key: 'seat-maps', label: 'Sơ đồ xe', icon: Armchair },
   { key: 'trip-seats', label: 'Sơ đồ ghế', icon: Armchair },
   { key: 'seat-holds', label: 'Giữ chỗ', icon: ShieldCheck },
 ];

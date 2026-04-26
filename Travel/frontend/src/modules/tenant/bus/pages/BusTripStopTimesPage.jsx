@@ -268,7 +268,7 @@ const BusTripStopTimesPage = () => {
                     <div>
                       <div className="flex items-center gap-3 flex-wrap">
                         <p className="font-black text-slate-900">
-                          Stop #{item.stopIndex} • {stopPointLookup[item.stopPointId]?.name || item.stopPointId}
+                          Điểm dừng số {Number(item.stopIndex) + 1} • {stopPointLookup[item.stopPointId]?.name || item.stopPointId}
                         </p>
                         {item.isDeleted ? (
                           <span className="px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-widest bg-rose-100 text-rose-700">

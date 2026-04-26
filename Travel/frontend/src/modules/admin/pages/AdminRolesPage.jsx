@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import { Shield, Plus, Check, X, Trash2, Link2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {

@@ -142,7 +142,7 @@ const BusSeatHoldsPage = () => {
                 </div>
                 <div>
                   <div className="flex items-center gap-3 flex-wrap">
-                    <p className="font-black text-slate-900">Seat ID: {item.seatId}</p>
+                    <p className="font-black text-slate-900">Ghế {item.seatNumber || item.seatId}</p>
                     <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-widest ${item.status === 1 ? 'bg-amber-100 text-amber-700' : item.status === 4 ? 'bg-slate-100 text-slate-600' : 'bg-rose-100 text-rose-700'}`}>
                       {item.status === 1 ? 'Đang giữ' : item.status === 4 ? 'Đã hết hạn' : 'Đã đóng'}
                     </span>
@@ -156,7 +156,7 @@ const BusSeatHoldsPage = () => {
                     Hold token: {item.holdToken}
                   </p>
                   <p className="text-xs font-bold text-slate-400 mt-1">
-                    Chặng {item.fromStopIndex} → {item.toStopIndex} • Hết hạn: {formatDateTime(item.holdExpiresAt)}
+                    Chặng từ điểm dừng số {Number(item.fromStopIndex) + 1} đến điểm dừng số {Number(item.toStopIndex) + 1} • Hết hạn: {formatDateTime(item.holdExpiresAt)}
                   </p>
                 </div>
               </div>

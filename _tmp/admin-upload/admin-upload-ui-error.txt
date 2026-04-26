@@ -1,5 +1,0 @@
-locator.waitFor: Timeout 15000ms exceeded.
-Call log:
-[2m  - waiting for getByText('Người dùng mới đã được tạo thành công.') to be visible[22m
-
-    at run (D:\FPT\TicketBooking.V3\_tmp\admin-upload\smoke-admin-uploads.mjs:111:66)

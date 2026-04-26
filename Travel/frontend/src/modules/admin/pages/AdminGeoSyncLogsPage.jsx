@@ -11,7 +11,6 @@ const AdminGeoSyncLogsPage = () => {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  const [selectedId, setSelectedId] = useState('');
   const [selectedLog, setSelectedLog] = useState(null);
 
   useEffect(() => {
@@ -38,7 +37,6 @@ const AdminGeoSyncLogsPage = () => {
   }
 
   async function loadDetail(id) {
-    setSelectedId(id);
     setDetailLoading(true);
     setError('');
 

@@ -164,7 +164,7 @@ const BusTripSeatsPage = () => {
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none"
             >
               {stopTimes.map((item) => (
-                <option key={item.id} value={item.id}>Stop #{item.stopIndex}</option>
+                <option key={item.id} value={item.id}>Điểm dừng số {Number(item.stopIndex) + 1}</option>
               ))}
             </select>
           </label>
@@ -176,7 +176,7 @@ const BusTripSeatsPage = () => {
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none"
             >
               {stopTimes.map((item) => (
-                <option key={item.id} value={item.id}>Stop #{item.stopIndex}</option>
+                <option key={item.id} value={item.id}>Điểm dừng số {Number(item.stopIndex) + 1}</option>
               ))}
             </select>
           </label>

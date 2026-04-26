@@ -4,11 +4,13 @@ import BusManagementPageShell from '../components/BusManagementPageShell';
 import { createBusVehicleDetail, deleteBusVehicleDetail, getBusManagerOptions, listBusVehicleDetails, restoreBusVehicleDetail, updateBusVehicleDetail } from '../../../../services/busService';
 import { parseAmenities } from '../utils/presentation';
 
+const AMENITY_OPTIONS = ['Wifi', 'Điều hòa', 'Nước uống', 'Khăn lạnh', 'Cổng sạc', 'Chăn mền', 'Màn hình', 'Ghế massage'];
+
 function createEmptyForm() {
   return {
     vehicleId: '',
     busType: '',
-    amenitiesJson: '["Wifi","Điều hòa"]',
+    amenitiesJson: JSON.stringify(['Wifi', 'Điều hòa']),
   };
 }
 
@@ -29,6 +31,7 @@ const BusVehicleDetailsPage = () => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+  const [customAmenity, setCustomAmenity] = useState('');
 
   const loadData = async () => {
     setLoading(true);
@@ -109,6 +112,35 @@ const BusVehicleDetailsPage = () => {
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái chi tiết xe.');
     }
+  };
+
+  const selectedAmenities = parseAmenities(form.amenitiesJson);
+
+  const handleToggleAmenity = (amenity) => {
+    setForm((current) => {
+      const nextAmenities = new Set(parseAmenities(current.amenitiesJson));
+      if (nextAmenities.has(amenity)) {
+        nextAmenities.delete(amenity);
+      } else {
+        nextAmenities.add(amenity);
+      }
+
+      return { ...current, amenitiesJson: JSON.stringify(Array.from(nextAmenities)) };
+    });
+  };
+
+  const handleAddCustomAmenity = () => {
+    const value = customAmenity.trim();
+    if (!value) {
+      return;
+    }
+
+    setForm((current) => {
+      const nextAmenities = new Set(parseAmenities(current.amenitiesJson));
+      nextAmenities.add(value);
+      return { ...current, amenitiesJson: JSON.stringify(Array.from(nextAmenities)) };
+    });
+    setCustomAmenity('');
   };
 
   return (
@@ -219,7 +251,7 @@ const BusVehicleDetailsPage = () => {
         <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 space-y-5">
           <div>
             <p className="text-xl font-black text-slate-900">{selectedId ? 'Cập nhật chi tiết xe' : 'Tạo chi tiết xe mới'}</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Nên nhập tiện ích bằng JSON array để dễ đồng bộ ra màn public.</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Chọn tiện ích có sẵn hoặc thêm tiện ích riêng để đồng bộ ra màn public.</p>
           </div>
 
           <label className="space-y-2 block">
@@ -249,15 +281,42 @@ const BusVehicleDetailsPage = () => {
             />
           </label>
 
-          <label className="space-y-2 block">
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Tiện ích (JSON)</span>
-            <textarea
-              rows="8"
-              value={form.amenitiesJson}
-              onChange={(event) => setForm((current) => ({ ...current, amenitiesJson: event.target.value }))}
-              className="w-full rounded-[2rem] border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-bold text-slate-700 outline-none font-mono"
-            />
-          </label>
+          <div className="space-y-3">
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Tiện ích trên xe</span>
+            <div className="flex flex-wrap gap-2">
+              {AMENITY_OPTIONS.map((amenity) => {
+                const active = selectedAmenities.includes(amenity);
+
+                return (
+                  <button
+                    key={amenity}
+                    type="button"
+                    onClick={() => handleToggleAmenity(amenity)}
+                    className={`px-4 py-2 rounded-2xl text-xs font-black transition-all ${
+                      active ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-500 border border-slate-100'
+                    }`}
+                  >
+                    {amenity}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="flex gap-3">
+              <input
+                value={customAmenity}
+                onChange={(event) => setCustomAmenity(event.target.value)}
+                className="min-w-0 flex-1 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none"
+                placeholder="Thêm tiện ích khác"
+              />
+              <button
+                type="button"
+                onClick={handleAddCustomAmenity}
+                className="px-5 py-3 rounded-2xl bg-slate-100 text-xs font-black uppercase tracking-widest text-slate-600"
+              >
+                Thêm
+              </button>
+            </div>
+          </div>
 
           <button
             type="submit"

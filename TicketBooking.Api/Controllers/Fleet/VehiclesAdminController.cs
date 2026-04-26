@@ -14,7 +14,8 @@ namespace TicketBooking.Api.Controllers;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/admin/fleet/vehicles")]
-[Authorize(Roles = RoleNames.Admin)]
+[Route("api/v{version:apiVersion}/qlnx/fleet/vehicles")]
+[Authorize(Roles = $"{RoleNames.Admin},{RoleNames.QLNX}")]
 public sealed class VehiclesAdminController : ControllerBase
 {
     private readonly AppDbContext _db;
@@ -34,6 +35,12 @@ public sealed class VehiclesAdminController : ControllerBase
         [FromQuery] string? q = null,
         CancellationToken ct = default)
     {
+        if (IsQlnxOnly() && !_tenantContext.HasTenant)
+            return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác quản lý xe của QLNX." });
+
+        if (IsQlnxOnly() && vehicleType.HasValue && !IsBusVehicleType(vehicleType.Value))
+            return BadRequest(new { message = "QLNX chỉ được quản lý xe khách hoặc xe tour." });
+
         IQueryable<Vehicle> query = _db.Vehicles;
 
         if (includeDeleted)
@@ -42,7 +49,9 @@ public sealed class VehiclesAdminController : ControllerBase
         if (_tenantContext.HasTenant)
             query = query.Where(x => x.TenantId == _tenantContext.TenantId);
 
-        if (vehicleType.HasValue)
+        if (IsQlnxOnly())
+            query = query.Where(x => x.VehicleType == VehicleType.Bus || x.VehicleType == VehicleType.TourBus);
+        else if (vehicleType.HasValue)
             query = query.Where(x => x.VehicleType == vehicleType.Value);
 
         if (providerId.HasValue && providerId.Value != Guid.Empty)
@@ -99,12 +108,17 @@ public sealed class VehiclesAdminController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get(Guid id, [FromQuery] bool includeDeleted = false, CancellationToken ct = default)
     {
+        if (IsQlnxOnly() && !_tenantContext.HasTenant)
+            return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác quản lý xe của QLNX." });
+
         IQueryable<Vehicle> query = _db.Vehicles;
         if (includeDeleted)
             query = query.IgnoreQueryFilters();
 
         if (_tenantContext.HasTenant)
             query = query.Where(x => x.TenantId == _tenantContext.TenantId);
+        if (IsQlnxOnly())
+            query = query.Where(x => x.VehicleType == VehicleType.Bus || x.VehicleType == VehicleType.TourBus);
 
         var item = await query.FirstOrDefaultAsync(x => x.Id == id, ct);
         if (item is null) return NotFound(new { message = "Không tìm thấy phương tiện." });
@@ -163,6 +177,9 @@ public sealed class VehiclesAdminController : ControllerBase
         if (!_tenantContext.HasTenant)
             return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác ghi của admin." });
 
+        if (IsQlnxOnly() && !IsBusVehicleType(req.VehicleType))
+            return BadRequest(new { message = "QLNX chỉ được tạo xe khách hoặc xe tour." });
+
         Validate(req);
         var normalized = await ValidateVehicleRelationsAsync(req, ct);
 
@@ -215,6 +232,9 @@ public sealed class VehiclesAdminController : ControllerBase
         if (!_tenantContext.HasTenant)
             return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác ghi của admin." });
 
+        if (IsQlnxOnly() && !IsBusVehicleType(req.VehicleType))
+            return BadRequest(new { message = "QLNX chỉ được cập nhật xe khách hoặc xe tour." });
+
         Validate(req);
         var normalized = await ValidateVehicleRelationsAsync(req, ct);
 
@@ -222,6 +242,8 @@ public sealed class VehiclesAdminController : ControllerBase
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
 
         if (entity is null) return NotFound(new { message = "Không tìm thấy phương tiện trong tenant này." });
+        if (IsQlnxOnly() && !IsBusVehicleType(entity.VehicleType))
+            return NotFound(new { message = "Không tìm thấy xe khách trong tenant này." });
 
         var exists = await _db.Vehicles.IgnoreQueryFilters().AnyAsync(x =>
             x.TenantId == _tenantContext.TenantId &&
@@ -267,6 +289,8 @@ public sealed class VehiclesAdminController : ControllerBase
         var entity = await _db.Vehicles
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
         if (entity is null) return NotFound(new { message = "Không tìm thấy phương tiện trong tenant này." });
+        if (IsQlnxOnly() && !IsBusVehicleType(entity.VehicleType))
+            return NotFound(new { message = "Không tìm thấy xe khách trong tenant này." });
 
         _db.Vehicles.Remove(entity);
         await _db.SaveChangesAsync(ct);
@@ -284,6 +308,8 @@ public sealed class VehiclesAdminController : ControllerBase
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
 
         if (entity is null) return NotFound(new { message = "Không tìm thấy phương tiện." });
+        if (IsQlnxOnly() && !IsBusVehicleType(entity.VehicleType))
+            return NotFound(new { message = "Không tìm thấy xe khách trong tenant này." });
 
         entity.IsDeleted = false;
         entity.UpdatedAt = DateTimeOffset.Now;
@@ -384,6 +410,12 @@ public sealed class VehiclesAdminController : ControllerBase
             VehicleType.TourBus => providerType == ProviderType.Bus || providerType == ProviderType.Tour,
             _ => false
         };
+
+    private bool IsQlnxOnly()
+        => User.IsInRole(RoleNames.QLNX) && !User.IsInRole(RoleNames.Admin);
+
+    private static bool IsBusVehicleType(VehicleType vehicleType)
+        => vehicleType is VehicleType.Bus or VehicleType.TourBus;
 
     private sealed class NormalizedVehicleRelations
     {

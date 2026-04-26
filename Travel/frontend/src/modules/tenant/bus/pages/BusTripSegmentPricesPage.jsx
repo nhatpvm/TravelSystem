@@ -158,7 +158,7 @@ const BusTripSegmentPricesPage = () => {
         currencyCode: form.currencyCode,
         baseFare: Number(form.baseFare || 0),
         taxesFees: Number(form.taxesFees || 0),
-        totalPrice: Number(form.totalPrice || 0),
+        totalPrice: Number(form.baseFare || 0) + Number(form.taxesFees || 0),
         isActive: !!form.isActive,
       };
 
@@ -220,6 +220,8 @@ const BusTripSegmentPricesPage = () => {
       setError(err.message || 'Không cập nhật được trạng thái giá chặng.');
     }
   };
+
+  const computedTotalPrice = Number(form.baseFare || 0) + Number(form.taxesFees || 0);
 
   return (
     <BusManagementPageShell
@@ -311,7 +313,7 @@ const BusTripSegmentPricesPage = () => {
                     <div>
                       <div className="flex items-center gap-3 flex-wrap">
                         <p className="font-black text-slate-900">
-                          Điểm #{item.fromStopIndex} → Điểm #{item.toStopIndex}
+                          Điểm dừng số {Number(item.fromStopIndex) + 1} → Điểm dừng số {Number(item.toStopIndex) + 1}
                         </p>
                         {item.isDeleted ? (
                           <span className="px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-widest bg-rose-100 text-rose-700">
@@ -355,7 +357,7 @@ const BusTripSegmentPricesPage = () => {
               required
             >
               {stopTimes.map((item) => (
-                <option key={item.id} value={item.id}>Điểm #{item.stopIndex}</option>
+                <option key={item.id} value={item.id}>Điểm dừng số {Number(item.stopIndex) + 1}</option>
               ))}
             </select>
           </label>
@@ -369,7 +371,7 @@ const BusTripSegmentPricesPage = () => {
               required
             >
               {stopTimes.map((item) => (
-                <option key={item.id} value={item.id}>Điểm #{item.stopIndex}</option>
+                <option key={item.id} value={item.id}>Điểm dừng số {Number(item.stopIndex) + 1}</option>
               ))}
             </select>
           </label>
@@ -397,8 +399,8 @@ const BusTripSegmentPricesPage = () => {
               <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Tổng giá</span>
               <input
                 type="number"
-                value={form.totalPrice}
-                onChange={(event) => setForm((current) => ({ ...current, totalPrice: event.target.value }))}
+                value={computedTotalPrice}
+                readOnly
                 className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none"
               />
             </label>

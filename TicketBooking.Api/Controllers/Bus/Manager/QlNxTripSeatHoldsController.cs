@@ -308,6 +308,10 @@ public sealed class QlNxTripSeatHoldsController : ControllerBase
                 x.Id,
                 x.TripId,
                 x.SeatId,
+                SeatNumber = _db.Seats.IgnoreQueryFilters()
+                    .Where(s => s.Id == x.SeatId && s.TenantId == x.TenantId)
+                    .Select(s => s.SeatNumber)
+                    .FirstOrDefault(),
                 x.FromTripStopTimeId,
                 x.ToTripStopTimeId,
                 x.FromStopIndex,

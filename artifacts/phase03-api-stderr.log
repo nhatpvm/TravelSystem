@@ -1,4 +1,0 @@
-Unhandled exception. System.InvalidOperationException: ConnectionStrings:Default is missing.
-   at TicketBooking.Infrastructure.DependencyInjection.AddInfrastructure(IServiceCollection services, IConfiguration config) in d:\FPT\TicketBooking.V3\TicketBooking.Infrastructure\DependencyInjection.cs:line 22
-   at Program.<Main>$(String[] args) in d:\FPT\TicketBooking.V3\TicketBooking.Api\Program.cs:line 64
-   at Program.<Main>(String[] args)

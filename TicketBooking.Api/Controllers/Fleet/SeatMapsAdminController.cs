@@ -13,7 +13,8 @@ namespace TicketBooking.Api.Controllers;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/admin/fleet/seat-maps")]
-[Authorize(Roles = RoleNames.Admin)]
+[Route("api/v{version:apiVersion}/qlnx/fleet/seat-maps")]
+[Authorize(Roles = $"{RoleNames.Admin},{RoleNames.QLNX}")]
 public sealed class SeatMapsAdminController : ControllerBase
 {
     private readonly AppDbContext _db;
@@ -32,6 +33,12 @@ public sealed class SeatMapsAdminController : ControllerBase
         [FromQuery] string? q = null,
         CancellationToken ct = default)
     {
+        if (IsQlnxOnly() && !_tenantContext.HasTenant)
+            return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác quản lý sơ đồ ghế của QLNX." });
+
+        if (IsQlnxOnly() && vehicleType.HasValue && !IsBusVehicleType(vehicleType.Value))
+            return BadRequest(new { message = "QLNX chỉ được quản lý sơ đồ ghế xe khách hoặc xe tour." });
+
         IQueryable<SeatMap> query = _db.SeatMaps;
 
         if (includeDeleted)
@@ -40,7 +47,9 @@ public sealed class SeatMapsAdminController : ControllerBase
         if (_tenantContext.HasTenant)
             query = query.Where(x => x.TenantId == _tenantContext.TenantId);
 
-        if (vehicleType.HasValue)
+        if (IsQlnxOnly())
+            query = query.Where(x => x.VehicleType == VehicleType.Bus || x.VehicleType == VehicleType.TourBus);
+        else if (vehicleType.HasValue)
             query = query.Where(x => x.VehicleType == vehicleType.Value);
 
         if (!string.IsNullOrWhiteSpace(q))
@@ -75,12 +84,17 @@ public sealed class SeatMapsAdminController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get(Guid id, [FromQuery] bool includeDeleted = false, CancellationToken ct = default)
     {
+        if (IsQlnxOnly() && !_tenantContext.HasTenant)
+            return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác quản lý sơ đồ ghế của QLNX." });
+
         IQueryable<SeatMap> query = _db.SeatMaps;
         if (includeDeleted)
             query = query.IgnoreQueryFilters();
 
         if (_tenantContext.HasTenant)
             query = query.Where(x => x.TenantId == _tenantContext.TenantId);
+        if (IsQlnxOnly())
+            query = query.Where(x => x.VehicleType == VehicleType.Bus || x.VehicleType == VehicleType.TourBus);
 
         var item = await query.FirstOrDefaultAsync(x => x.Id == id, ct);
         if (item is null) return NotFound(new { message = "Không tìm thấy sơ đồ ghế." });
@@ -113,6 +127,9 @@ public sealed class SeatMapsAdminController : ControllerBase
     {
         if (!_tenantContext.HasTenant)
             return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác ghi của admin." });
+
+        if (IsQlnxOnly() && !IsBusVehicleType(req.VehicleType))
+            return BadRequest(new { message = "QLNX chỉ được tạo sơ đồ ghế xe khách hoặc xe tour." });
 
         Validate(req);
 
@@ -153,12 +170,17 @@ public sealed class SeatMapsAdminController : ControllerBase
         if (!_tenantContext.HasTenant)
             return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác ghi của admin." });
 
+        if (IsQlnxOnly() && !IsBusVehicleType(req.VehicleType))
+            return BadRequest(new { message = "QLNX chỉ được cập nhật sơ đồ ghế xe khách hoặc xe tour." });
+
         Validate(req);
 
         var entity = await _db.SeatMaps.IgnoreQueryFilters()
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
 
         if (entity is null) return NotFound(new { message = "Không tìm thấy sơ đồ ghế trong tenant này." });
+        if (IsQlnxOnly() && !IsBusVehicleType(entity.VehicleType))
+            return NotFound(new { message = "Không tìm thấy sơ đồ ghế xe khách trong tenant này." });
 
         var exists = await _db.SeatMaps.IgnoreQueryFilters().AnyAsync(x =>
             x.TenantId == _tenantContext.TenantId &&
@@ -195,6 +217,8 @@ public sealed class SeatMapsAdminController : ControllerBase
         var entity = await _db.SeatMaps
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
         if (entity is null) return NotFound(new { message = "Không tìm thấy sơ đồ ghế trong tenant này." });
+        if (IsQlnxOnly() && !IsBusVehicleType(entity.VehicleType))
+            return NotFound(new { message = "Không tìm thấy sơ đồ ghế xe khách trong tenant này." });
 
         _db.SeatMaps.Remove(entity);
         await _db.SaveChangesAsync(ct);
@@ -212,6 +236,8 @@ public sealed class SeatMapsAdminController : ControllerBase
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
 
         if (entity is null) return NotFound(new { message = "Không tìm thấy sơ đồ ghế." });
+        if (IsQlnxOnly() && !IsBusVehicleType(entity.VehicleType))
+            return NotFound(new { message = "Không tìm thấy sơ đồ ghế xe khách trong tenant này." });
 
         entity.IsDeleted = false;
         entity.UpdatedAt = DateTimeOffset.Now;
@@ -248,6 +274,8 @@ public sealed class SeatMapsAdminController : ControllerBase
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
 
         if (map is null) return NotFound(new { message = "Không tìm thấy sơ đồ ghế trong tenant này." });
+        if (IsQlnxOnly() && !IsBusVehicleType(map.VehicleType))
+            return BadRequest(new { message = "QLNX chỉ được sinh ghế cho sơ đồ xe khách hoặc xe tour." });
 
         // existing seats
         var existing = await _db.Seats.IgnoreQueryFilters()
@@ -324,4 +352,10 @@ public sealed class SeatMapsAdminController : ControllerBase
         if (req.TotalColumns <= 0 || req.TotalColumns > 50) throw new InvalidOperationException("Tổng số cột phải trong khoảng 1 đến 50.");
         if (req.DeckCount <= 0 || req.DeckCount > 5) throw new InvalidOperationException("Số tầng phải trong khoảng 1 đến 5.");
     }
+
+    private bool IsQlnxOnly()
+        => User.IsInRole(RoleNames.QLNX) && !User.IsInRole(RoleNames.Admin);
+
+    private static bool IsBusVehicleType(VehicleType vehicleType)
+        => vehicleType is VehicleType.Bus or VehicleType.TourBus;
 }

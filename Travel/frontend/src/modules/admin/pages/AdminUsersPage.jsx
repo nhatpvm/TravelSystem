@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import { Users, Search, Plus, Lock, Unlock, RotateCcw, Eye, Shield, UserPlus } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import AdminImageUploadField from '../components/AdminImageUploadField';
