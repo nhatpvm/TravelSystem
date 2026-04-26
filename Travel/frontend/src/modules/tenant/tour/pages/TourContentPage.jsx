@@ -34,6 +34,8 @@ import {
   toNullableText,
   updateSearchParams,
 } from '../utils/options';
+import { uploadManagerImage } from '../../../../services/portalUploadService';
+import ImageUploadField from '../../../../shared/components/forms/ImageUploadField';
 
 const TABS = [
   { key: 'contacts', label: 'Liên hệ' },
@@ -110,6 +112,7 @@ export default function TourContentPage() {
   const [form, setForm] = useState(getEmptyForm('contacts'));
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
@@ -181,6 +184,26 @@ export default function TourContentPage() {
   function handleFieldChange(event) {
     const { name, value, type, checked } = event.target;
     setForm((current) => ({ ...current, [name]: type === 'checkbox' ? checked : value }));
+  }
+
+  async function handleUploadImage(file) {
+    if (!tourId) {
+      setError('Vui lòng chọn tour trước khi tải ảnh.');
+      return;
+    }
+
+    setUploadingImage(true);
+    setError('');
+    setNotice('');
+
+    try {
+      const response = await uploadManagerImage(file, { scope: 'tour-image' });
+      setForm((current) => ({ ...current, imageUrl: response?.url || '' }));
+    } catch (requestError) {
+      setError(requestError.message || 'Không thể tải hình ảnh tour.');
+    } finally {
+      setUploadingImage(false);
+    }
   }
 
   async function handleSubmit(event) {
@@ -321,7 +344,7 @@ export default function TourContentPage() {
 
             {tab === 'images' && (
               <>
-                <label className="space-y-2 block"><span className="text-[11px] font-black uppercase tracking-widest text-slate-400">URL hình ảnh</span><input name="imageUrl" value={form.imageUrl} onChange={handleFieldChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium outline-none" required /></label>
+                <label className="space-y-2 block"><span className="text-[11px] font-black uppercase tracking-widest text-slate-400">URL hình ảnh</span><ImageUploadField label="" value={form.imageUrl} onChange={(value) => setForm((current) => ({ ...current, imageUrl: value }))} onUpload={handleUploadImage} uploading={uploadingImage} placeholder="URL hình ảnh" helperText="Hỗ trợ JPG, PNG, WEBP tối đa 10MB." previewAlt={form.title || form.caption || 'Hình ảnh tour'} /></label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <label className="space-y-2"><span className="text-[11px] font-black uppercase tracking-widest text-slate-400">Tiêu đề</span><input name="title" value={form.title} onChange={handleFieldChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium outline-none" /></label>
                   <label className="space-y-2"><span className="text-[11px] font-black uppercase tracking-widest text-slate-400">Alt text</span><input name="altText" value={form.altText} onChange={handleFieldChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium outline-none" /></label>

@@ -1,0 +1,128 @@
+Using launch settings from D:\FPT\TicketBooking.V3\TicketBooking.Api\Properties\launchSettings.json...
+Building...
+[20:53:50 WRN] The 'CustomerSettlementStatus' property 'SettlementStatus' on entity type 'CustomerOrder' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+[20:53:50 WRN] The 'CustomerSettlementBatchStatus' property 'Status' on entity type 'CustomerSettlementBatch' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementBatchStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+[20:53:50 WRN] The 'CustomerSettlementStatus' property 'Status' on entity type 'CustomerSettlementBatchLine' is configured with a database-generated default, but has no configured sentinel value. The database-generated default will always be used for inserts when the property has the value '0', since this is the CLR default for the 'CustomerSettlementStatus' type. Consider using a nullable type, using a nullable backing field, or setting the sentinel value for the property to ensure the database default is used when, and only when, appropriate. See https://aka.ms/efcore-docs-default-values for more information.
+[20:53:51 INF] Ensured user 'qlnx' with role 'QLNX'.
+[20:53:51 INF] Ensured user 'qlks' with role 'QLKS'.
+[20:53:51 INF] Ensured user 'qlvt' with role 'QLVT'.
+[20:53:51 INF] Ensured user 'qlvmm' with role 'QLVMM'.
+[20:53:51 INF] Ensured user 'qltour' with role 'QLTour'.
+[20:53:51 INF] Ensured user 'scanner_nx' with role 'Customer'.
+[20:53:51 INF] Ensured user 'customer' with role 'Customer'.
+[20:53:51 INF] Identity seed completed.
+[20:53:51 INF] Tenant NX001 already exists.
+[20:53:51 INF] Tenant VT001 already exists.
+[20:53:51 INF] Tenant VMM001 already exists.
+[20:53:51 INF] Tenant KS001 already exists.
+[20:53:51 INF] Tenant TOUR001 already exists.
+[20:53:51 INF] Updated tenant link 'qlnx' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[20:53:51 INF] Updated tenant link 'admin' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[20:53:51 INF] Updated tenant link 'qlvt' -> tenant 8f759d36-942d-4666-bda8-195ccfc7939a.
+[20:53:51 INF] Updated tenant link 'admin' -> tenant 8f759d36-942d-4666-bda8-195ccfc7939a.
+[20:53:51 INF] Updated tenant link 'qlvmm' -> tenant 47997b25-a35b-4291-a7ca-2521e14ea6e4.
+[20:53:51 INF] Updated tenant link 'admin' -> tenant 47997b25-a35b-4291-a7ca-2521e14ea6e4.
+[20:53:51 INF] Updated tenant link 'qlks' -> tenant 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+[20:53:51 INF] Updated tenant link 'admin' -> tenant 32110ffc-3d5b-409b-8bbb-8fb3286d9cc7.
+[20:53:51 INF] Updated tenant link 'qltour' -> tenant dfb80807-d1db-43b0-a62f-9b744f1dde4f.
+[20:53:51 INF] Updated tenant link 'admin' -> tenant dfb80807-d1db-43b0-a62f-9b744f1dde4f.
+[20:53:51 INF] Tenants seed completed (NX001/VT001/VMM001/KS001/TOUR001).
+[20:53:51 INF] Permissions seed completed.
+[20:53:52 INF] Tenant system role seed completed.
+[20:53:52 INF] Updated TenantUser link 'customer' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[20:53:52 INF] Updated TenantUser link 'scanner_nx' -> tenant 16604939-0d6a-4a9d-b828-6e9797dd1ffd.
+[20:53:52 INF] TenantRoles seed completed for NX001.
+[20:53:52 INF] BUS demo seed completed for tenant NX001.
+[20:53:53 INF] TRAIN demo seed completed for tenant VT001.
+[20:53:53 INF] Flight demo seed completed for tenant VMM001.
+[20:53:54 INF] CmsDemoSeed completed for tenant NX001.
+[20:53:54 INF] Hotel demo seed starting for 6 tenant(s). Days=14
+[20:53:54 INF] Tenant KS001: Hotel HTL_KS001_DEMO_01 already exists. Skipping core hotel create.
+[20:53:55 INF] Tenant KS001: Hotel seed OK (HTL_KS001_DEMO_01)
+[20:53:55 INF] Tenant NX001: Hotel HTL_NX001_DEMO_01 already exists. Skipping core hotel create.
+[20:53:55 INF] Tenant NX001: Hotel seed OK (HTL_NX001_DEMO_01)
+[20:53:55 INF] Tenant TEST001: Hotel HTL_TEST001_DEMO_01 already exists. Skipping core hotel create.
+[20:53:55 INF] Tenant TEST001: Hotel seed OK (HTL_TEST001_DEMO_01)
+[20:53:55 INF] Tenant TOUR001: Hotel HTL_TOUR001_DEMO_01 already exists. Skipping core hotel create.
+[20:53:55 INF] Tenant TOUR001: Hotel seed OK (HTL_TOUR001_DEMO_01)
+[20:53:55 INF] Tenant VMM001: Hotel HTL_VMM001_DEMO_01 already exists. Skipping core hotel create.
+[20:53:55 INF] Tenant VMM001: Hotel seed OK (HTL_VMM001_DEMO_01)
+[20:53:55 INF] Tenant VT001: Hotel HTL_VT001_DEMO_01 already exists. Skipping core hotel create.
+[20:53:55 INF] Tenant VT001: Hotel seed OK (HTL_VT001_DEMO_01)
+[20:53:55 INF] Hotel demo seed finished.
+[20:53:55 INF] Now listening on: http://localhost:5183
+[20:53:55 INF] Application started. Press Ctrl+C to shut down.
+[20:53:55 INF] Hosting environment: Development
+[20:53:55 INF] Content root path: D:\FPT\TicketBooking.V3\TicketBooking.Api
+[20:54:08 WRN] Failed to determine the https port for redirect.
+[20:54:09 INF] HTTP POST /api/v1/auth/login responded 200 in 192.2883 ms
+[20:54:09 INF] HTTP POST /api/v1/admin/commerce/settlements/batches/generate responded 200 in 293.3834 ms
+[20:54:09 INF] HTTP POST /api/v1/admin/commerce/settlements/batches/generate responded 200 in 14.6144 ms
+[20:54:09 INF] HTTP POST /api/v1/admin/commerce/settlements/batches/generate responded 200 in 197.9831 ms
+[20:54:09 INF] HTTP POST /api/v1/admin/commerce/settlements/batches/generate responded 200 in 14.9772 ms
+[20:54:30 INF] HTTP POST /api/v1/auth/login responded 200 in 139.3836 ms
+[20:54:30 ERR] HTTP POST /api/v1/admin/commerce/settlements/batches/fe181883-0602-42da-bd0e-23111b5615d7/mark-paid responded 500 in 36.3621 ms
+System.InvalidOperationException: Van con tenant chua cau hinh payout account mac dinh.
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.<>c__DisplayClass16_0.<<MarkSettlementBatchPaidAsync>b__0>d.MoveNext() in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 659
+--- End of stack trace from previous location ---
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.ExecuteWithoutTenantScopeAsync(Func`1 action) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 1365
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.MarkSettlementBatchPaidAsync(Guid batchId, MarkSettlementBatchPaidRequest request, Guid actorUserId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 636
+   at TicketBooking.Api.Controllers.Commerce.AdminCommerceController.MarkBatchPaid(Guid batchId, MarkSettlementBatchPaidRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Commerce\AdminCommerceController.cs:line 116
+   at lambda_method12523(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 69
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+[20:54:30 ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Van con tenant chua cau hinh payout account mac dinh.
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.<>c__DisplayClass16_0.<<MarkSettlementBatchPaidAsync>b__0>d.MoveNext() in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 659
+--- End of stack trace from previous location ---
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.ExecuteWithoutTenantScopeAsync(Func`1 action) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 1365
+   at TicketBooking.Api.Services.Commerce.CommerceBackofficeService.MarkSettlementBatchPaidAsync(Guid batchId, MarkSettlementBatchPaidRequest request, Guid actorUserId, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Services\Commerce\CommerceBackofficeService.cs:line 636
+   at TicketBooking.Api.Controllers.Commerce.AdminCommerceController.MarkBatchPaid(Guid batchId, MarkSettlementBatchPaidRequest request, CancellationToken ct) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Controllers\Commerce\AdminCommerceController.cs:line 116
+   at lambda_method12523(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at TicketBooking.Api.Middlewares.TenantContextMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in D:\FPT\TicketBooking.V3\TicketBooking.Api\Middlewares\TenantContextMiddleware.cs:line 69
+   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+[20:54:46 INF] HTTP POST /api/v1/auth/login responded 200 in 65.6368 ms
+[20:54:46 INF] HTTP PUT /api/v1/tenant/commerce/payout-account responded 200 in 46.0534 ms
+[20:54:46 INF] HTTP POST /api/v1/admin/commerce/settlements/batches/fe181883-0602-42da-bd0e-23111b5615d7/mark-paid responded 200 in 25.6596 ms
+[20:55:38 INF] HTTP POST /api/v1/auth/login responded 200 in 95.8918 ms
+[20:55:43 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 56.2592 ms
+[20:55:43 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 6.2785 ms
+[20:55:43 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 5.3434 ms
+[20:55:43 INF] HTTP GET /api/v1/tenancy/memberships responded 200 in 5.0739 ms
+[20:55:43 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 74.8142 ms
+[20:55:43 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 9.1516 ms
+[20:55:43 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 6.1117 ms
+[20:55:43 INF] HTTP GET /api/v1/auth/me/permissions responded 200 in 5.2407 ms
+[20:55:43 INF] HTTP GET /api/v1/customer/account/preferences responded 200 in 17.0841 ms
+[20:55:43 INF] HTTP GET /api/v1/admin/commerce/settlements responded 200 in 31.5132 ms
+[20:55:43 INF] HTTP GET /api/v1/admin/commerce/settlements responded 200 in 6.5526 ms
+[20:55:44 INF] HTTP POST /api/v1/admin/commerce/settlements/batches/generate responded 200 in 39.4843 ms

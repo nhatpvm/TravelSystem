@@ -171,6 +171,10 @@ export function reviewAdminTenantOnboarding(trackingCode, payload) {
   return api.post(`/admin/tenant-onboarding/${trackingCode}/review`, payload);
 }
 
+export function provisionAdminTenantOnboarding(trackingCode, payload) {
+  return api.post(`/admin/tenant-onboarding/${trackingCode}/provision`, payload);
+}
+
 function normalizeUserPermissionPayload(payload = {}) {
   return {
     ...payload,

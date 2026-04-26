@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { MessageSquare, Search, Send, RefreshCw } from 'lucide-react';
+import { MessageSquare, RefreshCw, Search, Send } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import {
   listAdminCommerceSupportTickets,
@@ -67,7 +67,7 @@ export default function AdminSupportPage() {
 
       const items = Array.isArray(response?.items) ? response.items : [];
       setTickets(items);
-      setSelectedId((current) => current && items.some((item) => item.id === current) ? current : items[0]?.id || '');
+      setSelectedId((current) => (current && items.some((item) => item.id === current) ? current : items[0]?.id || ''));
     } catch (requestError) {
       setError(requestError.message || 'Không thể tải support tickets.');
       setTickets([]);
@@ -121,7 +121,7 @@ export default function AdminSupportPage() {
     <div>
       <div className="mb-8">
         <h1 className="text-2xl font-black text-slate-900">Support Tickets</h1>
-        <p className="text-slate-500 text-sm mt-1">Phân loại, phản hồi và chốt ticket sau bán hàng theo đúng order/payment/refund.</p>
+        <p className="text-slate-500 text-sm mt-1">Phân loại, phản hồi và chốt ticket sau bán hàng theo order/payment/refund.</p>
       </div>
 
       {notice ? (
@@ -158,7 +158,7 @@ export default function AdminSupportPage() {
               <input
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                placeholder="Tìm ticket…"
+                placeholder="Tìm ticket..."
                 className="bg-transparent py-2.5 flex-1 text-xs font-medium outline-none"
               />
             </div>
@@ -179,6 +179,7 @@ export default function AdminSupportPage() {
               <RefreshCw size={14} />
             </button>
           </div>
+
           {loading ? (
             <div className="bg-white rounded-2xl p-10 text-center text-slate-400 border border-slate-100">
               <p className="font-bold">Đang tải ticket...</p>
@@ -203,7 +204,7 @@ export default function AdminSupportPage() {
                     <p className="font-black text-slate-900 text-sm flex-1 leading-tight">{item.subject}</p>
                     <span className={`px-2 py-0.5 rounded-lg text-[9px] font-black uppercase shrink-0 ${priorityConfig.color}`}>{priorityConfig.label}</span>
                   </div>
-                  <p className="text-xs text-slate-500 font-bold">{item.customerName} · {item.category}</p>
+                  <p className="text-xs text-slate-500 font-bold">{item.customerName} - {item.category}</p>
                   <div className="flex items-center justify-between mt-2">
                     <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase ${statusConfig.color}`}>{statusConfig.label}</span>
                     <span className="text-[10px] text-slate-400 font-bold">{formatDateTime(item.lastActivityAt || item.createdAt)}</span>
@@ -222,41 +223,41 @@ export default function AdminSupportPage() {
                   <div>
                     <p className="font-black text-slate-900">{selected.subject}</p>
                     <p className="text-xs text-slate-400 font-bold mt-0.5">
-                      {selected.ticketCode} · {selected.customerName} · {selected.tenantName || 'Platform'}
+                      {selected.ticketCode} - {selected.customerName} - {selected.tenantName || 'Platform'}
                     </p>
                   </div>
-                  <div className="flex gap-2 shrink-0">
-                    {Number(selected.status) !== 3 ? (
-                      <button
-                        type="button"
-                        onClick={() => handleReply(true)}
-                        disabled={saving}
-                        className="px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-xl text-[10px] font-black uppercase hover:bg-emerald-100 transition-all disabled:opacity-60"
-                      >
-                        ✓ Giải quyết
-                      </button>
-                    ) : null}
-                  </div>
+                  {Number(selected.status) !== 3 ? (
+                    <button
+                      type="button"
+                      onClick={() => handleReply(true)}
+                      disabled={saving}
+                      className="px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-xl text-[10px] font-black uppercase hover:bg-emerald-100 transition-all disabled:opacity-60"
+                    >
+                      Giải quyết
+                    </button>
+                  ) : null}
                 </div>
               </div>
+
               <div className="flex-1 p-5 space-y-4 overflow-y-auto">
-                {selected.messages.map((message, index) => (
+                {(selected.messages || []).map((message, index) => (
                   <div key={`${message.from}-${index}`} className={`flex ${message.from === 'agent' ? 'justify-end' : 'justify-start'}`}>
                     <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${message.from === 'agent' ? 'bg-[#1EB4D4] text-white' : 'bg-slate-50 text-slate-900'}`}>
                       <p className="text-sm font-medium">{message.text}</p>
                       <p className={`text-[10px] font-bold mt-1 ${message.from === 'agent' ? 'text-white/60' : 'text-slate-400'}`}>
-                        {message.from === 'agent' ? 'CS Team' : selected.customerName} · {formatDateTime(message.at)}
+                        {message.from === 'agent' ? 'CS Team' : selected.customerName} - {formatDateTime(message.at)}
                       </p>
                     </div>
                   </div>
                 ))}
               </div>
+
               <div className="p-4 border-t border-slate-100 flex gap-3">
                 <textarea
                   value={reply}
                   onChange={(event) => setReply(event.target.value)}
                   rows={2}
-                  placeholder="Nhập phản hồi…"
+                  placeholder="Nhập phản hồi..."
                   className="flex-1 bg-slate-50 rounded-2xl px-4 py-3 text-sm font-medium outline-none border-2 border-transparent focus:border-[#1EB4D4]/30 resize-none"
                 />
                 <button

@@ -1,63 +1,91 @@
-import React from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
-  LayoutDashboard,
-  Users,
-  CreditCard,
-  Settings,
-  Globe,
-  Bell,
-  Search,
-  LogOut,
-  Shield,
-  Ticket,
-  RotateCcw,
-  Tag,
-  MessageSquare,
   Activity,
-  Package,
-  Send,
+  Bell,
+  CreditCard,
   Database,
-  Train,
-  Plane,
+  Globe,
   Hotel,
+  LayoutDashboard,
+  LogOut,
+  MessageSquare,
+  Package,
+  Plane,
+  RotateCcw,
+  Search,
+  Send,
+  Settings,
+  Shield,
+  Tag,
+  Ticket,
+  Train,
+  Users,
 } from 'lucide-react';
 import logo from '../../../assets/logo.png';
 import { logout } from '../../../services/auth';
 import { useAuthSession } from '../../../modules/auth/hooks/useAuthSession';
 import { getUserDisplayName, getUserInitials } from '../../../modules/auth/types';
 
+const menuItems = [
+  { icon: <LayoutDashboard size={18} />, label: 'Dashboard', path: '/admin' },
+  { icon: <Users size={18} />, label: 'Người dùng', path: '/admin/users' },
+  { icon: <Shield size={18} />, label: 'Vai trò', path: '/admin/roles' },
+  { icon: <Users size={18} />, label: 'Tenants', path: '/admin/tenants' },
+  { icon: <Ticket size={18} />, label: 'Bookings', path: '/admin/bookings' },
+  { icon: <CreditCard size={18} />, label: 'Thanh toán', path: '/admin/payments' },
+  { icon: <RotateCcw size={18} />, label: 'Hoàn tiền', path: '/admin/refunds' },
+  { icon: <Package size={18} />, label: 'Settlement', path: '/admin/settlement' },
+  { icon: <Tag size={18} />, label: 'Khuyến mãi', path: '/admin/promos' },
+  { icon: <MessageSquare size={18} />, label: 'Support', path: '/admin/support' },
+  { icon: <Globe size={18} />, label: 'CMS', path: '/admin/cms' },
+  { icon: <Package size={18} />, label: 'Tour', path: '/admin/tours' },
+  { icon: <Train size={18} />, label: 'Tàu', path: '/admin/train' },
+  { icon: <Plane size={18} />, label: 'Máy bay', path: '/admin/flight' },
+  { icon: <Hotel size={18} />, label: 'Khách sạn', path: '/admin/hotels' },
+  { icon: <MessageSquare size={18} />, label: 'Đánh giá tour', path: '/admin/tour-reviews' },
+  { icon: <Bell size={18} />, label: 'Thông báo', path: '/admin/notifications' },
+  { icon: <Database size={18} />, label: 'Master Data', path: '/admin/master-data' },
+  { icon: <Activity size={18} />, label: 'Audit Logs', path: '/admin/audit' },
+  { icon: <Send size={18} />, label: 'Outbox', path: '/admin/outbox' },
+  { icon: <CreditCard size={18} />, label: 'Tài chính', path: '/admin/finance' },
+  { icon: <Settings size={18} />, label: 'Cài đặt', path: '/admin/settings' },
+];
+
 const AdminLayout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuthSession();
-  const menuItems = [
-    { icon: <LayoutDashboard size={18} />, label: 'Dashboard', path: '/admin' },
-    { icon: <Users size={18} />, label: 'Người dùng', path: '/admin/users' },
-    { icon: <Shield size={18} />, label: 'Vai trò', path: '/admin/roles' },
-    { icon: <Users size={18} />, label: 'Tenants', path: '/admin/tenants' },
-    { icon: <Ticket size={18} />, label: 'Bookings', path: '/admin/bookings' },
-    { icon: <CreditCard size={18} />, label: 'Thanh toán', path: '/admin/payments' },
-    { icon: <RotateCcw size={18} />, label: 'Hoàn tiền', path: '/admin/refunds' },
-    { icon: <Package size={18} />, label: 'Settlement', path: '/admin/settlement' },
-    { icon: <Tag size={18} />, label: 'Khuyến mãi', path: '/admin/promos' },
-    { icon: <MessageSquare size={18} />, label: 'Support', path: '/admin/support' },
-    { icon: <Globe size={18} />, label: 'CMS', path: '/admin/cms' },
-    { icon: <Package size={18} />, label: 'Tour', path: '/admin/tours' },
-    { icon: <Train size={18} />, label: 'Tàu', path: '/admin/train' },
-    { icon: <Plane size={18} />, label: 'Máy bay', path: '/admin/flight' },
-    { icon: <Hotel size={18} />, label: 'Khách sạn', path: '/admin/hotels' },
-    { icon: <MessageSquare size={18} />, label: 'Đánh giá tour', path: '/admin/tour-reviews' },
-    { icon: <Bell size={18} />, label: 'Thông báo', path: '/admin/notifications' },
-    { icon: <Database size={18} />, label: 'Master Data', path: '/admin/master-data' },
-    { icon: <Activity size={18} />, label: 'Audit Logs', path: '/admin/audit' },
-    { icon: <Send size={18} />, label: 'Outbox', path: '/admin/outbox' },
-    { icon: <CreditCard size={18} />, label: 'Tài chính', path: '/admin/finance' },
-    { icon: <Settings size={18} />, label: 'Cài đặt', path: '/admin/settings' },
-  ];
+  const [headerSearch, setHeaderSearch] = useState('');
 
   const handleLogout = async () => {
     await logout();
     navigate('/auth/login', { replace: true });
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    setHeaderSearch(params.get('q') || '');
+  }, [location.search]);
+
+  const resolveSearchTarget = () => {
+    const path = location.pathname;
+    if (path.startsWith('/admin/tenants')) return '/admin/tenants';
+    if (path.startsWith('/admin/bookings')) return '/admin/bookings';
+    if (path.startsWith('/admin/payments')) return '/admin/payments';
+    if (path.startsWith('/admin/refunds')) return '/admin/refunds';
+    if (path.startsWith('/admin/support')) return '/admin/support';
+    return '/admin/users';
+  };
+
+  const handleHeaderSearch = (event) => {
+    event.preventDefault();
+    const query = headerSearch.trim();
+    if (!query) {
+      return;
+    }
+
+    navigate(`${resolveSearchTarget()}?q=${encodeURIComponent(query)}`);
   };
 
   return (
@@ -91,20 +119,21 @@ const AdminLayout = () => {
 
       <main className="flex-1 flex flex-col overflow-hidden">
         <header className="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-8 z-10 shadow-sm">
-          <div className="flex items-center gap-4 bg-slate-100 px-4 py-2 rounded-xl w-96">
+          <form onSubmit={handleHeaderSearch} className="flex items-center gap-4 bg-slate-100 px-4 py-2 rounded-xl w-96">
             <Search size={18} className="text-slate-400" />
             <input
               type="text"
-              placeholder="Search everything..."
+              value={headerSearch}
+              onChange={(event) => setHeaderSearch(event.target.value)}
+              placeholder="Tìm user, tenant, booking..."
               className="bg-transparent border-none focus:outline-none text-sm w-full"
             />
-          </div>
+          </form>
 
           <div className="flex items-center gap-6">
-            <button className="relative text-slate-400 hover:text-slate-600 transition-colors">
+            <Link to="/admin/notifications" className="relative text-slate-400 hover:text-slate-600 transition-colors" title="Thông báo">
               <Bell size={22} />
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-[10px] text-white flex items-center justify-center rounded-full border-2 border-white font-bold">3</span>
-            </button>
+            </Link>
             <button onClick={handleLogout} className="flex items-center gap-3 pl-6 border-l border-slate-200">
               <div className="text-right hidden sm:block">
                 <p className="text-sm font-bold text-slate-800">{getUserDisplayName(user)}</p>

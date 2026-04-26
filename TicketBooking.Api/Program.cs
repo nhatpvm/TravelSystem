@@ -14,11 +14,13 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using TicketBooking.Api.Auth;
+using TicketBooking.Api.Services.Admin;
 using TicketBooking.Api.Services.Commerce;
 using TicketBooking.Api.Services.Cms;
 using TicketBooking.Api.Services.Flight;
 using TicketBooking.Api.Services.Tenancy;
 using TicketBooking.Api.Services.Tours;
+using TicketBooking.Api.Services.Uploads;
 using TicketBooking.Api.Swagger;
 using TicketBooking.Application.Services.Tours;
 using TicketBooking.Infrastructure;
@@ -28,6 +30,7 @@ using TicketBooking.Infrastructure.Persistence;
 using TicketBooking.Infrastructure.Seed;
 
 var builder = WebApplication.CreateBuilder(args);
+Directory.CreateDirectory(Path.Combine(builder.Environment.ContentRootPath, "wwwroot"));
 
 // ===== Serilog =====
 builder.Host.UseSerilog((ctx, services, cfg) =>
@@ -61,6 +64,9 @@ builder.Services.AddScoped<Microsoft.AspNetCore.Authorization.IAuthorizationHand
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthTokenService, AuthTokenService>();
 builder.Services.AddSingleton<PartnerOnboardingStore>();
+builder.Services.AddScoped<AdminImageUploadService>();
+builder.Services.AddScoped<AdminOpsService>();
+builder.Services.AddScoped<PortalImageUploadService>();
 // ===== Infrastructure DI (DbContext + Identity) =====
 builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -450,6 +456,17 @@ if (app.Environment.IsDevelopment() && builder.Configuration.GetValue("Database:
 //    await TourDemoSeed.SeedAsync(scope.ServiceProvider);
 //}
 
+// ===== Seed Locked Defense Demo Data =====
+{
+    using var scope = app.Services.CreateScope();
+    var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("LockedDemoDataSeed");
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var userManager = scope.ServiceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<TicketBooking.Infrastructure.Identity.AppUser>>();
+    var tenantCtxObj = scope.ServiceProvider.GetRequiredService(typeof(TicketBooking.Infrastructure.Tenancy.ITenantContext));
+
+    await LockedDemoDataSeed.SeedAsync(db, userManager, logger, tenantCtxObj, app.Environment.ContentRootPath);
+}
+
 // ===== Global exception handling (ProblemDetails) =====
 app.UseExceptionHandler(errorApp =>
 {
@@ -478,6 +495,7 @@ if (app.Environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseMiddleware<TicketBooking.Api.Middlewares.TenantContextMiddleware>();

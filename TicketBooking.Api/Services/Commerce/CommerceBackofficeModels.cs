@@ -74,6 +74,9 @@ public sealed class AdminCommerceRefundItemDto
     public CustomerRefundStatus Status { get; set; }
     public CustomerSettlementStatus SettlementStatus { get; set; }
     public string CurrencyCode { get; set; } = "VND";
+    public decimal PayableAmount { get; set; }
+    public decimal AlreadyRefundedAmount { get; set; }
+    public decimal RemainingRefundableAmount { get; set; }
     public decimal RequestedAmount { get; set; }
     public decimal? ApprovedAmount { get; set; }
     public decimal? RefundedAmount { get; set; }
@@ -81,6 +84,7 @@ public sealed class AdminCommerceRefundItemDto
     public string? ReasonText { get; set; }
     public string? InternalNote { get; set; }
     public string? RefundReference { get; set; }
+    public string SettlementImpactNote { get; set; } = "";
     public DateTimeOffset RequestedAt { get; set; }
     public DateTimeOffset? ReviewedAt { get; set; }
     public DateTimeOffset? CompletedAt { get; set; }
@@ -172,6 +176,8 @@ public sealed class AdminSettlementBatchDto
 {
     public Guid Id { get; set; }
     public string BatchCode { get; set; } = "";
+    public string PeriodType { get; set; } = "month";
+    public string PeriodLabel { get; set; } = "";
     public int PeriodYear { get; set; }
     public int PeriodMonth { get; set; }
     public DateOnly StartDate { get; set; }
@@ -208,14 +214,19 @@ public sealed class AdminSettlementPayoutDto
 
 public sealed class GenerateSettlementBatchRequest
 {
+    public string? PeriodType { get; set; }
     public int? Year { get; set; }
     public int? Month { get; set; }
+    public int? Quarter { get; set; }
+    public int? Day { get; set; }
     public string? Notes { get; set; }
 }
 
 public sealed class MarkSettlementBatchPaidRequest
 {
     public string? Notes { get; set; }
+    public string? BankTransactionCode { get; set; }
+    public DateTimeOffset? PaidAt { get; set; }
 }
 
 public sealed class TenantFinanceDashboardDto

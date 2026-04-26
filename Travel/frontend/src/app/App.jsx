@@ -359,6 +359,7 @@ function App() {
             <Route path="cms/preview" element={<CmsPreviewPage mode="admin" />} />
             <Route path="cms/seo-audit" element={<CmsSeoAuditPage mode="admin" />} />
             <Route path="cms/site-settings" element={<CmsSiteSettingsPage mode="admin" />} />
+            <Route path="settings" element={<CmsSiteSettingsPage mode="admin" />} />
             <Route path="users" element={<AdminUsersPage />} />
             <Route path="roles" element={<AdminRolesPage />} />
             <Route path="permissions" element={<AdminPermissionsPage />} />

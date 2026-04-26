@@ -1,0 +1,20 @@
+
+> travel@0.0.0 dev
+> vite --host 127.0.0.1 --port 4173
+
+
+  [32m[1mVITE[22m v7.3.1[39m  [2mready in [0m[1m442[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m4173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m9:05:48 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/modules/admin/pages/AdminHotelImagesPage.jsx, /src/styles/index.css[22m
+[2m9:06:02 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/modules/admin/pages/AdminRoomTypeImagesPage.jsx, /src/styles/index.css[22m
+[2m9:06:16 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/modules/admin/pages/AdminToursPage.jsx, /src/styles/index.css[22m
+[2m9:06:26 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/modules/admin/pages/AdminUsersPage.jsx, /src/styles/index.css[22m
+[2m9:06:32 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/modules/admin/pages/AdminUsersPage.jsx, /src/styles/index.css[22m
+[2m9:06:41 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/modules/admin/pages/AdminUsersPage.jsx, /src/styles/index.css[22m
+[2m9:06:49 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/modules/admin/pages/AdminUsersPage.jsx, /src/styles/index.css[22m
+[2m9:06:57 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/modules/admin/pages/AdminUsersPage.jsx, /src/styles/index.css[22m
+[2m9:07:21 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/modules/admin/pages/AdminUsersPage.jsx, /src/styles/index.css[22m
+[2m9:07:28 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/modules/admin/pages/AdminUsersPage.jsx, /src/styles/index.css[22m
+[2m9:10:12 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/modules/admin/pages/AdminToursPage.jsx, /src/modules/admin/pages/AdminRoomTypeImagesPage.jsx, /src/modules/admin/pages/AdminHotelImagesPage.jsx, /src/modules/admin/pages/AdminUsersPage.jsx, /src/styles/index.css[22m

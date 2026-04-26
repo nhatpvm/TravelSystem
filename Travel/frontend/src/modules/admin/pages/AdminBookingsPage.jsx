@@ -16,8 +16,8 @@ import {
   Ticket,
   XCircle,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { listAdminCommerceBookings } from '../../../services/commerceBackofficeService';
+import { Link, useSearchParams } from 'react-router-dom';
+import { getAdminCommerceBooking, listAdminCommerceBookings } from '../../../services/commerceBackofficeService';
 import {
   CUSTOMER_ORDER_STATUS,
   CUSTOMER_PAYMENT_STATUS,
@@ -122,6 +122,36 @@ function formatSettlementLabel(value) {
   }
 }
 
+function getTimelineToneClass(tone) {
+  switch (tone) {
+    case 'success':
+      return 'bg-emerald-100 text-emerald-700';
+    case 'warning':
+      return 'bg-amber-100 text-amber-700';
+    case 'danger':
+      return 'bg-rose-100 text-rose-700';
+    case 'info':
+      return 'bg-blue-100 text-blue-700';
+    default:
+      return 'bg-slate-100 text-slate-600';
+  }
+}
+
+function getTimelineDotClass(tone) {
+  switch (tone) {
+    case 'success':
+      return 'bg-emerald-500';
+    case 'warning':
+      return 'bg-amber-500';
+    case 'danger':
+      return 'bg-rose-500';
+    case 'info':
+      return 'bg-blue-500';
+    default:
+      return 'bg-slate-400';
+  }
+}
+
 function matchesFilter(item, filter) {
   switch (filter) {
     case 'pending':
@@ -147,7 +177,8 @@ function matchesFilter(item, filter) {
 }
 
 export default function AdminBookingsPage() {
-  const [search, setSearch] = useState('');
+  const [searchParams] = useSearchParams();
+  const [search, setSearch] = useState(() => searchParams.get('q') || '');
   const [statusFilter, setStatusFilter] = useState('all');
   const [expanded, setExpanded] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -162,6 +193,13 @@ export default function AdminBookingsPage() {
     totalGrossAmount: 0,
   });
   const [bookings, setBookings] = useState([]);
+  const [bookingDetails, setBookingDetails] = useState({});
+  const [detailLoading, setDetailLoading] = useState({});
+  const [detailErrors, setDetailErrors] = useState({});
+
+  useEffect(() => {
+    setSearch(searchParams.get('q') || '');
+  }, [searchParams]);
 
   async function loadBookings(nextRefreshing = false) {
     if (nextRefreshing) {
@@ -193,6 +231,32 @@ export default function AdminBookingsPage() {
     } finally {
       setLoading(false);
       setRefreshing(false);
+    }
+  }
+
+  async function loadBookingDetail(orderId) {
+    setDetailLoading((current) => ({ ...current, [orderId]: true }));
+    setDetailErrors((current) => ({ ...current, [orderId]: '' }));
+
+    try {
+      const response = await getAdminCommerceBooking(orderId);
+      setBookingDetails((current) => ({ ...current, [orderId]: response }));
+    } catch (requestError) {
+      setDetailErrors((current) => ({
+        ...current,
+        [orderId]: requestError.message || 'Khong the tai chi tiet booking.',
+      }));
+    } finally {
+      setDetailLoading((current) => ({ ...current, [orderId]: false }));
+    }
+  }
+
+  function handleToggleBooking(item) {
+    const nextExpanded = expanded === item.id ? null : item.id;
+    setExpanded(nextExpanded);
+
+    if (nextExpanded && !bookingDetails[item.id] && !detailLoading[item.id]) {
+      loadBookingDetail(item.id);
     }
   }
 
@@ -281,7 +345,7 @@ export default function AdminBookingsPage() {
         <div className="hidden md:grid grid-cols-12 gap-4 px-5 py-3 border-b border-slate-50 bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
           <div className="col-span-3">Khach / Tenant</div>
           <div className="col-span-4">Dich vu</div>
-          <div className="col-span-2">So tien</div>
+          <div className="col-span-2">Số tiền khách trả</div>
           <div className="col-span-2">Trang thai</div>
           <div className="col-span-1"></div>
         </div>
@@ -298,11 +362,14 @@ export default function AdminBookingsPage() {
             filteredBookings.map((item, index) => {
               const isExpanded = expanded === item.id;
               const supportConfig = getSupportConfig(item);
+              const detail = bookingDetails[item.id];
+              const isDetailLoading = !!detailLoading[item.id];
+              const detailError = detailErrors[item.id];
 
               return (
                 <div key={item.id}>
                   <div
-                    onClick={() => setExpanded(isExpanded ? null : item.id)}
+                    onClick={() => handleToggleBooking(item)}
                     className="grid grid-cols-2 md:grid-cols-12 gap-4 px-5 py-4 hover:bg-slate-50 cursor-pointer items-center transition-all"
                   >
                     <div className="col-span-1 md:col-span-3">
@@ -322,7 +389,7 @@ export default function AdminBookingsPage() {
                     </div>
                     <div className="col-span-1 md:col-span-2">
                       <p className="font-black text-slate-900 text-sm">{formatCurrency(item.payableAmount || 0, item.currencyCode || 'VND')}</p>
-                      <p className="text-[10px] text-slate-400 font-bold">Gross {formatCurrency(item.grossAmount || 0, item.currencyCode || 'VND')}</p>
+                      <p className="text-[10px] text-slate-400 font-bold">Tổng giá gốc {formatCurrency(item.grossAmount || 0, item.currencyCode || 'VND')}</p>
                     </div>
                     <div className="col-span-1 md:col-span-2">
                       <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[10px] font-black uppercase ${getCustomerOrderStatusClass(item.status)}`}>
@@ -349,9 +416,9 @@ export default function AdminBookingsPage() {
                           { label: 'Ticket', value: item.ticketCode || '--' },
                           { label: 'Refund', value: item.latestRefundCode || '--' },
                           { label: 'Support', value: supportConfig.label },
-                          { label: 'Gross', value: formatCurrency(item.grossAmount || 0, item.currencyCode || 'VND') },
-                          { label: 'Commission', value: formatCurrency(item.platformCommissionAmount || 0, item.currencyCode || 'VND') },
-                          { label: 'Tenant net', value: formatCurrency(item.tenantNetAmount || 0, item.currencyCode || 'VND') },
+                          { label: 'Tổng giá gốc', value: formatCurrency(item.grossAmount || 0, item.currencyCode || 'VND') },
+                          { label: 'Hoa hồng platform', value: formatCurrency(item.platformCommissionAmount || 0, item.currencyCode || 'VND') },
+                          { label: 'Tiền còn lại cho tenant', value: formatCurrency(item.tenantNetAmount || 0, item.currencyCode || 'VND') },
                           { label: 'Settlement', value: formatSettlementLabel(item.settlementStatus) },
                           { label: 'Ngay tao', value: formatDateTime(item.createdAt) },
                           { label: 'Ngay paid', value: item.paidAt ? formatDateTime(item.paidAt) : '--' },
@@ -392,6 +459,177 @@ export default function AdminBookingsPage() {
                             <p className="text-xs font-bold text-rose-600 mt-2">{item.failureReason}</p>
                           ) : null}
                         </div>
+                      ) : null}
+
+                      {isDetailLoading ? (
+                        <div className="bg-white rounded-2xl border border-slate-100 px-4 py-5 mb-4 text-center text-xs font-black uppercase tracking-widest text-slate-400">
+                          Dang tai chi tiet booking...
+                        </div>
+                      ) : null}
+
+                      {detailError ? (
+                        <div className="bg-rose-50 rounded-2xl border border-rose-100 px-4 py-4 mb-4 text-sm font-bold text-rose-600">
+                          {detailError}
+                        </div>
+                      ) : null}
+
+                      {detail ? (
+                        <>
+                          <div className="bg-white rounded-2xl border border-slate-100 px-4 py-4 mb-4">
+                            <div className="flex items-center justify-between gap-3 mb-3">
+                              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Timeline</p>
+                              <span className="text-[10px] font-black uppercase tracking-widest text-slate-300">{detail.timeline?.length || 0} su kien</span>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                              {(detail.timeline || []).map((event) => (
+                                <div key={event.key} className="rounded-xl border border-slate-100 bg-slate-50 px-3 py-3">
+                                  <div className="flex items-center gap-2">
+                                    <span className={`w-2 h-2 rounded-full ${getTimelineDotClass(event.tone)}`} />
+                                    <p className="text-sm font-black text-slate-900">{event.title}</p>
+                                  </div>
+                                  <p className="text-[10px] font-bold text-slate-400 mt-1">{formatDateTime(event.occurredAt)}</p>
+                                  {event.description ? (
+                                    <p className="text-xs font-bold text-slate-500 mt-1 break-words">{event.description}</p>
+                                  ) : null}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
+                            <div className="bg-white rounded-2xl border border-slate-100 p-4">
+                              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Payments</p>
+                              {(detail.payments || []).length === 0 ? (
+                                <p className="text-xs font-bold text-slate-400">Chua co payment.</p>
+                              ) : (
+                                <div className="space-y-2">
+                                  {detail.payments.map((payment) => (
+                                    <div key={payment.id} className="rounded-xl bg-slate-50 px-3 py-3">
+                                      <div className="flex flex-wrap items-center justify-between gap-2">
+                                        <p className="font-black text-slate-900 text-sm">{payment.paymentCode}</p>
+                                        <span className={`px-2 py-1 rounded-lg text-[10px] font-black uppercase ${getCustomerPaymentStatusClass(payment.status)}`}>
+                                          {formatCustomerPaymentStatusLabel(payment.status)}
+                                        </span>
+                                      </div>
+                                      <p className="text-xs font-bold text-slate-500 mt-1">
+                                        {payment.providerInvoiceNumber || '--'} · {formatCurrency(payment.paidAmount || payment.amount || 0, payment.currencyCode || 'VND')}
+                                      </p>
+                                      <p className="text-[10px] font-bold text-slate-400 mt-1">
+                                        Paid: {payment.paidAt ? formatDateTime(payment.paidAt) : '--'} · Webhook: {payment.webhookReceivedAt ? formatDateTime(payment.webhookReceivedAt) : '--'}
+                                      </p>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="bg-white rounded-2xl border border-slate-100 p-4">
+                              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Tickets QR</p>
+                              {(detail.tickets || []).length === 0 ? (
+                                <p className="text-xs font-bold text-slate-400">Chua co ve QR.</p>
+                              ) : (
+                                <div className="space-y-2">
+                                  {detail.tickets.map((ticketItem) => (
+                                    <div key={ticketItem.id} className="flex gap-3 rounded-xl bg-slate-50 px-3 py-3">
+                                      <img
+                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=86x86&data=${encodeURIComponent(ticketItem.ticketCode)}`}
+                                        alt={ticketItem.ticketCode}
+                                        className="w-20 h-20 rounded-xl bg-white border border-slate-100 p-1"
+                                      />
+                                      <div className="min-w-0 flex-1">
+                                        <div className="flex flex-wrap items-center justify-between gap-2">
+                                          <p className="font-black text-slate-900 text-sm truncate">{ticketItem.ticketCode}</p>
+                                          <span className={`px-2 py-1 rounded-lg text-[10px] font-black uppercase ${getTicketClass(ticketItem.status)}`}>
+                                            {formatCustomerTicketStatusLabel(ticketItem.status)}
+                                          </span>
+                                        </div>
+                                        <p className="text-xs font-bold text-slate-500 mt-1">{ticketItem.title}</p>
+                                        <p className="text-[10px] font-bold text-slate-400 mt-1">{formatDateTime(ticketItem.issuedAt)}</p>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="bg-white rounded-2xl border border-slate-100 p-4">
+                              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Refunds</p>
+                              {(detail.refunds || []).length === 0 ? (
+                                <p className="text-xs font-bold text-slate-400">Chua co yeu cau hoan tien.</p>
+                              ) : (
+                                <div className="space-y-2">
+                                  {detail.refunds.map((refund) => (
+                                    <div key={refund.id} className="rounded-xl bg-slate-50 px-3 py-3">
+                                      <div className="flex flex-wrap items-center justify-between gap-2">
+                                        <p className="font-black text-slate-900 text-sm">{refund.refundCode}</p>
+                                        <span className={`px-2 py-1 rounded-lg text-[10px] font-black uppercase ${getRefundClass(refund.status)}`}>
+                                          {formatCustomerRefundStatusLabel(refund.status)}
+                                        </span>
+                                      </div>
+                                      <p className="text-xs font-bold text-slate-500 mt-1">
+                                        Request {formatCurrency(refund.requestedAmount || 0, refund.currencyCode || 'VND')} · Approved {refund.approvedAmount ? formatCurrency(refund.approvedAmount, refund.currencyCode || 'VND') : '--'} · Refunded {refund.refundedAmount ? formatCurrency(refund.refundedAmount, refund.currencyCode || 'VND') : '--'}
+                                      </p>
+                                      <p className="text-[10px] font-bold text-slate-400 mt-1">
+                                        {refund.reasonText || refund.reasonCode || '--'} · {refund.refundReference || 'Chua co ma GD'}
+                                      </p>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+
+                            <div className="bg-white rounded-2xl border border-slate-100 p-4">
+                              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Support</p>
+                              {(detail.supportTickets || []).length === 0 ? (
+                                <p className="text-xs font-bold text-slate-400">Chua co support ticket.</p>
+                              ) : (
+                                <div className="space-y-2">
+                                  {detail.supportTickets.map((ticketItem) => (
+                                    <div key={ticketItem.id} className="rounded-xl bg-slate-50 px-3 py-3">
+                                      <div className="flex flex-wrap items-center justify-between gap-2">
+                                        <p className="font-black text-slate-900 text-sm">{ticketItem.ticketCode}</p>
+                                        <span className="px-2 py-1 rounded-lg text-[10px] font-black uppercase bg-blue-100 text-blue-700">
+                                          {ticketItem.priority}
+                                        </span>
+                                      </div>
+                                      <p className="text-xs font-bold text-slate-500 mt-1">{ticketItem.subject}</p>
+                                      <p className="text-[10px] font-bold text-slate-400 mt-1">
+                                        {ticketItem.contactEmail || '--'} · {ticketItem.lastActivityAt ? formatDateTime(ticketItem.lastActivityAt) : formatDateTime(ticketItem.createdAt)}
+                                      </p>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="bg-white rounded-2xl border border-slate-100 p-4 mb-4">
+                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3">Settlement lines</p>
+                            {(detail.settlementLines || []).length === 0 ? (
+                              <p className="text-xs font-bold text-slate-400">Chua vao batch doi soat.</p>
+                            ) : (
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {detail.settlementLines.map((line) => (
+                                  <div key={line.id} className="rounded-xl bg-slate-50 px-3 py-3">
+                                    <div className="flex flex-wrap items-center justify-between gap-2">
+                                      <p className="font-black text-slate-900 text-sm">{line.batchCode || '--'}</p>
+                                      <span className="px-2 py-1 rounded-lg text-[10px] font-black uppercase bg-slate-100 text-slate-600">
+                                        {formatSettlementLabel(line.status)}
+                                      </span>
+                                    </div>
+                                    <p className="text-xs font-bold text-slate-500 mt-1">{line.description}</p>
+                                    <p className="text-[10px] font-bold text-slate-400 mt-1">
+                                      Tổng giá gốc {formatCurrency(line.grossAmount || 0, line.currencyCode || 'VND')} · Hoa hồng platform {formatCurrency(line.commissionAmount || 0, line.currencyCode || 'VND')} · Tiền refund trừ payout {formatCurrency(line.refundAmount || 0, line.currencyCode || 'VND')}
+                                    </p>
+                                    <p className="text-sm font-black text-slate-900 mt-1">
+                                      Net payout {formatCurrency(line.netPayoutAmount || 0, line.currencyCode || 'VND')}
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </>
                       ) : null}
 
                       <div className="flex flex-wrap gap-2">

@@ -166,6 +166,9 @@ public sealed partial class CommerceBackofficeService
             Status = x.Refund.Status,
             SettlementStatus = x.Order.SettlementStatus,
             CurrencyCode = x.Refund.CurrencyCode,
+            PayableAmount = x.Order.PayableAmount,
+            AlreadyRefundedAmount = x.Order.RefundedAmount,
+            RemainingRefundableAmount = Math.Max(0m, x.Order.PayableAmount - x.Order.RefundedAmount),
             RequestedAmount = x.Refund.RequestedAmount,
             ApprovedAmount = x.Refund.ApprovedAmount,
             RefundedAmount = x.Refund.RefundedAmount,
@@ -173,6 +176,7 @@ public sealed partial class CommerceBackofficeService
             ReasonText = x.Refund.ReasonText,
             InternalNote = x.Refund.ReviewNote,
             RefundReference = x.Refund.RefundReference,
+            SettlementImpactNote = BuildRefundSettlementImpactNote(x.Order.SettlementStatus),
             RequestedAt = x.Refund.RequestedAt,
             ReviewedAt = x.Refund.ReviewedAt,
             CompletedAt = x.Refund.CompletedAt,
@@ -212,6 +216,10 @@ public sealed partial class CommerceBackofficeService
         if (refund.Status is CustomerRefundStatus.Rejected or CustomerRefundStatus.RefundedPartial or CustomerRefundStatus.RefundedFull)
             throw new InvalidOperationException("Yeu cau hoan tien nay da o trang thai cuoi.");
 
+        var internalNote = NormalizeInternalNote(request);
+        if (string.IsNullOrWhiteSpace(internalNote))
+            throw new InvalidOperationException("Vui long nhap ghi chu duyet hoan tien.");
+
         var remainingRefundable = Math.Max(0m, order.PayableAmount - order.RefundedAmount);
         var approvedAmount = request.ApprovedAmount.GetValueOrDefault(refund.RequestedAmount);
         if (approvedAmount <= 0 || approvedAmount > remainingRefundable)
@@ -220,7 +228,7 @@ public sealed partial class CommerceBackofficeService
         var now = DateTimeOffset.UtcNow;
         refund.Status = CustomerRefundStatus.Approved;
         refund.ApprovedAmount = approvedAmount;
-        refund.ReviewNote = NormalizeInternalNote(request);
+        refund.ReviewNote = internalNote;
         refund.ReviewedAt = now;
         refund.UpdatedAt = now;
         refund.UpdatedByUserId = actorUserId;
@@ -255,9 +263,13 @@ public sealed partial class CommerceBackofficeService
         if (refund.Status is CustomerRefundStatus.Rejected or CustomerRefundStatus.RefundedPartial or CustomerRefundStatus.RefundedFull)
             throw new InvalidOperationException("Yeu cau hoan tien nay da o trang thai cuoi.");
 
+        var internalNote = NormalizeInternalNote(request);
+        if (string.IsNullOrWhiteSpace(internalNote))
+            throw new InvalidOperationException("Vui long nhap ly do tu choi hoan tien.");
+
         var now = DateTimeOffset.UtcNow;
         refund.Status = CustomerRefundStatus.Rejected;
-        refund.ReviewNote = NormalizeInternalNote(request);
+        refund.ReviewNote = internalNote;
         refund.ReviewedAt = now;
         refund.UpdatedAt = now;
         refund.UpdatedByUserId = actorUserId;
@@ -308,6 +320,9 @@ public sealed partial class CommerceBackofficeService
             throw new InvalidOperationException("So tien hoan thuc te khong hop le.");
 
         var refundReference = NormalizeRequired(request.RefundReference, "Vui long nhap ma tham chieu hoan tien.");
+        var internalNote = NormalizeInternalNote(request);
+        if (string.IsNullOrWhiteSpace(internalNote))
+            throw new InvalidOperationException("Vui long nhap ghi chu xac nhan hoan tien.");
 
         var previousRefundedAmount = order.RefundedAmount;
         var totalRefundedAmount = previousRefundedAmount + refundedAmount;
@@ -316,7 +331,7 @@ public sealed partial class CommerceBackofficeService
 
         refund.ApprovedAmount ??= refundedAmount;
         refund.RefundedAmount = refundedAmount;
-        refund.ReviewNote = NormalizeInternalNote(request) ?? refund.ReviewNote;
+        refund.ReviewNote = internalNote;
         refund.RefundReference = refundReference;
         refund.ReviewedAt ??= now;
         refund.CompletedAt = now;
@@ -469,14 +484,16 @@ public sealed partial class CommerceBackofficeService
         var batches = await _db.CustomerSettlementBatches
             .AsNoTracking()
             .Where(x => !x.IsDeleted)
-            .OrderByDescending(x => x.PeriodYear)
-            .ThenByDescending(x => x.PeriodMonth)
+            .OrderByDescending(x => x.EndDate)
+            .ThenByDescending(x => x.StartDate)
             .ThenByDescending(x => x.CreatedAt)
             .Take(12)
             .Select(x => new AdminSettlementBatchDto
             {
                 Id = x.Id,
                 BatchCode = x.BatchCode,
+                PeriodType = ResolveSettlementPeriodType(x.StartDate, x.EndDate),
+                PeriodLabel = BuildSettlementPeriodLabel(x.StartDate, x.EndDate),
                 PeriodYear = x.PeriodYear,
                 PeriodMonth = x.PeriodMonth,
                 StartDate = x.StartDate,
@@ -570,20 +587,16 @@ public sealed partial class CommerceBackofficeService
         request ??= new GenerateSettlementBatchRequest();
 
         var now = DateTimeOffset.UtcNow;
-        var year = request.Year.GetValueOrDefault(now.Year);
-        var month = request.Month.GetValueOrDefault(now.Month);
-        if (year < 2000 || month is < 1 or > 12)
-            throw new InvalidOperationException("Ky doi soat khong hop le.");
-
-        var startDate = new DateOnly(year, month, 1);
-        var endDate = startDate.AddMonths(1).AddDays(-1);
+        var period = ResolveSettlementPeriod(request, now);
+        var startDate = period.StartDate;
+        var endDate = period.EndDate;
 
         await ExecuteWithoutTenantScopeAsync(async () =>
         {
             var batch = await _db.CustomerSettlementBatches
                 .FirstOrDefaultAsync(x =>
-                    x.PeriodYear == year &&
-                    x.PeriodMonth == month &&
+                    x.StartDate == startDate &&
+                    x.EndDate == endDate &&
                     !x.IsDeleted, ct);
 
             if (batch is null)
@@ -591,9 +604,9 @@ public sealed partial class CommerceBackofficeService
                 batch = new CustomerSettlementBatch
                 {
                     Id = Guid.NewGuid(),
-                    BatchCode = await GenerateSettlementBatchCodeAsync(year, month, ct),
-                    PeriodYear = year,
-                    PeriodMonth = month,
+                    BatchCode = await GenerateSettlementBatchCodeAsync(period.BatchCodePrefix, ct),
+                    PeriodYear = period.PeriodYear,
+                    PeriodMonth = period.PeriodMonth,
                     StartDate = startDate,
                     EndDate = endDate,
                     Status = CustomerSettlementBatchStatus.Draft,
@@ -620,6 +633,7 @@ public sealed partial class CommerceBackofficeService
             await AddRefundAdjustmentLinesAsync(batch, startDate, endDate, actorUserId, ct);
             await _db.SaveChangesAsync(ct);
             await RecalculateBatchAsync(batch, actorUserId, ct);
+            batch.Status = batch.LineCount > 0 ? CustomerSettlementBatchStatus.Processing : CustomerSettlementBatchStatus.Draft;
             await _db.SaveChangesAsync(ct);
         });
 
@@ -633,6 +647,10 @@ public sealed partial class CommerceBackofficeService
         CancellationToken ct = default)
     {
         request ??= new MarkSettlementBatchPaidRequest();
+        var paidAt = request.PaidAt ?? throw new InvalidOperationException("Vui long nhap ngay chuyen tien.");
+        var bankTransactionCode = NormalizeRequired(request.BankTransactionCode, "Vui long nhap ma giao dich chuyen tien.");
+        var payoutNote = NormalizeRequired(request.Notes, "Vui long nhap ghi chu xac nhan payout.");
+        var actionAt = DateTimeOffset.UtcNow;
 
         await ExecuteWithoutTenantScopeAsync(async () =>
         {
@@ -644,19 +662,40 @@ public sealed partial class CommerceBackofficeService
                 .Where(x => x.BatchId == batchId && !x.IsDeleted)
                 .ToListAsync(ct);
 
-            var now = DateTimeOffset.UtcNow;
+            if (lines.Count == 0)
+                throw new InvalidOperationException("Batch doi soat chua co dong payout nao de xac nhan.");
+
+            var tenantIds = lines.Select(x => x.TenantId).Distinct().ToList();
+            var configuredTenantIds = await _db.CustomerTenantPayoutAccounts
+                .AsNoTracking()
+                .Where(x =>
+                    tenantIds.Contains(x.TenantId) &&
+                    x.IsDefault &&
+                    !x.IsDeleted &&
+                    x.BankName != "" &&
+                    x.AccountNumber != "" &&
+                    x.AccountHolder != "")
+                .Select(x => x.TenantId)
+                .Distinct()
+                .ToListAsync(ct);
+
+            var missingPayoutTenantIds = tenantIds.Except(configuredTenantIds).ToList();
+            if (missingPayoutTenantIds.Count > 0)
+                throw new InvalidOperationException("Van con tenant chua cau hinh payout account mac dinh.");
+
+            var auditNote = $"Ma giao dich: {bankTransactionCode}. Ghi chu: {payoutNote}";
             batch.Status = CustomerSettlementBatchStatus.Completed;
-            batch.ApprovedAt ??= now;
-            batch.PaidAt = now;
-            batch.Notes = NormalizeOptional(request.Notes) ?? batch.Notes;
-            batch.UpdatedAt = now;
+            batch.ApprovedAt ??= paidAt;
+            batch.PaidAt = paidAt;
+            batch.Notes = auditNote;
+            batch.UpdatedAt = actionAt;
             batch.UpdatedByUserId = actorUserId;
 
             foreach (var line in lines)
             {
                 line.Status = line.NetPayoutAmount < 0 ? CustomerSettlementStatus.Adjusted : CustomerSettlementStatus.Settled;
-                line.SettledAt = now;
-                line.UpdatedAt = now;
+                line.SettledAt = paidAt;
+                line.UpdatedAt = actionAt;
                 line.UpdatedByUserId = actorUserId;
             }
 
@@ -672,11 +711,11 @@ public sealed partial class CommerceBackofficeService
                 var hasPositiveSettlement = orderLines.Any(x => x.NetPayoutAmount >= 0 || x.GrossAmount > 0);
 
                 if (hasPositiveSettlement)
-                    order.SettledAt ??= now;
+                    order.SettledAt ??= paidAt;
 
                 order.SettlementBatchId = batch.Id;
                 order.SettlementStatus = hasAdjustment ? CustomerSettlementStatus.Adjusted : CustomerSettlementStatus.Settled;
-                order.UpdatedAt = now;
+                order.UpdatedAt = actionAt;
                 order.UpdatedByUserId = actorUserId;
             }
 
@@ -1038,15 +1077,112 @@ public sealed partial class CommerceBackofficeService
         batch.UpdatedByUserId = actorUserId;
     }
 
-    private async Task<string> GenerateSettlementBatchCodeAsync(int year, int month, CancellationToken ct)
+    private async Task<string> GenerateSettlementBatchCodeAsync(string prefix, CancellationToken ct)
     {
-        var prefix = $"STL-{year}{month:00}";
         var existing = await _db.CustomerSettlementBatches
             .AsNoTracking()
             .Where(x => x.BatchCode.StartsWith(prefix))
             .CountAsync(ct);
 
         return $"{prefix}-{existing + 1:000}";
+    }
+
+    private static SettlementPeriodDefinition ResolveSettlementPeriod(
+        GenerateSettlementBatchRequest request,
+        DateTimeOffset now)
+    {
+        var periodType = NormalizeOptional(request.PeriodType)?.ToLowerInvariant() ?? "month";
+        var year = request.Year.GetValueOrDefault(now.Year);
+        if (year < 2000)
+            throw new InvalidOperationException("Nam doi soat khong hop le.");
+
+        return periodType switch
+        {
+            "day" => ResolveDailySettlementPeriod(year, request.Month, request.Day, now),
+            "quarter" => ResolveQuarterSettlementPeriod(year, request.Quarter, now),
+            "year" => ResolveYearlySettlementPeriod(year),
+            _ => ResolveMonthlySettlementPeriod(year, request.Month, now),
+        };
+    }
+
+    private static SettlementPeriodDefinition ResolveDailySettlementPeriod(
+        int year,
+        int? month,
+        int? day,
+        DateTimeOffset now)
+    {
+        var resolvedMonth = month.GetValueOrDefault(now.Month);
+        var resolvedDay = day.GetValueOrDefault(now.Day);
+        if (resolvedMonth is < 1 or > 12)
+            throw new InvalidOperationException("Thang doi soat khong hop le.");
+        if (resolvedDay < 1 || resolvedDay > DateTime.DaysInMonth(year, resolvedMonth))
+            throw new InvalidOperationException("Ngay doi soat khong hop le.");
+
+        var startDate = new DateOnly(year, resolvedMonth, resolvedDay);
+        return new SettlementPeriodDefinition("day", $"STL-D-{year}{resolvedMonth:00}{resolvedDay:00}", startDate, startDate, year, resolvedMonth);
+    }
+
+    private static SettlementPeriodDefinition ResolveMonthlySettlementPeriod(
+        int year,
+        int? month,
+        DateTimeOffset now)
+    {
+        var resolvedMonth = month.GetValueOrDefault(now.Month);
+        if (resolvedMonth is < 1 or > 12)
+            throw new InvalidOperationException("Thang doi soat khong hop le.");
+
+        var startDate = new DateOnly(year, resolvedMonth, 1);
+        return new SettlementPeriodDefinition("month", $"STL-M-{year}{resolvedMonth:00}", startDate, startDate.AddMonths(1).AddDays(-1), year, resolvedMonth);
+    }
+
+    private static SettlementPeriodDefinition ResolveQuarterSettlementPeriod(
+        int year,
+        int? quarter,
+        DateTimeOffset now)
+    {
+        var resolvedQuarter = quarter.GetValueOrDefault(((now.Month - 1) / 3) + 1);
+        if (resolvedQuarter is < 1 or > 4)
+            throw new InvalidOperationException("Quy doi soat khong hop le.");
+
+        var startMonth = ((resolvedQuarter - 1) * 3) + 1;
+        var startDate = new DateOnly(year, startMonth, 1);
+        return new SettlementPeriodDefinition("quarter", $"STL-Q-{year}Q{resolvedQuarter}", startDate, startDate.AddMonths(3).AddDays(-1), year, startMonth);
+    }
+
+    private static SettlementPeriodDefinition ResolveYearlySettlementPeriod(int year)
+    {
+        var startDate = new DateOnly(year, 1, 1);
+        return new SettlementPeriodDefinition("year", $"STL-Y-{year}", startDate, new DateOnly(year, 12, 31), year, 1);
+    }
+
+    private static string ResolveSettlementPeriodType(DateOnly startDate, DateOnly endDate)
+    {
+        if (startDate == endDate)
+            return "day";
+
+        if (startDate.Month == 1 && startDate.Day == 1 && endDate.Month == 12 && endDate.Day == 31 && startDate.Year == endDate.Year)
+            return "year";
+
+        if (startDate.Day == 1 && endDate == startDate.AddMonths(3).AddDays(-1))
+            return "quarter";
+
+        if (startDate.Day == 1 && endDate == startDate.AddMonths(1).AddDays(-1))
+            return "month";
+
+        return "custom";
+    }
+
+    private static string BuildSettlementPeriodLabel(DateOnly startDate, DateOnly endDate)
+    {
+        var periodType = ResolveSettlementPeriodType(startDate, endDate);
+        return periodType switch
+        {
+            "day" => $"{startDate:dd/MM/yyyy}",
+            "month" => $"Thang {startDate.Month:00}/{startDate.Year}",
+            "quarter" => $"Quy {((startDate.Month - 1) / 3) + 1}/{startDate.Year}",
+            "year" => $"Nam {startDate.Year}",
+            _ => $"{startDate:dd/MM/yyyy} - {endDate:dd/MM/yyyy}",
+        };
     }
 
     private static AdminCommerceSupportTicketDto MapSupportTicket(
@@ -1231,6 +1367,13 @@ public sealed partial class CommerceBackofficeService
         return NormalizeOptional(request?.InternalNote) ?? NormalizeOptional(request?.ReviewNote);
     }
 
+    private static string BuildRefundSettlementImpactNote(CustomerSettlementStatus status)
+    {
+        return status is CustomerSettlementStatus.Settled or CustomerSettlementStatus.InSettlement
+            ? "Refund se tao dong dieu chinh trong settlement."
+            : "Refund se tru vao payout chua doi soat.";
+    }
+
     private static string? MaskAccountNumber(string? value)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -1259,4 +1402,12 @@ public sealed partial class CommerceBackofficeService
             _tenantContext.SetRequiresTenantForWrite(originalRequiresTenantForWrite);
         }
     }
+
+    private sealed record SettlementPeriodDefinition(
+        string PeriodType,
+        string BatchCodePrefix,
+        DateOnly StartDate,
+        DateOnly EndDate,
+        int PeriodYear,
+        int PeriodMonth);
 }

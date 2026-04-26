@@ -218,3 +218,5 @@ D:\FPT\TicketBooking.V3\TicketBooking.Api\obj\Debug\net8.0\refint\TicketBooking.
 D:\FPT\TicketBooking.V3\TicketBooking.Api\obj\Debug\net8.0\TicketBooking.Api.pdb
 D:\FPT\TicketBooking.V3\TicketBooking.Api\obj\Debug\net8.0\TicketBooking.Api.genruntimeconfig.cache
 D:\FPT\TicketBooking.V3\TicketBooking.Api\obj\Debug\net8.0\ref\TicketBooking.Api.dll
+D:\FPT\TicketBooking.V3\TicketBooking.Api\bin\Debug\net8.0\TicketBooking.Api.staticwebassets.runtime.json
+D:\FPT\TicketBooking.V3\TicketBooking.Api\bin\Debug\net8.0\App_Data\partner-onboarding\ONB-DEMO-PENDING-001\metadata.json

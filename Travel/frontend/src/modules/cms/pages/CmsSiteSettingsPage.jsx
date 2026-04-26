@@ -3,6 +3,8 @@ import { Globe, RefreshCw, Save } from 'lucide-react';
 import CmsPageShell from '../components/CmsPageShell';
 import useCmsWorkspaceData from '../hooks/useCmsWorkspaceData';
 import { getCmsSiteSettings, upsertCmsSiteSettings } from '../../../services/cmsService';
+import { uploadManagerImage } from '../../../services/portalUploadService';
+import ImageUploadField from '../../../shared/components/forms/ImageUploadField';
 
 function buildEmptySiteSettings() {
   return {
@@ -33,6 +35,8 @@ const CmsSiteSettingsPage = ({ mode = 'admin' }) => {
   } = useCmsWorkspaceData(mode);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploadingOgImage, setUploadingOgImage] = useState(false);
+  const [uploadingBrandLogo, setUploadingBrandLogo] = useState(false);
   const [notice, setNotice] = useState('');
   const [form, setForm] = useState(buildEmptySiteSettings());
 
@@ -93,6 +97,31 @@ const CmsSiteSettingsPage = ({ mode = 'admin' }) => {
     }
   }
 
+  async function handleUploadSiteImage(field, scope, setUploading, file) {
+    if (!tenantId) {
+      setError('Vui lòng chọn tenant trước khi tải ảnh.');
+      return;
+    }
+
+    setUploading(true);
+    setError('');
+
+    try {
+      const response = await uploadManagerImage(file, {
+        scope,
+        tenantId: isAdmin ? tenantId : undefined,
+      });
+      setForm((current) => ({
+        ...current,
+        [field]: response?.url || '',
+      }));
+    } catch (err) {
+      setError(err.message || 'Không thể tải ảnh cấu hình site.');
+    } finally {
+      setUploading(false);
+    }
+  }
+
   return (
     <CmsPageShell
       mode={mode}
@@ -128,8 +157,26 @@ const CmsSiteSettingsPage = ({ mode = 'admin' }) => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input value={form.defaultOgImageUrl} onChange={(event) => setForm((current) => ({ ...current, defaultOgImageUrl: event.target.value }))} placeholder="Ảnh OG mặc định" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none" />
-              <input value={form.brandLogoUrl} onChange={(event) => setForm((current) => ({ ...current, brandLogoUrl: event.target.value }))} placeholder="URL logo thương hiệu" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none" />
+              <ImageUploadField
+                label="Ảnh OG mặc định"
+                value={form.defaultOgImageUrl}
+                onChange={(value) => setForm((current) => ({ ...current, defaultOgImageUrl: value }))}
+                onUpload={(file) => handleUploadSiteImage('defaultOgImageUrl', 'cms-site-og-image', setUploadingOgImage, file)}
+                uploading={uploadingOgImage}
+                placeholder="Ảnh OG mặc định"
+                helperText="Dùng cho preview SEO mặc định của tenant."
+                previewAlt={form.siteName || 'Ảnh OG mặc định'}
+              />
+              <ImageUploadField
+                label="Logo thương hiệu"
+                value={form.brandLogoUrl}
+                onChange={(value) => setForm((current) => ({ ...current, brandLogoUrl: value }))}
+                onUpload={(file) => handleUploadSiteImage('brandLogoUrl', 'cms-site-brand-logo', setUploadingBrandLogo, file)}
+                uploading={uploadingBrandLogo}
+                placeholder="URL logo thương hiệu"
+                helperText="Dùng cho nhận diện thương hiệu của tenant."
+                previewAlt={form.siteName || 'Logo thương hiệu'}
+              />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -113,7 +113,7 @@ export default function AdminPaymentsPage() {
     { label: 'Tổng GD', value: summary.totalCount || 0, className: 'bg-slate-900 text-white' },
     { label: 'Thành công', value: summary.paidCount || 0, className: 'bg-emerald-50' },
     { label: 'Thất bại/HH', value: summary.failedCount || 0, className: 'bg-rose-50' },
-    { label: 'Tổng giá trị', value: formatCurrency(summary.totalAmount || 0, 'VND'), className: 'bg-blue-50' },
+    { label: 'Tổng tiền đã ghi nhận', value: formatCurrency(summary.totalAmount || 0, 'VND'), className: 'bg-blue-50' },
   ]), [summary]);
 
   return (
@@ -182,7 +182,7 @@ export default function AdminPaymentsPage() {
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         <div className="hidden md:grid grid-cols-12 gap-3 px-5 py-3 border-b border-slate-50 bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
           <div className="col-span-3">Giao dịch / Khách</div>
-          <div className="col-span-2">Số tiền</div>
+          <div className="col-span-2">Số tiền giao dịch</div>
           <div className="col-span-2">Phương thức</div>
           <div className="col-span-2">Callback</div>
           <div className="col-span-2">Trạng thái</div>
@@ -236,7 +236,7 @@ export default function AdminPaymentsPage() {
                     <div className="bg-slate-50 border-t border-slate-100 px-5 py-4">
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs mb-3">
                         {[
-                          { label: 'Ref', value: item.providerInvoiceNumber || '--' },
+                          { label: 'Mã tham chiếu provider', value: item.providerInvoiceNumber || '--' },
                           { label: 'Đơn hàng', value: item.orderCode },
                           { label: 'Tenant', value: item.tenantName || '--' },
                           { label: 'Ngày GD', value: formatDateTime(item.paidAt || item.createdAt) },
@@ -249,7 +249,7 @@ export default function AdminPaymentsPage() {
                       </div>
                       <div className="flex gap-2 flex-wrap">
                         <Link
-                          to={`/my-account/bookings/${encodeURIComponent(item.orderCode)}`}
+                          to={`/admin/bookings?q=${encodeURIComponent(item.orderCode)}`}
                           className="flex items-center gap-1.5 px-4 py-2 bg-white text-slate-600 rounded-xl text-[10px] font-black uppercase border border-slate-100 hover:bg-blue-50 hover:text-blue-600 transition-all"
                         >
                           <Eye size={12} />

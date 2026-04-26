@@ -13,6 +13,8 @@ import {
   updateAdminFlightAirline,
   updateFlightAirline,
 } from '../../../../services/flightService';
+import { uploadManagerImage } from '../../../../services/portalUploadService';
+import ImageUploadField from '../../../../shared/components/forms/ImageUploadField';
 
 function createEmptyForm() {
   return {
@@ -64,6 +66,7 @@ export default function FlightAirlinesPage({ mode = 'tenant', adminScope = null 
   const [form, setForm] = useState(createEmptyForm);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploadingLogo, setUploadingLogo] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
@@ -113,6 +116,29 @@ export default function FlightAirlinesPage({ mode = 'tenant', adminScope = null 
     setSelectedId('');
     setForm(createEmptyForm());
     setNotice('');
+  }
+
+  async function handleUploadLogo(file) {
+    if (isAdmin && !tenantId) {
+      setError('Vui lòng chọn tenant trước khi tải logo.');
+      return;
+    }
+
+    setUploadingLogo(true);
+    setError('');
+    setNotice('');
+
+    try {
+      const response = await uploadManagerImage(file, {
+        scope: 'airline-logo',
+        tenantId: isAdmin ? tenantId : undefined,
+      });
+      setForm((current) => ({ ...current, logoUrl: response?.url || '' }));
+    } catch (requestError) {
+      setError(requestError.message || 'Không thể tải logo hãng bay.');
+    } finally {
+      setUploadingLogo(false);
+    }
   }
 
   async function handleSubmit(event) {
@@ -238,7 +264,18 @@ export default function FlightAirlinesPage({ mode = 'tenant', adminScope = null 
             <input value={form.icaoCode} onChange={(event) => setForm((current) => ({ ...current, icaoCode: event.target.value.toUpperCase() }))} placeholder="ICAO" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none" />
             <input value={form.supportPhone} onChange={(event) => setForm((current) => ({ ...current, supportPhone: event.target.value }))} placeholder="Hotline hỗ trợ" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none" />
             <input value={form.supportEmail} onChange={(event) => setForm((current) => ({ ...current, supportEmail: event.target.value }))} placeholder="Email hỗ trợ" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none" />
-            <input value={form.logoUrl} onChange={(event) => setForm((current) => ({ ...current, logoUrl: event.target.value }))} placeholder="Logo URL" className="md:col-span-2 w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none" />
+            <div className="md:col-span-2">
+              <ImageUploadField
+                label=""
+                value={form.logoUrl}
+                onChange={(value) => setForm((current) => ({ ...current, logoUrl: value }))}
+                onUpload={handleUploadLogo}
+                uploading={uploadingLogo}
+                placeholder="Logo URL"
+                helperText="Hỗ trợ JPG, PNG, WEBP tối đa 10MB."
+                previewAlt={form.name || 'Logo hãng bay'}
+              />
+            </div>
             <input value={form.websiteUrl} onChange={(event) => setForm((current) => ({ ...current, websiteUrl: event.target.value }))} placeholder="Website" className="md:col-span-2 w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none" />
           </div>
           <label className="flex items-center gap-3 text-sm font-bold text-slate-600">

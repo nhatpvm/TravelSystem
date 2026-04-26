@@ -1,0 +1,17 @@
+{
+  "url": "http://127.0.0.1:4173/admin/settlement",
+  "periodButtons": [
+    "Logout",
+    "3",
+    "System AdminQuản trị viênSA",
+    "Tao batch",
+    "Ngay",
+    "Thang",
+    "Quy",
+    "Nam",
+    "Settlement Batches",
+    "Payouts",
+    "Danh dau da tra tenant"
+  ],
+  "detailText": "NGAY THANH TOAN\nGHI CHU PAYOUT\n\nPAYOUT LINES\n\nChua co payout lines.\n\nDANH DAU DA TRA TENANT"
+}

@@ -9,6 +9,8 @@ import {
   toggleManagerTourAction,
   updateManagerTour,
 } from '../../../../services/tourService';
+import { uploadManagerImage } from '../../../../services/portalUploadService';
+import ImageUploadField from '../../../../shared/components/forms/ImageUploadField';
 import {
   buildSlug,
   formatDateTime,
@@ -96,6 +98,7 @@ export default function TourInventoryPage() {
   const [tours, setTours] = useState([]);
   const [selectedTour, setSelectedTour] = useState(null);
   const [form, setForm] = useState(EMPTY_FORM);
+  const [uploadingCoverImage, setUploadingCoverImage] = useState(false);
 
   const selectedTourId = searchParams.get('tourId') || '';
 
@@ -185,6 +188,21 @@ export default function TourInventoryPage() {
       [name]: type === 'checkbox' ? checked : value,
       ...(name === 'name' && !selectedTour ? { slug: buildSlug(value) } : {}),
     }));
+  }
+
+  async function handleUploadCoverImage(file) {
+    setUploadingCoverImage(true);
+    setError('');
+    setNotice('');
+
+    try {
+      const response = await uploadManagerImage(file, { scope: 'tour-cover' });
+      setForm((current) => ({ ...current, coverImageUrl: response?.url || '' }));
+    } catch (requestError) {
+      setError(requestError.message || 'KhÃ´ng thá»ƒ táº£i áº£nh bÃ¬a tour.');
+    } finally {
+      setUploadingCoverImage(false);
+    }
   }
 
   async function handleSubmit(event) {
@@ -523,7 +541,16 @@ export default function TourInventoryPage() {
 
             <label className="space-y-2 block">
               <span className="text-[11px] font-black uppercase tracking-widest text-slate-400">Ảnh bìa</span>
-              <input name="coverImageUrl" value={form.coverImageUrl} onChange={handleFieldChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium outline-none" />
+              <ImageUploadField
+                label=""
+                value={form.coverImageUrl}
+                onChange={(value) => setForm((current) => ({ ...current, coverImageUrl: value }))}
+                onUpload={handleUploadCoverImage}
+                uploading={uploadingCoverImage}
+                placeholder="URL áº£nh bÃ¬a"
+                helperText="Há»— trá»£ JPG, PNG, WEBP tá»‘i Ä‘a 10MB."
+                previewAlt={form.name || 'áº¢nh bÃ¬a tour'}
+              />
             </label>
 
             <label className="space-y-2 block">

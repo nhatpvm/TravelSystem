@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Images, Plus, RefreshCw } from 'lucide-react';
+import AdminImageUploadField from '../components/AdminImageUploadField';
 import AdminHotelPageShell from '../hotel/components/AdminHotelPageShell';
 import useAdminHotelScope from '../hotel/hooks/useAdminHotelScope';
 import {
@@ -12,6 +13,7 @@ import {
   setAdminRoomTypeImagePrimary,
   updateAdminRoomTypeImage,
 } from '../../../services/hotelService';
+import { uploadAdminImage } from '../../../services/adminUploadService';
 
 function createEmptyForm(roomTypeId = '') {
   return {
@@ -75,6 +77,7 @@ export default function AdminRoomTypeImagesPage() {
   const [items, setItems] = useState([]);
   const [selectedId, setSelectedId] = useState('');
   const [form, setForm] = useState(createEmptyForm());
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   async function loadData() {
     if (!tenantId) {
@@ -142,6 +145,29 @@ export default function AdminRoomTypeImagesPage() {
     setSelectedId('');
     setForm(createEmptyForm(selectedRoomTypeId || roomTypes[0]?.id || ''));
     setNotice('');
+  }
+
+  async function handleUploadImage(file) {
+    setUploadingImage(true);
+    setError('');
+    setNotice('');
+
+    try {
+      const response = await uploadAdminImage(file, {
+        scope: 'room-type-image',
+        tenantId,
+      });
+
+      setForm((current) => ({
+        ...current,
+        imageUrl: response?.url || '',
+      }));
+      setNotice('Đã tải ảnh hạng phòng từ máy.');
+    } catch (requestError) {
+      setError(requestError.message || 'Không thể tải ảnh hạng phòng lên.');
+    } finally {
+      setUploadingImage(false);
+    }
   }
 
   async function handleSubmit(event) {
@@ -291,12 +317,16 @@ export default function AdminRoomTypeImagesPage() {
             ))}
           </select>
 
-          <input value={form.imageUrl} onChange={(event) => setForm((current) => ({ ...current, imageUrl: event.target.value }))} placeholder="URL ảnh" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
-          {form.imageUrl ? (
-            <div className="rounded-[2rem] border border-slate-100 bg-slate-50 p-4">
-              <img src={form.imageUrl} alt={form.altText || form.title || 'Preview'} className="h-52 w-full rounded-[1.5rem] object-cover" />
-            </div>
-          ) : null}
+          <AdminImageUploadField
+            label="Ảnh hạng phòng"
+            value={form.imageUrl}
+            onChange={(value) => setForm((current) => ({ ...current, imageUrl: value }))}
+            onUpload={handleUploadImage}
+            uploading={uploadingImage}
+            placeholder="URL ảnh"
+            helperText="Có thể dán URL sẵn có hoặc tải ảnh trực tiếp từ máy."
+            previewAlt={form.altText || form.title || 'Preview'}
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input value={form.title} onChange={(event) => setForm((current) => ({ ...current, title: event.target.value }))} placeholder="Tiêu đề ảnh" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />

@@ -3,6 +3,8 @@ import { Image as ImageIcon, RefreshCw, Trash2, Upload } from 'lucide-react';
 import CmsPageShell from '../components/CmsPageShell';
 import useCmsWorkspaceData from '../hooks/useCmsWorkspaceData';
 import { createCmsMedia, deleteCmsMedia, restoreCmsMedia } from '../../../services/cmsService';
+import { uploadManagerImage } from '../../../services/portalUploadService';
+import ImageUploadField from '../../../shared/components/forms/ImageUploadField';
 
 function buildEmptyMediaForm() {
   return {
@@ -36,6 +38,7 @@ const CmsMediaPage = ({ mode = 'admin' }) => {
     reload,
   } = useCmsWorkspaceData(mode);
   const [saving, setSaving] = useState(false);
+  const [uploadingMediaFile, setUploadingMediaFile] = useState(false);
   const [notice, setNotice] = useState('');
   const [mediaForm, setMediaForm] = useState(buildEmptyMediaForm());
 
@@ -67,6 +70,37 @@ const CmsMediaPage = ({ mode = 'admin' }) => {
       setError(err.message || 'Không thể tạo media.');
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function handleUploadMediaFile(file) {
+    if (!tenantId) {
+      setError('Vui lòng chọn tenant trước khi tải media.');
+      return;
+    }
+
+    setUploadingMediaFile(true);
+    setError('');
+
+    try {
+      const response = await uploadManagerImage(file, {
+        scope: 'cms-media',
+        tenantId: isAdmin ? tenantId : undefined,
+      });
+
+      setMediaForm((current) => ({
+        ...current,
+        fileName: response?.fileName || current.fileName,
+        publicUrl: response?.url || current.publicUrl,
+        mimeType: response?.contentType || current.mimeType,
+        storageProvider: 'local',
+        storageKey: response?.storageKey || current.storageKey,
+        sizeBytes: response?.sizeBytes || current.sizeBytes,
+      }));
+    } catch (err) {
+      setError(err.message || 'Không thể tải media.');
+    } finally {
+      setUploadingMediaFile(false);
     }
   }
 
@@ -117,7 +151,16 @@ const CmsMediaPage = ({ mode = 'admin' }) => {
         <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-6 space-y-4">
           <h3 className="text-lg font-black text-slate-900">Thêm metadata cho media</h3>
           <input value={mediaForm.fileName} onChange={(event) => setMediaForm((current) => ({ ...current, fileName: event.target.value }))} placeholder="hero-banner.jpg" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-bold text-slate-700 outline-none" />
-          <input value={mediaForm.publicUrl} onChange={(event) => setMediaForm((current) => ({ ...current, publicUrl: event.target.value }))} placeholder="https://cdn.example.com/hero.jpg" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none" />
+          <ImageUploadField
+            label="URL media"
+            value={mediaForm.publicUrl}
+            onChange={(value) => setMediaForm((current) => ({ ...current, publicUrl: value }))}
+            onUpload={handleUploadMediaFile}
+            uploading={uploadingMediaFile}
+            placeholder="https://cdn.example.com/hero.jpg"
+            helperText="Tải file từ máy để tự điền URL, file name và metadata cơ bản."
+            previewAlt={mediaForm.title || mediaForm.fileName || 'Media CMS'}
+          />
           <input value={mediaForm.title} onChange={(event) => setMediaForm((current) => ({ ...current, title: event.target.value }))} placeholder="Tiêu đề media" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none" />
           <input value={mediaForm.altText} onChange={(event) => setMediaForm((current) => ({ ...current, altText: event.target.value }))} placeholder="Văn bản thay thế cho SEO" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none" />
           <select value={mediaForm.type} onChange={(event) => setMediaForm((current) => ({ ...current, type: Number(event.target.value) }))} className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-bold text-slate-700 outline-none">

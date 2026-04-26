@@ -59,3 +59,59 @@ public sealed class AdminCommerceBookingItemDto
     public int SupportTicketCount { get; set; }
     public int OpenSupportTicketCount { get; set; }
 }
+
+public sealed class AdminCommerceBookingDetailDto
+{
+    public AdminCommerceBookingItemDto Booking { get; set; } = new();
+    public List<AdminCommercePaymentItemDto> Payments { get; set; } = new();
+    public List<AdminCommerceBookingTicketDto> Tickets { get; set; } = new();
+    public List<AdminCommerceRefundItemDto> Refunds { get; set; } = new();
+    public List<AdminCommerceSupportTicketDto> SupportTickets { get; set; } = new();
+    public List<AdminCommerceSettlementLineDto> SettlementLines { get; set; } = new();
+    public List<AdminCommerceBookingTimelineEventDto> Timeline { get; set; } = new();
+}
+
+public sealed class AdminCommerceBookingTicketDto
+{
+    public Guid Id { get; set; }
+    public Guid TenantId { get; set; }
+    public Guid OrderId { get; set; }
+    public string TicketCode { get; set; } = "";
+    public string Title { get; set; } = "";
+    public string? Subtitle { get; set; }
+    public CustomerProductType ProductType { get; set; }
+    public CustomerTicketStatus Status { get; set; }
+    public DateTimeOffset IssuedAt { get; set; }
+    public DateTimeOffset? CancelledAt { get; set; }
+}
+
+public sealed class AdminCommerceSettlementLineDto
+{
+    public Guid Id { get; set; }
+    public Guid BatchId { get; set; }
+    public string BatchCode { get; set; } = "";
+    public CustomerSettlementBatchStatus BatchStatus { get; set; }
+    public Guid TenantId { get; set; }
+    public string TenantName { get; set; } = "";
+    public Guid? PaymentId { get; set; }
+    public Guid? RefundRequestId { get; set; }
+    public CustomerSettlementStatus Status { get; set; }
+    public string CurrencyCode { get; set; } = "VND";
+    public decimal GrossAmount { get; set; }
+    public decimal CommissionAmount { get; set; }
+    public decimal CommissionAdjustmentAmount { get; set; }
+    public decimal TenantNetAmount { get; set; }
+    public decimal RefundAmount { get; set; }
+    public decimal NetPayoutAmount { get; set; }
+    public string Description { get; set; } = "";
+    public DateTimeOffset? SettledAt { get; set; }
+}
+
+public sealed class AdminCommerceBookingTimelineEventDto
+{
+    public string Key { get; set; } = "";
+    public string Title { get; set; } = "";
+    public string? Description { get; set; }
+    public DateTimeOffset OccurredAt { get; set; }
+    public string Tone { get; set; } = "default";
+}

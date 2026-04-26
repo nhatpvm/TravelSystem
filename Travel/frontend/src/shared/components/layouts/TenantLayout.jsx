@@ -4,8 +4,6 @@ import {
   LayoutDashboard,
   Users,
   Settings,
-  Bell,
-  Search,
   UserCircle,
   Bus,
   Train,
@@ -219,11 +217,6 @@ const TenantLayout = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <button className="p-2 text-slate-400 hover:bg-slate-50 rounded-full transition-all"><Search size={20} /></button>
-            <button className="p-2 text-slate-400 hover:bg-slate-50 rounded-full transition-all relative">
-              <Bell size={20} />
-              <span className="absolute top-2 right-2 w-2 h-2 bg-blue-600 rounded-full border border-white"></span>
-            </button>
             <div className="h-8 w-px bg-slate-200 mx-2"></div>
             <button onClick={handleLogout} className="flex items-center gap-2 hover:bg-slate-50 p-1 pr-3 rounded-full transition-all border border-transparent hover:border-slate-100">
               <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 overflow-hidden">

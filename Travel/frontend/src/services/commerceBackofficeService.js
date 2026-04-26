@@ -27,6 +27,10 @@ export function listAdminCommerceBookings(params = {}) {
   return api.get(`/admin/commerce/bookings${toQuery(params)}`);
 }
 
+export function getAdminCommerceBooking(orderId) {
+  return api.get(`/admin/commerce/bookings/${orderId}`);
+}
+
 export function listAdminCommerceRefunds(params = {}) {
   return api.get(`/admin/commerce/refunds${toQuery(params)}`);
 }

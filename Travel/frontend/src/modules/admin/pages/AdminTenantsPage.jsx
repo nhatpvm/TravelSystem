@@ -15,11 +15,15 @@ import {
   XCircle,
 } from 'lucide-react';
 import {
+  getAdminTenant,
+  getAdminTenantOnboarding,
   listAdminTenantOnboarding,
   listAdminTenants,
+  provisionAdminTenantOnboarding,
   reviewAdminTenantOnboarding,
   updateAdminTenant,
 } from '../../../services/adminIdentity';
+import { useSearchParams } from 'react-router-dom';
 
 function formatDate(value) {
   if (!value) {
@@ -64,6 +68,45 @@ function mapTenantStatusToValue(status) {
   }
 }
 
+function buildTenantCode(item) {
+  const serviceType = String(item?.serviceType || '').toUpperCase();
+  const prefix = serviceType === 'BUS'
+    ? 'NX'
+    : serviceType === 'TRAIN'
+      ? 'VT'
+      : serviceType === 'FLIGHT'
+        ? 'VMM'
+        : serviceType === 'HOTEL'
+          ? 'KS'
+          : serviceType === 'TOUR'
+            ? 'TOUR'
+            : 'TN';
+  const seed = String(item?.taxCode || item?.trackingCode || Date.now())
+    .replace(/[^0-9A-Za-z]/g, '')
+    .slice(-4)
+    .toUpperCase();
+
+  return `${prefix}${seed || '001'}`;
+}
+
+function buildInitialOwnerPassword() {
+  const suffix = Math.random().toString(36).slice(2, 8).toUpperCase();
+  return `Tenant@${suffix}1`;
+}
+
+function buildProvisionForm(item) {
+  return {
+    tenantCode: buildTenantCode(item),
+    tenantName: item?.businessName || '',
+    serviceType: String(item?.serviceType || 'hotel').toLowerCase(),
+    holdMinutes: '5',
+    ownerEmail: item?.contactEmail || '',
+    ownerFullName: item?.businessName || '',
+    ownerPhone: item?.contactPhone || '',
+    initialPassword: buildInitialOwnerPassword(),
+  };
+}
+
 function nextTenantStatus(status) {
   return status === 'Active' ? 'Suspended' : 'Active';
 }
@@ -97,18 +140,33 @@ function getOnboardingStatusClass(status) {
 }
 
 const AdminTenantsPage = () => {
-  const [search, setSearch] = useState('');
+  const [searchParams] = useSearchParams();
+  const [search, setSearch] = useState(() => searchParams.get('q') || '');
   const [statusFilter, setStatusFilter] = useState('all');
   const [tenants, setTenants] = useState([]);
   const [onboardingItems, setOnboardingItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [detailLoading, setDetailLoading] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+  const [selectedTenant, setSelectedTenant] = useState(null);
+  const [selectedOnboarding, setSelectedOnboarding] = useState(null);
+  const [reviewForm, setReviewForm] = useState({
+    status: 'Approved',
+    reviewNote: '',
+    rejectReason: '',
+    needMoreInfoReason: '',
+  });
+  const [provisionForm, setProvisionForm] = useState(() => buildProvisionForm(null));
 
   useEffect(() => {
     loadData();
   }, [search, statusFilter]);
+
+  useEffect(() => {
+    setSearch(searchParams.get('q') || '');
+  }, [searchParams]);
 
   const stats = useMemo(() => ({
     totalPartners: tenants.length,
@@ -167,13 +225,124 @@ const AdminTenantsPage = () => {
   }
 
   async function handleReviewOnboarding(item, status) {
+    await handleOpenOnboardingDetail(item);
+    setReviewForm((current) => ({ ...current, status }));
+  }
+
+  async function handleOpenTenantDetail(tenant) {
+    setDetailLoading(true);
+    setError('');
+    setSelectedOnboarding(null);
+
+    try {
+      const detail = await getAdminTenant(tenant.id);
+      setSelectedTenant(detail);
+    } catch (err) {
+      setError(err.message || 'Không thể tải chi tiết đối tác.');
+    } finally {
+      setDetailLoading(false);
+    }
+  }
+
+  async function handleOpenOnboardingDetail(item) {
+    setDetailLoading(true);
+    setError('');
+    setSelectedTenant(null);
+
+    try {
+      const detail = await getAdminTenantOnboarding(item.trackingCode);
+      const nextDetail = detail || item;
+      setSelectedOnboarding(nextDetail);
+      setReviewForm({
+        status: nextDetail.status === 'Rejected' || nextDetail.status === 'NeedsMoreInfo' ? nextDetail.status : 'Approved',
+        reviewNote: nextDetail.reviewNote || nextDetail.reviewerNote || '',
+        rejectReason: nextDetail.rejectReason || '',
+        needMoreInfoReason: nextDetail.needMoreInfoReason || '',
+      });
+      setProvisionForm(buildProvisionForm(nextDetail));
+    } catch (err) {
+      setError(err.message || 'Không thể tải chi tiết hồ sơ onboarding.');
+    } finally {
+      setDetailLoading(false);
+    }
+  }
+
+  async function handleProvisionTenant(event) {
+    event.preventDefault();
+
+    if (!selectedOnboarding) {
+      return;
+    }
+
+    if (selectedOnboarding.status !== 'Approved') {
+      setError('Vui long duyet ho so truoc khi tao tenant that.');
+      return;
+    }
+
+    if (!provisionForm.tenantCode.trim() || !provisionForm.tenantName.trim() || !provisionForm.ownerEmail.trim()) {
+      setError('Vui long nhap day du ma tenant, ten tenant va email owner.');
+      return;
+    }
+
     setSaving(true);
     setError('');
     setNotice('');
 
     try {
-      await reviewAdminTenantOnboarding(item.trackingCode, { status });
-      setNotice(status === 'Approved' ? 'Hồ sơ đã được duyệt.' : 'Hồ sơ đã được cập nhật trạng thái.');
+      const response = await provisionAdminTenantOnboarding(selectedOnboarding.trackingCode, {
+        tenantCode: provisionForm.tenantCode,
+        tenantName: provisionForm.tenantName,
+        serviceType: provisionForm.serviceType,
+        holdMinutes: Number(provisionForm.holdMinutes) || 5,
+        ownerEmail: provisionForm.ownerEmail,
+        ownerFullName: provisionForm.ownerFullName,
+        ownerPhone: provisionForm.ownerPhone,
+        initialPassword: provisionForm.initialPassword,
+      });
+
+      const refreshedDetail = await getAdminTenantOnboarding(selectedOnboarding.trackingCode);
+      setSelectedOnboarding(refreshedDetail || response.onboarding || selectedOnboarding);
+      setNotice(response.alreadyProvisioned ? 'Ho so nay da duoc cap tenant truoc do.' : 'Da tao tenant, owner va role mac dinh cho doi tac.');
+      await loadData();
+    } catch (err) {
+      setError(err.message || 'Khong the tao tenant that tu ho so onboarding.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleSubmitReview(event) {
+    event.preventDefault();
+
+    if (!selectedOnboarding) {
+      return;
+    }
+
+    if (reviewForm.status === 'Rejected' && !reviewForm.rejectReason.trim()) {
+      setError('Vui lòng nhập lý do từ chối hồ sơ.');
+      return;
+    }
+
+    if (reviewForm.status === 'NeedsMoreInfo' && !reviewForm.needMoreInfoReason.trim()) {
+      setError('Vui lòng nhập nội dung cần đối tác bổ sung.');
+      return;
+    }
+
+    setSaving(true);
+    setError('');
+    setNotice('');
+
+    try {
+      await reviewAdminTenantOnboarding(selectedOnboarding.trackingCode, {
+        status: reviewForm.status,
+        reviewNote: reviewForm.reviewNote,
+        rejectReason: reviewForm.status === 'Rejected' ? reviewForm.rejectReason : null,
+        needMoreInfoReason: reviewForm.status === 'NeedsMoreInfo' ? reviewForm.needMoreInfoReason : null,
+      });
+
+      const refreshedDetail = await getAdminTenantOnboarding(selectedOnboarding.trackingCode);
+      setSelectedOnboarding(refreshedDetail || selectedOnboarding);
+      setNotice(reviewForm.status === 'Approved' ? 'Hồ sơ đã được duyệt.' : 'Hồ sơ đã được cập nhật kết quả review.');
       await loadData();
     } catch (err) {
       setError(err.message || 'Không thể xử lý hồ sơ onboarding.');
@@ -309,7 +478,9 @@ const AdminTenantsPage = () => {
                     </div>
                   </td>
                   <td className="px-8 py-6 text-right">
-                    <button className="p-2 text-slate-200 hover:text-slate-900"><ChevronRight size={20} /></button>
+                    <button onClick={() => handleOpenTenantDetail(tenant)} disabled={detailLoading} className="p-2 text-slate-200 hover:text-slate-900 disabled:opacity-50" title="Xem chi tiết đối tác">
+                      <ChevronRight size={20} />
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -364,14 +535,17 @@ const AdminTenantsPage = () => {
                   </td>
                   <td className="px-8 py-6">
                     <div className="flex items-center gap-2">
-                      <button onClick={() => handleReviewOnboarding(item, 'Approved')} disabled={saving} className="p-2 bg-slate-50 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all" title="Duyệt hồ sơ">
+                      <button onClick={() => handleReviewOnboarding(item, 'Approved')} disabled={saving} className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-50 text-slate-400 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all" title="Duyệt hồ sơ">
                         <CheckCircle2 size={16} />
+                        <span className="text-[10px] font-black">Duyệt</span>
                       </button>
-                      <button onClick={() => handleReviewOnboarding(item, 'NeedsMoreInfo')} disabled={saving} className="p-2 bg-slate-50 text-slate-400 hover:text-sky-600 hover:bg-sky-50 rounded-xl transition-all" title="Yêu cầu bổ sung">
+                      <button onClick={() => handleReviewOnboarding(item, 'NeedsMoreInfo')} disabled={saving} className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-50 text-slate-400 hover:text-sky-600 hover:bg-sky-50 rounded-xl transition-all" title="Yêu cầu bổ sung">
                         <RefreshCw size={16} />
+                        <span className="text-[10px] font-black">Bổ sung</span>
                       </button>
-                      <button onClick={() => handleReviewOnboarding(item, 'Rejected')} disabled={saving} className="p-2 bg-slate-50 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all" title="Từ chối hồ sơ">
+                      <button onClick={() => handleReviewOnboarding(item, 'Rejected')} disabled={saving} className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-50 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all" title="Từ chối hồ sơ">
                         <XCircle size={16} />
+                        <span className="text-[10px] font-black">Từ chối</span>
                       </button>
                     </div>
                   </td>
@@ -381,8 +555,208 @@ const AdminTenantsPage = () => {
           </table>
         </div>
       </div>
+
+      {selectedTenant && (
+        <div className="bg-white rounded-[3rem] shadow-sm border border-slate-100 overflow-hidden">
+          <div className="p-8 border-b border-slate-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">Chi tiết đối tác</h2>
+              <p className="text-slate-500 font-medium mt-1">{selectedTenant.code} - {selectedTenant.name}</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <button onClick={() => handleToggleTenantStatus(selectedTenant)} disabled={saving} className="px-5 py-3 bg-slate-900 text-white rounded-2xl font-black text-xs hover:bg-blue-600 transition-all disabled:opacity-60">
+                {selectedTenant.status === 'Active' ? 'Tạm khóa đối tác' : 'Kích hoạt đối tác'}
+              </button>
+              <button onClick={() => setSelectedTenant(null)} className="px-5 py-3 bg-slate-50 text-slate-600 rounded-2xl font-black text-xs hover:bg-slate-100 transition-all">
+                Đóng
+              </button>
+            </div>
+          </div>
+          <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <DetailCell label="Mã tenant" value={selectedTenant.code} />
+            <DetailCell label="Tên đối tác" value={selectedTenant.name} />
+            <DetailCell label="Loại hình" value={selectedTenant.type} />
+            <DetailCell label="Trạng thái" value={selectedTenant.status} />
+            <DetailCell label="Thời gian giữ chỗ mặc định (phút)" value={selectedTenant.holdMinutes} />
+            <DetailCell label="Số user" value={selectedTenant.usersCount} />
+            <DetailCell label="Owner" value={selectedTenant.ownerName || 'Chưa có dữ liệu'} />
+            <DetailCell label="Owner email" value={selectedTenant.ownerEmail || 'Chưa có dữ liệu'} />
+            <DetailCell label="Số role tenant" value={selectedTenant.tenantRolesCount} />
+            <DetailCell label="Ngày tạo" value={formatDate(selectedTenant.createdAt)} />
+            <DetailCell label="Cập nhật" value={formatDate(selectedTenant.updatedAt)} />
+            <DetailCell label="Đã xóa mềm" value={selectedTenant.isDeleted ? 'Có' : 'Không'} />
+          </div>
+        </div>
+      )}
+
+      {selectedOnboarding && (
+        <div className="bg-white rounded-[3rem] shadow-sm border border-slate-100 overflow-hidden">
+          <div className="p-8 border-b border-slate-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">Chi tiết hồ sơ onboarding</h2>
+              <p className="text-slate-500 font-medium mt-1">{selectedOnboarding.trackingCode} - {selectedOnboarding.businessName}</p>
+            </div>
+            <button onClick={() => setSelectedOnboarding(null)} className="px-5 py-3 bg-slate-50 text-slate-600 rounded-2xl font-black text-xs hover:bg-slate-100 transition-all">
+              Đóng
+            </button>
+          </div>
+
+          <div className="p-8 grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-8">
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <DetailCell label="Đơn vị đăng ký" value={selectedOnboarding.businessName} />
+                <DetailCell label="Loại hình" value={selectedOnboarding.serviceType} />
+                <DetailCell label="Mã số thuế" value={selectedOnboarding.taxCode} />
+                <DetailCell label="Trạng thái" value={selectedOnboarding.status} />
+                <DetailCell label="Email liên hệ" value={selectedOnboarding.contactEmail || 'Chưa có dữ liệu'} />
+                <DetailCell label="Điện thoại" value={selectedOnboarding.contactPhone || 'Chưa có dữ liệu'} />
+                <DetailCell label="Ngày gửi" value={formatDate(selectedOnboarding.submittedAt)} />
+                <DetailCell label="Ngày review" value={formatDate(selectedOnboarding.reviewedAt)} />
+              </div>
+              <DetailCell label="Địa chỉ" value={selectedOnboarding.address || 'Chưa có dữ liệu'} />
+              <DetailCell label="Tài liệu pháp lý" value={selectedOnboarding.legalDocument?.originalFileName || selectedOnboarding.legalDocument?.storedFileName || 'Chưa có dữ liệu'} />
+              <DetailCell label="Người review" value={selectedOnboarding.reviewedBy || 'Chưa có dữ liệu'} />
+              <DetailCell label="Ghi chú review nội bộ" value={selectedOnboarding.reviewNote || selectedOnboarding.reviewerNote || 'Chưa có dữ liệu'} />
+              <DetailCell label="Lý do từ chối gửi đối tác" value={selectedOnboarding.rejectReason || 'Chưa có dữ liệu'} />
+              <DetailCell label="Nội dung cần đối tác bổ sung" value={selectedOnboarding.needMoreInfoReason || 'Chưa có dữ liệu'} />
+            </div>
+
+            <form onSubmit={handleSubmitReview} className="space-y-4">
+              <div>
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Kết quả review</label>
+                <select
+                  value={reviewForm.status}
+                  onChange={(event) => setReviewForm((current) => ({ ...current, status: event.target.value }))}
+                  className="w-full bg-slate-50 border-2 border-transparent focus:border-blue-200 focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-bold text-slate-900 outline-none transition-all"
+                >
+                  <option value="Approved">Duyệt hồ sơ</option>
+                  <option value="NeedsMoreInfo">Yêu cầu bổ sung thông tin</option>
+                  <option value="Rejected">Từ chối hồ sơ</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Ghi chú review nội bộ</label>
+                <textarea
+                  value={reviewForm.reviewNote}
+                  onChange={(event) => setReviewForm((current) => ({ ...current, reviewNote: event.target.value }))}
+                  rows={4}
+                  placeholder="Ghi lại căn cứ duyệt/xử lý hồ sơ cho admin nội bộ"
+                  className="w-full bg-slate-50 border-2 border-transparent focus:border-blue-200 focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-medium text-slate-900 outline-none transition-all resize-none"
+                />
+              </div>
+
+              {reviewForm.status === 'Rejected' && (
+                <div>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Lý do từ chối gửi đối tác</label>
+                  <textarea
+                    value={reviewForm.rejectReason}
+                    onChange={(event) => setReviewForm((current) => ({ ...current, rejectReason: event.target.value }))}
+                    rows={4}
+                    placeholder="Nêu rõ hồ sơ sai hoặc chưa đạt điều kiện nào"
+                    className="w-full bg-rose-50 border-2 border-transparent focus:border-rose-200 focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-medium text-slate-900 outline-none transition-all resize-none"
+                  />
+                </div>
+              )}
+
+              {reviewForm.status === 'NeedsMoreInfo' && (
+                <div>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Nội dung cần đối tác bổ sung</label>
+                  <textarea
+                    value={reviewForm.needMoreInfoReason}
+                    onChange={(event) => setReviewForm((current) => ({ ...current, needMoreInfoReason: event.target.value }))}
+                    rows={4}
+                    placeholder="VD: bổ sung giấy phép kinh doanh, tài khoản ngân hàng, người đại diện"
+                    className="w-full bg-sky-50 border-2 border-transparent focus:border-sky-200 focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-medium text-slate-900 outline-none transition-all resize-none"
+                  />
+                </div>
+              )}
+
+              <button type="submit" disabled={saving} className="w-full px-5 py-4 rounded-2xl bg-slate-900 text-white text-sm font-black uppercase tracking-widest disabled:opacity-60 hover:bg-blue-600 transition-all">
+                Lưu kết quả review
+              </button>
+            </form>
+
+            <form onSubmit={handleProvisionTenant} className="space-y-4 rounded-[2rem] border border-slate-100 bg-slate-50/60 p-5 lg:col-start-2">
+              <div>
+                <p className="text-sm font-black text-slate-900">Tao tenant that</p>
+                <p className="text-xs font-bold text-slate-400 mt-1">Cap tenant, owner, role va quyen mac dinh sau khi ho so da duyet.</p>
+              </div>
+
+              {selectedOnboarding.tenantCode ? (
+                <div className="rounded-2xl bg-emerald-50 border border-emerald-100 px-4 py-3 text-sm font-bold text-emerald-700">
+                  Ho so da cap tenant {selectedOnboarding.tenantCode}.
+                </div>
+              ) : null}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <label className="block">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Mã tenant dùng trong hệ thống</span>
+                  <input value={provisionForm.tenantCode} onChange={(event) => setProvisionForm((current) => ({ ...current, tenantCode: event.target.value }))} placeholder="VD: KS0001, NX0001" className="w-full bg-white border-2 border-transparent focus:border-blue-200 rounded-2xl px-4 py-3 text-sm font-bold text-slate-900 outline-none transition-all" />
+                </label>
+                <label className="block">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Module kinh doanh của tenant</span>
+                  <select value={provisionForm.serviceType} onChange={(event) => setProvisionForm((current) => ({ ...current, serviceType: event.target.value }))} className="w-full bg-white border-2 border-transparent focus:border-blue-200 rounded-2xl px-4 py-3 text-sm font-bold text-slate-900 outline-none transition-all">
+                    <option value="bus">Bus</option>
+                    <option value="train">Train</option>
+                    <option value="flight">Flight</option>
+                    <option value="hotel">Hotel</option>
+                    <option value="tour">Tour</option>
+                  </select>
+                </label>
+              </div>
+
+              <label className="block">
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Tên hiển thị của tenant/đối tác</span>
+                <input value={provisionForm.tenantName} onChange={(event) => setProvisionForm((current) => ({ ...current, tenantName: event.target.value }))} placeholder="Tên doanh nghiệp sẽ hiển thị trong admin" className="w-full bg-white border-2 border-transparent focus:border-blue-200 rounded-2xl px-4 py-3 text-sm font-bold text-slate-900 outline-none transition-all" />
+              </label>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <label className="block">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Email tài khoản owner</span>
+                  <input value={provisionForm.ownerEmail} onChange={(event) => setProvisionForm((current) => ({ ...current, ownerEmail: event.target.value }))} placeholder="Email để owner đăng nhập" className="w-full bg-white border-2 border-transparent focus:border-blue-200 rounded-2xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition-all" />
+                </label>
+                <label className="block">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Số điện thoại owner</span>
+                  <input value={provisionForm.ownerPhone} onChange={(event) => setProvisionForm((current) => ({ ...current, ownerPhone: event.target.value }))} placeholder="Dùng để liên hệ vận hành" className="w-full bg-white border-2 border-transparent focus:border-blue-200 rounded-2xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition-all" />
+                </label>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <label className="block">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Tên người quản lý chính</span>
+                  <input value={provisionForm.ownerFullName} onChange={(event) => setProvisionForm((current) => ({ ...current, ownerFullName: event.target.value }))} placeholder="Tên owner hoặc người đại diện vận hành" className="w-full bg-white border-2 border-transparent focus:border-blue-200 rounded-2xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition-all" />
+                </label>
+                <label className="block">
+                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Thời gian giữ chỗ mặc định (phút)</span>
+                  <input type="number" min="1" max="60" value={provisionForm.holdMinutes} onChange={(event) => setProvisionForm((current) => ({ ...current, holdMinutes: event.target.value }))} placeholder="VD: 5 nghĩa là giữ chỗ 5 phút trước khi hết hạn" className="w-full bg-white border-2 border-transparent focus:border-blue-200 rounded-2xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition-all" />
+                </label>
+              </div>
+
+              <label className="block">
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Mật khẩu tạm cho owner mới</span>
+                <input type="text" value={provisionForm.initialPassword} onChange={(event) => setProvisionForm((current) => ({ ...current, initialPassword: event.target.value }))} placeholder="Bắt buộc nếu email owner chưa tồn tại" className="w-full bg-white border-2 border-transparent focus:border-blue-200 rounded-2xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition-all" />
+                <span className="text-[11px] font-bold text-slate-400 mt-2 block">Nếu email owner đã có tài khoản, hệ thống sẽ gán quyền vào tenant hiện có; nếu chưa có, mật khẩu này dùng để tạo tài khoản mới.</span>
+              </label>
+
+              <button type="submit" disabled={saving || selectedOnboarding.status !== 'Approved' || !!selectedOnboarding.tenantCode} className="w-full px-5 py-4 rounded-2xl bg-blue-600 text-white text-sm font-black uppercase tracking-widest disabled:opacity-60 hover:bg-slate-900 transition-all">
+                Tao tenant va owner
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
+function DetailCell({ label, value }) {
+  return (
+    <div className="rounded-2xl bg-slate-50 px-4 py-3">
+      <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{label}</p>
+      <p className="text-sm font-bold text-slate-900 mt-1 break-words">{value ?? 'Chưa có dữ liệu'}</p>
+    </div>
+  );
+}
 
 export default AdminTenantsPage;

@@ -1,57 +1,144 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FileText, Search, Filter, User, Clock } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { FileText, Loader2, Search, ShieldAlert } from 'lucide-react';
+import { listAdminOpsAuditEvents } from '../../../services/adminOpsService';
 
-const LOGS = [
-  { id:1, actor:'admin@turmet.vn', action:'TENANT_LOCK',    entity:'Tenant',  entity_id:'TNT-005', detail:'Khoá tenant Hoàng Long Bus',           ip:'14.232.1.1',  date:'01/06/2024 14:52' },
-  { id:2, actor:'admin@turmet.vn', action:'USER_RESET_PWD', entity:'User',    entity_id:'USR-021', detail:'Đặt lại mật khẩu cho user@gmail.com',  ip:'14.232.1.1',  date:'01/06/2024 11:30' },
-  { id:3, actor:'cs@turmet.vn',    action:'BOOKING_CANCEL', entity:'Booking', entity_id:'BK-0012', detail:'CS huỷ booking theo yêu cầu khách',    ip:'203.160.5.22', date:'31/05/2024 09:15' },
-  { id:4, actor:'admin@turmet.vn', action:'PROMO_CREATE',   entity:'Promo',   entity_id:'SUMMER24',detail:'Tạo mã SUMMER2024 giảm 15%',           ip:'14.232.1.1',  date:'30/05/2024 16:00' },
-  { id:5, actor:'system',          action:'REFUND_AUTO',    entity:'Refund',  entity_id:'RF-0009', detail:'Hoàn tiền tự động sau 48h timeout',    ip:'–',           date:'29/05/2024 03:00' },
-  { id:6, actor:'ops@suntravel.vn',action:'TRIP_UPDATE',    entity:'Trip',    entity_id:'TR-0045', detail:'Cập nhật giờ khởi hành SE1 HN→HUE',   ip:'42.118.9.5',  date:'28/05/2024 08:20' },
-];
+const severityClass = {
+  Success: 'bg-emerald-50 text-emerald-700',
+  Warning: 'bg-amber-50 text-amber-700',
+  Error: 'bg-rose-50 text-rose-700',
+  Info: 'bg-slate-50 text-slate-600',
+};
 
-const ACTION_COLOR = { TENANT_LOCK:'bg-rose-100 text-rose-700', USER_RESET_PWD:'bg-amber-100 text-amber-700', BOOKING_CANCEL:'bg-rose-100 text-rose-700', PROMO_CREATE:'bg-emerald-100 text-emerald-700', REFUND_AUTO:'bg-blue-100 text-blue-700', TRIP_UPDATE:'bg-slate-100 text-slate-600' };
+function formatDate(value) {
+  if (!value) {
+    return '--';
+  }
+
+  return new Date(value).toLocaleString('vi-VN');
+}
 
 export default function AdminAuditPage() {
   const [search, setSearch] = useState('');
-  const filtered = LOGS.filter(l => l.actor.toLowerCase().includes(search.toLowerCase()) || l.action.toLowerCase().includes(search.toLowerCase()) || l.detail.toLowerCase().includes(search.toLowerCase()));
+  const [data, setData] = useState({ summary: {}, items: [] });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      setLoading(true);
+      setError('');
+
+      try {
+        const response = await listAdminOpsAuditEvents({ q: search, pageSize: 150 });
+        setData({
+          summary: response?.summary || {},
+          items: Array.isArray(response?.items) ? response.items : [],
+        });
+      } catch (err) {
+        setError(err?.message || 'Không tải được audit log.');
+      } finally {
+        setLoading(false);
+      }
+    }, 250);
+
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  const stats = useMemo(() => ([
+    { label: 'Tổng sự kiện', value: data.summary?.totalCount || 0 },
+    { label: 'Booking/payment/refund', value: (data.summary?.bookingEvents || 0) + (data.summary?.paymentEvents || 0) + (data.summary?.refundEvents || 0) },
+    { label: 'Tenant/onboarding', value: (data.summary?.tenantEvents || 0) + (data.summary?.onboardingEvents || 0) },
+    { label: 'Support/outbox/promo', value: (data.summary?.supportEvents || 0) + (data.summary?.notificationEvents || 0) + (data.summary?.promoEvents || 0) },
+  ]), [data.summary]);
 
   return (
     <div>
       <div className="mb-8">
         <h1 className="text-2xl font-black text-slate-900">Audit Logs</h1>
-        <p className="text-slate-500 text-sm mt-1">Lịch sử toàn bộ thao tác hệ thống</p>
+        <p className="text-slate-500 text-sm mt-1">Lịch sử thao tác và sự kiện quan trọng toàn hệ thống.</p>
       </div>
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+        {stats.map((item) => (
+          <div key={item.label} className="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+            <p className="text-2xl font-black text-slate-900">{item.value}</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">{item.label}</p>
+          </div>
+        ))}
+      </div>
+
       <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 mb-5 flex gap-3">
         <div className="flex-1 flex items-center gap-2 bg-slate-50 rounded-xl px-4">
           <Search size={15} className="text-slate-400" />
-          <input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Tìm actor, action, chi tiết…" className="bg-transparent py-3 flex-1 text-sm font-medium outline-none" />
+          <input
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Tìm actor, action, entity, tenant..."
+            className="bg-transparent py-3 flex-1 text-sm font-medium outline-none"
+          />
         </div>
       </div>
+
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-        <div className="divide-y divide-slate-50">
-          {filtered.map((log, i) => (
-            <motion.div key={log.id} initial={{opacity:0}} animate={{opacity:1}} transition={{delay:i*0.04}}
-              className="flex items-center gap-4 px-5 py-4 hover:bg-slate-50 transition-all"
-            >
-              <div className="w-8 h-8 bg-slate-100 rounded-xl flex items-center justify-center shrink-0">
-                {log.actor === 'system' ? <FileText size={14} className="text-slate-500"/> : <User size={14} className="text-slate-500"/>}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap mb-0.5">
-                  <span className={`px-2 py-0.5 rounded-lg text-[10px] font-black uppercase ${ACTION_COLOR[log.action]||'bg-slate-100 text-slate-600'}`}>{log.action}</span>
-                  <span className="text-xs font-bold text-slate-600">{log.entity} <span className="text-slate-400 font-bold">#{log.entity_id}</span></span>
-                </div>
-                <p className="text-sm font-medium text-slate-700 truncate">{log.detail}</p>
-                <p className="text-[10px] text-slate-400 font-bold mt-0.5">{log.actor} · {log.ip}</p>
-              </div>
-              <div className="text-right shrink-0">
-                <p className="text-[10px] text-slate-400 font-bold flex items-center gap-1 justify-end"><Clock size={10}/>{log.date}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="px-8 py-12 text-center">
+            <Loader2 size={24} className="animate-spin text-blue-600 mx-auto mb-3" />
+            <p className="text-sm font-bold text-slate-400">Đang tải audit log...</p>
+          </div>
+        ) : error ? (
+          <div className="px-8 py-12 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center mx-auto mb-4">
+              <ShieldAlert size={24} />
+            </div>
+            <h2 className="text-lg font-black text-slate-900">Không tải được audit log</h2>
+            <p className="text-sm font-bold text-slate-400 mt-2">{error}</p>
+          </div>
+        ) : data.items.length === 0 ? (
+          <div className="px-8 py-12 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-4">
+              <FileText size={24} />
+            </div>
+            <h2 className="text-lg font-black text-slate-900">Chưa có sự kiện phù hợp</h2>
+            <p className="text-sm font-bold text-slate-400 mt-2">Thử đổi từ khóa hoặc kiểm tra dữ liệu demo đã seed.</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-slate-100 bg-slate-50/60">
+                  <th className="px-5 py-4 text-[10px] font-black uppercase tracking-widest text-slate-400">Thời gian</th>
+                  <th className="px-5 py-4 text-[10px] font-black uppercase tracking-widest text-slate-400">Actor</th>
+                  <th className="px-5 py-4 text-[10px] font-black uppercase tracking-widest text-slate-400">Action</th>
+                  <th className="px-5 py-4 text-[10px] font-black uppercase tracking-widest text-slate-400">Entity</th>
+                  <th className="px-5 py-4 text-[10px] font-black uppercase tracking-widest text-slate-400">Tenant</th>
+                  <th className="px-5 py-4 text-[10px] font-black uppercase tracking-widest text-slate-400">Nguồn</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-50">
+                {data.items.map((item) => (
+                  <tr key={item.id} className="hover:bg-slate-50/60">
+                    <td className="px-5 py-4 text-xs font-bold text-slate-500 whitespace-nowrap">{formatDate(item.occurredAt)}</td>
+                    <td className="px-5 py-4 text-sm font-black text-slate-800">{item.actorName || 'System'}</td>
+                    <td className="px-5 py-4">
+                      <div className="flex flex-col gap-2">
+                        <span className={`w-fit rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest ${severityClass[item.severity] || severityClass.Info}`}>
+                          {item.action}
+                        </span>
+                        <span className="text-xs font-bold text-slate-400 max-w-md">{item.description}</span>
+                      </div>
+                    </td>
+                    <td className="px-5 py-4">
+                      <p className="text-sm font-black text-slate-900">{item.entityType}</p>
+                      <p className="text-xs font-bold text-slate-400">{item.entityCode || item.entityId}</p>
+                    </td>
+                    <td className="px-5 py-4 text-xs font-bold text-slate-500">{item.tenantName || 'Toàn hệ thống'}</td>
+                    <td className="px-5 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">{item.source}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,0 +1,33 @@
+{
+  "hotelImage": {
+    "imageUrl": "http://localhost:5183/uploads/admin/hotel-image/32110ffc-3d5b-409b-8bbb-8fb3286d9cc7/20260424142231-f0d201a856a14c1e982a5c6174e0c659.png",
+    "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\admin-upload\\ui\\admin-hotel-images.png"
+  },
+  "roomTypeImage": {
+    "imageUrl": "http://localhost:5183/uploads/admin/room-type-image/32110ffc-3d5b-409b-8bbb-8fb3286d9cc7/20260424142232-8a029d28f35e4006937f1fc96fec5611.png",
+    "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\admin-upload\\ui\\admin-room-type-images.png"
+  },
+  "tourCover": {
+    "tenantBanner": "Khách sạn KS001\nNhà xe NX001\nTenant Test 001 Updated\nTour TOUR001\nVé máy bay VMM001\nVé tàu VT001",
+    "imageUrl": "http://localhost:5183/uploads/admin/tour-cover/dfb80807-d1db-43b0-a62f-9b744f1dde4f/20260424142234-74db0e1b8514489d9c4f3ea107af7a1f.png",
+    "banners": [
+      "Khách sạn KS001\nNhà xe NX001\nTenant Test 001 Updated\nTour TOUR001\nVé máy bay VMM001\nVé tàu VT001",
+      "Đang quản lý tour cho tenant: Tour TOUR001",
+      "Đã tải ảnh bìa tour từ máy.",
+      "Cập nhật lần cuối: 01:47 10/04/2026"
+    ],
+    "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\admin-upload\\ui\\admin-tours.png"
+  },
+  "userAvatar": {
+    "imageUrl": "http://localhost:5183/uploads/admin/user-avatar/20260424142237-6e16a1d5ffd345b6b354f875fbeb273b.png",
+    "banners": [
+      "Đã tải ảnh đại diện từ máy.",
+      "57\n\nTỔNG NGƯỜI DÙNG",
+      "49\n\nKHÁCH HÀNG",
+      "7\n\nTENANT",
+      "0\n\nĐANG KHOÁ",
+      "TẤT CẢ\nKHÁCH HÀNG\nTENANT\nADMIN"
+    ],
+    "screenshot": "D:\\FPT\\TicketBooking.V3\\_tmp\\admin-upload\\ui\\admin-users.png"
+  }
+}

@@ -1,0 +1,30 @@
+[
+    {
+        "scope":  "hotel-image",
+        "tenantId":  "dfb80807-d1db-43b0-a62f-9b744f1dde4f",
+        "url":  "http://127.0.0.1:5183/uploads/admin/hotel-image/dfb80807-d1db-43b0-a62f-9b744f1dde4f/20260424141216-93e4d63dde0045b49fa242b08f443bd4.png",
+        "relativeUrl":  "/uploads/admin/hotel-image/dfb80807-d1db-43b0-a62f-9b744f1dde4f/20260424141216-93e4d63dde0045b49fa242b08f443bd4.png",
+        "status":  200
+    },
+    {
+        "scope":  "room-type-image",
+        "tenantId":  "dfb80807-d1db-43b0-a62f-9b744f1dde4f",
+        "url":  "http://127.0.0.1:5183/uploads/admin/room-type-image/dfb80807-d1db-43b0-a62f-9b744f1dde4f/20260424141216-128fe50e6b8a421288e1c79d65b27ba4.png",
+        "relativeUrl":  "/uploads/admin/room-type-image/dfb80807-d1db-43b0-a62f-9b744f1dde4f/20260424141216-128fe50e6b8a421288e1c79d65b27ba4.png",
+        "status":  200
+    },
+    {
+        "scope":  "tour-cover",
+        "tenantId":  "dfb80807-d1db-43b0-a62f-9b744f1dde4f",
+        "url":  "http://127.0.0.1:5183/uploads/admin/tour-cover/dfb80807-d1db-43b0-a62f-9b744f1dde4f/20260424141217-fd64dd94ae6f4c09820f631e98ff8cec.png",
+        "relativeUrl":  "/uploads/admin/tour-cover/dfb80807-d1db-43b0-a62f-9b744f1dde4f/20260424141217-fd64dd94ae6f4c09820f631e98ff8cec.png",
+        "status":  200
+    },
+    {
+        "scope":  "user-avatar",
+        "tenantId":  null,
+        "url":  "http://127.0.0.1:5183/uploads/admin/user-avatar/20260424141217-dd1bfaaaebb84350938839f7552e312b.png",
+        "relativeUrl":  "/uploads/admin/user-avatar/20260424141217-dd1bfaaaebb84350938839f7552e312b.png",
+        "status":  200
+    }
+]

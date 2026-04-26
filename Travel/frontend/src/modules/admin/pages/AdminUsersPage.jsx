@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Search, Plus, Lock, Unlock, RotateCcw, Eye, Shield, UserPlus } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
+import AdminImageUploadField from '../components/AdminImageUploadField';
 import {
   createUser,
   getUser,
@@ -14,6 +15,7 @@ import {
   unlockUser,
   updateUser,
 } from '../../../services/adminIdentity';
+import { uploadAdminImage } from '../../../services/adminUploadService';
 import { formatDate, getRoleBadgeClass, getUserRoleType, getUserStatus } from '../utils/identity';
 
 const INITIAL_CREATE_FORM = {
@@ -22,6 +24,7 @@ const INITIAL_CREATE_FORM = {
   password: '',
   fullName: '',
   phoneNumber: '',
+  avatarUrl: '',
   isActive: true,
   roles: [],
 };
@@ -31,6 +34,7 @@ const INITIAL_EDIT_FORM = {
   fullName: '',
   email: '',
   phoneNumber: '',
+  avatarUrl: '',
   emailConfirmed: true,
 };
 
@@ -40,14 +44,16 @@ function buildEditForm(user) {
     fullName: user?.fullName || '',
     email: user?.email || '',
     phoneNumber: user?.phoneNumber || '',
+    avatarUrl: user?.avatarUrl || '',
     emailConfirmed: user?.emailConfirmed ?? true,
   };
 }
 
 export default function AdminUsersPage() {
+  const [searchParams] = useSearchParams();
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(() => searchParams.get('q') || '');
   const [roleFilter, setRoleFilter] = useState('all');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -65,10 +71,16 @@ export default function AdminUsersPage() {
   const [resetPasswordValue, setResetPasswordValue] = useState('');
   const [resetLoading, setResetLoading] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
+  const [createAvatarUploading, setCreateAvatarUploading] = useState(false);
+  const [editAvatarUploading, setEditAvatarUploading] = useState(false);
 
   useEffect(() => {
     loadRoles();
   }, []);
+
+  useEffect(() => {
+    setSearch(searchParams.get('q') || '');
+  }, [searchParams]);
 
   useEffect(() => {
     loadUsers();
@@ -207,7 +219,7 @@ export default function AdminUsersPage() {
         fullName: editForm.fullName,
         email: editForm.email,
         phoneNumber: editForm.phoneNumber,
-        avatarUrl: selectedUser.avatarUrl || null,
+        avatarUrl: editForm.avatarUrl || null,
         emailConfirmed: editForm.emailConfirmed,
         isActive: selectedUser.isActive,
       });
@@ -317,6 +329,38 @@ export default function AdminUsersPage() {
     }
   }
 
+  async function handleUploadCreateAvatar(file) {
+    setCreateAvatarUploading(true);
+    setError('');
+    setNotice('');
+
+    try {
+      const response = await uploadAdminImage(file, { scope: 'user-avatar' });
+      updateCreateField('avatarUrl', response?.url || '');
+      setNotice('Đã tải ảnh đại diện từ máy.');
+    } catch (err) {
+      setError(err.message || 'Không thể tải ảnh đại diện lên.');
+    } finally {
+      setCreateAvatarUploading(false);
+    }
+  }
+
+  async function handleUploadEditAvatar(file) {
+    setEditAvatarUploading(true);
+    setError('');
+    setNotice('');
+
+    try {
+      const response = await uploadAdminImage(file, { scope: 'user-avatar' });
+      updateEditField('avatarUrl', response?.url || '');
+      setNotice('Đã tải ảnh đại diện từ máy.');
+    } catch (err) {
+      setError(err.message || 'Không thể tải ảnh đại diện lên.');
+    } finally {
+      setEditAvatarUploading(false);
+    }
+  }
+
   return (
     <div>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -377,6 +421,19 @@ export default function AdminUsersPage() {
                 />
               </div>
             ))}
+          </div>
+
+          <div className="mt-5">
+            <AdminImageUploadField
+              label="Ảnh đại diện"
+              value={createForm.avatarUrl}
+              onChange={(value) => updateCreateField('avatarUrl', value)}
+              onUpload={handleUploadCreateAvatar}
+              uploading={createAvatarUploading}
+              placeholder="URL ảnh đại diện"
+              helperText="Có thể dán URL sẵn có hoặc tải ảnh trực tiếp từ máy."
+              previewAlt={createForm.fullName || createForm.userName || 'Ảnh đại diện'}
+            />
           </div>
 
           <div className="mt-5">
@@ -483,8 +540,12 @@ export default function AdminUsersPage() {
                 className="grid grid-cols-2 md:grid-cols-12 gap-4 px-5 py-4 items-center hover:bg-slate-50 transition-all"
               >
                 <div className="col-span-2 md:col-span-4 flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center font-black text-slate-700 shrink-0">
-                    {(user.fullName || user.userName || user.email || 'U').charAt(0).toUpperCase()}
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center font-black text-slate-700 shrink-0 overflow-hidden">
+                    {user.avatarUrl ? (
+                      <img src={user.avatarUrl} alt={user.fullName || user.userName || 'Avatar'} className="w-full h-full object-cover" />
+                    ) : (
+                      (user.fullName || user.userName || user.email || 'U').charAt(0).toUpperCase()
+                    )}
                   </div>
                   <div>
                     <p className="font-black text-slate-900 text-sm">{user.fullName || user.userName}</p>
@@ -530,20 +591,29 @@ export default function AdminUsersPage() {
           ) : (
             <>
               <div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
-                <div>
-                  <h2 className="text-xl font-black text-slate-900">{selectedUser.fullName || selectedUser.userName}</h2>
-                  <p className="text-sm font-bold text-slate-400 mt-1">{selectedUser.email}</p>
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    <span className="px-3 py-1 rounded-xl text-[10px] font-black uppercase bg-slate-100 text-slate-600">{selectedUser.userName}</span>
-                    {selectedUser.phoneNumber && (
-                      <span className="px-3 py-1 rounded-xl text-[10px] font-black uppercase bg-slate-100 text-slate-600">{selectedUser.phoneNumber}</span>
+                <div className="flex items-start gap-4">
+                  <div className="w-16 h-16 rounded-[1.5rem] bg-slate-100 overflow-hidden flex items-center justify-center text-xl font-black text-slate-700 shrink-0">
+                    {selectedUser.avatarUrl ? (
+                      <img src={selectedUser.avatarUrl} alt={selectedUser.fullName || selectedUser.userName || 'Avatar'} className="w-full h-full object-cover" />
+                    ) : (
+                      (selectedUser.fullName || selectedUser.userName || selectedUser.email || 'U').charAt(0).toUpperCase()
                     )}
-                    <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase ${selectedUser.isActive ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
-                      {selectedUser.isActive ? 'Đang hoạt động' : 'Đã vô hiệu'}
-                    </span>
-                    <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase ${selectedUser.emailConfirmed ? 'bg-sky-100 text-sky-700' : 'bg-amber-100 text-amber-700'}`}>
-                      {selectedUser.emailConfirmed ? 'Email đã xác minh' : 'Email chưa xác minh'}
-                    </span>
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-black text-slate-900">{selectedUser.fullName || selectedUser.userName}</h2>
+                    <p className="text-sm font-bold text-slate-400 mt-1">{selectedUser.email}</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      <span className="px-3 py-1 rounded-xl text-[10px] font-black uppercase bg-slate-100 text-slate-600">{selectedUser.userName}</span>
+                      {selectedUser.phoneNumber && (
+                        <span className="px-3 py-1 rounded-xl text-[10px] font-black uppercase bg-slate-100 text-slate-600">{selectedUser.phoneNumber}</span>
+                      )}
+                      <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase ${selectedUser.isActive ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
+                        {selectedUser.isActive ? 'Đang hoạt động' : 'Đã vô hiệu'}
+                      </span>
+                      <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase ${selectedUser.emailConfirmed ? 'bg-sky-100 text-sky-700' : 'bg-amber-100 text-amber-700'}`}>
+                        {selectedUser.emailConfirmed ? 'Email đã xác minh' : 'Email chưa xác minh'}
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-3">
@@ -592,6 +662,19 @@ export default function AdminUsersPage() {
                         />
                       </div>
                     ))}
+                  </div>
+
+                  <div className="mt-5">
+                    <AdminImageUploadField
+                      label="Ảnh đại diện"
+                      value={editForm.avatarUrl}
+                      onChange={(value) => updateEditField('avatarUrl', value)}
+                      onUpload={handleUploadEditAvatar}
+                      uploading={editAvatarUploading}
+                      placeholder="URL ảnh đại diện"
+                      helperText="Ảnh tải lên sẽ dùng lại đúng field avatarUrl hiện có của user."
+                      previewAlt={editForm.fullName || editForm.userName || 'Ảnh đại diện'}
+                    />
                   </div>
 
                   <div className="mt-5 flex flex-wrap items-center gap-3">

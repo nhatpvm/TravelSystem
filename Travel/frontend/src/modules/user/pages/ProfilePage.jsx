@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Plane, Camera, MapPin, Edit2, User, Mail, Phone, Calendar, Star, Globe, Award, Compass, Clock3, Search, ArrowRight } from 'lucide-react';
+import { Plane, Camera, MapPin, Edit2, User, Mail, Phone, Calendar, Star, Globe, Award, Compass, Clock3, Search, ArrowRight, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getMe, updateMe } from '../../../services/auth';
+import { uploadCustomerImage } from '../../../services/portalUploadService';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import { getUserDisplayName, getUserJoinYear } from '../../auth/types';
 import {
@@ -23,6 +24,7 @@ const ProfilePage = () => {
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [checkoutDrafts, setCheckoutDrafts] = useState([]);
@@ -36,6 +38,7 @@ const ProfilePage = () => {
     primaryDestination: '',
   }));
   const [form, setForm] = useState(() => buildFormState(user));
+  const avatarInputRef = useRef(null);
 
   useEffect(() => {
     setForm((prev) => ({
@@ -159,6 +162,49 @@ const ProfilePage = () => {
     }
   };
 
+  const handleOpenAvatarPicker = () => {
+    setEditing(true);
+    setError('');
+    setSuccess('');
+    avatarInputRef.current?.click();
+  };
+
+  const handleAvatarFileChange = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+
+    if (!file) {
+      return;
+    }
+
+    setUploadingAvatar(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      const response = await uploadCustomerImage(file, { scope: 'customer-avatar' });
+      setForm((prev) => ({
+        ...prev,
+        avatarUrl: response?.url || '',
+      }));
+      setSuccess('Ảnh đại diện đã được tải lên. Bấm "Lưu thông tin ✓" để hoàn tất cập nhật.');
+    } catch (requestError) {
+      setError(requestError.message || 'Không thể tải ảnh đại diện.');
+    } finally {
+      setUploadingAvatar(false);
+    }
+  };
+
+  const handleRemoveAvatar = () => {
+    setEditing(true);
+    setError('');
+    setSuccess('Ảnh đại diện đã được bỏ khỏi hồ sơ. Bấm "Lưu thông tin" để hoàn tất cập nhật.');
+    setForm((prev) => ({
+      ...prev,
+      avatarUrl: '',
+    }));
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -191,14 +237,34 @@ const ProfilePage = () => {
             <div className="relative group shrink-0">
               <div className="w-28 h-28 rounded-3xl overflow-hidden border-4 border-white/30 shadow-2xl ring-4 ring-white/10">
                 <img
-                  src={form.avatarUrl || user?.avatarUrl || DEFAULT_AVATAR}
+                  src={form.avatarUrl || DEFAULT_AVATAR}
                   alt="Avatar"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
-              <button type="button" className="absolute -bottom-2 -right-2 w-10 h-10 bg-[#1EB4D4] rounded-xl flex items-center justify-center text-white shadow-lg">
+              <button type="button" onClick={handleOpenAvatarPicker} disabled={uploadingAvatar} className="absolute -bottom-2 -right-2 w-10 h-10 bg-[#1EB4D4] rounded-xl flex items-center justify-center text-white shadow-lg disabled:opacity-70">
                 <Camera size={16} />
               </button>
+              {form.avatarUrl ? (
+                <button
+                  type="button"
+                  onClick={handleRemoveAvatar}
+                  disabled={uploadingAvatar}
+                  title="Bỏ ảnh đại diện"
+                  aria-label="Bỏ ảnh đại diện"
+                  className="absolute -bottom-2 left-0 w-10 h-10 bg-white/90 rounded-xl flex items-center justify-center text-slate-700 shadow-lg disabled:opacity-70"
+                >
+                  <X size={16} />
+                </button>
+              ) : null}
+              <input
+                ref={avatarInputRef}
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                onChange={handleAvatarFileChange}
+                className="hidden"
+                disabled={uploadingAvatar}
+              />
             </div>
 
             <div className="flex-1 text-white">

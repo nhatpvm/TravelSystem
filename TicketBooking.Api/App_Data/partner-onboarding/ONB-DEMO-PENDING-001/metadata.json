@@ -1,0 +1,23 @@
+{
+  "trackingCode": "ONB-DEMO-PENDING-001",
+  "serviceType": "hotel",
+  "businessName": "Demo Riverside Hotel Pending",
+  "taxCode": "0312345678",
+  "address": "01 \u0110\u01B0\u1EDDng Demo, Qu\u1EADn 1, TP.HCM",
+  "contactEmail": "pending-partner@ticketbooking.local",
+  "contactPhone": "0909123456",
+  "status": "PendingReview",
+  "submittedAt": "2026-04-25T08:15:01.4817622+00:00",
+  "reviewedAt": null,
+  "reviewedBy": null,
+  "reviewNote": null,
+  "reviewerNote": null,
+  "rejectReason": null,
+  "needMoreInfoReason": null,
+  "legalDocument": {
+    "originalFileName": "Giay-phep-kinh-doanh-demo.pdf",
+    "storedFileName": "demo-legal-document.pdf",
+    "contentType": "application/pdf",
+    "sizeBytes": 71
+  }
+}

@@ -26,6 +26,8 @@ import {
   ROOM_TYPE_STATUS_OPTIONS,
   toPrettyJson,
 } from '../utils/presentation';
+import { uploadManagerImage } from '../../../../services/portalUploadService';
+import ImageUploadField from '../../../../shared/components/forms/ImageUploadField';
 
 function createEmptyForm(hotelId = '') {
   return {
@@ -121,6 +123,7 @@ export default function HotelRoomTypesPage({ mode = 'tenant', adminScope = null 
   const [selectedId, setSelectedId] = useState('');
   const [selectedHotelId, setSelectedHotelId] = useState(initialHotelId);
   const [form, setForm] = useState(createEmptyForm(initialHotelId));
+  const [uploadingCoverImage, setUploadingCoverImage] = useState(false);
 
   const listFn = isAdmin ? (params) => listAdminRoomTypes(params, tenantId) : listManagedRoomTypes;
   const getFn = isAdmin ? (id, params) => getAdminRoomType(id, params, tenantId) : getManagedRoomType;
@@ -190,6 +193,29 @@ export default function HotelRoomTypesPage({ mode = 'tenant', adminScope = null 
     setSelectedId('');
     setForm(createEmptyForm(selectedHotelId || hotels[0]?.id || ''));
     setNotice('');
+  }
+
+  async function handleUploadCoverImage(file) {
+    if (isAdmin && !tenantId) {
+      setError('KhÃ´ng thá»ƒ táº£i áº£nh khi chÆ°a chá»n tenant.');
+      return;
+    }
+
+    setUploadingCoverImage(true);
+    setError('');
+    setNotice('');
+
+    try {
+      const response = await uploadManagerImage(file, {
+        scope: 'room-type-image',
+        tenantId: isAdmin ? tenantId : undefined,
+      });
+      setForm((current) => ({ ...current, coverImageUrl: response?.url || '' }));
+    } catch (requestError) {
+      setError(requestError.message || 'KhÃ´ng thá»ƒ táº£i áº£nh háº¡ng phÃ²ng.');
+    } finally {
+      setUploadingCoverImage(false);
+    }
   }
 
   async function handleSubmit(event) {
@@ -330,7 +356,18 @@ export default function HotelRoomTypesPage({ mode = 'tenant', adminScope = null 
             <input value={form.maxAdults} onChange={(event) => setForm((current) => ({ ...current, maxAdults: event.target.value }))} placeholder="Max người lớn" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
             <input value={form.maxChildren} onChange={(event) => setForm((current) => ({ ...current, maxChildren: event.target.value }))} placeholder="Max trẻ em" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
             <input value={form.maxGuests} onChange={(event) => setForm((current) => ({ ...current, maxGuests: event.target.value }))} placeholder="Max khách" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
-            <input value={form.coverImageUrl} onChange={(event) => setForm((current) => ({ ...current, coverImageUrl: event.target.value }))} placeholder="Ảnh đại diện" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
+            <div className="md:col-span-2">
+              <ImageUploadField
+                label=""
+                value={form.coverImageUrl}
+                onChange={(value) => setForm((current) => ({ ...current, coverImageUrl: value }))}
+                onUpload={handleUploadCoverImage}
+                uploading={uploadingCoverImage}
+                placeholder="Ảnh đại diện"
+                helperText="Hỗ trợ JPG, PNG, WEBP tối đa 10MB."
+                previewAlt={form.name || 'Ảnh hạng phòng'}
+              />
+            </div>
           </div>
 
           <textarea value={form.descriptionMarkdown} onChange={(event) => setForm((current) => ({ ...current, descriptionMarkdown: event.target.value }))} rows={3} placeholder="Mô tả ngắn" className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />

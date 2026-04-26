@@ -30,6 +30,14 @@ public sealed class AdminCommerceController : ControllerBase
         return Ok(await _service.ListBookingsAsync(q, status, ct));
     }
 
+    [HttpGet("bookings/{orderId:guid}")]
+    public async Task<ActionResult<AdminCommerceBookingDetailDto>> GetBooking(
+        Guid orderId,
+        CancellationToken ct = default)
+    {
+        return Ok(await _service.GetBookingDetailAsync(orderId, ct));
+    }
+
     [HttpGet("payments")]
     public async Task<ActionResult<AdminCommercePaymentListResponse>> ListPayments(
         [FromQuery] string? q = null,

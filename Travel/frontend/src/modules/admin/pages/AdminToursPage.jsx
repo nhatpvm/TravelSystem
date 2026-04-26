@@ -1,8 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Loader2, Save } from 'lucide-react';
+import AdminImageUploadField from '../components/AdminImageUploadField';
 import AdminTourPageShell from '../tours/components/AdminTourPageShell';
 import useAdminTourScope from '../tours/hooks/useAdminTourScope';
 import { getAdminTour, listAdminTours, toggleAdminTourAction, updateAdminTour } from '../../../services/tourService';
+import { uploadAdminImage } from '../../../services/adminUploadService';
 import {
   buildSlug,
   formatDateTime,
@@ -71,6 +73,8 @@ export default function AdminToursPage() {
   const [selectedTourId, setSelectedTourId] = useState('');
   const [selectedTour, setSelectedTour] = useState(null);
   const [form, setForm] = useState(buildFormFromTour(null));
+  const [uploadingCoverImage, setUploadingCoverImage] = useState(false);
+  const pendingCoverImageUrlRef = useRef('');
 
   useEffect(() => {
     if (tenantId) {
@@ -80,10 +84,12 @@ export default function AdminToursPage() {
 
   useEffect(() => {
     if (selectedTourId && tenantId) {
+      pendingCoverImageUrlRef.current = '';
       loadTourDetail(selectedTourId);
     } else {
       setSelectedTour(null);
       setForm(buildFormFromTour(null));
+      pendingCoverImageUrlRef.current = '';
     }
   }, [selectedTourId, tenantId]);
 
@@ -116,7 +122,12 @@ export default function AdminToursPage() {
     try {
       const detail = await getAdminTour(tourId, { includeDeleted: true });
       setSelectedTour(detail);
-      setForm(buildFormFromTour(detail));
+      const nextForm = buildFormFromTour(detail);
+      if (pendingCoverImageUrlRef.current) {
+        nextForm.coverImageUrl = pendingCoverImageUrlRef.current;
+      }
+
+      setForm(nextForm);
     } catch (requestError) {
       setError(requestError.message || 'Không thể tải chi tiết tour.');
     }
@@ -129,6 +140,30 @@ export default function AdminToursPage() {
       [name]: type === 'checkbox' ? checked : value,
       ...(name === 'name' ? { slug: buildSlug(value) } : {}),
     }));
+  }
+
+  async function handleUploadCoverImage(file) {
+    setUploadingCoverImage(true);
+    setError('');
+    setNotice('');
+
+    try {
+      const response = await uploadAdminImage(file, {
+        scope: 'tour-cover',
+        tenantId,
+      });
+      pendingCoverImageUrlRef.current = response?.url || '';
+
+      setForm((current) => ({
+        ...current,
+        coverImageUrl: pendingCoverImageUrlRef.current,
+      }));
+      setNotice('Đã tải ảnh bìa tour từ máy.');
+    } catch (requestError) {
+      setError(requestError.message || 'Không thể tải ảnh bìa tour lên.');
+    } finally {
+      setUploadingCoverImage(false);
+    }
   }
 
   async function handleSubmit(event) {
@@ -161,6 +196,7 @@ export default function AdminToursPage() {
         rowVersionBase64: form.rowVersionBase64 || undefined,
       }, tenantId);
 
+      pendingCoverImageUrlRef.current = '';
       setNotice('Đã cập nhật thông tin tour.');
       await loadTours();
       await loadTourDetail(selectedTour.id);
@@ -331,10 +367,16 @@ export default function AdminToursPage() {
               </label>
             </div>
 
-            <label className="space-y-2 block">
-              <span className="text-[11px] font-black uppercase tracking-widest text-slate-400">Ảnh bìa</span>
-              <input name="coverImageUrl" value={form.coverImageUrl} onChange={handleFieldChange} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium outline-none" />
-            </label>
+            <AdminImageUploadField
+              label="Ảnh bìa"
+              value={form.coverImageUrl}
+              onChange={(value) => setForm((current) => ({ ...current, coverImageUrl: value }))}
+              onUpload={handleUploadCoverImage}
+              uploading={uploadingCoverImage}
+              placeholder="URL ảnh bìa"
+              helperText="Giữ nguyên field cover image hiện có, nhưng cho phép admin tải ảnh trực tiếp từ máy."
+              previewAlt={form.name || 'Ảnh bìa tour'}
+            />
 
             <label className="space-y-2 block">
               <span className="text-[11px] font-black uppercase tracking-widest text-slate-400">Mô tả ngắn</span>

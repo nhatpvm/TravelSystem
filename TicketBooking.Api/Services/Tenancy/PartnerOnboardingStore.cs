@@ -171,7 +171,9 @@ public sealed class PartnerOnboardingStore
         string trackingCode,
         string status,
         string? reviewedBy,
-        string? reviewerNote,
+        string? reviewNote,
+        string? rejectReason,
+        string? needMoreInfoReason,
         CancellationToken ct = default)
     {
         var safeTrackingCode = NormalizeTrackingCode(trackingCode);
@@ -199,7 +201,14 @@ public sealed class PartnerOnboardingStore
             Status = normalizedStatus,
             ReviewedAt = DateTimeOffset.Now,
             ReviewedBy = NormalizeOptional(reviewedBy, 200),
-            ReviewerNote = NormalizeOptional(reviewerNote, 1000)
+            ReviewNote = NormalizeOptional(reviewNote, 1000),
+            ReviewerNote = NormalizeOptional(reviewNote, 1000),
+            RejectReason = string.Equals(normalizedStatus, "Rejected", StringComparison.OrdinalIgnoreCase)
+                ? NormalizeOptional(rejectReason, 1000)
+                : null,
+            NeedMoreInfoReason = string.Equals(normalizedStatus, "NeedsMoreInfo", StringComparison.OrdinalIgnoreCase)
+                ? NormalizeOptional(needMoreInfoReason, 1000)
+                : null
         };
 
         await File.WriteAllTextAsync(
@@ -211,6 +220,61 @@ public sealed class PartnerOnboardingStore
             "Reviewed partner onboarding request {TrackingCode} with status {Status}.",
             safeTrackingCode,
             normalizedStatus);
+
+        return updated;
+    }
+
+    public async Task<StoredPartnerOnboardingRequest?> MarkProvisionedAsync(
+        string trackingCode,
+        Guid tenantId,
+        string tenantCode,
+        Guid ownerUserId,
+        string ownerEmail,
+        string? provisionedBy,
+        CancellationToken ct = default)
+    {
+        var safeTrackingCode = NormalizeTrackingCode(trackingCode);
+        if (safeTrackingCode is null)
+        {
+            return null;
+        }
+
+        var metadataPath = Path.Combine(GetBaseDirectory(), safeTrackingCode, "metadata.json");
+        if (!File.Exists(metadataPath))
+        {
+            return null;
+        }
+
+        var json = await File.ReadAllTextAsync(metadataPath, ct);
+        var current = JsonSerializer.Deserialize<StoredPartnerOnboardingRequest>(json, _jsonOptions);
+        if (current is null)
+        {
+            return null;
+        }
+
+        var now = DateTimeOffset.Now;
+        var updated = current with
+        {
+            Status = "Approved",
+            ReviewedAt = current.ReviewedAt ?? now,
+            ReviewedBy = current.ReviewedBy ?? NormalizeOptional(provisionedBy, 200),
+            ProvisionedAt = now,
+            ProvisionedBy = NormalizeOptional(provisionedBy, 200),
+            TenantId = tenantId,
+            TenantCode = tenantCode,
+            OwnerUserId = ownerUserId,
+            OwnerEmail = ownerEmail
+        };
+
+        await File.WriteAllTextAsync(
+            metadataPath,
+            JsonSerializer.Serialize(updated, _jsonOptions),
+            ct);
+
+        _logger.LogInformation(
+            "Provisioned partner onboarding request {TrackingCode} into tenant {TenantCode}.",
+            safeTrackingCode,
+            tenantCode);
 
         return updated;
     }
@@ -335,7 +399,16 @@ public sealed record StoredPartnerOnboardingRequest
     public DateTimeOffset SubmittedAt { get; init; }
     public DateTimeOffset? ReviewedAt { get; init; }
     public string? ReviewedBy { get; init; }
+    public string? ReviewNote { get; init; }
     public string? ReviewerNote { get; init; }
+    public string? RejectReason { get; init; }
+    public string? NeedMoreInfoReason { get; init; }
+    public Guid? TenantId { get; init; }
+    public string? TenantCode { get; init; }
+    public Guid? OwnerUserId { get; init; }
+    public string? OwnerEmail { get; init; }
+    public DateTimeOffset? ProvisionedAt { get; init; }
+    public string? ProvisionedBy { get; init; }
     public StoredPartnerOnboardingDocument LegalDocument { get; init; } = new();
 }
 

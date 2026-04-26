@@ -207,11 +207,20 @@ namespace TicketBooking.Api.Middlewares
             if (IsVersionedApiRoute(path, "admin", "tenant-onboarding"))
                 return true;
 
+            if (IsVersionedApiRoute(path, "admin", "commerce", "settlements"))
+                return true;
+
+            if (IsVersionedApiRoute(path, "admin", "uploads"))
+                return true;
+
             // Customer commerce/account flows are global user flows and do not require tenant membership.
             if (IsVersionedApiRoute(path, "customer", "orders"))
                 return true;
 
             if (IsVersionedApiRoute(path, "customer", "account"))
+                return true;
+
+            if (IsVersionedApiRoute(path, "customer", "uploads"))
                 return true;
 
             if (IsVersionedApiRoute(path, "payments", "sepay"))
