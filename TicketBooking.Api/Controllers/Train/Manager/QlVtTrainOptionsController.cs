@@ -146,6 +146,40 @@ public sealed class QlVtTrainOptionsController : ControllerBase
                 .Select(g => new { CarId = g.Key, SeatCount = g.Count() })
                 .ToDictionaryAsync(x => x.CarId, x => x.SeatCount, ct);
 
+        var fareClasses = await _db.TrainFareClasses.IgnoreQueryFilters()
+            .Where(x => x.TenantId == tenantId && !x.IsDeleted)
+            .OrderBy(x => x.Code)
+            .Select(x => new
+            {
+                x.Id,
+                x.Code,
+                x.Name,
+                x.SeatType,
+                x.DefaultModifier,
+                x.IsActive
+            })
+            .ToListAsync(ct);
+
+        var fareRules = await _db.TrainFareRules.IgnoreQueryFilters()
+            .Where(x => x.TenantId == tenantId && !x.IsDeleted)
+            .OrderBy(x => x.FromStopIndex)
+            .ThenBy(x => x.ToStopIndex)
+            .Select(x => new
+            {
+                x.Id,
+                x.RouteId,
+                x.TripId,
+                x.FareClassId,
+                x.FromStopIndex,
+                x.ToStopIndex,
+                x.CurrencyCode,
+                x.TotalPrice,
+                x.EffectiveFrom,
+                x.EffectiveTo,
+                x.IsActive
+            })
+            .ToListAsync(ct);
+
         return Ok(new
         {
             locations,
@@ -202,7 +236,9 @@ public sealed class QlVtTrainOptionsController : ControllerBase
                 x.IsActive,
                 seatCount = seatCounts.GetValueOrDefault(x.Id),
                 trip = trips.FirstOrDefault(trip => trip.Id == x.TripId)
-            })
+            }),
+            fareClasses,
+            fareRules
         });
     }
 

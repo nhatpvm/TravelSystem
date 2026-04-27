@@ -23,6 +23,16 @@ public static class TrainSeatOccupancySupport
         int toStopIndex)
         => query.Where(x => x.FromStopIndex < toStopIndex && fromStopIndex < x.ToStopIndex);
 
+    public static IQueryable<TrainSeatBlock> WhereActiveSeatBlocks(
+        this IQueryable<TrainSeatBlock> query)
+        => query.Where(x => !x.IsDeleted && x.Status == TrainSeatBlockStatus.Active);
+
+    public static IQueryable<TrainSeatBlock> WhereOverlappingSegment(
+        this IQueryable<TrainSeatBlock> query,
+        int fromStopIndex,
+        int toStopIndex)
+        => query.Where(x => x.FromStopIndex < toStopIndex && fromStopIndex < x.ToStopIndex);
+
     public static Task<bool> HasActiveSeatOccupancyAsync(
         AppDbContext db,
         Guid tenantId,
@@ -46,4 +56,22 @@ public static class TrainSeatOccupancySupport
             .Where(x => x.TenantId == tenantId && x.TripId == tripId)
             .WhereActiveSeatOccupancy(now)
             .CountAsync(ct);
+
+    public static Task<bool> HasActiveSeatBlockAsync(
+        AppDbContext db,
+        Guid tenantId,
+        Guid tripId,
+        IReadOnlyCollection<Guid> seatIds,
+        int fromStopIndex,
+        int toStopIndex,
+        CancellationToken ct)
+        => db.TrainSeatBlocks
+            .IgnoreQueryFilters()
+            .Where(x =>
+                x.TenantId == tenantId &&
+                x.TripId == tripId &&
+                seatIds.Contains(x.TrainCarSeatId))
+            .WhereActiveSeatBlocks()
+            .WhereOverlappingSegment(fromStopIndex, toStopIndex)
+            .AnyAsync(ct);
 }

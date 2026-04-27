@@ -178,6 +178,28 @@ public sealed class TrainSeatHoldsController : ControllerBase
             });
         }
 
+        var blocked = await _db.TrainSeatBlocks.IgnoreQueryFilters()
+            .Where(x =>
+                x.TenantId == tenantId &&
+                x.TripId == req.TripId &&
+                seatIds.Contains(x.TrainCarSeatId))
+            .WhereActiveSeatBlocks()
+            .WhereOverlappingSegment(newFrom, newTo)
+            .Select(x => x.TrainCarSeatId)
+            .Distinct()
+            .ToListAsync(ct);
+
+        if (blocked.Count > 0)
+        {
+            await tx.CommitAsync(ct);
+
+            return Conflict(new
+            {
+                message = "Some seats are blocked by railway operations.",
+                blockedSeatIds = blocked
+            });
+        }
+
         var token = !string.IsNullOrWhiteSpace(clientToken) ? clientToken : Guid.NewGuid().ToString("N");
 
         var rows = seatIds.Select(seatId => new TrainTripSeatHold

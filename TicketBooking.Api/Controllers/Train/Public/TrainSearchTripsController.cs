@@ -293,6 +293,20 @@ public sealed class TrainSearchTripsController : ControllerBase
 
         var occupanciesByTrip = occupancies.GroupBy(x => x.TripId).ToDictionary(g => g.Key, g => g.ToList());
 
+        var seatBlocks = await _db.TrainSeatBlocks.IgnoreQueryFilters()
+            .Where(x => tripIds.Contains(x.TripId))
+            .WhereActiveSeatBlocks()
+            .Select(x => new
+            {
+                x.TripId,
+                x.TrainCarSeatId,
+                x.FromStopIndex,
+                x.ToStopIndex
+            })
+            .ToListAsync(ct);
+
+        var blocksByTrip = seatBlocks.GroupBy(x => x.TripId).ToDictionary(g => g.Key, g => g.ToList());
+
         var segPrices = await _db.TrainTripSegmentPrices.IgnoreQueryFilters()
             .Where(x =>
                 tripIds.Contains(x.TripId) &&
@@ -340,6 +354,7 @@ public sealed class TrainSearchTripsController : ControllerBase
 
             var heldSeatCount = 0;
             var occupiedSeatCount = 0;
+            var blockedSeatIds = new HashSet<Guid>();
             if (occupanciesByTrip.TryGetValue(t.Id, out var tripOccupancies) && tripOccupancies.Count > 0)
             {
                 var overlapping = tripOccupancies
@@ -358,7 +373,24 @@ public sealed class TrainSearchTripsController : ControllerBase
                     .Count();
             }
 
-            var available = Math.Max(0, capacity - occupiedSeatCount);
+            if (blocksByTrip.TryGetValue(t.Id, out var tripBlocks) && tripBlocks.Count > 0)
+            {
+                blockedSeatIds = tripBlocks
+                    .Where(h => h.FromStopIndex < toIndex && fromIndex < h.ToStopIndex)
+                    .Select(h => h.TrainCarSeatId)
+                    .Distinct()
+                    .ToHashSet();
+            }
+
+            var unavailableSeatCount = Math.Max(occupiedSeatCount, occupanciesByTrip.TryGetValue(t.Id, out var allTripOccupancies)
+                ? allTripOccupancies
+                    .Where(h => h.FromStopIndex < toIndex && fromIndex < h.ToStopIndex)
+                    .Select(h => h.TrainCarSeatId)
+                    .Concat(blockedSeatIds)
+                    .Distinct()
+                    .Count()
+                : blockedSeatIds.Count);
+            var available = Math.Max(0, capacity - unavailableSeatCount);
 
             decimal? price = null;
             string? currency = null;
@@ -393,9 +425,10 @@ public sealed class TrainSearchTripsController : ControllerBase
                 ? tripOccupanciesForCars
                     .Where(h => h.FromStopIndex < toIndex && fromIndex < h.ToStopIndex)
                     .Select(h => h.TrainCarSeatId)
+                    .Concat(blockedSeatIds)
                     .Distinct()
                     .ToHashSet()
-                : new HashSet<Guid>();
+                : blockedSeatIds;
 
             var carOptions = carsByTrip.TryGetValue(t.Id, out var tripCars)
                 ? tripCars
@@ -451,6 +484,7 @@ public sealed class TrainSearchTripsController : ControllerBase
                 capacitySeatCount = capacity,
                 heldSeatCount,
                 occupiedSeatCount,
+                blockedSeatCount = blockedSeatIds.Count,
                 availableSeatCount = available,
                 canBook = available >= passengers,
                 price,

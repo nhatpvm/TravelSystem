@@ -78,6 +78,10 @@ public sealed class QlVtTrainTripStopTimesController : ControllerBase
                 x.ArriveAt,
                 x.DepartAt,
                 x.MinutesFromStart,
+                x.PlatformCode,
+                x.TrackCode,
+                x.BoardingGate,
+                x.BoardingStatus,
                 x.IsActive,
                 x.IsDeleted,
                 x.CreatedAt,
@@ -115,6 +119,10 @@ public sealed class QlVtTrainTripStopTimesController : ControllerBase
                 x.ArriveAt,
                 x.DepartAt,
                 x.MinutesFromStart,
+                x.PlatformCode,
+                x.TrackCode,
+                x.BoardingGate,
+                x.BoardingStatus,
                 x.IsActive,
                 x.IsDeleted,
                 x.CreatedAt,
@@ -135,6 +143,10 @@ public sealed class QlVtTrainTripStopTimesController : ControllerBase
         public DateTimeOffset? ArriveAt { get; set; }
         public DateTimeOffset? DepartAt { get; set; }
         public int? MinutesFromStart { get; set; }
+        public string? PlatformCode { get; set; }
+        public string? TrackCode { get; set; }
+        public string? BoardingGate { get; set; }
+        public string? BoardingStatus { get; set; }
         public bool IsActive { get; set; } = true;
     }
 
@@ -169,6 +181,10 @@ public sealed class QlVtTrainTripStopTimesController : ControllerBase
             ArriveAt = req.ArriveAt,
             DepartAt = req.DepartAt,
             MinutesFromStart = req.MinutesFromStart,
+            PlatformCode = TrimOrNull(req.PlatformCode, 30),
+            TrackCode = TrimOrNull(req.TrackCode, 30),
+            BoardingGate = TrimOrNull(req.BoardingGate, 30),
+            BoardingStatus = TrimOrNull(req.BoardingStatus, 50),
             IsActive = req.IsActive,
             IsDeleted = false,
             CreatedAt = DateTimeOffset.Now
@@ -208,6 +224,10 @@ public sealed class QlVtTrainTripStopTimesController : ControllerBase
         entity.ArriveAt = req.ArriveAt;
         entity.DepartAt = req.DepartAt;
         entity.MinutesFromStart = req.MinutesFromStart;
+        entity.PlatformCode = TrimOrNull(req.PlatformCode, 30);
+        entity.TrackCode = TrimOrNull(req.TrackCode, 30);
+        entity.BoardingGate = TrimOrNull(req.BoardingGate, 30);
+        entity.BoardingStatus = TrimOrNull(req.BoardingStatus, 50);
         entity.IsActive = req.IsActive;
         entity.IsDeleted = false;
         entity.UpdatedAt = DateTimeOffset.Now;
@@ -229,6 +249,10 @@ public sealed class QlVtTrainTripStopTimesController : ControllerBase
             public DateTimeOffset? ArriveAt { get; set; }
             public DateTimeOffset? DepartAt { get; set; }
             public int? MinutesFromStart { get; set; }
+            public string? PlatformCode { get; set; }
+            public string? TrackCode { get; set; }
+            public string? BoardingGate { get; set; }
+            public string? BoardingStatus { get; set; }
             public bool IsActive { get; set; } = true;
         }
     }
@@ -297,6 +321,10 @@ public sealed class QlVtTrainTripStopTimesController : ControllerBase
                 row.ArriveAt = item.ArriveAt;
                 row.DepartAt = item.DepartAt;
                 row.MinutesFromStart = item.MinutesFromStart;
+                row.PlatformCode = TrimOrNull(item.PlatformCode, 30);
+                row.TrackCode = TrimOrNull(item.TrackCode, 30);
+                row.BoardingGate = TrimOrNull(item.BoardingGate, 30);
+                row.BoardingStatus = TrimOrNull(item.BoardingStatus, 50);
                 row.IsActive = item.IsActive;
                 row.IsDeleted = false;
                 row.UpdatedAt = now;
@@ -313,6 +341,10 @@ public sealed class QlVtTrainTripStopTimesController : ControllerBase
                     ArriveAt = item.ArriveAt,
                     DepartAt = item.DepartAt,
                     MinutesFromStart = item.MinutesFromStart,
+                    PlatformCode = TrimOrNull(item.PlatformCode, 30),
+                    TrackCode = TrimOrNull(item.TrackCode, 30),
+                    BoardingGate = TrimOrNull(item.BoardingGate, 30),
+                    BoardingStatus = TrimOrNull(item.BoardingStatus, 50),
                     IsActive = item.IsActive,
                     IsDeleted = false,
                     CreatedAt = now
@@ -560,6 +592,14 @@ public sealed class QlVtTrainTripStopTimesController : ControllerBase
         trip.UpdatedAt = DateTimeOffset.Now;
 
         await _db.SaveChangesAsync(ct);
+    }
+
+    private static string? TrimOrNull(string? value, int maxLength)
+    {
+        var trimmed = (value ?? string.Empty).Trim();
+        if (string.IsNullOrWhiteSpace(trimmed))
+            return null;
+        return trimmed.Length > maxLength ? trimmed[..maxLength] : trimmed;
     }
 
     private Task<bool> HasActiveSeatOccupancyAsync(Guid tripId, CancellationToken ct)

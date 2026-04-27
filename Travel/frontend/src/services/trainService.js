@@ -262,6 +262,146 @@ export function releaseTrainManagerSeatHold(holdToken) {
   return api.delete(`/qlvt/train/seat-holds/${holdToken}`);
 }
 
+export function listTrainSeatBlocks(tripId, params = {}) {
+  return api.get(`/qlvt/train/seat-blocks/trip/${tripId}${toQuery(params)}`);
+}
+
+export function createTrainSeatBlock(payload) {
+  return api.post('/qlvt/train/seat-blocks', payload);
+}
+
+export function releaseTrainSeatBlock(id) {
+  return api.post(`/qlvt/train/seat-blocks/${id}/release`, {});
+}
+
+export function deleteTrainSeatBlock(id) {
+  return api.delete(`/qlvt/train/seat-blocks/${id}`);
+}
+
+export function listTrainOperationalEvents(params = {}) {
+  return api.get(`/qlvt/train/operational-events${toQuery(params)}`);
+}
+
+export function createTrainOperationalEvent(payload) {
+  return api.post('/qlvt/train/operational-events', payload);
+}
+
+export function rescheduleTrainTrip(tripId, payload) {
+  return api.post(`/qlvt/train/trips/${tripId}/reschedule`, payload);
+}
+
+export function cancelTrainTripOps(tripId, payload) {
+  return api.post(`/qlvt/train/trips/${tripId}/cancel`, payload);
+}
+
+export function resolveTrainOperationalEvent(id) {
+  return api.post(`/qlvt/train/operational-events/${id}/resolve`, {});
+}
+
+export function getTrainManifest(tripId, params = {}) {
+  return api.get(`/qlvt/train/trips/${tripId}/manifest${toQuery(params)}`);
+}
+
+export function listTrainFareClasses(params = {}) {
+  return api.get(`/qlvt/train/fare-classes${toQuery(params)}`);
+}
+
+export function createTrainFareClass(payload) {
+  return api.post('/qlvt/train/fare-classes', payload);
+}
+
+export function updateTrainFareClass(id, payload) {
+  return api.put(`/qlvt/train/fare-classes/${id}`, payload);
+}
+
+export function deleteTrainFareClass(id) {
+  return api.delete(`/qlvt/train/fare-classes/${id}`);
+}
+
+export function restoreTrainFareClass(id) {
+  return api.post(`/qlvt/train/fare-classes/${id}/restore`, {});
+}
+
+export function listTrainFareRules(params = {}) {
+  return api.get(`/qlvt/train/fare-rules${toQuery(params)}`);
+}
+
+export function getTrainFareRule(id, params = {}) {
+  return api.get(`/qlvt/train/fare-rules/${id}${toQuery(params)}`);
+}
+
+export function createTrainFareRule(payload) {
+  return api.post('/qlvt/train/fare-rules', payload);
+}
+
+export function updateTrainFareRule(id, payload) {
+  return api.put(`/qlvt/train/fare-rules/${id}`, payload);
+}
+
+export function deleteTrainFareRule(id) {
+  return api.delete(`/qlvt/train/fare-rules/${id}`);
+}
+
+export function restoreTrainFareRule(id) {
+  return api.post(`/qlvt/train/fare-rules/${id}/restore`, {});
+}
+
+export function listTrainBoardingByTrip(tripId, params = {}) {
+  return api.get(`/qlvt/train/boarding/trip/${tripId}${toQuery(params)}`);
+}
+
+export function scanTrainTicket(payload) {
+  return api.post('/qlvt/train/boarding/scan', payload);
+}
+
+export function checkInTrainTicket(id, payload = {}) {
+  return api.post(`/qlvt/train/boarding/${id}/check-in`, payload);
+}
+
+export function boardTrainTicket(id, payload = {}) {
+  return api.post(`/qlvt/train/boarding/${id}/board`, payload);
+}
+
+export function rejectTrainTicket(id, payload = {}) {
+  return api.post(`/qlvt/train/boarding/${id}/reject`, payload);
+}
+
+export function listTrainTicketChanges(params = {}) {
+  return api.get(`/qlvt/train/ticket-changes${toQuery(params)}`);
+}
+
+export function createTrainTicketChange(payload) {
+  return api.post('/qlvt/train/ticket-changes', payload);
+}
+
+export function approveTrainTicketChange(id, payload = {}) {
+  return api.post(`/qlvt/train/ticket-changes/${id}/approve`, payload);
+}
+
+export function markTrainTicketChangePaid(id, payload = {}) {
+  return api.post(`/qlvt/train/ticket-changes/${id}/mark-paid`, payload);
+}
+
+export function rejectTrainTicketChange(id, payload = {}) {
+  return api.post(`/qlvt/train/ticket-changes/${id}/reject`, payload);
+}
+
+export function listTrainSets(params = {}) {
+  return api.get(`/qlvt/train/train-sets${toQuery(params)}`);
+}
+
+export function getTrainSet(id) {
+  return api.get(`/qlvt/train/train-sets/${id}`);
+}
+
+export function createTrainSetFromTrip(payload) {
+  return api.post('/qlvt/train/train-sets/from-trip', payload);
+}
+
+export function applyTrainSetToTrip(id, payload) {
+  return api.post(`/qlvt/train/train-sets/${id}/apply`, payload);
+}
+
 export async function getAdminTrainOptions(tenantId) {
   const [providersResponse, locationsResponse, stopPointsResponse, routesResponse, tripsResponse, carsResponse] = await Promise.all([
     listProviders({ includeDeleted: true, type: 2 }, tenantId),

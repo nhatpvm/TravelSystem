@@ -213,6 +213,13 @@ public sealed partial class CustomerOrderService
         return orderedEvents;
     }
 
+    private enum RefundActionType
+    {
+        None,
+        Cancel,
+        Refund
+    }
+
     public async Task<CustomerRefundEstimateDto> GetRefundEstimateAsync(
         string orderCode,
         Guid userId,
@@ -224,12 +231,12 @@ public sealed partial class CustomerOrderService
 
         var remainingRefundable = Math.Max(0m, order.PayableAmount - order.RefundedAmount);
         var eligibleAction = payment.Status == CustomerPaymentStatus.Pending && order.Status == CustomerOrderStatus.PendingPayment
-            ? "cancel"
+            ? RefundActionType.Cancel
             : IsRefundEligible(order)
-                ? "refund"
-                : "none";
+                ? RefundActionType.Refund
+                : RefundActionType.None;
 
-        var suggestedAmount = eligibleAction == "refund"
+        var suggestedAmount = eligibleAction == RefundActionType.Refund
             ? ClampMoney(requestedAmount ?? remainingRefundable, 0m, remainingRefundable)
             : 0m;
 
@@ -237,16 +244,16 @@ public sealed partial class CustomerOrderService
         var commissionRatio = grossBasis > 0
             ? order.PlatformCommissionAmount / grossBasis
             : _options.DefaultCommissionPercent / 100m;
-        var estimatedCommissionReversal = eligibleAction == "refund"
+        var estimatedCommissionReversal = eligibleAction == RefundActionType.Refund
             ? RoundCurrencyAmount(suggestedAmount * commissionRatio, order.CurrencyCode)
             : 0m;
-        var estimatedTenantAdjustment = eligibleAction == "refund"
+        var estimatedTenantAdjustment = eligibleAction == RefundActionType.Refund
             ? Math.Max(0m, suggestedAmount - estimatedCommissionReversal)
             : 0m;
 
         var dto = new CustomerRefundEstimateDto
         {
-            EligibleAction = eligibleAction,
+            EligibleAction = eligibleAction.ToString().ToLower(),
             SettlementStatus = order.SettlementStatus,
             CurrencyCode = order.CurrencyCode,
             GrossAmount = order.GrossAmount,
@@ -254,16 +261,16 @@ public sealed partial class CustomerOrderService
             RefundedAmount = order.RefundedAmount,
             RemainingRefundableAmount = remainingRefundable,
             SuggestedAmount = suggestedAmount,
-            EstimatedRefundAmount = eligibleAction == "refund" ? suggestedAmount : 0m,
+            EstimatedRefundAmount = eligibleAction == RefundActionType.Refund ? suggestedAmount : 0m,
             EstimatedCommissionReversalAmount = estimatedCommissionReversal,
             EstimatedTenantAdjustmentAmount = estimatedTenantAdjustment,
             SupportsPartialRefund = true,
-            RequiresAdminReview = eligibleAction == "refund",
-            TimingNote = BuildRefundTimingNote(eligibleAction, order),
+            RequiresAdminReview = eligibleAction == RefundActionType.Refund,
+            TimingNote = BuildRefundTimingNote(eligibleAction.ToString().ToLower(), order),
             SettlementImpact = BuildSettlementImpact(order.SettlementStatus),
-            StatusNote = BuildRefundStatusNote(eligibleAction, order, payment, remainingRefundable),
-            RuleSummary = BuildRefundRules(eligibleAction, order),
-            WarningMessages = BuildRefundWarnings(eligibleAction, order, remainingRefundable, suggestedAmount),
+            StatusNote = BuildRefundStatusNote(eligibleAction.ToString().ToLower(), order, payment, remainingRefundable),
+            RuleSummary = BuildRefundRules(eligibleAction.ToString().ToLower(), order),
+            WarningMessages = BuildRefundWarnings(eligibleAction.ToString().ToLower(), order, remainingRefundable, suggestedAmount),
         };
 
         return dto;

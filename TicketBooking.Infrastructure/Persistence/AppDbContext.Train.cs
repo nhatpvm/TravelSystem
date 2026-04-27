@@ -23,6 +23,15 @@ namespace TicketBooking.Infrastructure.Persistence
         public DbSet<TrainCarSeat> TrainCarSeats => Set<TrainCarSeat>();
 
         public DbSet<TrainTripSeatHold> TrainTripSeatHolds => Set<TrainTripSeatHold>();
+        public DbSet<TrainSeatBlock> TrainSeatBlocks => Set<TrainSeatBlock>();
+        public DbSet<TrainOperationalEvent> TrainOperationalEvents => Set<TrainOperationalEvent>();
+        public DbSet<TrainFareClass> TrainFareClasses => Set<TrainFareClass>();
+        public DbSet<TrainFareRule> TrainFareRules => Set<TrainFareRule>();
+        public DbSet<TrainTicketCheckIn> TrainTicketCheckIns => Set<TrainTicketCheckIn>();
+        public DbSet<TrainTicketChangeRequest> TrainTicketChangeRequests => Set<TrainTicketChangeRequest>();
+        public DbSet<TrainSet> TrainSets => Set<TrainSet>();
+        public DbSet<TrainSetCarTemplate> TrainSetCarTemplates => Set<TrainSetCarTemplate>();
+        public DbSet<TrainSetSeatTemplate> TrainSetSeatTemplates => Set<TrainSetSeatTemplate>();
     }
 
     public static class AppDbContextTrainModel

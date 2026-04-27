@@ -61,6 +61,14 @@ public sealed class QlVtTrainTripSeatsController : ControllerBase
         public TrainSeatHoldStatus Status { get; init; }
     }
 
+    private sealed class BlockInfo
+    {
+        public Guid SeatId { get; init; }
+        public TrainSeatBlockReason Reason { get; init; }
+        public string? ReasonText { get; init; }
+        public string? Note { get; init; }
+    }
+
     [HttpGet("{tripId:guid}/seats")]
     public async Task<IActionResult> GetSeats(
         Guid tripId,
@@ -189,9 +197,28 @@ public sealed class QlVtTrainTripSeatsController : ControllerBase
             })
             .ToListAsync(ct);
 
+        var blocks = await _db.TrainSeatBlocks.IgnoreQueryFilters()
+            .Where(x =>
+                x.TenantId == tenantId &&
+                x.TripId == tripId)
+            .WhereActiveSeatBlocks()
+            .WhereOverlappingSegment(fromIndex, toIndex)
+            .Select(x => new BlockInfo
+            {
+                SeatId = x.TrainCarSeatId,
+                Reason = x.Reason,
+                ReasonText = x.ReasonText,
+                Note = x.Note
+            })
+            .ToListAsync(ct);
+
         var occupancyBySeat = occupancies
             .GroupBy(x => x.SeatId)
             .ToDictionary(g => g.Key, g => g.OrderBy(x => GetOccupancyPriority(x, myUserId)).ThenBy(x => x.HoldExpiresAt).First());
+
+        var blockBySeat = blocks
+            .GroupBy(x => x.SeatId)
+            .ToDictionary(g => g.Key, g => g.First());
 
         var seatsByCar = seats
             .GroupBy(s => s.CarId)
@@ -207,8 +234,20 @@ public sealed class QlVtTrainTripSeatsController : ControllerBase
                 var status = seat.IsActive ? "available" : "inactive";
                 string? holdToken = null;
                 DateTimeOffset? holdExpiresAt = null;
+                TrainSeatBlockReason? blockReason = null;
+                string? blockReasonText = null;
+                string? blockNote = null;
 
-                if (seat.IsActive && occupancyBySeat.TryGetValue(seat.Id, out var occupancy))
+                if (seat.IsActive && blockBySeat.TryGetValue(seat.Id, out var block))
+                {
+                    status = block.Reason == TrainSeatBlockReason.Maintenance || block.Reason == TrainSeatBlockReason.Broken
+                        ? "maintenance"
+                        : "blocked";
+                    blockReason = block.Reason;
+                    blockReasonText = block.ReasonText;
+                    blockNote = block.Note;
+                }
+                else if (seat.IsActive && occupancyBySeat.TryGetValue(seat.Id, out var occupancy))
                 {
                     if (occupancy.Status == TrainSeatHoldStatus.Confirmed)
                     {
@@ -241,7 +280,10 @@ public sealed class QlVtTrainTripSeatsController : ControllerBase
                     seat.IsActive,
                     status,
                     holdToken,
-                    holdExpiresAt
+                    holdExpiresAt,
+                    blockReason,
+                    blockReasonText,
+                    blockNote
                 };
             }).ToList();
 

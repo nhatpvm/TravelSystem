@@ -201,7 +201,7 @@ public sealed partial class CustomerOrderService
         var seatIds = holds.Select(x => x.TrainCarSeatId).Distinct().ToList();
         var seats = await _db.TrainCarSeats.IgnoreQueryFilters()
             .Where(x => seatIds.Contains(x.Id) && !x.IsDeleted)
-            .Select(x => new { x.Id, x.SeatNumber, x.PriceModifier })
+            .Select(x => new { x.Id, x.SeatNumber, x.SeatType, x.SeatClass, x.PriceModifier })
             .ToListAsync(ct);
 
         if (seats.Count != seatIds.Count)
@@ -245,11 +245,56 @@ public sealed partial class CustomerOrderService
         if (segmentPrice is null)
             throw new InvalidOperationException("Chuyến tàu chưa có giá cho chặng đã chọn.");
 
+        var fareClasses = await _db.TrainFareClasses.IgnoreQueryFilters()
+            .Where(x => x.TenantId == trip.TenantId && x.IsActive && !x.IsDeleted)
+            .Select(x => new TrainFareClassPrice
+            {
+                Id = x.Id,
+                Code = x.Code,
+                Name = x.Name,
+                SeatType = x.SeatType,
+                DefaultModifier = x.DefaultModifier
+            })
+            .ToListAsync(ct);
+
+        var fareClassIds = fareClasses.Select(x => x.Id).ToList();
+        var fareRules = fareClassIds.Count == 0
+            ? new List<TrainFareRulePrice>()
+            : await _db.TrainFareRules.IgnoreQueryFilters()
+                .Where(x =>
+                    x.TenantId == trip.TenantId &&
+                    fareClassIds.Contains(x.FareClassId) &&
+                    x.FromStopIndex == first.FromStopIndex &&
+                    x.ToStopIndex == first.ToStopIndex &&
+                    x.IsActive &&
+                    !x.IsDeleted &&
+                    (!x.EffectiveFrom.HasValue || x.EffectiveFrom <= now) &&
+                    (!x.EffectiveTo.HasValue || x.EffectiveTo >= now) &&
+                    (x.TripId == trip.Id || x.RouteId == trip.RouteId))
+                .Select(x => new TrainFareRulePrice
+                {
+                    FareClassId = x.FareClassId,
+                    TripId = x.TripId,
+                    RouteId = x.RouteId,
+                    CurrencyCode = x.CurrencyCode,
+                    TotalPrice = x.TotalPrice
+                })
+                .ToListAsync(ct);
+
         var lines = seats
             .OrderBy(x => x.SeatNumber)
             .Select(x =>
             {
-                var lineAmount = segmentPrice.TotalPrice + (x.PriceModifier ?? 0m);
+                var fareClass = ResolveTrainFareClass(fareClasses, x.SeatClass, x.SeatType);
+                var fareRule = fareClass is null
+                    ? null
+                    : fareRules
+                        .Where(rule => rule.FareClassId == fareClass.Id)
+                        .OrderByDescending(rule => rule.TripId == trip.Id)
+                        .FirstOrDefault();
+
+                var lineAmount = fareRule?.TotalPrice
+                    ?? segmentPrice.TotalPrice + (x.PriceModifier ?? fareClass?.DefaultModifier ?? 0m);
                 return new CustomerOrderSnapshotLine
                 {
                     Label = $"Chỗ {x.SeatNumber}",
@@ -464,5 +509,42 @@ public sealed partial class CustomerOrderService
         await _db.SaveChangesAsync(ct);
         await CreateOrderCreatedNotificationAsync(order, ct);
         return await MapOrderDetailAsync(order.Id, ct);
+    }
+
+    private static TrainFareClassPrice? ResolveTrainFareClass(
+        IReadOnlyCollection<TrainFareClassPrice> fareClasses,
+        string? seatClass,
+        TrainSeatType seatType)
+    {
+        if (!string.IsNullOrWhiteSpace(seatClass))
+        {
+            var normalized = seatClass.Trim();
+            var exact = fareClasses.FirstOrDefault(x =>
+                string.Equals(x.Code, normalized, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(x.Name, normalized, StringComparison.OrdinalIgnoreCase));
+
+            if (exact is not null)
+                return exact;
+        }
+
+        return fareClasses.FirstOrDefault(x => x.SeatType == seatType);
+    }
+
+    private sealed class TrainFareClassPrice
+    {
+        public Guid Id { get; init; }
+        public string Code { get; init; } = "";
+        public string Name { get; init; } = "";
+        public TrainSeatType SeatType { get; init; }
+        public decimal DefaultModifier { get; init; }
+    }
+
+    private sealed class TrainFareRulePrice
+    {
+        public Guid FareClassId { get; init; }
+        public Guid? TripId { get; init; }
+        public Guid? RouteId { get; init; }
+        public string CurrencyCode { get; init; } = "VND";
+        public decimal TotalPrice { get; init; }
     }
 }

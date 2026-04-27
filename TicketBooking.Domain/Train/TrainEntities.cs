@@ -40,6 +40,68 @@ namespace TicketBooking.Domain.Train
         LowerBerth = 3
     }
 
+    public enum TrainSeatBlockReason
+    {
+        Maintenance = 1,
+        Broken = 2,
+        StaffReserved = 3,
+        Security = 4,
+        Other = 99
+    }
+
+    public enum TrainSeatBlockStatus
+    {
+        Active = 1,
+        Released = 2,
+        Cancelled = 3
+    }
+
+    public enum TrainOperationalEventType
+    {
+        Delay = 1,
+        Reschedule = 2,
+        CancelTrip = 3,
+        PlatformChange = 4,
+        CoachChange = 5,
+        Other = 99
+    }
+
+    public enum TrainOperationalEventStatus
+    {
+        Draft = 1,
+        Published = 2,
+        Notified = 3,
+        Resolved = 4,
+        Cancelled = 5
+    }
+
+    public enum TrainTicketCheckInStatus
+    {
+        Pending = 1,
+        CheckedIn = 2,
+        Boarded = 3,
+        Rejected = 4,
+        Cancelled = 5
+    }
+
+    public enum TrainTicketChangeStatus
+    {
+        Requested = 1,
+        Quoted = 2,
+        PendingPayment = 3,
+        Approved = 4,
+        Rejected = 5,
+        Cancelled = 6
+    }
+
+    public enum TrainSetStatus
+    {
+        Draft = 1,
+        Active = 2,
+        Maintenance = 3,
+        Retired = 4
+    }
+
     /// <summary>
     /// train.StopPoints (Ga tàu)
     /// Linked to catalog.Locations (you required).
@@ -179,6 +241,10 @@ namespace TicketBooking.Domain.Train
         public DateTimeOffset? DepartAt { get; set; }
 
         public int? MinutesFromStart { get; set; }
+        public string? PlatformCode { get; set; }
+        public string? TrackCode { get; set; }
+        public string? BoardingGate { get; set; }
+        public string? BoardingStatus { get; set; }
         public bool IsActive { get; set; } = true;
 
         public bool IsDeleted { get; set; }
@@ -310,6 +376,280 @@ namespace TicketBooking.Domain.Train
 
         public string HoldToken { get; set; } = "";
         public DateTimeOffset HoldExpiresAt { get; set; }
+
+        public bool IsDeleted { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public Guid? CreatedByUserId { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
+        public Guid? UpdatedByUserId { get; set; }
+        public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+    }
+
+    /// <summary>
+    /// train.SeatBlocks
+    /// Operational blocks for seats/berths, scoped by trip segment.
+    /// </summary>
+    public sealed class TrainSeatBlock
+    {
+        public Guid Id { get; set; }
+        public Guid TenantId { get; set; }
+
+        public Guid TripId { get; set; }
+        public Guid TrainCarSeatId { get; set; }
+
+        public Guid FromTripStopTimeId { get; set; }
+        public Guid ToTripStopTimeId { get; set; }
+
+        public int FromStopIndex { get; set; }
+        public int ToStopIndex { get; set; }
+
+        public TrainSeatBlockReason Reason { get; set; } = TrainSeatBlockReason.Maintenance;
+        public TrainSeatBlockStatus Status { get; set; } = TrainSeatBlockStatus.Active;
+
+        public string? ReasonText { get; set; }
+        public string? Note { get; set; }
+        public DateTimeOffset? StartsAt { get; set; }
+        public DateTimeOffset? EndsAt { get; set; }
+        public DateTimeOffset? ReleasedAt { get; set; }
+        public Guid? ReleasedByUserId { get; set; }
+
+        public bool IsDeleted { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public Guid? CreatedByUserId { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
+        public Guid? UpdatedByUserId { get; set; }
+        public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+    }
+
+    /// <summary>
+    /// train.OperationalEvents
+    /// Dispatcher log for delays, cancellations, platform changes, and coach changes.
+    /// </summary>
+    public sealed class TrainOperationalEvent
+    {
+        public Guid Id { get; set; }
+        public Guid TenantId { get; set; }
+
+        public Guid TripId { get; set; }
+        public TrainOperationalEventType Type { get; set; } = TrainOperationalEventType.Other;
+        public TrainOperationalEventStatus Status { get; set; } = TrainOperationalEventStatus.Draft;
+
+        public DateTimeOffset? OldDepartureAt { get; set; }
+        public DateTimeOffset? NewDepartureAt { get; set; }
+        public DateTimeOffset? OldArrivalAt { get; set; }
+        public DateTimeOffset? NewArrivalAt { get; set; }
+
+        public string? OldPlatformCode { get; set; }
+        public string? NewPlatformCode { get; set; }
+        public string? OldTrackCode { get; set; }
+        public string? NewTrackCode { get; set; }
+
+        public string ReasonCode { get; set; } = "";
+        public string? ReasonText { get; set; }
+        public string? InternalNote { get; set; }
+        public DateTimeOffset? PublishedAt { get; set; }
+        public DateTimeOffset? NotifiedAt { get; set; }
+        public DateTimeOffset? ResolvedAt { get; set; }
+
+        public bool IsDeleted { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public Guid? CreatedByUserId { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
+        public Guid? UpdatedByUserId { get; set; }
+        public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+    }
+
+    /// <summary>
+    /// train.FareClasses
+    /// Controlled catalog for seat classes such as hard seat, soft seat, lower berth, upper berth.
+    /// </summary>
+    public sealed class TrainFareClass
+    {
+        public Guid Id { get; set; }
+        public Guid TenantId { get; set; }
+
+        public string Code { get; set; } = "";
+        public string Name { get; set; } = "";
+        public TrainSeatType SeatType { get; set; } = TrainSeatType.Seat;
+        public string? Description { get; set; }
+        public decimal DefaultModifier { get; set; }
+        public bool IsActive { get; set; } = true;
+
+        public bool IsDeleted { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public Guid? CreatedByUserId { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
+        public Guid? UpdatedByUserId { get; set; }
+        public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+    }
+
+    /// <summary>
+    /// train.FareRules
+    /// Optional class-based fare override per route/trip segment.
+    /// </summary>
+    public sealed class TrainFareRule
+    {
+        public Guid Id { get; set; }
+        public Guid TenantId { get; set; }
+
+        public Guid? RouteId { get; set; }
+        public Guid? TripId { get; set; }
+        public Guid FareClassId { get; set; }
+
+        public int FromStopIndex { get; set; }
+        public int ToStopIndex { get; set; }
+        public string CurrencyCode { get; set; } = "VND";
+        public decimal BaseFare { get; set; }
+        public decimal? TaxesFees { get; set; }
+        public decimal TotalPrice { get; set; }
+        public DateTimeOffset? EffectiveFrom { get; set; }
+        public DateTimeOffset? EffectiveTo { get; set; }
+        public bool IsActive { get; set; } = true;
+
+        public bool IsDeleted { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public Guid? CreatedByUserId { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
+        public Guid? UpdatedByUserId { get; set; }
+        public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+    }
+
+    /// <summary>
+    /// train.TicketCheckIns
+    /// Boarding control ledger for issued train tickets.
+    /// </summary>
+    public sealed class TrainTicketCheckIn
+    {
+        public Guid Id { get; set; }
+        public Guid TenantId { get; set; }
+
+        public Guid TripId { get; set; }
+        public Guid OrderId { get; set; }
+        public Guid TicketId { get; set; }
+        public Guid? TrainCarSeatId { get; set; }
+
+        public string TicketCode { get; set; } = "";
+        public TrainTicketCheckInStatus Status { get; set; } = TrainTicketCheckInStatus.Pending;
+        public string? CarNumber { get; set; }
+        public string? SeatNumber { get; set; }
+        public string? PassengerName { get; set; }
+        public string? DocumentNumber { get; set; }
+        public string? PlatformCode { get; set; }
+        public string? GateCode { get; set; }
+        public string? DeviceCode { get; set; }
+        public string? Note { get; set; }
+        public DateTimeOffset? CheckedInAt { get; set; }
+        public Guid? CheckedInByUserId { get; set; }
+        public DateTimeOffset? BoardedAt { get; set; }
+        public Guid? BoardedByUserId { get; set; }
+        public DateTimeOffset? RejectedAt { get; set; }
+        public string? RejectReason { get; set; }
+
+        public bool IsDeleted { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public Guid? CreatedByUserId { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
+        public Guid? UpdatedByUserId { get; set; }
+        public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+    }
+
+    /// <summary>
+    /// train.TicketChangeRequests
+    /// Exchange workflow between an issued train booking and a new held seat selection.
+    /// </summary>
+    public sealed class TrainTicketChangeRequest
+    {
+        public Guid Id { get; set; }
+        public Guid TenantId { get; set; }
+
+        public Guid OriginalOrderId { get; set; }
+        public Guid OriginalTripId { get; set; }
+        public Guid NewTripId { get; set; }
+        public string NewHoldToken { get; set; } = "";
+        public TrainTicketChangeStatus Status { get; set; } = TrainTicketChangeStatus.Requested;
+
+        public string CurrencyCode { get; set; } = "VND";
+        public decimal OriginalAmount { get; set; }
+        public decimal NewAmount { get; set; }
+        public decimal ChangeFeeAmount { get; set; }
+        public decimal FareDifferenceAmount { get; set; }
+        public decimal PayableDifferenceAmount { get; set; }
+        public string? ReasonText { get; set; }
+        public string? StaffNote { get; set; }
+        public DateTimeOffset? QuotedAt { get; set; }
+        public DateTimeOffset? ApprovedAt { get; set; }
+        public Guid? ApprovedByUserId { get; set; }
+        public DateTimeOffset? RejectedAt { get; set; }
+        public Guid? RejectedByUserId { get; set; }
+
+        public bool IsDeleted { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public Guid? CreatedByUserId { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
+        public Guid? UpdatedByUserId { get; set; }
+        public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+    }
+
+    /// <summary>
+    /// train.TrainSets
+    /// Reusable physical train/rake template.
+    /// </summary>
+    public sealed class TrainSet
+    {
+        public Guid Id { get; set; }
+        public Guid TenantId { get; set; }
+
+        public string Code { get; set; } = "";
+        public string Name { get; set; } = "";
+        public TrainSetStatus Status { get; set; } = TrainSetStatus.Active;
+        public string? Description { get; set; }
+        public bool IsActive { get; set; } = true;
+
+        public bool IsDeleted { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public Guid? CreatedByUserId { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
+        public Guid? UpdatedByUserId { get; set; }
+        public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+    }
+
+    public sealed class TrainSetCarTemplate
+    {
+        public Guid Id { get; set; }
+        public Guid TenantId { get; set; }
+        public Guid TrainSetId { get; set; }
+
+        public string CarNumber { get; set; } = "";
+        public TrainCarType CarType { get; set; } = TrainCarType.SeatCoach;
+        public string? CabinClass { get; set; }
+        public int SortOrder { get; set; }
+        public bool IsActive { get; set; } = true;
+
+        public bool IsDeleted { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public Guid? CreatedByUserId { get; set; }
+        public DateTimeOffset? UpdatedAt { get; set; }
+        public Guid? UpdatedByUserId { get; set; }
+        public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+    }
+
+    public sealed class TrainSetSeatTemplate
+    {
+        public Guid Id { get; set; }
+        public Guid TenantId { get; set; }
+        public Guid TrainSetCarTemplateId { get; set; }
+
+        public string SeatNumber { get; set; } = "";
+        public TrainSeatType SeatType { get; set; } = TrainSeatType.Seat;
+        public string? CompartmentCode { get; set; }
+        public int? CompartmentIndex { get; set; }
+        public int RowIndex { get; set; }
+        public int ColumnIndex { get; set; }
+        public bool IsWindow { get; set; }
+        public bool IsAisle { get; set; }
+        public string? SeatClass { get; set; }
+        public decimal? PriceModifier { get; set; }
+        public bool IsActive { get; set; } = true;
 
         public bool IsDeleted { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
