@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Bus as BusIcon, Calendar, ChevronRight, Plus, RefreshCw, Route, ShieldCheck, Ticket } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import BusManagementPageShell from '../../bus/components/BusManagementPageShell';
-import { BUS_TRIP_STATUSES, formatCurrency, formatDateTime, getTripStatusClass, getTripStatusLabel, toApiDateTimeValue, toDateTimeInputValue } from '../../bus/utils/presentation';
+import { BUS_TRIP_STATUSES, formatDateTime, getTripStatusClass, getTripStatusLabel, toApiDateTimeValue, toDateTimeInputValue } from '../../bus/utils/presentation';
 import { createBusTrip, deleteBusTrip, getBusManagerOptions, listBusTrips, restoreBusTrip, updateBusTrip } from '../../../../services/busService';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 function createEmptyForm() {
   return {
@@ -103,9 +104,11 @@ const BusInventoryPage = () => {
     }
   };
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, []);
+    loadDataRef.current();
+  }, [loadDataRef]);
 
   const handleSelectTrip = (trip) => {
     setSelectedTripId(trip.id);
@@ -136,7 +139,7 @@ const BusInventoryPage = () => {
         setNotice('Đã tạo chuyến xe mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được chuyến xe.');
     } finally {
@@ -157,7 +160,7 @@ const BusInventoryPage = () => {
         setNotice('Đã ẩn chuyến xe.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái chuyến xe.');
     }

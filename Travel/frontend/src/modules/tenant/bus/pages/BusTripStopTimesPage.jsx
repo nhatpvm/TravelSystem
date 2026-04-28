@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import BusManagementPageShell from '../components/BusManagementPageShell';
 import { formatDateTime, toApiDateTimeValue, toDateTimeInputValue } from '../utils/presentation';
 import { createBusTripStopTime, deleteBusTripStopTime, generateBusTripStopTimesFromRoute, getBusManagerOptions, listBusTrips, listBusTripStopTimes, restoreBusTripStopTime, updateBusTripStopTime } from '../../../../services/busService';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 function createEmptyForm() {
   return {
@@ -40,6 +41,8 @@ const BusTripStopTimesPage = () => {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
+  const loadStopTimesRef = useLatestRef(loadStopTimes);
+
   useEffect(() => {
     let active = true;
 
@@ -65,7 +68,7 @@ const BusTripStopTimesPage = () => {
     return () => {
       active = false;
     };
-  }, []);
+  }, [selectedTripId]);
 
   const loadStopTimes = async () => {
     if (!selectedTripId) {
@@ -98,8 +101,8 @@ const BusTripStopTimesPage = () => {
   };
 
   useEffect(() => {
-    loadStopTimes();
-  }, [selectedTripId]);
+    loadStopTimesRef.current();
+  }, [loadStopTimesRef, selectedTripId]);
 
   const handleCreateNew = () => {
     setSelectedId('');
@@ -131,7 +134,7 @@ const BusTripStopTimesPage = () => {
         setNotice('Đã thêm lịch dừng mới.');
       }
 
-      await loadStopTimes();
+      await loadStopTimesRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được lịch dừng.');
     } finally {
@@ -154,7 +157,7 @@ const BusTripStopTimesPage = () => {
         useRouteStopMinutes: true,
       });
       setNotice('Đã sinh lịch dừng từ tuyến đường.');
-      await loadStopTimes();
+      await loadStopTimesRef.current();
     } catch (err) {
       setError(err.message || 'Không sinh được lịch dừng từ tuyến.');
     }
@@ -173,7 +176,7 @@ const BusTripStopTimesPage = () => {
         setNotice('Đã ẩn lịch dừng.');
       }
 
-      await loadStopTimes();
+      await loadStopTimesRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái lịch dừng.');
     }

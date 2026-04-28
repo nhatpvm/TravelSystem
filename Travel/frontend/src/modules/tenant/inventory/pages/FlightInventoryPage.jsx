@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plane, RefreshCw, Ticket, PlaneTakeoff, Clock, ChevronRight } from 'lucide-react';
 import FlightModeShell from '../../flight/components/FlightModeShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   getAdminFlightOptions,
   getFlightManagerOptions,
@@ -31,7 +32,7 @@ export default function FlightInventoryPage({ mode = 'tenant', adminScope = null
   const tenantId = adminScope?.tenantId;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [notice, setNotice] = useState('');
+  const [notice] = useState('');
   const [options, setOptions] = useState({ airlines: [], aircrafts: [], fareClasses: [] });
   const [flights, setFlights] = useState([]);
   const [offers, setOffers] = useState([]);
@@ -69,9 +70,11 @@ export default function FlightInventoryPage({ mode = 'tenant', adminScope = null
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   const activeFlights = useMemo(
     () => flights.filter((item) => !item.isDeleted),

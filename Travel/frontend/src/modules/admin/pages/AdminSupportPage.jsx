@@ -6,6 +6,7 @@ import {
   replyAdminCommerceSupportTicket,
 } from '../../../services/commerceBackofficeService';
 import { formatDateTime } from '../../tenant/train/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const STATUS_FILTERS = [
   { value: 'all', label: 'Tất cả' },
@@ -51,6 +52,8 @@ export default function AdminSupportPage() {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
+  const loadTicketsRef = useLatestRef(loadTickets);
+
   useEffect(() => {
     setSearch(searchParams.get('q') || '');
   }, [searchParams]);
@@ -78,8 +81,8 @@ export default function AdminSupportPage() {
   }
 
   useEffect(() => {
-    loadTickets();
-  }, [search, statusFilter]);
+    loadTicketsRef.current();
+  }, [loadTicketsRef, search, statusFilter]);
 
   const selected = useMemo(
     () => tickets.find((item) => item.id === selectedId) || null,
@@ -109,7 +112,7 @@ export default function AdminSupportPage() {
       });
       setReply('');
       setNotice(markResolved ? 'Ticket đã được đánh dấu giải quyết.' : 'Đã gửi phản hồi cho customer.');
-      await loadTickets();
+      await loadTicketsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể gửi phản hồi ticket.');
     } finally {

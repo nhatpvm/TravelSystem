@@ -15,6 +15,7 @@ import {
 } from '../../../../services/flightService';
 import { uploadManagerImage } from '../../../../services/portalUploadService';
 import ImageUploadField from '../../../../shared/components/forms/ImageUploadField';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 function createEmptyForm() {
   return {
@@ -108,9 +109,11 @@ export default function FlightAirlinesPage({ mode = 'tenant', adminScope = null 
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   function handleCreateNew() {
     setSelectedId('');
@@ -156,7 +159,7 @@ export default function FlightAirlinesPage({ mode = 'tenant', adminScope = null 
         await createFn(payload);
         setNotice('Đã tạo hãng bay mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được hãng bay.');
     } finally {
@@ -176,7 +179,7 @@ export default function FlightAirlinesPage({ mode = 'tenant', adminScope = null 
         await deleteFn(item.id);
         setNotice('Đã ẩn hãng bay.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái hãng bay.');
     }

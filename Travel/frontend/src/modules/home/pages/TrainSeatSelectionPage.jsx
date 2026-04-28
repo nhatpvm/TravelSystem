@@ -114,7 +114,7 @@ export default function TrainSeatSelectionPage() {
 
   const cars = seatData?.cars || [];
   const selectedCar = cars[selectedCarIndex] || cars[0] || null;
-  const selectedCarSeats = selectedCar?.seats || [];
+  const selectedCarSeats = useMemo(() => selectedCar?.seats || [], [selectedCar?.seats]);
   const groupedSeats = useMemo(() => buildSeatGroups(selectedCarSeats), [selectedCarSeats]);
   const selectedSeats = selectedCarSeats.filter((seat) => selectedSeatIds.includes(seat.id));
   const basePrice = Number(detail?.segment?.price || 0);

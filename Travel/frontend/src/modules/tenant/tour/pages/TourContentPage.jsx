@@ -36,6 +36,7 @@ import {
 } from '../utils/options';
 import { uploadManagerImage } from '../../../../services/portalUploadService';
 import ImageUploadField from '../../../../shared/components/forms/ImageUploadField';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 const TABS = [
   { key: 'contacts', label: 'Liên hệ' },
@@ -121,19 +122,22 @@ export default function TourContentPage() {
   const itemId = searchParams.get('itemId') || '';
   const selectedTour = useMemo(() => tours.find((item) => item.id === tourId) || null, [tours, tourId]);
 
+  const loadToursRef = useLatestRef(loadTours);
+  const loadItemsRef = useLatestRef(loadItems);
+
   useEffect(() => {
-    loadTours();
-  }, []);
+    loadToursRef.current();
+  }, [loadToursRef]);
 
   useEffect(() => {
     setForm(getEmptyForm(tab));
     setDetail(null);
-    if (tourId) loadItems(tourId, tab);
+    if (tourId) loadItemsRef.current(tourId, tab);
     else {
       setItems([]);
       setLoading(false);
     }
-  }, [tourId, tab]);
+  }, [tourId, tab, loadItemsRef]);
 
   useEffect(() => {
     if (tourId && itemId) loadDetail(tourId, tab, itemId);
@@ -233,7 +237,7 @@ export default function TourContentPage() {
         setNotice('Đã tạo dữ liệu mới.');
       }
 
-      await loadItems(tourId, tab);
+      await loadItemsRef.current(tourId, tab);
       if (detail?.id) await loadDetail(tourId, tab, detail.id);
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu dữ liệu.');
@@ -248,7 +252,7 @@ export default function TourContentPage() {
     try {
       await APIS[tab].action(tourId, item.id, action);
       setNotice('Đã cập nhật trạng thái dữ liệu.');
-      await loadItems(tourId, tab);
+      await loadItemsRef.current(tourId, tab);
       if (itemId === item.id) await loadDetail(tourId, tab, item.id);
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật trạng thái.');

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Calendar, ChevronRight, Plus, RefreshCw, Ticket, Train as TrainIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import TrainManagementPageShell from '../../train/components/TrainManagementPageShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   TRAIN_TRIP_STATUSES,
   formatDateTime,
@@ -113,9 +114,11 @@ const TrainInventoryPage = () => {
     }
   };
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, []);
+    loadDataRef.current();
+  }, [loadDataRef]);
 
   const handleSelectTrip = (trip) => {
     setSelectedTripId(trip.id);
@@ -146,7 +149,7 @@ const TrainInventoryPage = () => {
         setNotice('Đã tạo chuyến tàu mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được chuyến tàu.');
     } finally {
@@ -167,7 +170,7 @@ const TrainInventoryPage = () => {
         setNotice('Đã ẩn chuyến tàu.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái chuyến tàu.');
     }

@@ -3,6 +3,7 @@ import { CircleDollarSign, Plus, RefreshCw } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import BusManagementPageShell from '../components/BusManagementPageShell';
 import { formatCurrency } from '../utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createBusTripSegmentPrice,
   deleteBusTripSegmentPrice,
@@ -51,6 +52,8 @@ const BusTripSegmentPricesPage = () => {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
+  const loadItemsRef = useLatestRef(loadItems);
+
   useEffect(() => {
     let active = true;
 
@@ -75,7 +78,7 @@ const BusTripSegmentPricesPage = () => {
     return () => {
       active = false;
     };
-  }, []);
+  }, [selectedTripId]);
 
   useEffect(() => {
     if (!selectedTripId) {
@@ -141,8 +144,8 @@ const BusTripSegmentPricesPage = () => {
   };
 
   useEffect(() => {
-    loadItems();
-  }, [selectedTripId]);
+    loadItemsRef.current();
+  }, [loadItemsRef, selectedTripId]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -170,7 +173,7 @@ const BusTripSegmentPricesPage = () => {
         setNotice('Đã tạo giá chặng mới.');
       }
 
-      await loadItems();
+      await loadItemsRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được giá chặng.');
     } finally {
@@ -196,7 +199,7 @@ const BusTripSegmentPricesPage = () => {
       });
 
       setNotice('Đã sinh ma trận giá chặng mặc định.');
-      await loadItems();
+      await loadItemsRef.current();
     } catch (err) {
       setError(err.message || 'Không sinh được ma trận giá chặng.');
     }
@@ -215,7 +218,7 @@ const BusTripSegmentPricesPage = () => {
         setNotice('Đã ẩn giá chặng.');
       }
 
-      await loadItems();
+      await loadItemsRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái giá chặng.');
     }

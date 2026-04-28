@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using TicketBooking.Api.Services.Tours;
 using TicketBooking.Domain.Commerce;
@@ -22,6 +23,7 @@ public sealed partial class CustomerOrderService
     private readonly CustomerNotificationService _notificationService;
     private readonly TourPackageReservationService _tourReservationService;
     private readonly TourPackageBookingService _tourBookingService;
+    private readonly IHostEnvironment _hostEnvironment;
 
     public CustomerOrderService(
         AppDbContext db,
@@ -29,7 +31,8 @@ public sealed partial class CustomerOrderService
         SePayGatewayService sePayGatewayService,
         CustomerNotificationService notificationService,
         TourPackageReservationService tourReservationService,
-        TourPackageBookingService tourBookingService)
+        TourPackageBookingService tourBookingService,
+        IHostEnvironment hostEnvironment)
     {
         _db = db;
         _options = options.Value;
@@ -37,6 +40,7 @@ public sealed partial class CustomerOrderService
         _notificationService = notificationService;
         _tourReservationService = tourReservationService;
         _tourBookingService = tourBookingService;
+        _hostEnvironment = hostEnvironment;
     }
 
     public async Task<CustomerOrderDetailDto> CreateOrderAsync(

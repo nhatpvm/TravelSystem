@@ -5,6 +5,9 @@ namespace TicketBooking.Api.Services.Commerce;
 
 public sealed partial class CustomerOrderService
 {
+    private const int TimelineRefundLimit = 10;
+    private const int TimelineSupportTicketLimit = 10;
+
     public async Task<List<CustomerOrderTimelineEventDto>> GetOrderTimelineAsync(
         string orderCode,
         Guid userId,
@@ -21,12 +24,14 @@ public sealed partial class CustomerOrderService
             .AsNoTracking()
             .Where(x => x.OrderId == order.Id && !x.IsDeleted)
             .OrderBy(x => x.RequestedAt)
+            .Take(TimelineRefundLimit)
             .ToListAsync(ct);
 
         var supportTicketsTask = _db.CustomerSupportTickets
             .AsNoTracking()
             .Where(x => x.UserId == userId && x.OrderId == order.Id && !x.IsDeleted)
             .OrderBy(x => x.CreatedAt)
+            .Take(TimelineSupportTicketLimit)
             .ToListAsync(ct);
 
         await Task.WhenAll(ticketTask, refundsTask, supportTicketsTask);
@@ -40,11 +45,18 @@ public sealed partial class CustomerOrderService
             new()
             {
                 Key = "order-created",
+                Type = "ORDER_CREATED",
                 Title = "Đã tạo đơn hàng",
                 Description = $"Đơn {order.OrderCode} đã được tạo trên nền tảng và chờ xử lý thanh toán.",
                 OccurredAt = order.CreatedAt,
                 Tone = "info",
                 ActionUrl = $"/payment?orderCode={Uri.EscapeDataString(order.OrderCode)}",
+                Metadata = new()
+                {
+                    ["orderCode"] = order.OrderCode,
+                    ["orderStatus"] = order.Status.ToString(),
+                    ["paymentStatus"] = payment.Status.ToString(),
+                },
             },
         };
 
@@ -53,12 +65,18 @@ public sealed partial class CustomerOrderService
             events.Add(new CustomerOrderTimelineEventDto
             {
                 Key = "payment-pending",
+                Type = "PAYMENT_PENDING",
                 Title = "Đang chờ thanh toán",
                 Description = $"Phiên thanh toán hiện còn hiệu lực đến {order.ExpiresAt:dd/MM/yyyy HH:mm}.",
                 OccurredAt = payment.LastSyncedAt ?? order.CreatedAt,
                 Tone = "warning",
                 IsCurrent = true,
                 ActionUrl = $"/payment?orderCode={Uri.EscapeDataString(order.OrderCode)}",
+                Metadata = new()
+                {
+                    ["orderCode"] = order.OrderCode,
+                    ["expiresAt"] = order.ExpiresAt,
+                },
             });
         }
 
@@ -67,11 +85,18 @@ public sealed partial class CustomerOrderService
             events.Add(new CustomerOrderTimelineEventDto
             {
                 Key = "payment-paid",
+                Type = "PAYMENT_PAID",
                 Title = "Thanh toán thành công",
                 Description = "Platform đã xác nhận dòng tiền hợp lệ và bắt đầu phát hành dịch vụ từ backend.",
                 OccurredAt = order.PaidAt ?? payment.PaidAt ?? order.UpdatedAt ?? order.CreatedAt,
                 Tone = "success",
                 ActionUrl = $"/payment?orderCode={Uri.EscapeDataString(order.OrderCode)}",
+                Metadata = new()
+                {
+                    ["orderCode"] = order.OrderCode,
+                    ["paidAmount"] = payment.PaidAmount,
+                    ["currencyCode"] = order.CurrencyCode,
+                },
             });
         }
 
@@ -80,10 +105,16 @@ public sealed partial class CustomerOrderService
             events.Add(new CustomerOrderTimelineEventDto
             {
                 Key = "payment-cancelled",
+                Type = "PAYMENT_CANCELLED",
                 Title = "Đơn hàng đã hủy",
                 Description = order.FailureReason ?? "Phiên thanh toán đã bị đóng trước khi hệ thống ghi nhận tiền vào.",
                 OccurredAt = order.CancelledAt ?? payment.CancelledAt ?? order.UpdatedAt ?? order.CreatedAt,
                 Tone = "danger",
+                Metadata = new()
+                {
+                    ["orderCode"] = order.OrderCode,
+                    ["reason"] = order.FailureReason,
+                },
             });
         }
         else if (order.Status == CustomerOrderStatus.Expired || payment.Status == CustomerPaymentStatus.Expired)
@@ -91,10 +122,17 @@ public sealed partial class CustomerOrderService
             events.Add(new CustomerOrderTimelineEventDto
             {
                 Key = "payment-expired",
+                Type = "PAYMENT_EXPIRED",
                 Title = "Phiên thanh toán hết hạn",
                 Description = order.FailureReason ?? "Hệ thống đã đóng phiên thanh toán vì quá thời gian chờ.",
                 OccurredAt = order.UpdatedAt ?? payment.UpdatedAt ?? order.ExpiresAt,
                 Tone = "danger",
+                Metadata = new()
+                {
+                    ["orderCode"] = order.OrderCode,
+                    ["expiresAt"] = order.ExpiresAt,
+                    ["reason"] = order.FailureReason,
+                },
             });
         }
         else if (order.Status == CustomerOrderStatus.Failed || payment.Status == CustomerPaymentStatus.Failed)
@@ -102,11 +140,17 @@ public sealed partial class CustomerOrderService
             events.Add(new CustomerOrderTimelineEventDto
             {
                 Key = "payment-failed",
+                Type = "PAYMENT_FAILED",
                 Title = "Thanh toán chưa hoàn tất",
                 Description = order.FailureReason ?? payment.FailureReason ?? "Gateway chưa xác nhận giao dịch thành công.",
                 OccurredAt = payment.FailedAt ?? order.UpdatedAt ?? order.CreatedAt,
                 Tone = "danger",
                 ActionUrl = $"/payment?orderCode={Uri.EscapeDataString(order.OrderCode)}",
+                Metadata = new()
+                {
+                    ["orderCode"] = order.OrderCode,
+                    ["reason"] = order.FailureReason ?? payment.FailureReason,
+                },
             });
         }
 
@@ -115,11 +159,18 @@ public sealed partial class CustomerOrderService
             events.Add(new CustomerOrderTimelineEventDto
             {
                 Key = "ticket-issued",
+                Type = "TICKET_ISSUED",
                 Title = "Vé / voucher đã phát hành",
                 Description = "Vé được sinh từ backend sau khi payment hợp lệ, không phụ thuộc redirect frontend.",
                 OccurredAt = order.TicketIssuedAt ?? ticket.IssuedAt,
                 Tone = "success",
                 ActionUrl = $"/ticket/success?orderCode={Uri.EscapeDataString(order.OrderCode)}",
+                Metadata = new()
+                {
+                    ["orderCode"] = order.OrderCode,
+                    ["ticketCode"] = ticket.TicketCode,
+                    ["ticketStatus"] = ticket.Status.ToString(),
+                },
             });
         }
 
@@ -128,11 +179,19 @@ public sealed partial class CustomerOrderService
             events.Add(new CustomerOrderTimelineEventDto
             {
                 Key = $"refund-requested-{refund.Id:N}",
+                Type = "REFUND_REQUESTED",
                 Title = "Đã gửi yêu cầu hoàn tiền",
                 Description = $"Hệ thống ghi nhận yêu cầu {refund.RefundCode} với số tiền {FormatMoney(refund.RequestedAmount, refund.CurrencyCode)}.",
                 OccurredAt = refund.RequestedAt,
                 Tone = "warning",
                 ActionUrl = $"/my-account/bookings/{Uri.EscapeDataString(order.OrderCode)}",
+                Metadata = new()
+                {
+                    ["refundCode"] = refund.RefundCode,
+                    ["requestedAmount"] = refund.RequestedAmount,
+                    ["currencyCode"] = refund.CurrencyCode,
+                    ["refundStatus"] = refund.Status.ToString(),
+                },
             });
 
             if (refund.Status == CustomerRefundStatus.Rejected && refund.ReviewedAt.HasValue)
@@ -140,11 +199,17 @@ public sealed partial class CustomerOrderService
                 events.Add(new CustomerOrderTimelineEventDto
                 {
                     Key = $"refund-rejected-{refund.Id:N}",
+                    Type = "REFUND_REJECTED",
                     Title = "Yêu cầu hoàn tiền bị từ chối",
                     Description = refund.ReviewNote ?? "Platform đã từ chối yêu cầu hoàn tiền này.",
                     OccurredAt = refund.ReviewedAt.Value,
                     Tone = "danger",
                     ActionUrl = $"/my-account/bookings/{Uri.EscapeDataString(order.OrderCode)}",
+                    Metadata = new()
+                    {
+                        ["refundCode"] = refund.RefundCode,
+                        ["reviewNote"] = refund.ReviewNote,
+                    },
                 });
                 continue;
             }
@@ -154,11 +219,18 @@ public sealed partial class CustomerOrderService
                 events.Add(new CustomerOrderTimelineEventDto
                 {
                     Key = $"refund-approved-{refund.Id:N}",
+                    Type = "REFUND_APPROVED",
                     Title = "Platform đã duyệt hoàn tiền",
                     Description = $"Số tiền duyệt hoàn hiện tại là {FormatMoney(refund.ApprovedAmount ?? refund.RequestedAmount, refund.CurrencyCode)}.",
                     OccurredAt = refund.ReviewedAt.Value,
                     Tone = "info",
                     ActionUrl = $"/my-account/bookings/{Uri.EscapeDataString(order.OrderCode)}",
+                    Metadata = new()
+                    {
+                        ["refundCode"] = refund.RefundCode,
+                        ["approvedAmount"] = refund.ApprovedAmount ?? refund.RequestedAmount,
+                        ["currencyCode"] = refund.CurrencyCode,
+                    },
                 });
             }
 
@@ -167,6 +239,9 @@ public sealed partial class CustomerOrderService
                 events.Add(new CustomerOrderTimelineEventDto
                 {
                     Key = $"refund-completed-{refund.Id:N}",
+                    Type = refund.Status == CustomerRefundStatus.RefundedFull
+                        ? "REFUND_COMPLETED_FULL"
+                        : "REFUND_COMPLETED_PARTIAL",
                     Title = refund.Status == CustomerRefundStatus.RefundedFull
                         ? "Đã hoàn tiền toàn phần"
                         : "Đã hoàn tiền một phần",
@@ -174,6 +249,12 @@ public sealed partial class CustomerOrderService
                     OccurredAt = refund.CompletedAt.Value,
                     Tone = "success",
                     ActionUrl = $"/my-account/bookings/{Uri.EscapeDataString(order.OrderCode)}",
+                    Metadata = new()
+                    {
+                        ["refundCode"] = refund.RefundCode,
+                        ["refundedAmount"] = refund.RefundedAmount ?? refund.ApprovedAmount ?? refund.RequestedAmount,
+                        ["currencyCode"] = refund.CurrencyCode,
+                    },
                 });
             }
         }
@@ -185,11 +266,17 @@ public sealed partial class CustomerOrderService
                 events.Add(new CustomerOrderTimelineEventDto
                 {
                     Key = $"support-response-{support.Id:N}",
+                    Type = "SUPPORT_RESPONSE",
                     Title = "Support đã phản hồi",
                     Description = $"Ticket {support.TicketCode} có cập nhật mới từ đội ngũ hỗ trợ.",
                     OccurredAt = support.LastActivityAt ?? support.FirstResponseAt.Value,
                     Tone = support.Status == CustomerSupportTicketStatus.Resolved ? "success" : "info",
                     ActionUrl = "/support",
+                    Metadata = new()
+                    {
+                        ["ticketCode"] = support.TicketCode,
+                        ["supportStatus"] = support.Status.ToString(),
+                    },
                 });
             }
         }
@@ -199,10 +286,15 @@ public sealed partial class CustomerOrderService
             events.Add(new CustomerOrderTimelineEventDto
             {
                 Key = "order-completed",
+                Type = "ORDER_COMPLETED",
                 Title = "Đơn hàng hoàn tất",
                 Description = "Dịch vụ đã đi đến mốc hoàn tất trên hệ thống.",
                 OccurredAt = order.CompletedAt.Value,
                 Tone = "success",
+                Metadata = new()
+                {
+                    ["orderCode"] = order.OrderCode,
+                },
             });
         }
 

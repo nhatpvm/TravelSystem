@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Plus, RefreshCw } from 'lucide-react';
 import HotelModeShell from '../components/HotelModeShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createAdminCancellationPolicy,
   createAdminCheckInOutRule,
@@ -153,9 +154,11 @@ export default function HotelPoliciesPage({ mode = 'tenant', adminScope = null }
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   const filteredCancellations = useMemo(
     () => cancellations.filter((item) => !selectedHotelId || item.hotelId === selectedHotelId),
@@ -322,7 +325,7 @@ export default function HotelPoliciesPage({ mode = 'tenant', adminScope = null }
         await saveProperty();
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu chính sách khách sạn.');
     } finally {
@@ -357,7 +360,7 @@ export default function HotelPoliciesPage({ mode = 'tenant', adminScope = null }
       }
 
       setNotice('Đã cập nhật trạng thái chính sách.');
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật trạng thái chính sách.');
     }

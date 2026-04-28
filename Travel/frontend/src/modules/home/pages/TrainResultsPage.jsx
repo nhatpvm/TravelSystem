@@ -127,7 +127,7 @@ const TrainResultsPage = () => {
     return () => {
       active = false;
     };
-  }, []);
+  }, [navigate, searchParams]);
 
   useEffect(() => {
     const nextForm = buildInitialForm(searchParams);

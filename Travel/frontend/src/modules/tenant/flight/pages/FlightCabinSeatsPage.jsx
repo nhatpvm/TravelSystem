@@ -17,6 +17,7 @@ import {
   updateManagedFlightCabinSeat,
 } from '../../../../services/flightService';
 import { getCabinClassLabel } from '../utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 function createEmptyForm() {
   return {
@@ -139,9 +140,11 @@ export default function FlightCabinSeatsPage({ mode = 'tenant', adminScope = nul
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId, selectedSeatMapId]);
+    loadDataRef.current();
+  }, [isAdmin, tenantId, selectedSeatMapId, loadDataRef]);
 
   const seatMapLookup = useMemo(
     () => Object.fromEntries(seatMaps.map((item) => [item.id, item])),
@@ -174,7 +177,7 @@ export default function FlightCabinSeatsPage({ mode = 'tenant', adminScope = nul
         await createFn(payload);
         setNotice('Đã tạo ghế cabin mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được ghế cabin.');
     } finally {
@@ -194,7 +197,7 @@ export default function FlightCabinSeatsPage({ mode = 'tenant', adminScope = nul
         await deleteFn(item.id);
         setNotice('Đã ẩn ghế cabin.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái ghế cabin.');
     }

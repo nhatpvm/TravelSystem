@@ -17,6 +17,7 @@ import {
 } from '../../../tours/utils/presentation';
 import { CAPACITY_STATUS_OPTIONS, toNullableNumber, toNumberOrDefault, updateSearchParams } from '../utils/options';
 import { getTourManagementSectionPath } from '../utils/navigation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 const EMPTY_FORM = {
   totalSlots: '',
@@ -70,17 +71,20 @@ export default function TourCapacityPage() {
   const selectedTourId = searchParams.get('tourId') || '';
   const selectedScheduleId = searchParams.get('scheduleId') || '';
 
+  const loadToursRef = useLatestRef(loadTours);
+  const loadSchedulesRef = useLatestRef(loadSchedules);
+
   useEffect(() => {
-    loadTours();
-  }, []);
+    loadToursRef.current();
+  }, [loadToursRef]);
 
   useEffect(() => {
     if (selectedTourId) {
-      loadSchedules(selectedTourId);
+      loadSchedulesRef.current(selectedTourId);
     } else {
       setSchedules([]);
     }
-  }, [selectedTourId]);
+  }, [loadSchedulesRef, selectedTourId]);
 
   useEffect(() => {
     if (selectedTourId && selectedScheduleId) {

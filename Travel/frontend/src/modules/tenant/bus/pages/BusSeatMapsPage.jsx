@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Armchair, Plus, RefreshCw } from 'lucide-react';
 import BusManagementPageShell from '../components/BusManagementPageShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createBusSeatMap,
   deleteBusSeat,
@@ -176,13 +177,16 @@ const BusSeatMapsPage = () => {
     }
   };
 
-  useEffect(() => {
-    loadMaps();
-  }, []);
+  const loadMapsRef = useLatestRef(loadMaps);
+  const loadSeatsRef = useLatestRef(loadSeats);
 
   useEffect(() => {
-    loadSeats();
-  }, [selectedMapId]);
+    loadMapsRef.current();
+  }, [loadMapsRef]);
+
+  useEffect(() => {
+    loadSeatsRef.current();
+  }, [loadSeatsRef, selectedMapId]);
 
   const handleSaveMap = async (event) => {
     event.preventDefault();
@@ -201,7 +205,7 @@ const BusSeatMapsPage = () => {
         setNotice('Đã tạo sơ đồ ghế mới.');
       }
 
-      await loadMaps();
+      await loadMapsRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được sơ đồ ghế.');
     } finally {
@@ -222,7 +226,7 @@ const BusSeatMapsPage = () => {
         setNotice('Đã ẩn sơ đồ ghế.');
       }
 
-      await loadMaps();
+      await loadMapsRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái sơ đồ ghế.');
     }
@@ -248,8 +252,8 @@ const BusSeatMapsPage = () => {
         overwriteExisting: !!generateForm.overwriteExisting,
       });
       setNotice('Đã sinh ghế theo sơ đồ.');
-      await loadSeats();
-      await loadMaps();
+      await loadSeatsRef.current();
+      await loadMapsRef.current();
     } catch (err) {
       setError(err.message || 'Không sinh được ghế.');
     } finally {
@@ -270,7 +274,7 @@ const BusSeatMapsPage = () => {
     try {
       await updateBusSeat(selectedSeatId, buildSeatPayload(seatForm));
       setNotice('Đã cập nhật ghế.');
-      await loadSeats();
+      await loadSeatsRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được ghế.');
     } finally {
@@ -291,8 +295,8 @@ const BusSeatMapsPage = () => {
         setNotice('Đã ẩn ghế.');
       }
 
-      await loadSeats();
-      await loadMaps();
+      await loadSeatsRef.current();
+      await loadMapsRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái ghế.');
     }
@@ -310,8 +314,8 @@ const BusSeatMapsPage = () => {
           <button
             type="button"
             onClick={() => {
-              loadMaps();
-              loadSeats();
+              loadMapsRef.current();
+              loadSeatsRef.current();
             }}
             className="px-5 py-3 rounded-2xl border border-slate-200 bg-white text-sm font-black text-slate-600 flex items-center gap-2"
           >

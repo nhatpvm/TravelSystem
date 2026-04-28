@@ -3,6 +3,7 @@ import { MapPin, Plus, RefreshCw } from 'lucide-react';
 import BusManagementPageShell from '../components/BusManagementPageShell';
 import { BUS_STOP_POINT_TYPES, getStopPointTypeLabel } from '../utils/presentation';
 import { createBusStopPoint, deleteBusStopPoint, getBusManagerOptions, listBusStopPoints, restoreBusStopPoint, updateBusStopPoint } from '../../../../services/busService';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 function createEmptyForm() {
   return {
@@ -85,9 +86,11 @@ const BusStopPointsPage = () => {
     }
   };
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, []);
+    loadDataRef.current();
+  }, [loadDataRef]);
 
   const handleCreateNew = () => {
     setSelectedId('');
@@ -112,7 +115,7 @@ const BusStopPointsPage = () => {
         setNotice('Đã tạo điểm đón/trả mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được điểm đón/trả.');
     } finally {
@@ -133,7 +136,7 @@ const BusStopPointsPage = () => {
         setNotice('Đã ẩn điểm đón/trả.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái điểm đón/trả.');
     }

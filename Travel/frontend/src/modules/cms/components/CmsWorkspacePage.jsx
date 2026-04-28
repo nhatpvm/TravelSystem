@@ -51,6 +51,7 @@ import {
 } from '../../../services/cmsService';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import CmsSecondaryNav from './CmsSecondaryNav';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 function slugify(value) {
   return String(value || '')
@@ -299,6 +300,8 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
   const tenantId = isAdmin ? selectedTenantId : session.currentTenantId;
   const selectedTenant = useMemo(() => tenants.find((item) => item.id === selectedTenantId) || null, [selectedTenantId, tenants]);
 
+  const loadWorkspaceRef = useLatestRef(loadWorkspace);
+
   useEffect(() => {
     if (!isAdmin) {
       return undefined;
@@ -339,8 +342,8 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
       return;
     }
 
-    loadWorkspace();
-  }, [tenantId, activeTab, search]);
+    loadWorkspaceRef.current();
+  }, [tenantId, activeTab, search, loadWorkspaceRef, isAdmin]);
 
   useEffect(() => {
     if (!options.siteSettings) {
@@ -360,7 +363,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
       supportPhone: options.siteSettings.supportPhone || '',
       isActive: options.siteSettings.isActive !== false,
     });
-  }, [options.siteSettings?.id]);
+  }, [options.siteSettings, options.siteSettings.id]);
 
   async function loadWorkspace() {
     setLoading(true);
@@ -499,7 +502,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
         : action === 'schedule'
           ? 'Bài viết đã được lên lịch.'
           : 'Bản nháp đã được lưu.');
-      await loadWorkspace();
+      await loadWorkspaceRef.current();
     } catch (err) {
       setError(err.message || 'Không thể lưu bài viết.');
     } finally {
@@ -519,7 +522,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
         await deleteCmsPost(post.id, tenantId);
         setNotice('Bài viết đã được đưa vào thùng rác.');
       }
-      await loadWorkspace();
+      await loadWorkspaceRef.current();
     } catch (err) {
       setError(err.message || 'Không thể cập nhật trạng thái bài viết.');
     } finally {
@@ -534,7 +537,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
     try {
       await archiveCmsPost(postId, { changeNote: 'Archive from CMS workspace' }, tenantId);
       setNotice('Bài viết đã được lưu trữ.');
-      await loadWorkspace();
+      await loadWorkspaceRef.current();
     } catch (err) {
       setError(err.message || 'Không thể lưu trữ bài viết.');
     } finally {
@@ -555,7 +558,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
         setNotice('Bài viết đã được đăng công khai.');
       }
 
-      await loadWorkspace();
+      await loadWorkspaceRef.current();
     } catch (err) {
       setError(err.message || 'Không thể cập nhật trạng thái xuất bản.');
     } finally {
@@ -582,7 +585,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
 
       setMediaForm(buildEmptyMediaForm());
       setNotice('Metadata của media đã được tạo.');
-      await loadWorkspace();
+      await loadWorkspaceRef.current();
     } catch (err) {
       setError(err.message || 'Không thể tạo media.');
     } finally {
@@ -602,7 +605,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
         await deleteCmsMedia(media.id, tenantId);
         setNotice('Media đã được đưa vào thùng rác.');
       }
-      await loadWorkspace();
+      await loadWorkspaceRef.current();
     } catch (err) {
       setError(err.message || 'Không thể cập nhật media.');
     } finally {
@@ -626,7 +629,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
 
       setRedirectForm(buildEmptyRedirectForm());
       setNotice('Redirect mới đã được tạo.');
-      await loadWorkspace();
+      await loadWorkspaceRef.current();
     } catch (err) {
       setError(err.message || 'Không thể tạo redirect.');
     } finally {
@@ -646,7 +649,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
         await deleteCmsRedirect(redirect.id, tenantId);
         setNotice('Redirect đã được đưa vào thùng rác.');
       }
-      await loadWorkspace();
+      await loadWorkspaceRef.current();
     } catch (err) {
       setError(err.message || 'Không thể cập nhật redirect.');
     } finally {
@@ -661,7 +664,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
     try {
       await upsertCmsSiteSettings(siteSettingsForm, tenantId);
       setNotice('Thông tin SEO của site đã được cập nhật.');
-      await loadWorkspace();
+      await loadWorkspaceRef.current();
     } catch (err) {
       setError(err.message || 'Không thể lưu cấu hình site.');
     } finally {
@@ -684,7 +687,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
 
       setCategoryForm({ name: '', slug: '', description: '' });
       setNotice('Danh mục mới đã được tạo.');
-      await loadWorkspace();
+      await loadWorkspaceRef.current();
     } catch (err) {
       setError(err.message || 'Không thể tạo danh mục.');
     } finally {
@@ -705,7 +708,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
 
       setTagForm({ name: '', slug: '' });
       setNotice('Thẻ mới đã được tạo.');
-      await loadWorkspace();
+      await loadWorkspaceRef.current();
     } catch (err) {
       setError(err.message || 'Không thể tạo thẻ.');
     } finally {

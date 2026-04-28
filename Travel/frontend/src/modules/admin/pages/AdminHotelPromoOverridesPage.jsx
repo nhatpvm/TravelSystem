@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { BadgePercent, Plus, RefreshCw } from 'lucide-react';
 import AdminHotelPageShell from '../hotel/components/AdminHotelPageShell';
 import useAdminHotelScope from '../hotel/hooks/useAdminHotelScope';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createAdminPromoRateOverride,
   deleteAdminPromoRateOverride,
@@ -130,7 +131,7 @@ export default function AdminHotelPromoOverridesPage() {
       }
 
       if (nextRatePlanId) {
-        await loadRatePlanMappings(nextRatePlanId);
+        await loadRatePlanMappingsRef.current(nextRatePlanId);
       }
     } catch (requestError) {
       setError(requestError.message || 'Không thể tải promo override khách sạn.');
@@ -139,13 +140,16 @@ export default function AdminHotelPromoOverridesPage() {
     }
   }
 
-  useEffect(() => {
-    loadData();
-  }, [tenantId]);
+  const loadDataRef = useLatestRef(loadData);
+  const loadRatePlanMappingsRef = useLatestRef(loadRatePlanMappings);
 
   useEffect(() => {
-    loadRatePlanMappings(selectedRatePlanId);
-  }, [selectedRatePlanId, tenantId]);
+    loadDataRef.current();
+  }, [loadDataRef, tenantId]);
+
+  useEffect(() => {
+    loadRatePlanMappingsRef.current(selectedRatePlanId);
+  }, [loadRatePlanMappingsRef, selectedRatePlanId, tenantId]);
 
   const filteredItems = useMemo(
     () => items.filter((item) => !selectedRatePlanId || item.ratePlanId === selectedRatePlanId),
@@ -158,7 +162,7 @@ export default function AdminHotelPromoOverridesPage() {
       setSelectedId(id);
       setSelectedRatePlanId(detail.ratePlanId || '');
       if (detail.ratePlanId) {
-        await loadRatePlanMappings(detail.ratePlanId);
+        await loadRatePlanMappingsRef.current(detail.ratePlanId);
       }
       setForm(hydrateForm(detail));
     } catch (requestError) {
@@ -187,7 +191,7 @@ export default function AdminHotelPromoOverridesPage() {
         await createAdminPromoRateOverride(payload, tenantId);
         setNotice('Đã tạo promo override mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu promo override.');
     } finally {
@@ -204,7 +208,7 @@ export default function AdminHotelPromoOverridesPage() {
         await deleteAdminPromoRateOverride(item.id, tenantId);
         setNotice('Đã ẩn promo override.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật trạng thái promo override.');
     }
@@ -303,7 +307,7 @@ export default function AdminHotelPromoOverridesPage() {
             const nextRatePlanId = event.target.value;
             setForm((current) => ({ ...current, ratePlanId: nextRatePlanId, ratePlanRoomTypeId: '' }));
             setSelectedRatePlanId(nextRatePlanId);
-            await loadRatePlanMappings(nextRatePlanId);
+            await loadRatePlanMappingsRef.current(nextRatePlanId);
           }} className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none">
             <option value="">Chọn gói giá</option>
             {ratePlans.map((item) => (

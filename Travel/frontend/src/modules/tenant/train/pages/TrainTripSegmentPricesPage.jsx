@@ -3,6 +3,7 @@ import { CircleDollarSign, Plus, RefreshCw } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import TrainManagementPageShell from '../components/TrainManagementPageShell';
 import { formatCurrency } from '../utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createTrainTripSegmentPrice,
   deleteTrainTripSegmentPrice,
@@ -60,6 +61,8 @@ const TrainTripSegmentPricesPage = () => {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
+  const loadItemsRef = useLatestRef(loadItems);
+
   useEffect(() => {
     let active = true;
 
@@ -85,7 +88,7 @@ const TrainTripSegmentPricesPage = () => {
     return () => {
       active = false;
     };
-  }, []);
+  }, [selectedTripId]);
 
   useEffect(() => {
     if (!selectedTripId) {
@@ -156,8 +159,8 @@ const TrainTripSegmentPricesPage = () => {
   };
 
   useEffect(() => {
-    loadItems();
-  }, [selectedTripId]);
+    loadItemsRef.current();
+  }, [loadItemsRef, selectedTripId]);
 
   useEffect(() => {
     setForm((current) => ({
@@ -192,7 +195,7 @@ const TrainTripSegmentPricesPage = () => {
         setNotice('Đã tạo giá chặng mới.');
       }
 
-      await loadItems();
+      await loadItemsRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được giá chặng.');
     } finally {
@@ -218,7 +221,7 @@ const TrainTripSegmentPricesPage = () => {
       });
 
       setNotice('Đã sinh ma trận giá mặc định cho tất cả chặng.');
-      await loadItems();
+      await loadItemsRef.current();
     } catch (err) {
       setError(err.message || 'Không sinh được ma trận giá chặng.');
     }
@@ -237,7 +240,7 @@ const TrainTripSegmentPricesPage = () => {
         setNotice('Đã ẩn giá chặng.');
       }
 
-      await loadItems();
+      await loadItemsRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái giá chặng.');
     }

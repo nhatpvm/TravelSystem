@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Edit2, MapPinned, Plus, RefreshCw, RotateCcw, Search, Trash2 } from 'lucide-react';
 import MasterDataPageShell from '../master-data/components/MasterDataPageShell';
 import useAdminMasterDataScope from '../master-data/hooks/useAdminMasterDataScope';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createLocation,
   deleteLocation,
@@ -89,6 +90,10 @@ const AdminLocationsPage = () => {
     [items, selectedId],
   );
 
+  const loadLocationsRef = useLatestRef(loadLocations);
+  const loadDistrictsRef = useLatestRef(loadDistricts);
+  const loadWardsRef = useLatestRef(loadWards);
+
   useEffect(() => {
     loadProvinces();
   }, []);
@@ -98,8 +103,8 @@ const AdminLocationsPage = () => {
       return;
     }
 
-    loadLocations();
-  }, [tenantId, search, typeFilter, includeDeleted]);
+    loadLocationsRef.current();
+  }, [tenantId, search, typeFilter, includeDeleted, loadLocationsRef]);
 
   useEffect(() => {
     if (!form.provinceId) {
@@ -108,8 +113,8 @@ const AdminLocationsPage = () => {
       return;
     }
 
-    loadDistricts(form.provinceId);
-  }, [form.provinceId]);
+    loadDistrictsRef.current(form.provinceId);
+  }, [form.provinceId, loadDistrictsRef]);
 
   useEffect(() => {
     if (!form.districtId) {
@@ -117,8 +122,8 @@ const AdminLocationsPage = () => {
       return;
     }
 
-    loadWards(form.districtId);
-  }, [form.districtId]);
+    loadWardsRef.current(form.districtId);
+  }, [form.districtId, loadWardsRef]);
 
   async function loadLocations() {
     if (!tenantId) {
@@ -254,7 +259,7 @@ const AdminLocationsPage = () => {
       }
 
       resetForm();
-      await loadLocations();
+      await loadLocationsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu địa điểm.');
     } finally {
@@ -283,7 +288,7 @@ const AdminLocationsPage = () => {
         resetForm();
       }
 
-      await loadLocations();
+      await loadLocationsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật địa điểm.');
     }

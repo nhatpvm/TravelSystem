@@ -3,6 +3,7 @@ import { Armchair, Plus, RefreshCw } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import TrainManagementPageShell from '../components/TrainManagementPageShell';
 import { getSeatTypeLabel, TRAIN_SEAT_TYPES } from '../utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createTrainCarSeat,
   deleteTrainCarSeat,
@@ -93,7 +94,7 @@ const TrainCarSeatsPage = () => {
         setForm(hydrateForm(selected));
       } else {
         setSelectedId('');
-        setForm((current) => ({
+        setForm(() => ({
           ...createEmptyForm(),
           carId: selectedCarId,
         }));
@@ -105,13 +106,16 @@ const TrainCarSeatsPage = () => {
     }
   };
 
-  useEffect(() => {
-    loadCars();
-  }, []);
+  const loadCarsRef = useLatestRef(loadCars);
+  const loadSeatsRef = useLatestRef(loadSeats);
 
   useEffect(() => {
-    loadSeats();
-  }, [selectedCarId]);
+    loadCarsRef.current();
+  }, [loadCarsRef]);
+
+  useEffect(() => {
+    loadSeatsRef.current();
+  }, [loadSeatsRef, selectedCarId]);
 
   const selectedCar = useMemo(
     () => cars.find((item) => item.id === selectedCarId) || null,
@@ -157,7 +161,7 @@ const TrainCarSeatsPage = () => {
         setNotice('Đã thêm ghế/giường mới.');
       }
 
-      await loadSeats();
+      await loadSeatsRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được ghế/giường.');
     } finally {
@@ -178,7 +182,7 @@ const TrainCarSeatsPage = () => {
         setNotice('Đã ẩn ghế/giường.');
       }
 
-      await loadSeats();
+      await loadSeatsRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái ghế/giường.');
     }

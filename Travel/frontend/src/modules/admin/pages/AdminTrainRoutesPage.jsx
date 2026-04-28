@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Plus, RefreshCw, Route } from 'lucide-react';
 import AdminTrainPageShell from '../train/components/AdminTrainPageShell';
 import useAdminTrainScope from '../train/hooks/useAdminTrainScope';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createAdminTrainRoute,
   deleteAdminTrainRoute,
@@ -158,9 +159,11 @@ export default function AdminTrainRoutesPage() {
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [tenantId]);
+    loadDataRef.current();
+  }, [loadDataRef, tenantId]);
 
   function handleCreateNew() {
     setSelectedId('');
@@ -190,7 +193,7 @@ export default function AdminTrainRoutesPage() {
         setNotice('Đã tạo tuyến đường mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được tuyến đường.');
     } finally {
@@ -220,7 +223,7 @@ export default function AdminTrainRoutesPage() {
       }, tenantId);
 
       setNotice('Đã lưu danh sách ga dừng của tuyến.');
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được ga dừng tuyến.');
     } finally {
@@ -245,7 +248,7 @@ export default function AdminTrainRoutesPage() {
         setNotice('Đã ẩn tuyến đường.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái tuyến đường.');
     }
@@ -360,12 +363,12 @@ export default function AdminTrainRoutesPage() {
                   </label>
 
                   <label className="space-y-2 block">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Km từ đầu tuyến</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Km từ điểm đầu</span>
                     <input type="number" value={item.distanceFromStartKm} onChange={(event) => setRouteStops((current) => current.map((row, rowIndex) => rowIndex === index ? { ...row, distanceFromStartKm: event.target.value } : row))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none" />
                   </label>
 
                   <label className="space-y-2 block">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Phút từ đầu tuyến</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Phút đi từ điểm đầu</span>
                     <input type="number" value={item.minutesFromStart} onChange={(event) => setRouteStops((current) => current.map((row, rowIndex) => rowIndex === index ? { ...row, minutesFromStart: event.target.value } : row))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none" />
                   </label>
 
@@ -440,7 +443,7 @@ export default function AdminTrainRoutesPage() {
               <input type="number" value={routeForm.estimatedMinutes} onChange={(event) => setRouteForm((current) => ({ ...current, estimatedMinutes: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none" />
             </label>
             <label className="space-y-2">
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Khoảng cách (km)</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Tổng km toàn tuyến</span>
               <input type="number" value={routeForm.distanceKm} onChange={(event) => setRouteForm((current) => ({ ...current, distanceKm: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none" />
             </label>
           </div>

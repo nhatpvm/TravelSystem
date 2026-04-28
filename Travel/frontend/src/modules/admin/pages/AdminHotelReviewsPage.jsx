@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { MessageSquareQuote, RefreshCw } from 'lucide-react';
 import AdminHotelPageShell from '../hotel/components/AdminHotelPageShell';
 import useAdminHotelScope from '../hotel/hooks/useAdminHotelScope';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   approveAdminHotelReview,
   deleteAdminHotelReview,
@@ -105,9 +106,11 @@ export default function AdminHotelReviewsPage() {
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [tenantId]);
+    loadDataRef.current();
+  }, [loadDataRef, tenantId]);
 
   const filteredItems = useMemo(
     () => items.filter((item) => !selectedHotelId || item.hotelId === selectedHotelId),
@@ -150,7 +153,7 @@ export default function AdminHotelReviewsPage() {
         rowVersionBase64: form.rowVersionBase64 || null,
       }, tenantId);
       setNotice('Đã cập nhật đánh giá khách sạn.');
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật đánh giá.');
     } finally {
@@ -172,7 +175,7 @@ export default function AdminHotelReviewsPage() {
       if (action === 'reply') await replyAdminHotelReview(selectedId, { replyContent: form.replyContent || '' }, tenantId);
       setNotice('Đã cập nhật kiểm duyệt đánh giá.');
       await loadDetail(selectedId);
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể xử lý kiểm duyệt đánh giá.');
     }
@@ -187,7 +190,7 @@ export default function AdminHotelReviewsPage() {
         await deleteAdminHotelReview(item.id, tenantId);
         setNotice('Đã ẩn đánh giá.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật trạng thái đánh giá.');
     }

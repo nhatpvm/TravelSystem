@@ -16,6 +16,7 @@ import {
 } from '../../../services/adminIdentity';
 import { uploadAdminImage } from '../../../services/adminUploadService';
 import { formatDate, getRoleBadgeClass, getUserRoleType, getUserStatus } from '../utils/identity';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const INITIAL_CREATE_FORM = {
   userName: '',
@@ -73,6 +74,8 @@ export default function AdminUsersPage() {
   const [createAvatarUploading, setCreateAvatarUploading] = useState(false);
   const [editAvatarUploading, setEditAvatarUploading] = useState(false);
 
+  const loadUsersRef = useLatestRef(loadUsers);
+
   useEffect(() => {
     loadRoles();
   }, []);
@@ -82,8 +85,8 @@ export default function AdminUsersPage() {
   }, [searchParams]);
 
   useEffect(() => {
-    loadUsers();
-  }, [search]);
+    loadUsersRef.current();
+  }, [loadUsersRef, search]);
 
   useEffect(() => {
     if (!selectedUserId) {
@@ -195,7 +198,7 @@ export default function AdminUsersPage() {
       setNotice('Người dùng mới đã được tạo thành công.');
       setCreateForm(INITIAL_CREATE_FORM);
       setShowCreate(false);
-      await loadUsers();
+      await loadUsersRef.current();
     } catch (err) {
       setError(err.message || 'Không thể tạo người dùng.');
     } finally {
@@ -233,7 +236,7 @@ export default function AdminUsersPage() {
       setEditForm(buildEditForm(normalizedUser));
       setEditingUser(false);
       setNotice('Thông tin người dùng đã được cập nhật.');
-      await loadUsers();
+      await loadUsersRef.current();
     } catch (err) {
       setError(err.message || 'Không thể cập nhật thông tin người dùng.');
     } finally {
@@ -254,7 +257,7 @@ export default function AdminUsersPage() {
       const response = await setUserRoles(selectedUser.id, selectedUser.roles);
       setSelectedUser((prev) => ({ ...prev, roles: response.roles || prev.roles }));
       setNotice('Vai trò người dùng đã được cập nhật.');
-      await loadUsers();
+      await loadUsersRef.current();
     } catch (err) {
       setError(err.message || 'Không thể cập nhật vai trò.');
     } finally {
@@ -276,7 +279,7 @@ export default function AdminUsersPage() {
         setNotice('Đã khoá người dùng trong 15 phút.');
       }
 
-      await loadUsers();
+      await loadUsersRef.current();
       if (selectedUserId === user.id) {
         await loadUserDetail(selectedUserId);
       }
@@ -299,7 +302,7 @@ export default function AdminUsersPage() {
     try {
       await setUserActive(selectedUser.id, !selectedUser.isActive);
       setNotice(selectedUser.isActive ? 'Người dùng đã bị vô hiệu hoá.' : 'Người dùng đã được kích hoạt lại.');
-      await loadUsers();
+      await loadUsersRef.current();
       await loadUserDetail(selectedUser.id);
     } catch (err) {
       setError(err.message || 'Không thể cập nhật trạng thái hoạt động.');

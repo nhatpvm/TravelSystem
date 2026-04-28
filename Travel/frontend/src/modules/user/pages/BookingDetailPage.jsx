@@ -57,23 +57,104 @@ function getTimelineToneClasses(tone, isCurrent) {
   }
 }
 
+const TIMELINE_EVENT_COPY = {
+  ORDER_CREATED: {
+    title: 'Đã tạo đơn hàng',
+    description: 'Đơn hàng đã được tạo trên nền tảng và chờ xử lý thanh toán.',
+    tone: 'info',
+  },
+  PAYMENT_PENDING: {
+    title: 'Đang chờ thanh toán',
+    description: 'Phiên thanh toán hiện còn hiệu lực, vui lòng hoàn tất trước thời hạn.',
+    tone: 'warning',
+  },
+  PAYMENT_PAID: {
+    title: 'Thanh toán thành công',
+    description: 'Nền tảng đã xác nhận dòng tiền hợp lệ và bắt đầu phát hành dịch vụ.',
+    tone: 'success',
+  },
+  PAYMENT_CANCELLED: {
+    title: 'Đơn hàng đã hủy',
+    description: 'Phiên thanh toán đã được đóng trước khi hệ thống ghi nhận tiền vào.',
+    tone: 'danger',
+  },
+  PAYMENT_EXPIRED: {
+    title: 'Phiên thanh toán hết hạn',
+    description: 'Hệ thống đã đóng phiên thanh toán vì quá thời gian chờ.',
+    tone: 'danger',
+  },
+  PAYMENT_FAILED: {
+    title: 'Thanh toán chưa hoàn tất',
+    description: 'Gateway chưa xác nhận giao dịch thành công.',
+    tone: 'danger',
+  },
+  TICKET_ISSUED: {
+    title: 'Vé / voucher đã phát hành',
+    description: 'Vé được phát hành sau khi thanh toán hợp lệ.',
+    tone: 'success',
+  },
+  REFUND_REQUESTED: {
+    title: 'Đã gửi yêu cầu hoàn tiền',
+    description: 'Hệ thống đã ghi nhận yêu cầu hoàn tiền cho đơn hàng này.',
+    tone: 'warning',
+  },
+  REFUND_REJECTED: {
+    title: 'Yêu cầu hoàn tiền bị từ chối',
+    description: 'Platform đã từ chối yêu cầu hoàn tiền này.',
+    tone: 'danger',
+  },
+  REFUND_APPROVED: {
+    title: 'Platform đã duyệt hoàn tiền',
+    description: 'Yêu cầu hoàn tiền đã được duyệt và đang chờ xử lý.',
+    tone: 'info',
+  },
+  REFUND_COMPLETED_FULL: {
+    title: 'Đã hoàn tiền toàn phần',
+    description: 'Hệ thống đã cập nhật hoàn tiền cho đơn hàng này.',
+    tone: 'success',
+  },
+  REFUND_COMPLETED_PARTIAL: {
+    title: 'Đã hoàn tiền một phần',
+    description: 'Hệ thống đã cập nhật hoàn một phần tiền cho đơn hàng này.',
+    tone: 'success',
+  },
+  SUPPORT_RESPONSE: {
+    title: 'Support đã phản hồi',
+    description: 'Ticket hỗ trợ có cập nhật mới từ đội ngũ hỗ trợ.',
+    tone: 'info',
+  },
+  ORDER_COMPLETED: {
+    title: 'Đơn hàng hoàn tất',
+    description: 'Dịch vụ đã đi đến mốc hoàn tất trên hệ thống.',
+    tone: 'success',
+  },
+};
+
+function getTimelineDisplayStep(step) {
+  const copy = TIMELINE_EVENT_COPY[step?.type] || {};
+
+  return {
+    ...step,
+    title: copy.title || step?.title,
+    description: copy.description || step?.description,
+    tone: copy.tone || step?.tone,
+  };
+}
+
 export default function BookingDetailPage() {
   const { id } = useParams();
+  const missingOrderCode = !id;
   const [order, setOrder] = useState(null);
   const [timelineItems, setTimelineItems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !missingOrderCode);
   const [error, setError] = useState('');
 
   useEffect(() => {
     if (!id) {
-      setLoading(false);
-      setError('Thiếu mã đơn hàng.');
-      return;
+      return undefined;
     }
 
     let active = true;
-    setLoading(true);
-    setError('');
 
     Promise.all([
       getCustomerOrder(id),
@@ -84,6 +165,7 @@ export default function BookingDetailPage() {
           return;
         }
 
+        setError('');
         setOrder(orderResponse);
         setTimelineItems(Array.isArray(timelineResponse) ? timelineResponse : []);
       })
@@ -107,6 +189,7 @@ export default function BookingDetailPage() {
   const timeline = useMemo(() => (Array.isArray(timelineItems) ? timelineItems : []), [timelineItems]);
   const lines = Array.isArray(snapshot?.lines) ? snapshot.lines : [];
   const showAfterSales = canCancelPendingOrder(order) || canRequestRefund(order);
+  const displayError = missingOrderCode ? 'Thiếu mã đơn hàng.' : error;
 
   if (loading) {
     return (
@@ -116,10 +199,10 @@ export default function BookingDetailPage() {
     );
   }
 
-  if (error || !order) {
+  if (displayError || !order) {
     return (
       <div className="bg-rose-50 rounded-[2.5rem] p-10 text-center text-sm font-bold text-rose-600 shadow-xl shadow-slate-100/60 border border-rose-100">
-        {error || 'Không tìm thấy đơn hàng.'}
+        {displayError || 'Không tìm thấy đơn hàng.'}
       </div>
     );
   }
@@ -154,27 +237,28 @@ export default function BookingDetailPage() {
             <div className="relative pl-5 space-y-4">
               <div className="absolute left-4 top-1 bottom-1 w-0.5 bg-slate-100" />
               {timeline.map((step, index) => {
-                const tone = getTimelineToneClasses(step.tone, step.isCurrent);
+                const displayStep = getTimelineDisplayStep(step);
+                const tone = getTimelineToneClasses(displayStep.tone, displayStep.isCurrent);
 
                 return (
-                  <div key={`${step.key || step.title}-${index}`} className="relative flex items-start gap-4">
+                  <div key={`${displayStep.key || displayStep.title}-${index}`} className="relative flex items-start gap-4">
                     <div className={`relative z-10 mt-1 w-9 h-9 rounded-full flex items-center justify-center border-4 border-white shadow-md ${tone.dot}`}>
-                      {step.tone === 'success' ? <CheckCircle2 size={18} /> : <Circle size={10} fill="currentColor" />}
+                      {displayStep.tone === 'success' ? <CheckCircle2 size={18} /> : <Circle size={10} fill="currentColor" />}
                     </div>
                     <div className={`flex-1 rounded-3xl border p-5 ${tone.card}`}>
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
                         <div>
-                          <p className={`text-sm font-black ${tone.title}`}>{step.title}</p>
-                          <p className="text-[10px] font-bold text-slate-400 mt-1">{formatDateTime(step.occurredAt)}</p>
+                          <p className={`text-sm font-black ${tone.title}`}>{displayStep.title}</p>
+                          <p className="text-[10px] font-bold text-slate-400 mt-1">{formatDateTime(displayStep.occurredAt)}</p>
                         </div>
-                        {step.isCurrent ? (
+                        {displayStep.isCurrent ? (
                           <span className="inline-flex items-center px-3 py-1 rounded-xl bg-white text-[10px] font-black uppercase tracking-widest text-[#1EB4D4] border border-[#1EB4D4]/10">
                             Mốc hiện tại
                           </span>
                         ) : null}
                       </div>
                       <p className="text-xs font-medium text-slate-600 mt-3 leading-relaxed">
-                        {step.description || 'Hệ thống đang tiếp tục cập nhật tiến trình cho đơn hàng này.'}
+                        {displayStep.description || 'Hệ thống đang tiếp tục cập nhật tiến trình cho đơn hàng này.'}
                       </p>
                     </div>
                   </div>

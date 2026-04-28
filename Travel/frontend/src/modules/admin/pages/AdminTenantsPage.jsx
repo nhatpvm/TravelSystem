@@ -24,6 +24,7 @@ import {
   updateAdminTenant,
 } from '../../../services/adminIdentity';
 import { useSearchParams } from 'react-router-dom';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 function formatDate(value) {
   if (!value) {
@@ -160,9 +161,11 @@ const AdminTenantsPage = () => {
   });
   const [provisionForm, setProvisionForm] = useState(() => buildProvisionForm(null));
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [search, statusFilter]);
+    loadDataRef.current();
+  }, [loadDataRef, search, statusFilter]);
 
   useEffect(() => {
     setSearch(searchParams.get('q') || '');
@@ -216,7 +219,7 @@ const AdminTenantsPage = () => {
       });
 
       setNotice(tenant.status === 'Active' ? 'Đối tác đã được tạm khóa.' : 'Đối tác đã được kích hoạt lại.');
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không thể cập nhật trạng thái đối tác.');
     } finally {
@@ -303,7 +306,7 @@ const AdminTenantsPage = () => {
       const refreshedDetail = await getAdminTenantOnboarding(selectedOnboarding.trackingCode);
       setSelectedOnboarding(refreshedDetail || response.onboarding || selectedOnboarding);
       setNotice(response.alreadyProvisioned ? 'Ho so nay da duoc cap tenant truoc do.' : 'Da tao tenant, owner va role mac dinh cho doi tac.');
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Khong the tao tenant that tu ho so onboarding.');
     } finally {
@@ -343,7 +346,7 @@ const AdminTenantsPage = () => {
       const refreshedDetail = await getAdminTenantOnboarding(selectedOnboarding.trackingCode);
       setSelectedOnboarding(refreshedDetail || selectedOnboarding);
       setNotice(reviewForm.status === 'Approved' ? 'Hồ sơ đã được duyệt.' : 'Hồ sơ đã được cập nhật kết quả review.');
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không thể xử lý hồ sơ onboarding.');
     } finally {

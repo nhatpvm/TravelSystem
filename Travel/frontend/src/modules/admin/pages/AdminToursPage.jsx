@@ -15,6 +15,7 @@ import {
   getTourTypeLabel,
 } from '../../tours/utils/presentation';
 import { TOUR_DIFFICULTY_OPTIONS, TOUR_STATUS_OPTIONS, TOUR_TYPE_OPTIONS } from '../../tenant/tour/utils/options';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 function buildFormFromTour(tour) {
   if (!tour) {
@@ -76,11 +77,13 @@ export default function AdminToursPage() {
   const [uploadingCoverImage, setUploadingCoverImage] = useState(false);
   const pendingCoverImageUrlRef = useRef('');
 
+  const loadToursRef = useLatestRef(loadTours);
+
   useEffect(() => {
     if (tenantId) {
-      loadTours();
+      loadToursRef.current();
     }
-  }, [tenantId]);
+  }, [loadToursRef, tenantId]);
 
   useEffect(() => {
     if (selectedTourId && tenantId) {
@@ -198,7 +201,7 @@ export default function AdminToursPage() {
 
       pendingCoverImageUrlRef.current = '';
       setNotice('Đã cập nhật thông tin tour.');
-      await loadTours();
+      await loadToursRef.current();
       await loadTourDetail(selectedTour.id);
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật tour.');
@@ -214,7 +217,7 @@ export default function AdminToursPage() {
     try {
       await toggleAdminTourAction(tour.id, action, tenantId);
       setNotice('Đã cập nhật trạng thái tour.');
-      await loadTours();
+      await loadToursRef.current();
       if (selectedTourId === tour.id) {
         await loadTourDetail(tour.id);
       }

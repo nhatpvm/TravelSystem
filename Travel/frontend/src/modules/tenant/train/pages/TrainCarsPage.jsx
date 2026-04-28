@@ -3,6 +3,7 @@ import { Package, Plus, RefreshCw, WandSparkles } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import TrainManagementPageShell from '../components/TrainManagementPageShell';
 import { getCarTypeLabel, TRAIN_CAR_TYPES } from '../utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createTrainCar,
   deleteTrainCar,
@@ -122,7 +123,7 @@ const TrainCarsPage = () => {
         setLayoutForm(getDefaultLayoutForCarType(selected.carType));
       } else {
         setSelectedId('');
-        setForm((current) => ({
+        setForm(() => ({
           ...createEmptyForm(),
           tripId: selectedTripId || nextTrips[0]?.id || '',
         }));
@@ -134,9 +135,11 @@ const TrainCarsPage = () => {
     }
   };
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [selectedTripId]);
+    loadDataRef.current();
+  }, [loadDataRef, selectedTripId]);
 
   const tripLookup = useMemo(
     () => Object.fromEntries(trips.map((item) => [item.id, item])),
@@ -178,7 +181,7 @@ const TrainCarsPage = () => {
         setNotice('Đã tạo toa tàu mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được toa tàu.');
     } finally {
@@ -199,7 +202,7 @@ const TrainCarsPage = () => {
         setNotice('Đã ẩn toa tàu.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái toa tàu.');
     }
@@ -227,7 +230,7 @@ const TrainCarsPage = () => {
       });
 
       setNotice('Đã sinh sơ đồ ghế/giường cho toa tàu.');
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không sinh được sơ đồ ghế/giường.');
     } finally {

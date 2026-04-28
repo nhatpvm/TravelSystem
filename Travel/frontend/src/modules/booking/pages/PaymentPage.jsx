@@ -17,6 +17,7 @@ import {
   isPaidOrder,
 } from '../utils/customerCommerce';
 import { formatCurrency, formatDateTime } from '../../tenant/train/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 function copyText(value) {
   if (!value) {
@@ -92,11 +93,13 @@ export default function PaymentPage() {
     }
   }
 
+  const loadOrderRef = useLatestRef(loadOrder);
+
   useEffect(() => {
     setLoading(true);
     setError('');
-    loadOrder({ withSync: result === 'success' || result === 'error' || result === 'cancel' });
-  }, [orderCode, result]);
+    loadOrderRef.current({ withSync: result === 'success' || result === 'error' || result === 'cancel' });
+  }, [loadOrderRef, orderCode, result]);
 
   useEffect(() => {
     if (!orderCode || isPaidOrder(order) || Number(order?.paymentStatus || 0) !== CUSTOMER_PAYMENT_STATUS.PENDING) {
@@ -105,11 +108,11 @@ export default function PaymentPage() {
 
     const timer = window.setInterval(() => {
       setSyncing(true);
-      loadOrder({ withSync: true });
+      loadOrderRef.current({ withSync: true });
     }, 15000);
 
     return () => window.clearInterval(timer);
-  }, [order, orderCode]);
+  }, [loadOrderRef, order, orderCode]);
 
   const payment = order?.payment || null;
   const snapshot = getOrderSnapshot(order);
@@ -231,7 +234,7 @@ export default function PaymentPage() {
                       type="button"
                       onClick={() => {
                         setSyncing(true);
-                        loadOrder({ withSync: true });
+                        loadOrderRef.current({ withSync: true });
                       }}
                       disabled={syncing}
                       className="w-full h-14 bg-white border border-slate-100 text-slate-700 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 hover:border-blue-200 hover:text-blue-600 transition-all disabled:opacity-60"

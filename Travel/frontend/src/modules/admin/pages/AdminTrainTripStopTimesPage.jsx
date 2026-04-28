@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import AdminTrainPageShell from '../train/components/AdminTrainPageShell';
 import useAdminTrainScope from '../train/hooks/useAdminTrainScope';
 import { formatDateTime, toApiDateTimeValue, toDateTimeInputValue } from '../../tenant/train/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createAdminTrainTripStopTime,
   generateAdminTrainTripStopTimesFromRoute,
@@ -51,6 +52,8 @@ export default function AdminTrainTripStopTimesPage() {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
+  const loadStopTimesRef = useLatestRef(loadStopTimes);
+
   useEffect(() => {
     let active = true;
 
@@ -82,7 +85,7 @@ export default function AdminTrainTripStopTimesPage() {
 
     loadOptions();
     return () => { active = false; };
-  }, [tenantId]);
+  }, [searchParams, tenantId]);
 
   async function loadStopTimes() {
     if (!selectedTripId || !tenantId) {
@@ -115,8 +118,8 @@ export default function AdminTrainTripStopTimesPage() {
   }
 
   useEffect(() => {
-    loadStopTimes();
-  }, [tenantId, selectedTripId]);
+    loadStopTimesRef.current();
+  }, [tenantId, selectedTripId, loadStopTimesRef]);
 
   function handleCreateNew() {
     setSelectedId('');
@@ -150,7 +153,7 @@ export default function AdminTrainTripStopTimesPage() {
         setNotice('Đã thêm lịch dừng mới.');
       }
 
-      await loadStopTimes();
+      await loadStopTimesRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được lịch dừng.');
     } finally {
@@ -171,7 +174,7 @@ export default function AdminTrainTripStopTimesPage() {
         useRouteStopMinutes: true,
       }, tenantId);
       setNotice('Đã sinh lịch dừng từ tuyến đường.');
-      await loadStopTimes();
+      await loadStopTimesRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không sinh được lịch dừng từ tuyến.');
     }
@@ -192,7 +195,7 @@ export default function AdminTrainTripStopTimesPage() {
         setNotice('Đã ẩn lịch dừng.');
       }
 
-      await loadStopTimes();
+      await loadStopTimesRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái lịch dừng.');
     }
@@ -315,7 +318,7 @@ export default function AdminTrainTripStopTimesPage() {
               <input type="number" value={form.stopIndex} onChange={(event) => setForm((current) => ({ ...current, stopIndex: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none" required />
             </label>
             <label className="space-y-2">
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Phút từ đầu tuyến</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Phút đi từ điểm đầu</span>
               <input type="number" value={form.minutesFromStart} onChange={(event) => setForm((current) => ({ ...current, minutesFromStart: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none" />
             </label>
             <label className="flex items-center gap-3 pt-8">

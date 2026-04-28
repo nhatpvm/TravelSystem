@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Plus, RefreshCw } from 'lucide-react';
 import HotelModeShell from '../components/HotelModeShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createAdminRatePlan,
   createManagedRatePlan,
@@ -171,9 +172,11 @@ export default function HotelRatePlansPage({ mode = 'tenant', adminScope = null 
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   const filteredItems = useMemo(
     () => items.filter((item) => !selectedHotelId || item.hotelId === selectedHotelId),
@@ -200,7 +203,7 @@ export default function HotelRatePlansPage({ mode = 'tenant', adminScope = null 
         await createFn(payload);
         setNotice('Đã tạo gói giá mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu gói giá.');
     } finally {
@@ -217,7 +220,7 @@ export default function HotelRatePlansPage({ mode = 'tenant', adminScope = null 
         await deleteFn(item.id);
         setNotice('Đã ẩn gói giá.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật trạng thái gói giá.');
     }

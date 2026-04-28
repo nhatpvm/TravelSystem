@@ -144,7 +144,7 @@ const NewsArticlesTwo = () => {
           className="flex gap-8 overflow-x-auto pb-10 scrollbar-hide no-scrollbar snap-x snap-mandatory"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {articles.map((item, idx) => (
+          {articles.map((item) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, scale: 0.9 }}

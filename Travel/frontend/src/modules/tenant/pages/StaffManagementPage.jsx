@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Plus, Search, Edit2, ShieldCheck, Award, Phone, Mail, Lock, Unlock } from 'lucide-react';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createTenantStaff,
   deactivateTenantStaff,
@@ -119,9 +120,11 @@ export default function StaffManagementPage() {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
+  const loadStaffRef = useLatestRef(loadStaff);
+
   useEffect(() => {
-    loadStaff();
-  }, [search, roleFilter]);
+    loadStaffRef.current();
+  }, [search, roleFilter, loadStaffRef]);
 
   const selectedStaff = useMemo(
     () => staff.find((item) => item.id === selectedId) || null,
@@ -210,7 +213,7 @@ export default function StaffManagementPage() {
 
       setPanelMode('view');
       setForm(EMPTY_FORM);
-      await loadStaff();
+      await loadStaffRef.current();
     } catch (err) {
       setError(err.message || 'Không thể lưu thông tin nhân viên.');
     } finally {
@@ -236,7 +239,7 @@ export default function StaffManagementPage() {
         setNotice('Nhân viên đã được mở khóa.');
       }
 
-      await loadStaff();
+      await loadStaffRef.current();
     } catch (err) {
       setError(err.message || 'Không thể cập nhật trạng thái nhân viên.');
     } finally {

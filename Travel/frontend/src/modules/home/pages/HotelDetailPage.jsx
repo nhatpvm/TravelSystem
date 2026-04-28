@@ -19,6 +19,7 @@ import { getHotelAvailability, getHotelGallery, getHotelReviews, getPublicHotel 
 import { addWishlistItem, deleteWishlistItem, listWishlistItems, trackRecentView } from '../../../services/customerCommerceService';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import { formatCurrency, formatDateOnly, formatTimeOnly } from '../../tenant/hotel/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 function getDefaultDates() {
   const checkIn = new Date();
@@ -80,9 +81,11 @@ export default function HotelDetailPage() {
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [id]);
+    loadDataRef.current();
+  }, [id, loadDataRef]);
 
   useEffect(() => {
     if (!session.isAuthenticated || !id) {
@@ -439,7 +442,7 @@ export default function HotelDetailPage() {
                         </div>
                       </div>
 
-                      <button type="button" onClick={() => loadData(query)} className="w-full h-16 bg-slate-900 text-white rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-[#1EB4D4] transition-all shadow-xl shadow-slate-900/10 hover:shadow-[#1EB4D4]/30">
+                      <button type="button" onClick={() => loadDataRef.current(query)} className="w-full h-16 bg-slate-900 text-white rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-[#1EB4D4] transition-all shadow-xl shadow-slate-900/10 hover:shadow-[#1EB4D4]/30">
                         Kiểm tra phòng trống <ArrowRight size={18} />
                       </button>
 

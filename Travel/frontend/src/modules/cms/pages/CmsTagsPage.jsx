@@ -4,6 +4,7 @@ import CmsPageShell from '../components/CmsPageShell';
 import useCmsWorkspaceData from '../hooks/useCmsWorkspaceData';
 import { createCmsTag, listCmsTags } from '../../../services/cmsService';
 import { slugifyCmsValue } from '../utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const CmsTagsPage = ({ mode = 'admin' }) => {
   const {
@@ -22,13 +23,15 @@ const CmsTagsPage = ({ mode = 'admin' }) => {
   const [tags, setTags] = useState([]);
   const [tagForm, setTagForm] = useState({ name: '', slug: '' });
 
+  const loadTagsRef = useLatestRef(loadTags);
+
   useEffect(() => {
     if (!tenantId) {
       return;
     }
 
-    loadTags();
-  }, [tenantId]);
+    loadTagsRef.current();
+  }, [loadTagsRef, tenantId]);
 
   async function loadTags() {
     if (!tenantId) {
@@ -66,7 +69,7 @@ const CmsTagsPage = ({ mode = 'admin' }) => {
 
       setTagForm({ name: '', slug: '' });
       setNotice('Thẻ mới đã được tạo.');
-      await loadTags();
+      await loadTagsRef.current();
     } catch (err) {
       setError(err.message || 'Không thể tạo thẻ.');
     } finally {

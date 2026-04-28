@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import BusManagementPageShell from '../components/BusManagementPageShell';
 import { formatDateTime, getTripStatusClass, getTripStatusLabel } from '../utils/presentation';
 import { listBusManagerSeatHolds, listBusTrips, releaseBusManagerSeatHold } from '../../../../services/busService';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 const BusSeatHoldsPage = () => {
   const [searchParams] = useSearchParams();
@@ -14,6 +15,8 @@ const BusSeatHoldsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+
+  const loadHoldsRef = useLatestRef(loadHolds);
 
   useEffect(() => {
     let active = true;
@@ -39,7 +42,7 @@ const BusSeatHoldsPage = () => {
     return () => {
       active = false;
     };
-  }, []);
+  }, [selectedTripId]);
 
   const loadHolds = async () => {
     if (!selectedTripId) {
@@ -61,8 +64,8 @@ const BusSeatHoldsPage = () => {
   };
 
   useEffect(() => {
-    loadHolds();
-  }, [selectedTripId, includeExpired]);
+    loadHoldsRef.current();
+  }, [selectedTripId, includeExpired, loadHoldsRef]);
 
   const handleRelease = async (holdToken) => {
     setError('');
@@ -71,7 +74,7 @@ const BusSeatHoldsPage = () => {
     try {
       await releaseBusManagerSeatHold(holdToken);
       setNotice('Đã giải phóng giữ chỗ.');
-      await loadHolds();
+      await loadHoldsRef.current();
     } catch (err) {
       setError(err.message || 'Không giải phóng được giữ chỗ.');
     }

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Plus, RefreshCw } from 'lucide-react';
 import FlightModeShell from '../components/FlightModeShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createAdminFlightAirport,
   createFlightAirport,
@@ -118,9 +119,11 @@ export default function FlightAirportsPage({ mode = 'tenant', adminScope = null 
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   const locationLookup = useMemo(
     () => Object.fromEntries(locations.map((item) => [item.id, item])),
@@ -151,7 +154,7 @@ export default function FlightAirportsPage({ mode = 'tenant', adminScope = null 
         await createFn(payload);
         setNotice('Đã tạo sân bay mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được sân bay.');
     } finally {
@@ -171,7 +174,7 @@ export default function FlightAirportsPage({ mode = 'tenant', adminScope = null 
         await deleteFn(item.id);
         setNotice('Đã ẩn sân bay.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái sân bay.');
     }

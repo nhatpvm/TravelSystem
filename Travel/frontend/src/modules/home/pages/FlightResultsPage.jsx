@@ -144,7 +144,7 @@ const FlightResultsPage = () => {
     return () => {
       active = false;
     };
-  }, []);
+  }, [navigate, searchParams]);
 
   useEffect(() => {
     const nextForm = buildInitialForm(searchParams);

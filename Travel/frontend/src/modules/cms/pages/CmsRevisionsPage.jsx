@@ -5,6 +5,7 @@ import CmsPostSelectorCard from '../components/CmsPostSelectorCard';
 import useCmsWorkspaceData from '../hooks/useCmsWorkspaceData';
 import { getCmsRevision, listCmsRevisions, restoreCmsRevision } from '../../../services/cmsService';
 import { formatCmsDate } from '../utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const CmsRevisionsPage = ({ mode = 'admin' }) => {
   const {
@@ -28,6 +29,9 @@ const CmsRevisionsPage = ({ mode = 'admin' }) => {
   const [revisions, setRevisions] = useState([]);
   const [revisionDetail, setRevisionDetail] = useState(null);
 
+  const loadRevisionsRef = useLatestRef(loadRevisions);
+  const loadRevisionDetailRef = useLatestRef(loadRevisionDetail);
+
   useEffect(() => {
     if (!posts.length) {
       setSelectedPostId('');
@@ -45,8 +49,8 @@ const CmsRevisionsPage = ({ mode = 'admin' }) => {
       return;
     }
 
-    loadRevisions(selectedPostId);
-  }, [tenantId, selectedPostId]);
+    loadRevisionsRef.current(selectedPostId);
+  }, [tenantId, selectedPostId, loadRevisionsRef]);
 
   useEffect(() => {
     if (!tenantId || !selectedPostId || !selectedRevisionId) {
@@ -54,8 +58,8 @@ const CmsRevisionsPage = ({ mode = 'admin' }) => {
       return;
     }
 
-    loadRevisionDetail(selectedPostId, selectedRevisionId);
-  }, [tenantId, selectedPostId, selectedRevisionId]);
+    loadRevisionDetailRef.current(selectedPostId, selectedRevisionId);
+  }, [tenantId, selectedPostId, selectedRevisionId, loadRevisionDetailRef]);
 
   async function loadRevisions(postId = selectedPostId) {
     if (!tenantId || !postId) {
@@ -104,7 +108,7 @@ const CmsRevisionsPage = ({ mode = 'admin' }) => {
         changeNote: 'Restore from revisions page',
       }, tenantId);
       setNotice('Phiên bản đã được khôi phục vào bài viết hiện tại.');
-      await Promise.all([loadRevisions(selectedPostId), reload()]);
+      await Promise.all([loadRevisionsRef.current(selectedPostId), reload()]);
     } catch (err) {
       setError(err.message || 'Không thể khôi phục phiên bản.');
     } finally {
@@ -126,7 +130,7 @@ const CmsRevisionsPage = ({ mode = 'admin' }) => {
       error={error}
       notice={notice}
       actions={(
-        <button onClick={() => loadRevisions()} className="px-5 py-3 bg-white text-slate-700 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-2 border border-slate-100 shadow-sm">
+        <button onClick={() => loadRevisionsRef.current()} className="px-5 py-3 bg-white text-slate-700 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-2 border border-slate-100 shadow-sm">
           <RefreshCw size={14} /> Tải lại
         </button>
       )}

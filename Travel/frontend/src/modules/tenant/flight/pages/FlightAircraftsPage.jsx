@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Plus, RefreshCw } from 'lucide-react';
 import FlightModeShell from '../components/FlightModeShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createAdminFlightAircraft,
   createFlightAircraft,
@@ -114,9 +115,11 @@ export default function FlightAircraftsPage({ mode = 'tenant', adminScope = null
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   const airlineLookup = useMemo(
     () => Object.fromEntries(airlines.map((item) => [item.id, item])),
@@ -142,7 +145,7 @@ export default function FlightAircraftsPage({ mode = 'tenant', adminScope = null
         await createFn(payload);
         setNotice('Đã tạo tàu bay mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được tàu bay.');
     } finally {
@@ -162,7 +165,7 @@ export default function FlightAircraftsPage({ mode = 'tenant', adminScope = null
         await deleteFn(item.id);
         setNotice('Đã ẩn tàu bay.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái tàu bay.');
     }

@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import AdminTrainPageShell from '../train/components/AdminTrainPageShell';
 import useAdminTrainScope from '../train/hooks/useAdminTrainScope';
 import { getSeatTypeLabel, TRAIN_SEAT_TYPES } from '../../tenant/train/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createAdminTrainCarSeat,
   deleteAdminTrainCarSeat,
@@ -108,13 +109,16 @@ export default function AdminTrainCarSeatsPage() {
     }
   }
 
-  useEffect(() => {
-    loadCars();
-  }, [tenantId]);
+  const loadCarsRef = useLatestRef(loadCars);
+  const loadSeatsRef = useLatestRef(loadSeats);
 
   useEffect(() => {
-    loadSeats();
-  }, [tenantId, selectedCarId]);
+    loadCarsRef.current();
+  }, [loadCarsRef, tenantId]);
+
+  useEffect(() => {
+    loadSeatsRef.current();
+  }, [tenantId, selectedCarId, loadSeatsRef]);
 
   const selectedCar = useMemo(() => cars.find((item) => item.id === selectedCarId) || null, [cars, selectedCarId]);
 
@@ -156,7 +160,7 @@ export default function AdminTrainCarSeatsPage() {
         setNotice('Đã thêm ghế/giường mới.');
       }
 
-      await loadSeats();
+      await loadSeatsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được ghế/giường.');
     } finally {
@@ -179,7 +183,7 @@ export default function AdminTrainCarSeatsPage() {
         setNotice('Đã ẩn ghế/giường.');
       }
 
-      await loadSeats();
+      await loadSeatsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái ghế/giường.');
     }

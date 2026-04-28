@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plane } from 'lucide-react';
 import { motion, useMotionValue, animate } from 'framer-motion';
 

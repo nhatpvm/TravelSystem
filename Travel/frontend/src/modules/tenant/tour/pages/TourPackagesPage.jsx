@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Boxes, Loader2, Plus, Save } from 'lucide-react';
 import TourManagementShell from '../components/TourManagementShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createManagerTourPackage,
   listManagerTourPackages,
@@ -74,19 +75,22 @@ export default function TourPackagesPage() {
   const selectedTourId = searchParams.get('tourId') || '';
   const selectedPackageId = searchParams.get('packageId') || '';
 
+  const loadToursRef = useLatestRef(loadTours);
+  const loadPackagesRef = useLatestRef(loadPackages);
+
   useEffect(() => {
-    loadTours();
-  }, []);
+    loadToursRef.current();
+  }, [loadToursRef]);
 
   useEffect(() => {
     if (selectedTourId) {
-      loadPackages(selectedTourId);
+      loadPackagesRef.current(selectedTourId);
     } else {
       setPackages([]);
       setSelectedPackage(null);
       setForm(EMPTY_FORM);
     }
-  }, [selectedTourId]);
+  }, [loadPackagesRef, selectedTourId]);
 
   useEffect(() => {
     const selected = packages.find((item) => item.id === selectedPackageId) || null;
@@ -181,7 +185,7 @@ export default function TourPackagesPage() {
         updateSearchParams(setSearchParams, { packageId: created.id });
       }
 
-      await loadPackages(selectedTourId);
+      await loadPackagesRef.current(selectedTourId);
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu gói tour.');
     } finally {
@@ -196,7 +200,7 @@ export default function TourPackagesPage() {
     try {
       await toggleManagerTourPackageAction(selectedTourId, item.id, action);
       setNotice('Đã cập nhật trạng thái gói tour.');
-      await loadPackages(selectedTourId);
+      await loadPackagesRef.current(selectedTourId);
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật gói tour.');
     }

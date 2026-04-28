@@ -20,6 +20,7 @@ import {
   formatCustomerRefundStatusLabel,
 } from '../../booking/utils/customerCommerce';
 import { formatCurrency, formatDateTime } from '../../tenant/train/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const FILTERS = [
   { value: 'all', label: 'Tat ca' },
@@ -101,6 +102,8 @@ export default function AdminRefundsPage() {
   const [refundedDrafts, setRefundedDrafts] = useState({});
   const [referenceDrafts, setReferenceDrafts] = useState({});
 
+  const loadRefundsRef = useLatestRef(loadRefunds);
+
   useEffect(() => {
     setSearch(searchParams.get('q') || '');
   }, [searchParams]);
@@ -171,8 +174,8 @@ export default function AdminRefundsPage() {
   }
 
   useEffect(() => {
-    loadRefunds();
-  }, [filter, search]);
+    loadRefundsRef.current();
+  }, [filter, loadRefundsRef, search]);
 
   const selected = useMemo(
     () => refunds.find((item) => item.id === selectedId) || null,
@@ -273,7 +276,7 @@ export default function AdminRefundsPage() {
         setNotice('Refund da duoc danh dau hoan tat.');
       }
 
-      await loadRefunds();
+      await loadRefundsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Khong the cap nhat yeu cau hoan tien.');
     } finally {

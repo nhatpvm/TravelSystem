@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Plus, RefreshCw } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import FlightModeShell from '../components/FlightModeShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createAdminFlightFareRule,
   createFlightFareRule,
@@ -111,9 +112,11 @@ export default function FlightFareRulesPage({ mode = 'tenant', adminScope = null
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId, selectedFareClassId]);
+    loadDataRef.current();
+  }, [isAdmin, tenantId, selectedFareClassId, loadDataRef]);
 
   const fareClassLookup = useMemo(
     () => Object.fromEntries(fareClasses.map((item) => [item.id, item])),
@@ -144,7 +147,7 @@ export default function FlightFareRulesPage({ mode = 'tenant', adminScope = null
         await createFn(payload);
         setNotice('Đã tạo điều kiện vé mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được điều kiện vé.');
     } finally {
@@ -164,7 +167,7 @@ export default function FlightFareRulesPage({ mode = 'tenant', adminScope = null
         await deleteFn(item.id);
         setNotice('Đã ẩn điều kiện vé.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái điều kiện vé.');
     }

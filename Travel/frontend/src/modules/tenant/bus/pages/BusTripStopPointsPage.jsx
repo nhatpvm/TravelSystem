@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { LocateFixed, Plus, RefreshCw } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import BusManagementPageShell from '../components/BusManagementPageShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createDropoffPoint,
   createPickupPoint,
@@ -69,6 +70,8 @@ const BusTripStopPointsPage = () => {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
+  const loadPointDataRef = useLatestRef(loadPointData);
+
   useEffect(() => {
     let active = true;
 
@@ -93,7 +96,7 @@ const BusTripStopPointsPage = () => {
     return () => {
       active = false;
     };
-  }, []);
+  }, [selectedTripId]);
 
   useEffect(() => {
     if (!selectedTripId) {
@@ -171,8 +174,8 @@ const BusTripStopPointsPage = () => {
   };
 
   useEffect(() => {
-    loadPointData();
-  }, [selectedStopTimeId]);
+    loadPointDataRef.current();
+  }, [loadPointDataRef, selectedStopTimeId]);
 
   const handleSavePickup = async (event) => {
     event.preventDefault();
@@ -189,7 +192,7 @@ const BusTripStopPointsPage = () => {
         setNotice('Đã tạo điểm đón.');
       }
 
-      await loadPointData();
+      await loadPointDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được điểm đón.');
     }
@@ -210,7 +213,7 @@ const BusTripStopPointsPage = () => {
         setNotice('Đã tạo điểm trả.');
       }
 
-      await loadPointData();
+      await loadPointDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được điểm trả.');
     }
@@ -229,7 +232,7 @@ const BusTripStopPointsPage = () => {
         setNotice('Đã ẩn điểm đón.');
       }
 
-      await loadPointData();
+      await loadPointDataRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được điểm đón.');
     }
@@ -248,7 +251,7 @@ const BusTripStopPointsPage = () => {
         setNotice('Đã ẩn điểm trả.');
       }
 
-      await loadPointData();
+      await loadPointDataRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được điểm trả.');
     }

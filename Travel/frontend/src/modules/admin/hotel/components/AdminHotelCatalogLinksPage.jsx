@@ -4,6 +4,7 @@ import AdminHotelPageShell from './AdminHotelPageShell';
 import useAdminHotelScope from '../hooks/useAdminHotelScope';
 import { getAdminHotelOptions } from '../../../../services/hotelService';
 import { readJsonInput, toPrettyJson } from '../../../tenant/hotel/utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 export default function AdminHotelCatalogLinksPage({
   pageKey,
@@ -98,7 +99,7 @@ export default function AdminHotelCatalogLinksPage({
       }
 
       if (nextParentId) {
-        await loadLinks(nextParentId);
+        await loadLinksRef.current(nextParentId);
       }
     } catch (requestError) {
       setError(requestError.message || 'Không thể tải dữ liệu danh mục.');
@@ -107,13 +108,16 @@ export default function AdminHotelCatalogLinksPage({
     }
   }
 
-  useEffect(() => {
-    loadData();
-  }, [tenantId]);
+  const loadDataRef = useLatestRef(loadData);
+  const loadLinksRef = useLatestRef(loadLinks);
 
   useEffect(() => {
-    loadLinks(selectedParentId);
-  }, [selectedParentId, tenantId]);
+    loadDataRef.current();
+  }, [loadDataRef, tenantId]);
+
+  useEffect(() => {
+    loadLinksRef.current(selectedParentId);
+  }, [loadLinksRef, selectedParentId, tenantId]);
 
   const filteredItems = useMemo(() => {
     if (catalogOptionsKey === 'roomAmenities' || catalogOptionsKey === 'mealPlans' || catalogOptionsKey === 'bedTypes') {
@@ -154,7 +158,7 @@ export default function AdminHotelCatalogLinksPage({
         await createFn(payload, tenantId);
         setNotice('Đã tạo danh mục mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu danh mục.');
     } finally {
@@ -171,7 +175,7 @@ export default function AdminHotelCatalogLinksPage({
         await deleteFn(item.id, tenantId);
         setNotice('Đã ẩn danh mục.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật trạng thái danh mục.');
     }
@@ -190,7 +194,7 @@ export default function AdminHotelCatalogLinksPage({
     try {
       await replaceLinksFn(selectedParentId, { items: readJsonInput(linksJson, []) }, tenantId);
       setNotice(`Đã cập nhật liên kết cho ${parentLabel.toLowerCase()}.`);
-      await loadLinks(selectedParentId);
+      await loadLinksRef.current(selectedParentId);
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu liên kết.');
     } finally {

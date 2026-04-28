@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import AdminTrainPageShell from '../train/components/AdminTrainPageShell';
 import useAdminTrainScope from '../train/hooks/useAdminTrainScope';
 import { formatCurrency } from '../../tenant/train/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createAdminTrainTripSegmentPrice,
   deleteAdminTrainTripSegmentPrice,
@@ -62,6 +63,8 @@ export default function AdminTrainTripSegmentPricesPage() {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
+  const loadItemsRef = useLatestRef(loadItems);
+
   useEffect(() => {
     let active = true;
 
@@ -87,7 +90,7 @@ export default function AdminTrainTripSegmentPricesPage() {
 
     loadTrips();
     return () => { active = false; };
-  }, [tenantId]);
+  }, [searchParams, tenantId]);
 
   useEffect(() => {
     if (!selectedTripId || !tenantId) {
@@ -151,8 +154,8 @@ export default function AdminTrainTripSegmentPricesPage() {
   }
 
   useEffect(() => {
-    loadItems();
-  }, [tenantId, selectedTripId]);
+    loadItemsRef.current();
+  }, [tenantId, selectedTripId, loadItemsRef]);
 
   useEffect(() => {
     setForm((current) => ({
@@ -189,7 +192,7 @@ export default function AdminTrainTripSegmentPricesPage() {
         setNotice('Đã tạo giá chặng mới.');
       }
 
-      await loadItems();
+      await loadItemsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được giá chặng.');
     } finally {
@@ -213,7 +216,7 @@ export default function AdminTrainTripSegmentPricesPage() {
       }, tenantId);
 
       setNotice('Đã sinh ma trận giá mặc định cho tất cả chặng.');
-      await loadItems();
+      await loadItemsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không sinh được ma trận giá chặng.');
     }
@@ -234,7 +237,7 @@ export default function AdminTrainTripSegmentPricesPage() {
         setNotice('Đã ẩn giá chặng.');
       }
 
-      await loadItems();
+      await loadItemsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái giá chặng.');
     }

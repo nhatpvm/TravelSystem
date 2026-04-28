@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { RefreshCw, RotateCcw, ScanLine, Search, Trash2 } from 'lucide-react';
 import MasterDataPageShell from '../master-data/components/MasterDataPageShell';
 import useAdminMasterDataScope from '../master-data/hooks/useAdminMasterDataScope';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   bulkUpdateSeats,
   deleteSeat,
@@ -83,13 +84,16 @@ const AdminSeatsPage = () => {
     [items, selectedSeatId],
   );
 
+  const loadSeatMapsRef = useLatestRef(loadSeatMaps);
+  const loadSeatsRef = useLatestRef(loadSeats);
+
   useEffect(() => {
     if (!tenantId) {
       return;
     }
 
-    loadSeatMaps();
-  }, [tenantId]);
+    loadSeatMapsRef.current();
+  }, [loadSeatMapsRef, tenantId]);
 
   useEffect(() => {
     if (!tenantId || !selectedSeatMapId) {
@@ -100,8 +104,8 @@ const AdminSeatsPage = () => {
       return;
     }
 
-    loadSeats();
-  }, [tenantId, selectedSeatMapId, includeDeleted]);
+    loadSeatsRef.current();
+  }, [tenantId, selectedSeatMapId, includeDeleted, loadSeatsRef]);
 
   async function loadSeatMaps() {
     if (!tenantId) {
@@ -187,7 +191,7 @@ const AdminSeatsPage = () => {
       }, tenantId);
 
       setNotice('Ghế đã được cập nhật.');
-      await loadSeats();
+      await loadSeatsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật ghế.');
     } finally {
@@ -217,7 +221,7 @@ const AdminSeatsPage = () => {
 
       setNotice(`Đã cập nhật ${selectedSeatIds.length} ghế.`);
       setBulkForm(buildBulkForm());
-      await loadSeats();
+      await loadSeatsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật hàng loạt ghế.');
     } finally {
@@ -242,7 +246,7 @@ const AdminSeatsPage = () => {
         setNotice('Ghế đã được chuyển vào thùng rác.');
       }
 
-      await loadSeats();
+      await loadSeatsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật ghế.');
     }

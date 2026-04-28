@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Plus, RefreshCw, Route } from 'lucide-react';
 import BusManagementPageShell from '../components/BusManagementPageShell';
 import { createBusRoute, deleteBusRoute, getBusManagerOptions, getBusRoute, listBusRoutes, replaceBusRouteStops, restoreBusRoute, updateBusRoute } from '../../../../services/busService';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 function createEmptyRouteForm() {
   return {
@@ -125,9 +126,11 @@ const BusRoutesPage = () => {
     }
   };
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, []);
+    loadDataRef.current();
+  }, [loadDataRef]);
 
   const handleCreateNew = () => {
     setSelectedId('');
@@ -153,7 +156,7 @@ const BusRoutesPage = () => {
         setNotice('Đã tạo tuyến đường mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được tuyến đường.');
     } finally {
@@ -183,7 +186,7 @@ const BusRoutesPage = () => {
       });
 
       setNotice('Đã lưu danh sách điểm dừng của tuyến.');
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được điểm dừng tuyến.');
     } finally {
@@ -204,7 +207,7 @@ const BusRoutesPage = () => {
         setNotice('Đã ẩn tuyến đường.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái tuyến đường.');
     }
@@ -463,7 +466,7 @@ const BusRoutesPage = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <label className="space-y-2">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Km từ đầu tuyến</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Km từ điểm đầu</span>
                     <input
                       type="number"
                       value={item.distanceFromStartKm}
@@ -472,7 +475,7 @@ const BusRoutesPage = () => {
                     />
                   </label>
                   <label className="space-y-2">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Phút từ đầu tuyến</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Phút đi từ điểm đầu</span>
                     <input
                       type="number"
                       value={item.minutesFromStart}

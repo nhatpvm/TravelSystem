@@ -14,6 +14,7 @@ import {
   updateAdminHotelImage,
 } from '../../../services/hotelService';
 import { uploadAdminImage } from '../../../services/adminUploadService';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 function createEmptyForm(hotelId = '') {
   return {
@@ -116,9 +117,11 @@ export default function AdminHotelImagesPage() {
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [tenantId]);
+    loadDataRef.current();
+  }, [loadDataRef, tenantId]);
 
   const filteredItems = useMemo(
     () => items.filter((item) => !selectedHotelId || item.hotelId === selectedHotelId),
@@ -181,7 +184,7 @@ export default function AdminHotelImagesPage() {
         setNotice('Đã tạo ảnh khách sạn mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu ảnh khách sạn.');
     } finally {
@@ -198,7 +201,7 @@ export default function AdminHotelImagesPage() {
         await deleteAdminHotelImage(item.id, tenantId);
         setNotice('Đã ẩn ảnh khách sạn.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật trạng thái ảnh.');
     }
@@ -208,7 +211,7 @@ export default function AdminHotelImagesPage() {
     try {
       await setAdminHotelImagePrimary(item.id, tenantId);
       setNotice('Đã cập nhật ảnh đại diện.');
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể đặt ảnh đại diện.');
     }

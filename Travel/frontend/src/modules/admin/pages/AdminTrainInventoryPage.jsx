@@ -3,6 +3,7 @@ import { Calendar, ChevronRight, Plus, RefreshCw, Ticket, Train as TrainIcon } f
 import { Link } from 'react-router-dom';
 import AdminTrainPageShell from '../train/components/AdminTrainPageShell';
 import useAdminTrainScope from '../train/hooks/useAdminTrainScope';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   TRAIN_TRIP_STATUSES,
   formatDateTime,
@@ -132,9 +133,11 @@ export default function AdminTrainInventoryPage() {
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [tenantId]);
+    loadDataRef.current();
+  }, [loadDataRef, tenantId]);
 
   function handleSelectTrip(trip) {
     setSelectedTripId(trip.id);
@@ -169,7 +172,7 @@ export default function AdminTrainInventoryPage() {
         setNotice('Đã tạo chuyến tàu mới ở admin.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được chuyến tàu.');
     } finally {
@@ -194,7 +197,7 @@ export default function AdminTrainInventoryPage() {
         setNotice('Đã ẩn chuyến tàu.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái chuyến tàu.');
     }

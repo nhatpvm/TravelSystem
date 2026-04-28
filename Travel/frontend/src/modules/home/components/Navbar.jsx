@@ -56,7 +56,7 @@ const Navbar = () => {
         ? '/my-account/profile'
         : '/auth/login';
 
-  const NavContent = ({ sticky = false }) => (
+  const renderNavContent = (sticky = false) => (
     <nav className={`
       bg-white flex justify-between items-center w-full transition-all duration-300
       ${sticky ? 'fixed top-0 left-0 shadow-2xl animate-slide-down z-[1000] px-4 lg:px-12' : 'relative'}
@@ -267,8 +267,8 @@ const Navbar = () => {
         </div>
       </div>
 
-      <NavContent />
-      {isSticky && <NavContent sticky={true} />}
+      {renderNavContent()}
+      {isSticky && renderNavContent(true)}
     </div>
   );
 };

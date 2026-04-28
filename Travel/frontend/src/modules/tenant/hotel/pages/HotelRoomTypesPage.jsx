@@ -28,6 +28,7 @@ import {
 } from '../utils/presentation';
 import { uploadManagerImage } from '../../../../services/portalUploadService';
 import ImageUploadField from '../../../../shared/components/forms/ImageUploadField';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 function createEmptyForm(hotelId = '') {
   return {
@@ -180,9 +181,11 @@ export default function HotelRoomTypesPage({ mode = 'tenant', adminScope = null 
     setForm(hydrateForm(detail));
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   const filteredItems = useMemo(
     () => items.filter((item) => !selectedHotelId || item.hotelId === selectedHotelId),
@@ -197,7 +200,7 @@ export default function HotelRoomTypesPage({ mode = 'tenant', adminScope = null 
 
   async function handleUploadCoverImage(file) {
     if (isAdmin && !tenantId) {
-      setError('KhÃ´ng thá»ƒ táº£i áº£nh khi chÆ°a chá»n tenant.');
+      setError('Không thể tải ảnh khi chưa chọn tenant.');
       return;
     }
 
@@ -212,7 +215,7 @@ export default function HotelRoomTypesPage({ mode = 'tenant', adminScope = null 
       });
       setForm((current) => ({ ...current, coverImageUrl: response?.url || '' }));
     } catch (requestError) {
-      setError(requestError.message || 'KhÃ´ng thá»ƒ táº£i áº£nh háº¡ng phÃ²ng.');
+      setError(requestError.message || 'Không thể tải ảnh hạng phòng.');
     } finally {
       setUploadingCoverImage(false);
     }
@@ -233,7 +236,7 @@ export default function HotelRoomTypesPage({ mode = 'tenant', adminScope = null 
         await createFn(payload);
         setNotice('Đã tạo hạng phòng mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu hạng phòng.');
     } finally {
@@ -250,7 +253,7 @@ export default function HotelRoomTypesPage({ mode = 'tenant', adminScope = null 
         await deleteFn(item.id);
         setNotice('Đã ẩn hạng phòng.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật trạng thái hạng phòng.');
     }

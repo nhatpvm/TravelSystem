@@ -4,6 +4,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import AdminTrainPageShell from '../train/components/AdminTrainPageShell';
 import useAdminTrainScope from '../train/hooks/useAdminTrainScope';
 import { getCarTypeLabel, TRAIN_CAR_TYPES } from '../../tenant/train/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createAdminTrainCar,
   deleteAdminTrainCar,
@@ -109,9 +110,11 @@ export default function AdminTrainCarsPage() {
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [tenantId, selectedTripId]);
+    loadDataRef.current();
+  }, [tenantId, selectedTripId, loadDataRef]);
 
   const tripLookup = useMemo(() => Object.fromEntries(trips.map((item) => [item.id, item])), [trips]);
 
@@ -149,7 +152,7 @@ export default function AdminTrainCarsPage() {
         setNotice('Đã tạo toa tàu mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được toa tàu.');
     } finally {
@@ -172,7 +175,7 @@ export default function AdminTrainCarsPage() {
         setNotice('Đã ẩn toa tàu.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái toa tàu.');
     }
@@ -200,7 +203,7 @@ export default function AdminTrainCarsPage() {
       }, tenantId);
 
       setNotice('Đã sinh sơ đồ ghế/giường cho toa tàu.');
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không sinh được sơ đồ ghế/giường.');
     } finally {

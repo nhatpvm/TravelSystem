@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { ClipboardList, Plus, RefreshCw } from 'lucide-react';
 import AdminHotelPageShell from '../hotel/components/AdminHotelPageShell';
 import useAdminHotelScope from '../hotel/hooks/useAdminHotelScope';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createAdminRoomTypePolicy,
   deleteAdminRoomTypePolicy,
@@ -94,9 +95,11 @@ export default function AdminRoomTypePoliciesPage() {
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [tenantId]);
+    loadDataRef.current();
+  }, [loadDataRef, tenantId]);
 
   const roomTypeLookup = useMemo(
     () => Object.fromEntries(roomTypes.map((item) => [item.id, item])),
@@ -140,7 +143,7 @@ export default function AdminRoomTypePoliciesPage() {
         await createAdminRoomTypePolicy(payload, tenantId);
         setNotice('Đã tạo policy hạng phòng mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu policy hạng phòng.');
     } finally {
@@ -157,7 +160,7 @@ export default function AdminRoomTypePoliciesPage() {
         await deleteAdminRoomTypePolicy(item.id, tenantId);
         setNotice('Đã ẩn policy hạng phòng.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật trạng thái policy hạng phòng.');
     }

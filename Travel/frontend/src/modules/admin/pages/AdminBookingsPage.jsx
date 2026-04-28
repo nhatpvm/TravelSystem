@@ -32,6 +32,7 @@ import {
   getCustomerPaymentStatusClass,
 } from '../../booking/utils/customerCommerce';
 import { formatCurrency, formatDateTime } from '../../tenant/train/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const TYPE_ICON = {
   [CUSTOMER_PRODUCT.FLIGHT]: <Plane size={13} />,
@@ -181,6 +182,8 @@ export default function AdminBookingsPage() {
   const [detailLoading, setDetailLoading] = useState({});
   const [detailErrors, setDetailErrors] = useState({});
 
+  const loadBookingsRef = useLatestRef(loadBookings);
+
   useEffect(() => {
     setSearch(searchParams.get('q') || '');
   }, [searchParams]);
@@ -245,8 +248,8 @@ export default function AdminBookingsPage() {
   }
 
   useEffect(() => {
-    loadBookings();
-  }, [search]);
+    loadBookingsRef.current();
+  }, [loadBookingsRef, search]);
 
   const filteredBookings = useMemo(
     () => bookings.filter((item) => matchesFilter(item, statusFilter)),
@@ -269,7 +272,7 @@ export default function AdminBookingsPage() {
         </div>
         <button
           type="button"
-          onClick={() => loadBookings(true)}
+          onClick={() => loadBookingsRef.current(true)}
           className="px-4 py-3 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 hover:bg-blue-600 transition-all"
         >
           <RefreshCw size={14} className={refreshing ? 'animate-spin' : ''} />

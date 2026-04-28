@@ -20,6 +20,7 @@ import {
   getStatusClass,
 } from '../../hotel/utils/presentation';
 import { getAdminHotelSectionPath, getHotelManagementSectionPath } from '../../hotel/utils/navigation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 function getTargetPath(mode, key) {
   return mode === 'admin' ? getAdminHotelSectionPath(key) : getHotelManagementSectionPath(key);
@@ -30,7 +31,7 @@ export default function HotelInventoryPage({ mode = 'tenant', adminScope = null 
   const tenantId = adminScope?.tenantId;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [notice, setNotice] = useState('');
+  const [notice] = useState('');
   const [hotels, setHotels] = useState([]);
   const [roomTypes, setRoomTypes] = useState([]);
   const [ratePlans, setRatePlans] = useState([]);
@@ -68,9 +69,11 @@ export default function HotelInventoryPage({ mode = 'tenant', adminScope = null 
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   const activeHotels = useMemo(() => hotels.filter((item) => !item.isDeleted), [hotels]);
   const activeRoomTypes = useMemo(() => roomTypes.filter((item) => !item.isDeleted), [roomTypes]);

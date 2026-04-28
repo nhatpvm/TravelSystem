@@ -29,6 +29,7 @@ import {
   upsertCheckoutDraft,
 } from '../../../services/customerCommerceService';
 import { formatCurrency, formatDateTime, formatTime } from '../../tenant/train/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 function buildPassengerTypes(product, seatCount, adults, children) {
   if (product === 'hotel' || product === 'tour') {
@@ -318,6 +319,8 @@ const CheckoutPage = () => {
   const [draftStatus, setDraftStatus] = useState('');
   const restoredDraftRef = useRef(false);
 
+  const applySavedPassengersToStateRef = useLatestRef(applySavedPassengersToState);
+
   useEffect(() => {
     setContact((current) => ({
       ...current,
@@ -370,9 +373,9 @@ const CheckoutPage = () => {
       return;
     }
 
-    applySavedPassengersToState();
+    applySavedPassengersToStateRef.current();
     setAutoFilledSavedPassengers(true);
-  }, [autoFilledSavedPassengers, isAuthenticated, savedPassengers, user, passengerTypes]);
+  }, [autoFilledSavedPassengers, isAuthenticated, savedPassengers, user, passengerTypes, applySavedPassengersToStateRef]);
 
   useEffect(() => {
     if (isHotel || !product) {
@@ -702,7 +705,7 @@ const CheckoutPage = () => {
       return;
     }
 
-    applySavedPassengersToState();
+    applySavedPassengersToStateRef.current();
     setAutoFilledSavedPassengers(true);
     setDraftStatus('Da dien nhanh thong tin tu danh sach hanh khach da luu.');
   }

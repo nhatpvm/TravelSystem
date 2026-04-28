@@ -125,10 +125,10 @@ const LastMinuteOffers = () => {
           {/* Glassmorphism Countdown - Larger cards */}
           <div className="grid grid-cols-4 gap-6 mt-12">
             {[
-              { label: 'Ngày', val: '00' },
-              { label: 'Giờ', val: '00' },
-              { label: 'Phút', val: '00' },
-              { label: 'Giây', val: '00' }
+              { label: 'Ngày', val: String(timeLeft.days).padStart(2, '0') },
+              { label: 'Giờ', val: String(timeLeft.hours).padStart(2, '0') },
+              { label: 'Phút', val: String(timeLeft.minutes).padStart(2, '0') },
+              { label: 'Giây', val: String(timeLeft.seconds).padStart(2, '0') }
             ].map((t, idx) => (
               <motion.div 
                 key={idx}

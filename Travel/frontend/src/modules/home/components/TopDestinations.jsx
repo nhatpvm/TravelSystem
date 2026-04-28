@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
 
 const destinations = [
@@ -113,7 +113,7 @@ const TopDestinations = () => {
           className="flex gap-8 overflow-x-auto pb-10 scrollbar-hide no-scrollbar snap-x snap-mandatory"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {destinations.map((dest, index) => (
+          {destinations.map((dest) => (
             <motion.div
               key={dest.id}
               initial={{ opacity: 0, scale: 0.9 }}

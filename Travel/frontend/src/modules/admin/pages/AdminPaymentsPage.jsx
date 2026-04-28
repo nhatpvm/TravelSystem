@@ -17,6 +17,7 @@ import {
   formatCustomerPaymentStatusLabel,
 } from '../../booking/utils/customerCommerce';
 import { formatCurrency, formatDateTime } from '../../tenant/train/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const STATUS_FILTERS = [
   { value: 'all', label: 'Tất cả' },
@@ -68,6 +69,8 @@ export default function AdminPaymentsPage() {
   });
   const [payments, setPayments] = useState([]);
 
+  const loadPaymentsRef = useLatestRef(loadPayments);
+
   useEffect(() => {
     setSearch(searchParams.get('q') || '');
   }, [searchParams]);
@@ -105,8 +108,8 @@ export default function AdminPaymentsPage() {
   }
 
   useEffect(() => {
-    loadPayments();
-  }, [search, statusFilter]);
+    loadPaymentsRef.current();
+  }, [loadPaymentsRef, search, statusFilter]);
 
   const stats = useMemo(() => ([
     { label: 'Tổng GD', value: summary.totalCount || 0, className: 'bg-slate-900 text-white' },
@@ -170,7 +173,7 @@ export default function AdminPaymentsPage() {
         </div>
         <button
           type="button"
-          onClick={() => loadPayments(true)}
+          onClick={() => loadPaymentsRef.current(true)}
           className="px-4 py-3 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-2 hover:bg-blue-600 transition-all"
         >
           <RefreshCw size={14} className={refreshing ? 'animate-spin' : ''} />
@@ -258,7 +261,7 @@ export default function AdminPaymentsPage() {
                           type="button"
                           onClick={(event) => {
                             event.stopPropagation();
-                            loadPayments(true);
+                            loadPaymentsRef.current(true);
                           }}
                           className="flex items-center gap-1.5 px-4 py-2 bg-white text-slate-600 rounded-xl text-[10px] font-black uppercase border border-slate-100 hover:bg-blue-50 hover:text-blue-600 transition-all"
                         >

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MapPinned, Plus, RefreshCw } from 'lucide-react';
 import TrainManagementPageShell from '../components/TrainManagementPageShell';
 import { getStopPointTypeLabel, TRAIN_STOP_POINT_TYPES } from '../utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createTrainStopPoint,
   deleteTrainStopPoint,
@@ -78,9 +79,11 @@ const TrainStopPointsPage = () => {
     }
   };
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, []);
+    loadDataRef.current();
+  }, [loadDataRef]);
 
   const handleCreateNew = () => {
     setSelectedId('');
@@ -115,7 +118,7 @@ const TrainStopPointsPage = () => {
         setNotice('Đã tạo ga tàu mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được ga tàu.');
     } finally {
@@ -136,7 +139,7 @@ const TrainStopPointsPage = () => {
         setNotice('Đã ẩn ga tàu.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái ga tàu.');
     }

@@ -3,6 +3,7 @@ import { RefreshCw, ShieldCheck } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import TrainManagementPageShell from '../components/TrainManagementPageShell';
 import { formatDateTime } from '../utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   listTrainManagerSeatHolds,
   listTrainTrips,
@@ -47,6 +48,8 @@ const TrainSeatHoldsPage = () => {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
+  const loadHoldsRef = useLatestRef(loadHolds);
+
   useEffect(() => {
     let active = true;
 
@@ -72,7 +75,7 @@ const TrainSeatHoldsPage = () => {
     return () => {
       active = false;
     };
-  }, []);
+  }, [selectedTripId]);
 
   const loadHolds = async () => {
     if (!selectedTripId) {
@@ -95,8 +98,8 @@ const TrainSeatHoldsPage = () => {
   };
 
   useEffect(() => {
-    loadHolds();
-  }, [selectedTripId, includeExpired]);
+    loadHoldsRef.current();
+  }, [selectedTripId, includeExpired, loadHoldsRef]);
 
   const handleRelease = async (holdToken) => {
     setError('');
@@ -105,7 +108,7 @@ const TrainSeatHoldsPage = () => {
     try {
       await releaseTrainManagerSeatHold(holdToken);
       setNotice('Đã giải phóng lượt giữ chỗ.');
-      await loadHolds();
+      await loadHoldsRef.current();
     } catch (err) {
       setError(err.message || 'Không giải phóng được lượt giữ chỗ.');
     }

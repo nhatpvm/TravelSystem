@@ -230,7 +230,7 @@ const BlogClassicPage = () => {
                       <div>
                         <div className="flex items-center gap-2 text-[#1EB4D4] text-[10px] font-black uppercase mb-1">
                           <Calendar size={12} />
-                          <span>{new Intl.DateTimeFormat('vi-VN').format(new Date(post.publishedAt || Date.now()))}</span>
+                          <span>{new Intl.DateTimeFormat('vi-VN').format(new Date(post.publishedAt || 0))}</span>
                         </div>
                         <h4 className="text-sm font-black text-gray-900 group-hover:text-[#1EB4D4] transition-colors leading-tight">
                           {post.title}

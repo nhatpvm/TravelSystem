@@ -5,6 +5,7 @@ import useCmsWorkspaceData from '../hooks/useCmsWorkspaceData';
 import { getCmsSiteSettings, upsertCmsSiteSettings } from '../../../services/cmsService';
 import { uploadManagerImage } from '../../../services/portalUploadService';
 import ImageUploadField from '../../../shared/components/forms/ImageUploadField';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 function buildEmptySiteSettings() {
   return {
@@ -40,13 +41,15 @@ const CmsSiteSettingsPage = ({ mode = 'admin' }) => {
   const [notice, setNotice] = useState('');
   const [form, setForm] = useState(buildEmptySiteSettings());
 
+  const loadSiteSettingsRef = useLatestRef(loadSiteSettings);
+
   useEffect(() => {
     if (!tenantId) {
       return;
     }
 
-    loadSiteSettings();
-  }, [tenantId]);
+    loadSiteSettingsRef.current();
+  }, [loadSiteSettingsRef, tenantId]);
 
   async function loadSiteSettings() {
     if (!tenantId) {
@@ -89,7 +92,7 @@ const CmsSiteSettingsPage = ({ mode = 'admin' }) => {
     try {
       await upsertCmsSiteSettings(form, tenantId);
       setNotice('Thông tin SEO của site đã được cập nhật.');
-      await loadSiteSettings();
+      await loadSiteSettingsRef.current();
     } catch (err) {
       setError(err.message || 'Không thể lưu cấu hình site.');
     } finally {

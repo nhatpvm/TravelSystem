@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Plus, RefreshCw, WandSparkles } from 'lucide-react';
 import FlightModeShell from '../components/FlightModeShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createAdminManagedFlightCabinSeatMap,
   createManagedFlightCabinSeatMap,
@@ -136,9 +137,11 @@ export default function FlightCabinSeatMapsPage({ mode = 'tenant', adminScope = 
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   const aircraftModelLookup = useMemo(
     () => Object.fromEntries(aircraftModels.map((item) => [item.id, item])),
@@ -169,7 +172,7 @@ export default function FlightCabinSeatMapsPage({ mode = 'tenant', adminScope = 
         await createFn(payload);
         setNotice('Đã tạo sơ đồ cabin mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được sơ đồ cabin.');
     } finally {
@@ -189,7 +192,7 @@ export default function FlightCabinSeatMapsPage({ mode = 'tenant', adminScope = 
         await deleteFn(item.id);
         setNotice('Đã ẩn sơ đồ cabin.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái sơ đồ cabin.');
     }
@@ -214,7 +217,7 @@ export default function FlightCabinSeatMapsPage({ mode = 'tenant', adminScope = 
         defaultPriceModifier: 0,
       });
       setNotice('Đã sinh lại danh sách ghế cho sơ đồ cabin.');
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không sinh được danh sách ghế.');
     } finally {

@@ -30,6 +30,7 @@ public sealed class TourPackageCancellationServiceTests
             isAdmin: false);
 
         var booking = await context.TourPackageBookings
+            .IgnoreQueryFilters()
             .Include(x => x.Items)
             .FirstAsync(x => x.Id == seeded.BookingId);
 
@@ -99,7 +100,9 @@ public sealed class TourPackageCancellationServiceTests
             seeded.UserId,
             isAdmin: true);
 
-        var bookingItem = await context.TourPackageBookingItems.FirstAsync(x => x.Id == seeded.FirstBookingItemId);
+        var bookingItem = await context.TourPackageBookingItems
+            .IgnoreQueryFilters()
+            .FirstAsync(x => x.Id == seeded.FirstBookingItemId);
 
         Assert.Equal(TourPackageCancellationStatus.Completed, result.Cancellation.Status);
         Assert.True(result.Cancellation.IsAdminOverride);
@@ -160,7 +163,9 @@ public sealed class TourPackageCancellationServiceTests
     {
         var tenantId = Guid.NewGuid();
         var userId = Guid.NewGuid();
-        var now = new DateTimeOffset(2026, 4, 2, 8, 0, 0, TimeSpan.Zero);
+        var now = DateTimeOffset.UtcNow;
+        var departureDate = DateOnly.FromDateTime(now.UtcDateTime.Date).AddDays(5);
+        var returnDate = departureDate.AddDays(1);
 
         var tourId = Guid.NewGuid();
         var scheduleId = Guid.NewGuid();
@@ -195,8 +200,8 @@ public sealed class TourPackageCancellationServiceTests
             TenantId = tenantId,
             TourId = tourId,
             Code = "SCH-01",
-            DepartureDate = new DateOnly(2026, 4, 7),
-            ReturnDate = new DateOnly(2026, 4, 8),
+            DepartureDate = departureDate,
+            ReturnDate = returnDate,
             Status = TourScheduleStatus.Open,
             IsActive = true,
             CreatedAt = now

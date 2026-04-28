@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import BusManagementPageShell from '../components/BusManagementPageShell';
 import { getSeatStatusClass, getSeatStatusLabel } from '../utils/presentation';
 import { getBusManagerTripSeats, listBusTrips, listBusTripStopTimes } from '../../../../services/busService';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 function buildSeatGrid(seatMap, seats) {
   const totalRows = Number(seatMap?.totalRows || 0);
@@ -42,6 +43,8 @@ const BusTripSeatsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const loadSeatsRef = useLatestRef(loadSeats);
+
   useEffect(() => {
     let active = true;
 
@@ -66,7 +69,7 @@ const BusTripSeatsPage = () => {
     return () => {
       active = false;
     };
-  }, []);
+  }, [selectedTripId]);
 
   useEffect(() => {
     if (!selectedTripId) {
@@ -119,8 +122,8 @@ const BusTripSeatsPage = () => {
   };
 
   useEffect(() => {
-    loadSeats();
-  }, [selectedTripId, fromTripStopTimeId, toTripStopTimeId]);
+    loadSeatsRef.current();
+  }, [selectedTripId, fromTripStopTimeId, toTripStopTimeId, loadSeatsRef]);
 
   const seats = seatData?.seats || [];
   const seatGroups = buildSeatGrid(seatData?.seatMap, seats);

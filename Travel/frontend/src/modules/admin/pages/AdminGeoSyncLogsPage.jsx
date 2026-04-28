@@ -3,6 +3,7 @@ import { RefreshCw } from 'lucide-react';
 import MasterDataPageShell from '../master-data/components/MasterDataPageShell';
 import { formatDateTime, getGeoLogStatusClass, getGeoLogStatusLabel } from '../master-data/utils/options';
 import { getGeoSyncLog, listGeoSyncLogs } from '../../../services/masterDataService';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const AdminGeoSyncLogsPage = () => {
   const [logs, setLogs] = useState([]);
@@ -13,9 +14,11 @@ const AdminGeoSyncLogsPage = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedLog, setSelectedLog] = useState(null);
 
+  const loadLogsRef = useLatestRef(loadLogs);
+
   useEffect(() => {
-    loadLogs();
-  }, [statusFilter]);
+    loadLogsRef.current();
+  }, [loadLogsRef, statusFilter]);
 
   async function loadLogs() {
     setLoading(true);

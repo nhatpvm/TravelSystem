@@ -7,6 +7,7 @@ import { listPublicHotels } from '../../../services/hotelService';
 import { trackRecentSearch } from '../../../services/customerCommerceService';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import { formatCurrency } from '../../tenant/hotel/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 function estimateNightlyPrice(hotel) {
   return hotel.starRating >= 5 ? 2800000 : hotel.starRating >= 4 ? 1800000 : 1200000;
@@ -48,9 +49,11 @@ export default function HotelResultsPage() {
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, []);
+    loadDataRef.current();
+  }, [loadDataRef]);
 
   const filteredItems = useMemo(() => {
     let nextItems = items;
@@ -95,7 +98,7 @@ export default function HotelResultsPage() {
   function handleSearch(event) {
     event.preventDefault();
     setSearchParams(Object.fromEntries(Object.entries(filters).filter(([, value]) => value)));
-    loadData();
+    loadDataRef.current();
   }
 
   return (

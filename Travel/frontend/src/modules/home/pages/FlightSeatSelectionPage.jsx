@@ -35,27 +35,23 @@ export default function FlightSeatSelectionPage() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const session = useAuthSession();
+  const offerId = searchParams.get('offerId') || '';
+  const missingOfferId = !offerId;
   const [offerDetail, setOfferDetail] = useState(null);
   const [seatMap, setSeatMap] = useState(null);
   const [ancillaries, setAncillaries] = useState([]);
   const [selectedSegmentIndex, setSelectedSegmentIndex] = useState(0);
   const [selectedSeatId, setSelectedSeatId] = useState('');
   const [selectedAncillaryIds, setSelectedAncillaryIds] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !missingOfferId);
   const [error, setError] = useState('');
-
-  const offerId = searchParams.get('offerId') || '';
 
   useEffect(() => {
     if (!offerId) {
-      setError('Thiếu thông tin offer chuyến bay để chọn ghế.');
-      setLoading(false);
       return undefined;
     }
 
     let active = true;
-    setLoading(true);
-    setError('');
 
     Promise.all([
       getFlightOfferDetails(offerId),
@@ -70,6 +66,7 @@ export default function FlightSeatSelectionPage() {
         setOfferDetail(detailResponse);
         setSeatMap(seatMapResponse);
         setAncillaries(Array.isArray(ancillaryResponse?.items) ? ancillaryResponse.items : []);
+        setError('');
       })
       .catch((requestError) => {
         if (active) {
@@ -111,6 +108,7 @@ export default function FlightSeatSelectionPage() {
   const ancillaryItems = useMemo(() => ancillaries.filter((item) => item.isActive !== false), [ancillaries]);
   const selectedAncillaries = ancillaryItems.filter((item) => selectedAncillaryIds.includes(item.id));
   const ancillaryTotal = selectedAncillaries.reduce((sum, item) => sum + Number(item.price || 0), 0);
+  const displayError = missingOfferId ? 'Thiếu thông tin offer chuyến bay để chọn ghế.' : error;
   const seatTotal = Number(selectedSeat?.priceModifier || 0);
   const totalPrice = Number(offerDetail?.offer?.totalPrice || 0) + ancillaryTotal + seatTotal;
 
@@ -183,9 +181,9 @@ export default function FlightSeatSelectionPage() {
             <div className="bg-white p-12 rounded-[3.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 text-center text-sm font-bold text-slate-500">
               Đang tải sơ đồ ghế...
             </div>
-          ) : error ? (
+          ) : displayError ? (
             <div className="bg-white p-12 rounded-[3.5rem] shadow-sm border border-rose-100 text-center text-sm font-bold text-rose-600">
-              {error}
+              {displayError}
             </div>
           ) : (
             <div className="flex flex-col lg:flex-row gap-12">

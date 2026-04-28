@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Plus, RefreshCw } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import FlightModeShell from '../components/FlightModeShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createAdminFlightOfferTaxFeeLine,
   createFlightOfferTaxFeeLine,
@@ -135,9 +136,11 @@ export default function FlightOfferTaxFeeLinesPage({ mode = 'tenant', adminScope
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId, selectedOfferId]);
+    loadDataRef.current();
+  }, [isAdmin, tenantId, selectedOfferId, loadDataRef]);
 
   const offerLookup = useMemo(
     () => Object.fromEntries(offers.map((item) => [item.id, item])),
@@ -168,7 +171,7 @@ export default function FlightOfferTaxFeeLinesPage({ mode = 'tenant', adminScope
         await createFn(payload);
         setNotice('Đã tạo dòng thuế/phí mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được dòng thuế/phí.');
     } finally {
@@ -188,7 +191,7 @@ export default function FlightOfferTaxFeeLinesPage({ mode = 'tenant', adminScope
         await deleteFn(item.id);
         setNotice('Đã ẩn dòng thuế/phí.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái dòng thuế/phí.');
     }

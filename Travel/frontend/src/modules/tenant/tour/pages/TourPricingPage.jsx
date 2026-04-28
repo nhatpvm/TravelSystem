@@ -13,6 +13,7 @@ import {
 import { formatCurrency, getPriceTypeLabel } from '../../../tours/utils/presentation';
 import { PRICE_TYPE_OPTIONS, toNullableNumber, toNullableText, toNumberOrDefault, updateSearchParams } from '../utils/options';
 import { getTourManagementSectionPath } from '../utils/navigation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 const EMPTY_FORM = {
   priceType: 1,
@@ -76,28 +77,32 @@ export default function TourPricingPage() {
   const selectedScheduleId = searchParams.get('scheduleId') || '';
   const selectedPriceId = searchParams.get('priceId') || '';
 
+  const loadToursRef = useLatestRef(loadTours);
+  const loadSchedulesRef = useLatestRef(loadSchedules);
+  const loadPricesRef = useLatestRef(loadPrices);
+
   useEffect(() => {
-    loadTours();
-  }, []);
+    loadToursRef.current();
+  }, [loadToursRef]);
 
   useEffect(() => {
     if (selectedTourId) {
-      loadSchedules(selectedTourId);
+      loadSchedulesRef.current(selectedTourId);
     } else {
       setSchedules([]);
       setPrices([]);
     }
-  }, [selectedTourId]);
+  }, [loadSchedulesRef, selectedTourId]);
 
   useEffect(() => {
     if (selectedTourId && selectedScheduleId) {
-      loadPrices(selectedTourId, selectedScheduleId);
+      loadPricesRef.current(selectedTourId, selectedScheduleId);
     } else {
       setPrices([]);
       setSelectedPrice(null);
       setForm(EMPTY_FORM);
     }
-  }, [selectedTourId, selectedScheduleId]);
+  }, [selectedTourId, selectedScheduleId, loadPricesRef]);
 
   useEffect(() => {
     const price = prices.find((item) => item.id === selectedPriceId) || null;
@@ -220,7 +225,7 @@ export default function TourPricingPage() {
         updateSearchParams(setSearchParams, { priceId: created.id });
       }
 
-      await loadPrices(selectedTourId, selectedScheduleId);
+      await loadPricesRef.current(selectedTourId, selectedScheduleId);
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu mức giá.');
     } finally {
@@ -235,7 +240,7 @@ export default function TourPricingPage() {
     try {
       await toggleManagerTourPriceAction(selectedTourId, selectedScheduleId, price.id, action);
       setNotice('Đã cập nhật trạng thái mức giá.');
-      await loadPrices(selectedTourId, selectedScheduleId);
+      await loadPricesRef.current(selectedTourId, selectedScheduleId);
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật mức giá.');
     }

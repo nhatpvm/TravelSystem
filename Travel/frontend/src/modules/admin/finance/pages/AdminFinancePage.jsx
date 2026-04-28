@@ -52,11 +52,17 @@ export default function AdminFinancePage() {
     loadFinance();
   }, []);
 
-  const paymentSummary = finance.payments.summary || {};
-  const refundSummary = finance.refunds.summary || {};
-  const settlementSummary = finance.settlements.summary || {};
-  const batches = Array.isArray(finance.settlements.batches) ? finance.settlements.batches : [];
-  const payouts = Array.isArray(finance.settlements.payouts) ? finance.settlements.payouts : [];
+  const paymentSummary = useMemo(() => finance.payments.summary || {}, [finance.payments.summary]);
+  const refundSummary = useMemo(() => finance.refunds.summary || {}, [finance.refunds.summary]);
+  const settlementSummary = useMemo(() => finance.settlements.summary || {}, [finance.settlements.summary]);
+  const batches = useMemo(
+    () => (Array.isArray(finance.settlements.batches) ? finance.settlements.batches : []),
+    [finance.settlements.batches],
+  );
+  const payouts = useMemo(
+    () => (Array.isArray(finance.settlements.payouts) ? finance.settlements.payouts : []),
+    [finance.settlements.payouts],
+  );
 
   const stats = useMemo(() => ([
     {

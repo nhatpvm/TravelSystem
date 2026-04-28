@@ -65,8 +65,8 @@ public sealed class TourPackageSourceCancellationAdapterTests
         var adapter = new HotelTourPackageCancellationAdapter(context);
         var result = await adapter.CancelAsync(CreateRequest(TourPackageSourceType.Hotel, "hotel-token", now));
 
-        var inventories = await context.RoomTypeInventories.OrderBy(x => x.Date).ToListAsync();
-        var hold = await context.InventoryHolds.SingleAsync();
+        var inventories = await context.RoomTypeInventories.IgnoreQueryFilters().OrderBy(x => x.Date).ToListAsync();
+        var hold = await context.InventoryHolds.IgnoreQueryFilters().SingleAsync();
 
         Assert.Equal(TourPackageSourceCancellationOutcomeStatus.Cancelled, result.Status);
         Assert.All(inventories, x => Assert.Equal(0, x.SoldUnits));

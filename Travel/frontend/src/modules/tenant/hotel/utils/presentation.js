@@ -1,4 +1,4 @@
-import { getCustomerCurrency, getCustomerLocale } from '../../../../services/customerPreferences';
+﻿import { getCustomerCurrency, getCustomerLocale } from '../../../../services/customerPreferences';
 
 export const HOTEL_STATUS_OPTIONS = [
   { value: 1, label: 'Nháp', name: 'Draft' },
@@ -79,7 +79,7 @@ export function formatCurrency(value, currency = 'VND') {
       currency: resolvedCurrency,
       maximumFractionDigits: 0,
     }).format(amount);
-  } catch (error) {
+  } catch {
     return `${amount.toLocaleString('vi-VN')} đ`;
   }
 }
@@ -130,7 +130,7 @@ export function readJsonInput(value, fallback = []) {
   if (!value || !String(value).trim()) return fallback;
   try {
     return JSON.parse(value);
-  } catch (error) {
+  } catch {
     throw new Error('JSON không hợp lệ.');
   }
 }
@@ -140,7 +140,7 @@ export function toPrettyJson(value) {
   if (typeof value === 'string') {
     try {
       return JSON.stringify(JSON.parse(value), null, 2);
-    } catch (error) {
+    } catch {
       return value;
     }
   }

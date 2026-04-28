@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Plus, RefreshCw, PhoneCall } from 'lucide-react';
 import AdminHotelPageShell from '../hotel/components/AdminHotelPageShell';
 import useAdminHotelScope from '../hotel/hooks/useAdminHotelScope';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createAdminHotelContact,
   deleteAdminHotelContact,
@@ -122,9 +123,11 @@ export default function AdminHotelContactsPage() {
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [tenantId]);
+    loadDataRef.current();
+  }, [loadDataRef, tenantId]);
 
   const filteredItems = useMemo(
     () => items.filter((item) => !selectedHotelId || item.hotelId === selectedHotelId),
@@ -164,7 +167,7 @@ export default function AdminHotelContactsPage() {
         setNotice('Đã tạo liên hệ khách sạn mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu liên hệ khách sạn.');
     } finally {
@@ -181,7 +184,7 @@ export default function AdminHotelContactsPage() {
         await deleteAdminHotelContact(item.id, tenantId);
         setNotice('Đã ẩn liên hệ khách sạn.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật trạng thái liên hệ.');
     }
@@ -191,7 +194,7 @@ export default function AdminHotelContactsPage() {
     try {
       await setAdminHotelContactPrimary(item.id, tenantId);
       setNotice('Đã cập nhật liên hệ chính.');
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể đặt liên hệ chính.');
     }

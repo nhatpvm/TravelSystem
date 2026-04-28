@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link2, Plus, RotateCcw, Search, Shield, Trash2, Edit3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createRolePermission,
   deleteRolePermission,
@@ -31,13 +32,15 @@ export default function AdminRolePermissionsPage() {
   const [saving, setSaving] = useState(false);
   const [actionLoadingId, setActionLoadingId] = useState('');
 
+  const loadItemsRef = useLatestRef(loadItems);
+
   useEffect(() => {
     loadBootstrap();
   }, []);
 
   useEffect(() => {
-    loadItems();
-  }, [search, roleId, includeDeleted]);
+    loadItemsRef.current();
+  }, [search, roleId, includeDeleted, loadItemsRef]);
 
   const stats = useMemo(() => ([
     { label: 'Tổng ánh xạ', value: items.length, color: 'bg-slate-900 text-white' },
@@ -112,7 +115,7 @@ export default function AdminRolePermissionsPage() {
       }
 
       startCreate();
-      await loadItems();
+      await loadItemsRef.current();
     } catch (err) {
       setError(err.message || 'Không thể lưu ánh xạ vai trò.');
     } finally {
@@ -128,7 +131,7 @@ export default function AdminRolePermissionsPage() {
     try {
       await deleteRolePermission(item.id);
       setNotice('Đã xoá mềm ánh xạ vai trò.');
-      await loadItems();
+      await loadItemsRef.current();
     } catch (err) {
       setError(err.message || 'Không thể xoá ánh xạ vai trò.');
     } finally {
@@ -144,7 +147,7 @@ export default function AdminRolePermissionsPage() {
     try {
       await restoreRolePermission(item.id);
       setNotice('Ánh xạ vai trò đã được khôi phục.');
-      await loadItems();
+      await loadItemsRef.current();
     } catch (err) {
       setError(err.message || 'Không thể khôi phục ánh xạ vai trò.');
     } finally {

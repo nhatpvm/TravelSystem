@@ -16,6 +16,7 @@ import {
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createCustomerSupportTicket,
   listCustomerSupportTickets,
@@ -78,6 +79,8 @@ export default function SupportPage() {
   const [success, setSuccess] = useState('');
   const [searchCode, setSearchCode] = useState('');
   const [openFaq, setOpenFaq] = useState(null);
+
+  const loadTicketsRef = useLatestRef(loadTickets);
 
   useEffect(() => {
     const tabParam = searchParams.get('tab');
@@ -143,8 +146,8 @@ export default function SupportPage() {
       return;
     }
 
-    loadTickets();
-  }, [isAuthenticated, isReady]);
+    loadTicketsRef.current();
+  }, [isAuthenticated, isReady, loadTicketsRef]);
 
   const filteredTickets = useMemo(() => {
     if (!searchCode.trim()) {
@@ -188,7 +191,7 @@ export default function SupportPage() {
         contactEmail: current.contactEmail,
         contactPhone: current.contactPhone,
       }));
-      await loadTickets();
+      await loadTicketsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể gửi yêu cầu hỗ trợ.');
     } finally {
@@ -420,7 +423,7 @@ export default function SupportPage() {
                       </div>
                       <button
                         type="button"
-                        onClick={() => loadTickets(searchCode.trim())}
+                        onClick={() => loadTicketsRef.current(searchCode.trim())}
                         className="px-6 py-4 bg-slate-900 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-[#1EB4D4] transition-all"
                       >
                         Tra cứu

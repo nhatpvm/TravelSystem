@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Bus, Plus, RefreshCw } from 'lucide-react';
 import BusManagementPageShell from '../components/BusManagementPageShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createBusFleetVehicle,
   deleteBusFleetVehicle,
@@ -106,9 +107,11 @@ const BusFleetVehiclesPage = () => {
     }
   };
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, []);
+    loadDataRef.current();
+  }, [loadDataRef]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -127,7 +130,7 @@ const BusFleetVehiclesPage = () => {
         setNotice('Đã tạo xe mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được xe.');
     } finally {
@@ -148,7 +151,7 @@ const BusFleetVehiclesPage = () => {
         setNotice('Đã ẩn xe.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái xe.');
     }

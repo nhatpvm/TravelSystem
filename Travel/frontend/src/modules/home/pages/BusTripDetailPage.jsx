@@ -36,26 +36,23 @@ function resolveRouteTitle(stops) {
 
 export default function BusTripDetailPage() {
   const { id } = useParams();
+  const missingTripId = !id;
   const location = useLocation();
   const navigate = useNavigate();
   const session = useAuthSession();
   const [searchParams] = useSearchParams();
   const [detail, setDetail] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !missingTripId);
   const [error, setError] = useState('');
   const [liked, setLiked] = useState(false);
   const [wishlistItemId, setWishlistItemId] = useState('');
 
   useEffect(() => {
     if (!id) {
-      setError('Không tìm thấy chuyến xe.');
-      setLoading(false);
       return undefined;
     }
 
     let active = true;
-    setLoading(true);
-    setError('');
 
     getBusTripDetail(id, {
       fromTripStopTimeId: searchParams.get('fromTripStopTimeId') || undefined,
@@ -64,6 +61,7 @@ export default function BusTripDetailPage() {
       .then((response) => {
         if (active) {
           setDetail(response);
+          setError('');
         }
       })
       .catch((err) => {
@@ -84,9 +82,7 @@ export default function BusTripDetailPage() {
 
   useEffect(() => {
     if (!session.isAuthenticated || !id) {
-      setLiked(false);
-      setWishlistItemId('');
-      return;
+      return undefined;
     }
 
     let active = true;
@@ -140,6 +136,8 @@ export default function BusTripDetailPage() {
   const stops = detail?.stops || [];
   const routeTitle = resolveRouteTitle(stops);
   const amenities = parseAmenities(detail?.vehicleDetail?.amenitiesJson);
+  const displayError = missingTripId ? 'Không tìm thấy chuyến xe.' : error;
+  const displayLiked = session.isAuthenticated && liked;
   const segmentParams = new URLSearchParams({
     tripId: detail?.trip?.id || id || '',
     fromTripStopTimeId: detail?.segment?.fromTripStopTimeId || '',
@@ -238,9 +236,9 @@ export default function BusTripDetailPage() {
             <div className="bg-white rounded-[3.5rem] p-12 shadow-sm border border-slate-100 text-center text-sm font-bold text-slate-500">
               Đang tải chi tiết chuyến xe...
             </div>
-          ) : error ? (
+          ) : displayError ? (
             <div className="bg-white rounded-[3.5rem] p-12 shadow-sm border border-rose-100 text-center text-sm font-bold text-rose-600">
-              {error}
+              {displayError}
             </div>
           ) : (
             <motion.div
@@ -357,9 +355,9 @@ export default function BusTripDetailPage() {
                       <button
                         type="button"
                         onClick={handleToggleWishlist}
-                        className={`absolute right-0 top-0 w-12 h-12 rounded-2xl border transition-all flex items-center justify-center ${liked ? 'bg-rose-500 border-rose-500 text-white' : 'bg-white border-slate-100 text-slate-400 hover:border-rose-200 hover:text-rose-500'}`}
+                        className={`absolute right-0 top-0 w-12 h-12 rounded-2xl border transition-all flex items-center justify-center ${displayLiked ? 'bg-rose-500 border-rose-500 text-white' : 'bg-white border-slate-100 text-slate-400 hover:border-rose-200 hover:text-rose-500'}`}
                       >
-                        <Heart size={18} className={liked ? 'fill-white' : ''} />
+                        <Heart size={18} className={displayLiked ? 'fill-white' : ''} />
                       </button>
                       <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-2">Giá từ</p>
                       <div className="flex items-baseline gap-2 mb-8">

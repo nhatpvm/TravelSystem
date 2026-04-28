@@ -52,13 +52,13 @@ const BlogDetailsPage = () => {
   }, [location.search, routeSlug]);
   const [payload, setPayload] = useState(null);
   const [categories, setCategories] = useState([]);
+  const activePayload = slug ? payload : null;
 
-  useCmsSeoMeta(payload?.seo, payload?.post?.title || 'Chi tiết bài viết');
+  useCmsSeoMeta(activePayload?.seo, activePayload?.post?.title || 'Chi tiết bài viết');
 
   useEffect(() => {
     if (!slug) {
-      setPayload(null);
-      return;
+      return undefined;
     }
 
     let mounted = true;
@@ -84,7 +84,7 @@ const BlogDetailsPage = () => {
     };
   }, [slug]);
 
-  const post = payload?.post;
+  const post = activePayload?.post;
   const badge = toDateBadge(post?.publishedAt);
 
   return (
@@ -169,7 +169,7 @@ const BlogDetailsPage = () => {
 
                   <div className="flex flex-col md:flex-row justify-between items-center gap-8 border-y border-gray-100 py-10 mt-16">
                     <div className="flex gap-4 flex-wrap">
-                      {(payload.tags || []).map((item) => (
+                      {(activePayload.tags || []).map((item) => (
                         <Link key={item.id} to={`/blog/tag/${item.slug}`} className="px-8 py-3 rounded-xl border border-gray-100 text-gray-500 text-xs font-black uppercase tracking-widest hover:bg-[#1EB4D4] hover:text-white transition-all">
                           {item.name}
                         </Link>
@@ -274,7 +274,7 @@ const BlogDetailsPage = () => {
               <div className="bg-white border border-gray-100 rounded-[2rem] p-8 shadow-sm">
                 <h3 className="text-xl font-black text-gray-900 mb-8 border-b border-gray-50 pb-4">Bài viết mới nhất</h3>
                 <div className="space-y-8">
-                  {(payload?.latestPosts || []).map((latest) => (
+                  {(activePayload?.latestPosts || []).map((latest) => (
                     <Link key={latest.id} to={`/blog/${latest.slug}`} className="flex gap-4 group cursor-pointer">
                       <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0">
                         <img src={latest.coverImageUrl || 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=150'} alt={latest.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
@@ -282,7 +282,7 @@ const BlogDetailsPage = () => {
                       <div>
                         <div className="flex items-center gap-2 text-[#1EB4D4] text-[10px] font-black uppercase mb-1">
                           <Calendar size={12} />
-                          <span>{new Intl.DateTimeFormat('vi-VN').format(new Date(latest.publishedAt || Date.now()))}</span>
+                          <span>{new Intl.DateTimeFormat('vi-VN').format(new Date(latest.publishedAt || 0))}</span>
                         </div>
                         <h4 className="text-sm font-black text-gray-900 group-hover:text-[#1EB4D4] transition-colors leading-tight">
                           {latest.title}
@@ -296,7 +296,7 @@ const BlogDetailsPage = () => {
               <div className="bg-white border border-gray-100 rounded-[2rem] p-8 shadow-sm">
                 <h3 className="text-xl font-black text-gray-900 mb-8 border-b border-gray-50 pb-4">Từ khóa</h3>
                 <div className="flex flex-wrap gap-3">
-                  {(payload?.tags || []).map((item) => (
+                  {(activePayload?.tags || []).map((item) => (
                     <Link key={item.id} to={`/blog/tag/${item.slug}`} className="px-5 py-2 rounded-lg bg-white border border-gray-100 text-gray-500 text-xs font-bold hover:bg-[#1EB4D4] hover:text-white hover:border-[#1EB4D4] transition-all">
                       {item.name}
                     </Link>

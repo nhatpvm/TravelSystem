@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Building2, Edit2, Globe2, Plus, RefreshCw, RotateCcw, Search, Trash2 } from 'lucide-react';
 import MasterDataPageShell from '../master-data/components/MasterDataPageShell';
 import useAdminMasterDataScope from '../master-data/hooks/useAdminMasterDataScope';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createProvider,
   deleteProvider,
@@ -105,6 +106,11 @@ const AdminProvidersPage = () => {
     [items, selectedId],
   );
 
+  const loadLocationOptionsRef = useLatestRef(loadLocationOptions);
+  const loadProvidersRef = useLatestRef(loadProviders);
+  const loadDistrictsRef = useLatestRef(loadDistricts);
+  const loadWardsRef = useLatestRef(loadWards);
+
   useEffect(() => {
     loadProvinces();
   }, []);
@@ -114,9 +120,9 @@ const AdminProvidersPage = () => {
       return;
     }
 
-    loadProviders();
-    loadLocationOptions();
-  }, [tenantId, search, typeFilter, includeDeleted]);
+    loadProvidersRef.current();
+    loadLocationOptionsRef.current();
+  }, [tenantId, search, typeFilter, includeDeleted, loadProvidersRef, loadLocationOptionsRef]);
 
   useEffect(() => {
     if (!form.provinceId) {
@@ -125,8 +131,8 @@ const AdminProvidersPage = () => {
       return;
     }
 
-    loadDistricts(form.provinceId);
-  }, [form.provinceId]);
+    loadDistrictsRef.current(form.provinceId);
+  }, [form.provinceId, loadDistrictsRef]);
 
   useEffect(() => {
     if (!form.districtId) {
@@ -134,8 +140,8 @@ const AdminProvidersPage = () => {
       return;
     }
 
-    loadWards(form.districtId);
-  }, [form.districtId]);
+    loadWardsRef.current(form.districtId);
+  }, [form.districtId, loadWardsRef]);
 
   async function loadProviders() {
     if (!tenantId) {
@@ -290,8 +296,8 @@ const AdminProvidersPage = () => {
       }
 
       resetForm();
-      await loadProviders();
-      await loadLocationOptions();
+      await loadProvidersRef.current();
+      await loadLocationOptionsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu đối tác.');
     } finally {
@@ -320,7 +326,7 @@ const AdminProvidersPage = () => {
         resetForm();
       }
 
-      await loadProviders();
+      await loadProvidersRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật đối tác.');
     }

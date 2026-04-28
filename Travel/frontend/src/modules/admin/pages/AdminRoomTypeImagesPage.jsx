@@ -14,6 +14,7 @@ import {
   updateAdminRoomTypeImage,
 } from '../../../services/hotelService';
 import { uploadAdminImage } from '../../../services/adminUploadService';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 function createEmptyForm(roomTypeId = '') {
   return {
@@ -116,9 +117,11 @@ export default function AdminRoomTypeImagesPage() {
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [tenantId]);
+    loadDataRef.current();
+  }, [loadDataRef, tenantId]);
 
   const roomTypeLookup = useMemo(
     () => Object.fromEntries(roomTypes.map((item) => [item.id, item])),
@@ -185,7 +188,7 @@ export default function AdminRoomTypeImagesPage() {
         await createAdminRoomTypeImage(payload, tenantId);
         setNotice('Đã tạo ảnh hạng phòng mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu ảnh hạng phòng.');
     } finally {
@@ -202,7 +205,7 @@ export default function AdminRoomTypeImagesPage() {
         await deleteAdminRoomTypeImage(item.id, tenantId);
         setNotice('Đã ẩn ảnh hạng phòng.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật trạng thái ảnh hạng phòng.');
     }
@@ -212,7 +215,7 @@ export default function AdminRoomTypeImagesPage() {
     try {
       await setAdminRoomTypeImagePrimary(item.id, tenantId);
       setNotice('Đã cập nhật ảnh đại diện cho hạng phòng.');
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể đặt ảnh đại diện hạng phòng.');
     }

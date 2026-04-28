@@ -3,6 +3,7 @@ import { Armchair, RefreshCw } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import TrainManagementPageShell from '../components/TrainManagementPageShell';
 import { getSeatStatusClass, getSeatStatusLabel } from '../utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   getTrainManagerTripSeats,
   listTrainTrips,
@@ -60,6 +61,8 @@ const TrainTripSeatsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const loadSeatsRef = useLatestRef(loadSeats);
+
   useEffect(() => {
     let active = true;
 
@@ -85,7 +88,7 @@ const TrainTripSeatsPage = () => {
     return () => {
       active = false;
     };
-  }, []);
+  }, [selectedTripId]);
 
   useEffect(() => {
     if (!selectedTripId) {
@@ -142,8 +145,8 @@ const TrainTripSeatsPage = () => {
   };
 
   useEffect(() => {
-    loadSeats();
-  }, [selectedTripId, fromTripStopTimeId, toTripStopTimeId]);
+    loadSeatsRef.current();
+  }, [selectedTripId, fromTripStopTimeId, toTripStopTimeId, loadSeatsRef]);
 
   const stopTimeLookup = useMemo(
     () => Object.fromEntries(stopTimes.map((item) => [item.id, item])),

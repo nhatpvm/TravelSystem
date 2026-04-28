@@ -38,22 +38,19 @@ function getStatusToneClass(value) {
 export default function TicketPage() {
   const [searchParams] = useSearchParams();
   const orderCode = searchParams.get('orderCode') || '';
+  const missingOrderCode = !orderCode;
   const [order, setOrder] = useState(null);
   const [ticket, setTicket] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !missingOrderCode);
   const [error, setError] = useState('');
   const [copyMessage, setCopyMessage] = useState('');
 
   useEffect(() => {
     if (!orderCode) {
-      setLoading(false);
-      setError('Thiếu mã đơn hàng để hiển thị vé.');
-      return;
+      return undefined;
     }
 
     let active = true;
-    setLoading(true);
-    setError('');
 
     Promise.all([
       getCustomerOrder(orderCode),
@@ -66,6 +63,7 @@ export default function TicketPage() {
 
         setOrder(orderResponse);
         setTicket(ticketResponse);
+        setError('');
       })
       .catch((requestError) => {
         if (!active) {
@@ -96,6 +94,7 @@ export default function TicketPage() {
 
   const snapshot = useMemo(() => getOrderSnapshot(order), [order]);
   const ticketSnapshot = ticket?.snapshot || {};
+  const displayError = missingOrderCode ? 'Thiếu mã đơn hàng để hiển thị vé.' : error;
   const title = ticket?.title || snapshot?.title || order?.orderCode || 'Vé điện tử';
   const subtitle = ticket?.subtitle || snapshot?.subtitle || snapshot?.providerName || '';
   const departureText = snapshot?.departureAt ? formatDateTime(snapshot.departureAt) : '--';
@@ -124,9 +123,9 @@ export default function TicketPage() {
             <div className="bg-white rounded-[3rem] shadow-xl p-12 text-center text-sm font-bold text-slate-400 border border-slate-100">
               Đang tải vé điện tử...
             </div>
-          ) : error ? (
+          ) : displayError ? (
             <div className="bg-rose-50 rounded-[3rem] shadow-sm p-12 text-center text-sm font-bold text-rose-600 border border-rose-100">
-              {error}
+              {displayError}
             </div>
           ) : (
             <>

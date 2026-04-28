@@ -3,6 +3,7 @@ import { Clock3, Plus, RefreshCw } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import TrainManagementPageShell from '../components/TrainManagementPageShell';
 import { formatDateTime, toApiDateTimeValue, toDateTimeInputValue } from '../utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createTrainTripStopTime,
   generateTrainTripStopTimesFromRoute,
@@ -49,6 +50,8 @@ const TrainTripStopTimesPage = () => {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
+  const loadStopTimesRef = useLatestRef(loadStopTimes);
+
   useEffect(() => {
     let active = true;
 
@@ -74,7 +77,7 @@ const TrainTripStopTimesPage = () => {
     return () => {
       active = false;
     };
-  }, []);
+  }, [selectedTripId]);
 
   const loadStopTimes = async () => {
     if (!selectedTripId) {
@@ -107,8 +110,8 @@ const TrainTripStopTimesPage = () => {
   };
 
   useEffect(() => {
-    loadStopTimes();
-  }, [selectedTripId]);
+    loadStopTimesRef.current();
+  }, [loadStopTimesRef, selectedTripId]);
 
   const handleCreateNew = () => {
     setSelectedId('');
@@ -140,7 +143,7 @@ const TrainTripStopTimesPage = () => {
         setNotice('Đã thêm lịch dừng mới.');
       }
 
-      await loadStopTimes();
+      await loadStopTimesRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được lịch dừng.');
     } finally {
@@ -163,7 +166,7 @@ const TrainTripStopTimesPage = () => {
         useRouteStopMinutes: true,
       });
       setNotice('Đã sinh lịch dừng từ tuyến đường.');
-      await loadStopTimes();
+      await loadStopTimesRef.current();
     } catch (err) {
       setError(err.message || 'Không sinh được lịch dừng từ tuyến.');
     }
@@ -182,7 +185,7 @@ const TrainTripStopTimesPage = () => {
         setNotice('Đã ẩn lịch dừng.');
       }
 
-      await loadStopTimes();
+      await loadStopTimesRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái lịch dừng.');
     }
@@ -360,7 +363,7 @@ const TrainTripStopTimesPage = () => {
           </div>
 
           <label className="space-y-2 block">
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Phút từ đầu tuyến</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Phút đi từ điểm đầu</span>
             <input
               type="number"
               value={form.minutesFromStart}

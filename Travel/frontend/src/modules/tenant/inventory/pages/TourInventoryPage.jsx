@@ -30,6 +30,7 @@ import {
   updateSearchParams,
 } from '../../tour/utils/options';
 import { getTourManagementSectionPath } from '../../tour/utils/navigation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 const EMPTY_FORM = {
   code: '',
@@ -102,9 +103,11 @@ export default function TourInventoryPage() {
 
   const selectedTourId = searchParams.get('tourId') || '';
 
+  const loadToursRef = useLatestRef(loadTours);
+
   useEffect(() => {
-    loadTours();
-  }, [statusFilter]);
+    loadToursRef.current();
+  }, [loadToursRef, statusFilter]);
 
   useEffect(() => {
     if (!selectedTourId) {
@@ -199,7 +202,7 @@ export default function TourInventoryPage() {
       const response = await uploadManagerImage(file, { scope: 'tour-cover' });
       setForm((current) => ({ ...current, coverImageUrl: response?.url || '' }));
     } catch (requestError) {
-      setError(requestError.message || 'KhÃ´ng thá»ƒ táº£i áº£nh bÃ¬a tour.');
+      setError(requestError.message || 'Không thể tải ảnh bìa tour.');
     } finally {
       setUploadingCoverImage(false);
     }
@@ -244,7 +247,7 @@ export default function TourInventoryPage() {
       } else {
         const created = await createManagerTour(payload);
         setNotice('Đã tạo tour mới.');
-        await loadTours();
+        await loadToursRef.current();
         updateSearchParams(setSearchParams, { tourId: created.id });
       }
     } catch (requestError) {
@@ -261,7 +264,7 @@ export default function TourInventoryPage() {
     try {
       await toggleManagerTourAction(tour.id, action);
       setNotice('Đã cập nhật trạng thái tour.');
-      await loadTours();
+      await loadToursRef.current();
       if (selectedTourId === tour.id) {
         await loadTourDetail(tour.id);
       }
@@ -547,9 +550,9 @@ export default function TourInventoryPage() {
                 onChange={(value) => setForm((current) => ({ ...current, coverImageUrl: value }))}
                 onUpload={handleUploadCoverImage}
                 uploading={uploadingCoverImage}
-                placeholder="URL áº£nh bÃ¬a"
-                helperText="Há»— trá»£ JPG, PNG, WEBP tá»‘i Ä‘a 10MB."
-                previewAlt={form.name || 'áº¢nh bÃ¬a tour'}
+                placeholder="URL ảnh bìa"
+                helperText="Hỗ trợ JPG, PNG, WEBP tối đa 10MB."
+                previewAlt={form.name || 'Ảnh bìa tour'}
               />
             </label>
 

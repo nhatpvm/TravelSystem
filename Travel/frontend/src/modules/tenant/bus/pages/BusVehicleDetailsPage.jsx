@@ -3,6 +3,7 @@ import { Bus, Plus, RefreshCw } from 'lucide-react';
 import BusManagementPageShell from '../components/BusManagementPageShell';
 import { createBusVehicleDetail, deleteBusVehicleDetail, getBusManagerOptions, listBusVehicleDetails, restoreBusVehicleDetail, updateBusVehicleDetail } from '../../../../services/busService';
 import { parseAmenities } from '../utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 const AMENITY_OPTIONS = ['Wifi', 'Điều hòa', 'Nước uống', 'Khăn lạnh', 'Cổng sạc', 'Chăn mền', 'Màn hình', 'Ghế massage'];
 
@@ -62,9 +63,11 @@ const BusVehicleDetailsPage = () => {
     }
   };
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, []);
+    loadDataRef.current();
+  }, [loadDataRef]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -87,7 +90,7 @@ const BusVehicleDetailsPage = () => {
         setNotice('Đã tạo chi tiết xe.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được chi tiết xe.');
     } finally {
@@ -108,7 +111,7 @@ const BusVehicleDetailsPage = () => {
         setNotice('Đã ẩn chi tiết xe.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái chi tiết xe.');
     }

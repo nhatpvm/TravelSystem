@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { BusFront, Edit2, Plus, RefreshCw, RotateCcw, Search, Trash2 } from 'lucide-react';
 import MasterDataPageShell from '../master-data/components/MasterDataPageShell';
 import useAdminMasterDataScope from '../master-data/hooks/useAdminMasterDataScope';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createVehicle,
   deleteVehicle,
@@ -117,21 +118,24 @@ const AdminVehiclesPage = () => {
     [form.vehicleType, seatMaps],
   );
 
-  useEffect(() => {
-    if (!tenantId) {
-      return;
-    }
-
-    loadReferences();
-  }, [tenantId]);
+  const loadReferencesRef = useLatestRef(loadReferences);
+  const loadItemsRef = useLatestRef(loadItems);
 
   useEffect(() => {
     if (!tenantId) {
       return;
     }
 
-    loadItems();
-  }, [tenantId, search, typeFilter, includeDeleted]);
+    loadReferencesRef.current();
+  }, [loadReferencesRef, tenantId]);
+
+  useEffect(() => {
+    if (!tenantId) {
+      return;
+    }
+
+    loadItemsRef.current();
+  }, [tenantId, search, typeFilter, includeDeleted, loadItemsRef]);
 
   async function loadReferences() {
     if (!tenantId) {
@@ -250,8 +254,8 @@ const AdminVehiclesPage = () => {
       }
 
       resetForm();
-      await loadItems();
-      await loadReferences();
+      await loadItemsRef.current();
+      await loadReferencesRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu phương tiện.');
     } finally {
@@ -280,7 +284,7 @@ const AdminVehiclesPage = () => {
         resetForm();
       }
 
-      await loadItems();
+      await loadItemsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật phương tiện.');
     }

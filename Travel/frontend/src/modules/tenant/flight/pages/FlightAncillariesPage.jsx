@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Plus, RefreshCw } from 'lucide-react';
 import FlightModeShell from '../components/FlightModeShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createAdminManagedFlightAncillary,
   createManagedFlightAncillary,
@@ -121,9 +122,11 @@ export default function FlightAncillariesPage({ mode = 'tenant', adminScope = nu
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   const airlineLookup = useMemo(
     () => Object.fromEntries(airlines.map((item) => [item.id, item])),
@@ -154,7 +157,7 @@ export default function FlightAncillariesPage({ mode = 'tenant', adminScope = nu
         await createFn(payload);
         setNotice('Đã tạo dịch vụ thêm mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được dịch vụ thêm.');
     } finally {
@@ -174,7 +177,7 @@ export default function FlightAncillariesPage({ mode = 'tenant', adminScope = nu
         await deleteFn(item.id);
         setNotice('Đã ẩn dịch vụ thêm.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái dịch vụ thêm.');
     }

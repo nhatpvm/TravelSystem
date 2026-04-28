@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Edit2, Layers3, Plus, RefreshCw, RotateCcw, Search, Trash2 } from 'lucide-react';
 import MasterDataPageShell from '../master-data/components/MasterDataPageShell';
 import useAdminMasterDataScope from '../master-data/hooks/useAdminMasterDataScope';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createVehicleModel,
   deleteVehicleModel,
@@ -62,13 +63,15 @@ const AdminVehicleModelsPage = () => {
     [items, selectedId],
   );
 
+  const loadItemsRef = useLatestRef(loadItems);
+
   useEffect(() => {
     if (!tenantId) {
       return;
     }
 
-    loadItems();
-  }, [tenantId, search, typeFilter, includeDeleted]);
+    loadItemsRef.current();
+  }, [tenantId, search, typeFilter, includeDeleted, loadItemsRef]);
 
   async function loadItems() {
     if (!tenantId) {
@@ -134,7 +137,7 @@ const AdminVehicleModelsPage = () => {
       }
 
       resetForm();
-      await loadItems();
+      await loadItemsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu mẫu phương tiện.');
     } finally {
@@ -163,7 +166,7 @@ const AdminVehicleModelsPage = () => {
         resetForm();
       }
 
-      await loadItems();
+      await loadItemsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật mẫu phương tiện.');
     }

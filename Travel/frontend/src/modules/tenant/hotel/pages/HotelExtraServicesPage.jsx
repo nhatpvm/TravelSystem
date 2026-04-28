@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Plus, RefreshCw } from 'lucide-react';
 import HotelModeShell from '../components/HotelModeShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createAdminExtraService,
   createManagedExtraService,
@@ -119,9 +120,11 @@ export default function HotelExtraServicesPage({ mode = 'tenant', adminScope = n
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   const filteredItems = useMemo(
     () => items.filter((item) => !selectedHotelId || item.hotelId === selectedHotelId),
@@ -148,7 +151,7 @@ export default function HotelExtraServicesPage({ mode = 'tenant', adminScope = n
         await createFn(payload);
         setNotice('Đã tạo dịch vụ thêm mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu dịch vụ thêm.');
     } finally {
@@ -164,7 +167,7 @@ export default function HotelExtraServicesPage({ mode = 'tenant', adminScope = n
         await deleteFn(item.id);
       }
       setNotice('Đã cập nhật trạng thái dịch vụ thêm.');
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật trạng thái dịch vụ thêm.');
     }

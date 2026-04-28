@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Plus, RefreshCw } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import FlightModeShell from '../components/FlightModeShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createAdminFlightOffer,
   createFlightOffer,
@@ -163,9 +164,11 @@ export default function FlightOffersPage({ mode = 'tenant', adminScope = null })
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId, selectedFlightId]);
+    loadDataRef.current();
+  }, [isAdmin, tenantId, selectedFlightId, loadDataRef]);
 
   useEffect(() => {
     const selectedFlight = options.flights.find((item) => item.id === form.flightId);
@@ -232,7 +235,7 @@ export default function FlightOffersPage({ mode = 'tenant', adminScope = null })
         await createFn(payload);
         setNotice('Đã tạo offer chuyến bay mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được offer chuyến bay.');
     } finally {
@@ -252,7 +255,7 @@ export default function FlightOffersPage({ mode = 'tenant', adminScope = null })
         await deleteFn(item.id);
         setNotice('Đã ẩn offer chuyến bay.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái offer chuyến bay.');
     }

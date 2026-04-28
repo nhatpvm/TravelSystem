@@ -19,6 +19,7 @@ import {
 } from '../../../tours/utils/presentation';
 import { SCHEDULE_STATUS_OPTIONS, toNullableNumber, toNullableText, toNumberOrDefault, updateSearchParams } from '../utils/options';
 import { getTourManagementSectionPath } from '../utils/navigation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 function toDateInput(daysToAdd = 0) {
   const date = new Date();
@@ -88,19 +89,22 @@ export default function TourSchedulesPage() {
   const selectedTourId = searchParams.get('tourId') || '';
   const selectedScheduleId = searchParams.get('scheduleId') || '';
 
+  const loadToursRef = useLatestRef(loadTours);
+  const loadSchedulesRef = useLatestRef(loadSchedules);
+
   useEffect(() => {
-    loadTours();
-  }, []);
+    loadToursRef.current();
+  }, [loadToursRef]);
 
   useEffect(() => {
     if (selectedTourId) {
-      loadSchedules(selectedTourId);
+      loadSchedulesRef.current(selectedTourId);
     } else {
       setSchedules([]);
       setSelectedSchedule(null);
       setForm(EMPTY_FORM);
     }
-  }, [selectedTourId]);
+  }, [loadSchedulesRef, selectedTourId]);
 
   useEffect(() => {
     const schedule = schedules.find((item) => item.id === selectedScheduleId) || null;
@@ -201,7 +205,7 @@ export default function TourSchedulesPage() {
         updateSearchParams(setSearchParams, { scheduleId: created.id });
       }
 
-      await loadSchedules(selectedTourId);
+      await loadSchedulesRef.current(selectedTourId);
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu lịch khởi hành.');
     } finally {
@@ -216,7 +220,7 @@ export default function TourSchedulesPage() {
     try {
       await toggleManagerTourScheduleAction(selectedTourId, schedule.id, action);
       setNotice('Đã cập nhật trạng thái lịch khởi hành.');
-      await loadSchedules(selectedTourId);
+      await loadSchedulesRef.current(selectedTourId);
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật lịch khởi hành.');
     }

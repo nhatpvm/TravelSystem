@@ -51,23 +51,19 @@ const FlightDetailPage = () => {
   const [searchParams] = useSearchParams();
   const [detail, setDetail] = useState(null);
   const [ancillaries, setAncillaries] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const offerId = searchParams.get('offerId') || '';
+  const missingOfferId = !offerId;
+  const [loading, setLoading] = useState(() => !missingOfferId);
   const [error, setError] = useState('');
   const [liked, setLiked] = useState(false);
   const [wishlistItemId, setWishlistItemId] = useState('');
 
-  const offerId = searchParams.get('offerId') || '';
-
   useEffect(() => {
     if (!offerId) {
-      setError('Không tìm thấy offer chuyến bay cần xem chi tiết.');
-      setLoading(false);
       return undefined;
     }
 
     let active = true;
-    setLoading(true);
-    setError('');
 
     Promise.all([
       getFlightOfferDetails(offerId),
@@ -80,6 +76,7 @@ const FlightDetailPage = () => {
 
         setDetail(detailResponse);
         setAncillaries(Array.isArray(ancillaryResponse?.items) ? ancillaryResponse.items : []);
+        setError('');
       })
       .catch((requestError) => {
         if (active) {
@@ -99,9 +96,7 @@ const FlightDetailPage = () => {
 
   useEffect(() => {
     if (!session.isAuthenticated || !offerId) {
-      setLiked(false);
-      setWishlistItemId('');
-      return;
+      return undefined;
     }
 
     let active = true;
@@ -133,6 +128,8 @@ const FlightDetailPage = () => {
 
   const route = useMemo(() => getRoute(detail), [detail]);
   const ancillaryPreview = useMemo(() => getAncillaryPreview(ancillaries), [ancillaries]);
+  const displayError = missingOfferId ? 'Không tìm thấy offer chuyến bay cần xem chi tiết.' : error;
+  const displayLiked = session.isAuthenticated && liked;
 
   useEffect(() => {
     if (!session.isAuthenticated || !detail || !offerId) {
@@ -256,9 +253,9 @@ const FlightDetailPage = () => {
             <div className="bg-white rounded-[3.5rem] p-12 shadow-xl shadow-slate-200/50 border border-slate-100 text-center text-sm font-bold text-slate-500">
               Đang tải chi tiết chuyến bay...
             </div>
-          ) : error ? (
+          ) : displayError ? (
             <div className="bg-white rounded-[3.5rem] p-12 shadow-sm border border-rose-100 text-center text-sm font-bold text-rose-600">
-              {error}
+              {displayError}
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -364,9 +361,9 @@ const FlightDetailPage = () => {
                       <button
                         type="button"
                         onClick={handleToggleWishlist}
-                        className={`absolute right-0 top-0 w-12 h-12 rounded-2xl border transition-all flex items-center justify-center ${liked ? 'bg-rose-500 border-rose-500 text-white' : 'bg-white border-slate-100 text-slate-400 hover:border-rose-200 hover:text-rose-500'}`}
+                        className={`absolute right-0 top-0 w-12 h-12 rounded-2xl border transition-all flex items-center justify-center ${displayLiked ? 'bg-rose-500 border-rose-500 text-white' : 'bg-white border-slate-100 text-slate-400 hover:border-rose-200 hover:text-rose-500'}`}
                       >
-                        <Heart size={18} className={liked ? 'fill-white' : ''} />
+                        <Heart size={18} className={displayLiked ? 'fill-white' : ''} />
                       </button>
                       <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-2">Giá vé 01 khách</p>
                       <div className="flex items-baseline gap-2 mb-10">

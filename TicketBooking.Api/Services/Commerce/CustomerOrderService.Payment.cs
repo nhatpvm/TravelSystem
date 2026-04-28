@@ -607,7 +607,7 @@ public sealed partial class CustomerOrderService
     {
         var configuredSecret = NormalizeOptional(_sePayGatewayService.WebhookSecret);
         if (configuredSecret is null)
-            return true;
+            return _hostEnvironment.IsDevelopment();
 
         var authValue = NormalizeWebhookSecret(authorizationHeader);
         var secretValue = NormalizeWebhookSecret(secretHeader);

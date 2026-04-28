@@ -5,6 +5,7 @@ import CmsPostSelectorCard from '../components/CmsPostSelectorCard';
 import useCmsWorkspaceData from '../hooks/useCmsWorkspaceData';
 import { getCmsPostAudit } from '../../../services/cmsService';
 import { getCmsSeoIssueLevel, getCmsSeoScore } from '../utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const CmsSeoAuditPage = ({ mode = 'admin' }) => {
   const {
@@ -23,6 +24,8 @@ const CmsSeoAuditPage = ({ mode = 'admin' }) => {
   const [selectedPostId, setSelectedPostId] = useState('');
   const [audit, setAudit] = useState(null);
 
+  const loadAuditRef = useLatestRef(loadAudit);
+
   useEffect(() => {
     if (!posts.length) {
       setSelectedPostId('');
@@ -38,8 +41,8 @@ const CmsSeoAuditPage = ({ mode = 'admin' }) => {
       return;
     }
 
-    loadAudit(selectedPostId);
-  }, [tenantId, selectedPostId]);
+    loadAuditRef.current(selectedPostId);
+  }, [tenantId, selectedPostId, loadAuditRef]);
 
   async function loadAudit(postId = selectedPostId) {
     if (!tenantId || !postId) {
@@ -73,7 +76,7 @@ const CmsSeoAuditPage = ({ mode = 'admin' }) => {
       selectedTenant={selectedTenant}
       error={error}
       actions={(
-        <button onClick={() => loadAudit()} className="px-5 py-3 bg-white text-slate-700 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-2 border border-slate-100 shadow-sm">
+        <button onClick={() => loadAuditRef.current()} className="px-5 py-3 bg-white text-slate-700 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-2 border border-slate-100 shadow-sm">
           <RefreshCw size={14} /> Tải lại
         </button>
       )}

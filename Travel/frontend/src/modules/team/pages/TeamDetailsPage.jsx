@@ -202,7 +202,7 @@ const TeamDetailsPage = () => {
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   className="flex gap-8"
                 >
-                    {relatedGuides.map((guide, idx) => (
+                    {relatedGuides.map((guide) => (
                       <motion.div 
                         key={guide.id}
                         className="min-w-[calc(33.333%-22px)] group"

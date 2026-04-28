@@ -12,6 +12,7 @@ import {
   updateUserPermission,
 } from '../../../services/adminIdentity';
 import { EFFECT_BADGE_MAP } from '../utils/identity';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const EMPTY_FORM = {
   userId: '',
@@ -43,13 +44,15 @@ export default function AdminUserPermissionsPage() {
   const [saving, setSaving] = useState(false);
   const [actionLoadingId, setActionLoadingId] = useState('');
 
+  const loadItemsRef = useLatestRef(loadItems);
+
   useEffect(() => {
     loadBootstrap();
   }, []);
 
   useEffect(() => {
-    loadItems();
-  }, [search, userFilter, effectFilter, includeDeleted]);
+    loadItemsRef.current();
+  }, [search, userFilter, effectFilter, includeDeleted, loadItemsRef]);
 
   const stats = useMemo(() => ([
     { label: 'Tổng override', value: items.length, color: 'bg-slate-900 text-white' },
@@ -141,7 +144,7 @@ export default function AdminUserPermissionsPage() {
       }
 
       startCreate();
-      await loadItems();
+      await loadItemsRef.current();
     } catch (err) {
       setError(err.message || 'Không thể lưu quyền người dùng.');
     } finally {
@@ -157,7 +160,7 @@ export default function AdminUserPermissionsPage() {
     try {
       await deleteUserPermission(item.id);
       setNotice('Override đã được xoá mềm.');
-      await loadItems();
+      await loadItemsRef.current();
     } catch (err) {
       setError(err.message || 'Không thể xoá override.');
     } finally {
@@ -173,7 +176,7 @@ export default function AdminUserPermissionsPage() {
     try {
       await restoreUserPermission(item.id);
       setNotice('Override đã được khôi phục.');
-      await loadItems();
+      await loadItemsRef.current();
     } catch (err) {
       setError(err.message || 'Không thể khôi phục override.');
     } finally {

@@ -56,27 +56,23 @@ export default function TrainDetailPage() {
   const navigate = useNavigate();
   const session = useAuthSession();
   const [searchParams] = useSearchParams();
+  const tripId = searchParams.get('tripId') || '';
+  const missingTripId = !tripId;
+  const fromTripStopTimeId = searchParams.get('fromTripStopTimeId') || '';
+  const toTripStopTimeId = searchParams.get('toTripStopTimeId') || '';
   const [detail, setDetail] = useState(null);
   const [selectedClass, setSelectedClass] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !missingTripId);
   const [error, setError] = useState('');
   const [liked, setLiked] = useState(false);
   const [wishlistItemId, setWishlistItemId] = useState('');
 
-  const tripId = searchParams.get('tripId') || '';
-  const fromTripStopTimeId = searchParams.get('fromTripStopTimeId') || '';
-  const toTripStopTimeId = searchParams.get('toTripStopTimeId') || '';
-
   useEffect(() => {
     if (!tripId) {
-      setError('Không tìm thấy chuyến tàu cần xem chi tiết.');
-      setLoading(false);
       return undefined;
     }
 
     let active = true;
-    setLoading(true);
-    setError('');
 
     getTrainTripDetail(tripId, {
       fromTripStopTimeId: fromTripStopTimeId || undefined,
@@ -85,6 +81,7 @@ export default function TrainDetailPage() {
       .then((response) => {
         if (active) {
           setDetail(response);
+          setError('');
         }
       })
       .catch((err) => {
@@ -105,9 +102,7 @@ export default function TrainDetailPage() {
 
   useEffect(() => {
     if (!session.isAuthenticated || !tripId) {
-      setLiked(false);
-      setWishlistItemId('');
-      return;
+      return undefined;
     }
 
     let active = true;
@@ -137,6 +132,16 @@ export default function TrainDetailPage() {
     };
   }, [session.isAuthenticated, tripId]);
 
+  const stops = detail?.stops || [];
+  const routeTitle = resolveRouteTitle(stops);
+  const carOptions = useMemo(
+    () => (detail?.cars || []).map((item) => buildCarOption(item, detail?.segment?.price, detail?.segment?.currency)),
+    [detail],
+  );
+  const activeOption = carOptions[selectedClass] || carOptions[0] || null;
+  const displayError = missingTripId ? 'Không tìm thấy chuyến tàu cần xem chi tiết.' : error;
+  const displayLiked = session.isAuthenticated && liked;
+
   useEffect(() => {
     if (!session.isAuthenticated || !detail || !tripId) {
       return;
@@ -156,13 +161,6 @@ export default function TrainDetailPage() {
     }).catch(() => {});
   }, [activeOption?.price, detail, location.pathname, location.search, routeTitle.from, routeTitle.to, session.isAuthenticated, tripId]);
 
-  const stops = detail?.stops || [];
-  const routeTitle = resolveRouteTitle(stops);
-  const carOptions = useMemo(
-    () => (detail?.cars || []).map((item) => buildCarOption(item, detail?.segment?.price, detail?.segment?.currency)),
-    [detail],
-  );
-  const activeOption = carOptions[selectedClass] || carOptions[0] || null;
   const seatSelectionQuery = new URLSearchParams({
     tripId: detail?.trip?.id || tripId,
     fromTripStopTimeId: detail?.segment?.fromTripStopTimeId || fromTripStopTimeId,
@@ -282,9 +280,9 @@ export default function TrainDetailPage() {
             <div className="bg-white rounded-[3.5rem] p-12 shadow-sm border border-slate-100 text-center text-sm font-bold text-slate-500">
               Đang tải chi tiết chuyến tàu...
             </div>
-          ) : error ? (
+          ) : displayError ? (
             <div className="bg-white rounded-[3.5rem] p-12 shadow-sm border border-rose-100 text-center text-sm font-bold text-rose-600">
-              {error}
+              {displayError}
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -374,9 +372,9 @@ export default function TrainDetailPage() {
                       <button
                         type="button"
                         onClick={handleToggleWishlist}
-                        className={`absolute right-0 top-0 w-12 h-12 rounded-2xl border transition-all flex items-center justify-center ${liked ? 'bg-rose-500 border-rose-500 text-white' : 'bg-white border-slate-100 text-slate-400 hover:border-rose-200 hover:text-rose-500'}`}
+                        className={`absolute right-0 top-0 w-12 h-12 rounded-2xl border transition-all flex items-center justify-center ${displayLiked ? 'bg-rose-500 border-rose-500 text-white' : 'bg-white border-slate-100 text-slate-400 hover:border-rose-200 hover:text-rose-500'}`}
                       >
-                        <Heart size={18} className={liked ? 'fill-white' : ''} />
+                        <Heart size={18} className={displayLiked ? 'fill-white' : ''} />
                       </button>
                       <p className="text-[11px] font-black text-slate-400 uppercase tracking-widest mb-2">Giá vé 01 khách</p>
                       <div className="flex items-baseline gap-2 mb-10">

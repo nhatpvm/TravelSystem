@@ -1,4 +1,4 @@
-import { getCustomerCurrency, getCustomerLocale } from '../../../../services/customerPreferences';
+﻿import { getCustomerCurrency, getCustomerLocale } from '../../../../services/customerPreferences';
 
 export const FLIGHT_STATUS_OPTIONS = [
   { value: 1, label: 'Nháp', name: 'Draft' },
@@ -105,7 +105,7 @@ export function formatCurrency(value, currency = 'VND') {
       currency: resolvedCurrency,
       maximumFractionDigits: 0,
     }).format(amount);
-  } catch (error) {
+  } catch {
     return `${amount.toLocaleString('vi-VN')} đ`;
   }
 }

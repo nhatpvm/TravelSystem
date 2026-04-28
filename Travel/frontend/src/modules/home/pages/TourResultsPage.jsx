@@ -190,11 +190,11 @@ export default function TourResultsPage() {
       productType: 'tour',
       searchKey: `tour:${search.trim()}:${category}:${sort}`,
       queryText: search.trim() || category,
-      summaryText: category && category !== 'Táº¥t cáº£' ? category : 'Tìm tour',
+      summaryText: category && category !== 'Tất cả' ? category : 'Tìm tour',
       searchUrl: `${location.pathname}${location.search}`,
       criteriaJson: JSON.stringify({
         q: search.trim(),
-        province: category !== 'Táº¥t cáº£' ? category : '',
+        province: category !== 'Tất cả' ? category : '',
         sort,
       }),
     }).catch(() => {});

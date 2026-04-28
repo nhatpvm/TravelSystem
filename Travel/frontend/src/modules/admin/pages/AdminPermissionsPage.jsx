@@ -9,6 +9,7 @@ import {
   updatePermission,
 } from '../../../services/adminIdentity';
 import { getPermissionCategories } from '../utils/identity';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const EMPTY_FORM = {
   code: '',
@@ -32,9 +33,11 @@ export default function AdminPermissionsPage() {
   const [saving, setSaving] = useState(false);
   const [actionLoadingId, setActionLoadingId] = useState('');
 
+  const loadPermissionsRef = useLatestRef(loadPermissions);
+
   useEffect(() => {
-    loadPermissions();
-  }, [search, category, includeDeleted]);
+    loadPermissionsRef.current();
+  }, [search, category, includeDeleted, loadPermissionsRef]);
 
   const categories = useMemo(() => getPermissionCategories(items), [items]);
 
@@ -101,7 +104,7 @@ export default function AdminPermissionsPage() {
       }
 
       startCreate();
-      await loadPermissions();
+      await loadPermissionsRef.current();
     } catch (err) {
       setError(err.message || 'Không thể lưu quyền hạn.');
     } finally {
@@ -117,7 +120,7 @@ export default function AdminPermissionsPage() {
     try {
       await deletePermission(item.id);
       setNotice('Quyền hạn đã được xoá mềm.');
-      await loadPermissions();
+      await loadPermissionsRef.current();
     } catch (err) {
       setError(err.message || 'Không thể xoá quyền hạn.');
     } finally {
@@ -133,7 +136,7 @@ export default function AdminPermissionsPage() {
     try {
       await restorePermission(item.id);
       setNotice('Quyền hạn đã được khôi phục.');
-      await loadPermissions();
+      await loadPermissionsRef.current();
     } catch (err) {
       setError(err.message || 'Không thể khôi phục quyền hạn.');
     } finally {

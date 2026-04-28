@@ -207,12 +207,14 @@ public sealed class CustomerRefundDto
 public sealed class CustomerOrderTimelineEventDto
 {
     public string Key { get; set; } = "";
+    public string Type { get; set; } = "";
     public string Title { get; set; } = "";
     public string? Description { get; set; }
     public DateTimeOffset OccurredAt { get; set; }
     public string Tone { get; set; } = "default";
     public bool IsCurrent { get; set; }
     public string? ActionUrl { get; set; }
+    public Dictionary<string, object?> Metadata { get; set; } = new();
 }
 
 public sealed class CustomerRefundEstimateDto

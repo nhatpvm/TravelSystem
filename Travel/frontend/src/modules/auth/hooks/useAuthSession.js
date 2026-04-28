@@ -32,12 +32,10 @@ export function useAuthSession() {
 
   useEffect(() => {
     if (!session.needsBootstrap) {
-      setReady(true);
       return undefined;
     }
 
     let active = true;
-    setReady(false);
 
     bootstrapStoredSession()
       .catch(() => null)

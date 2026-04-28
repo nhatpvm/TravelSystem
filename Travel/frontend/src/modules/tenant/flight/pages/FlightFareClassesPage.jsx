@@ -16,6 +16,7 @@ import {
   updateFlightFareClass,
 } from '../../../../services/flightService';
 import { CABIN_CLASS_OPTIONS, getCabinClassLabel, parseEnumOptionValue } from '../utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 function createEmptyForm() {
   return {
@@ -113,9 +114,11 @@ export default function FlightFareClassesPage({ mode = 'tenant', adminScope = nu
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   const airlineLookup = useMemo(
     () => Object.fromEntries(airlines.map((item) => [item.id, item])),
@@ -137,7 +140,7 @@ export default function FlightFareClassesPage({ mode = 'tenant', adminScope = nu
         await createFn(payload);
         setNotice('Đã tạo hạng vé mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được hạng vé.');
     } finally {
@@ -157,7 +160,7 @@ export default function FlightFareClassesPage({ mode = 'tenant', adminScope = nu
         await deleteFn(item.id);
         setNotice('Đã ẩn hạng vé.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái hạng vé.');
     }

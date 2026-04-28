@@ -4,6 +4,7 @@ import CmsPageShell from '../components/CmsPageShell';
 import CmsPostSelectorCard from '../components/CmsPostSelectorCard';
 import useCmsWorkspaceData from '../hooks/useCmsWorkspaceData';
 import { getCmsPostPreview } from '../../../services/cmsService';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const CmsPreviewPage = ({ mode = 'admin' }) => {
   const {
@@ -22,6 +23,8 @@ const CmsPreviewPage = ({ mode = 'admin' }) => {
   const [selectedPostId, setSelectedPostId] = useState('');
   const [preview, setPreview] = useState(null);
 
+  const loadPreviewRef = useLatestRef(loadPreview);
+
   useEffect(() => {
     if (!posts.length) {
       setSelectedPostId('');
@@ -37,8 +40,8 @@ const CmsPreviewPage = ({ mode = 'admin' }) => {
       return;
     }
 
-    loadPreview(selectedPostId);
-  }, [tenantId, selectedPostId]);
+    loadPreviewRef.current(selectedPostId);
+  }, [tenantId, selectedPostId, loadPreviewRef]);
 
   async function loadPreview(postId = selectedPostId) {
     if (!tenantId || !postId) {
@@ -72,7 +75,7 @@ const CmsPreviewPage = ({ mode = 'admin' }) => {
       selectedTenant={selectedTenant}
       error={error}
       actions={(
-        <button onClick={() => loadPreview()} className="px-5 py-3 bg-white text-slate-700 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-2 border border-slate-100 shadow-sm">
+        <button onClick={() => loadPreviewRef.current()} className="px-5 py-3 bg-white text-slate-700 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-2 border border-slate-100 shadow-sm">
           <RefreshCw size={14} /> Tải lại
         </button>
       )}

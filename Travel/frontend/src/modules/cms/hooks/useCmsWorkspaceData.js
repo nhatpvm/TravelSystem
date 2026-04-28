@@ -8,6 +8,7 @@ import {
   listCmsRedirects,
 } from '../../../services/cmsService';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 export default function useCmsWorkspaceData(mode = 'admin') {
   const session = useAuthSession();
@@ -33,6 +34,8 @@ export default function useCmsWorkspaceData(mode = 'admin') {
     () => tenants.find((item) => item.id === selectedTenantId) || null,
     [selectedTenantId, tenants],
   );
+
+  const loadWorkspaceRef = useLatestRef(loadWorkspace);
 
   useEffect(() => {
     if (!isAdmin) {
@@ -74,8 +77,8 @@ export default function useCmsWorkspaceData(mode = 'admin') {
       return;
     }
 
-    loadWorkspace();
-  }, [tenantId]);
+    loadWorkspaceRef.current();
+  }, [isAdmin, loadWorkspaceRef, tenantId]);
 
   async function loadWorkspace() {
     if (!tenantId) {

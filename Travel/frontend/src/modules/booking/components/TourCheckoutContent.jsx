@@ -3,10 +3,12 @@ import { User, Mail, Phone, Ticket, FileText, CheckCircle2, ChevronRight, Shield
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import {
+  confirmTourBooking,
+  createTourReservation,
   getPublicTourById,
   quoteTour,
+  releaseTourReservation,
 } from '../../../services/tourService';
-import { createCustomerOrder } from '../../../services/customerCommerceService';
 import {
   formatCurrency,
   formatDate,

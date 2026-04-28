@@ -3,6 +3,7 @@ import { MapPinned, Plus, RefreshCw } from 'lucide-react';
 import AdminTrainPageShell from '../train/components/AdminTrainPageShell';
 import useAdminTrainScope from '../train/hooks/useAdminTrainScope';
 import { getStopPointTypeLabel, TRAIN_STOP_POINT_TYPES } from '../../tenant/train/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createAdminTrainStopPoint,
   deleteAdminTrainStopPoint,
@@ -96,9 +97,11 @@ export default function AdminTrainStopPointsPage() {
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [tenantId]);
+    loadDataRef.current();
+  }, [loadDataRef, tenantId]);
 
   function handleCreateNew() {
     setSelectedId('');
@@ -137,7 +140,7 @@ export default function AdminTrainStopPointsPage() {
         setNotice('Đã tạo ga tàu mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được ga tàu.');
     } finally {
@@ -162,7 +165,7 @@ export default function AdminTrainStopPointsPage() {
         setNotice('Đã ẩn ga tàu.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái ga tàu.');
     }

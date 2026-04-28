@@ -4,6 +4,7 @@ import CmsPageShell from '../components/CmsPageShell';
 import useCmsWorkspaceData from '../hooks/useCmsWorkspaceData';
 import { createCmsCategory, listCmsCategories } from '../../../services/cmsService';
 import { slugifyCmsValue } from '../utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const CmsCategoriesPage = ({ mode = 'admin' }) => {
   const {
@@ -22,13 +23,15 @@ const CmsCategoriesPage = ({ mode = 'admin' }) => {
   const [categories, setCategories] = useState([]);
   const [categoryForm, setCategoryForm] = useState({ name: '', slug: '', description: '' });
 
+  const loadCategoriesRef = useLatestRef(loadCategories);
+
   useEffect(() => {
     if (!tenantId) {
       return;
     }
 
-    loadCategories();
-  }, [tenantId]);
+    loadCategoriesRef.current();
+  }, [loadCategoriesRef, tenantId]);
 
   async function loadCategories() {
     if (!tenantId) {
@@ -68,7 +71,7 @@ const CmsCategoriesPage = ({ mode = 'admin' }) => {
 
       setCategoryForm({ name: '', slug: '', description: '' });
       setNotice('Danh mục mới đã được tạo.');
-      await loadCategories();
+      await loadCategoriesRef.current();
     } catch (err) {
       setError(err.message || 'Không thể tạo danh mục.');
     } finally {

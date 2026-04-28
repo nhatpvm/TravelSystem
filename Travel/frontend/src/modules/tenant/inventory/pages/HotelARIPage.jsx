@@ -20,6 +20,7 @@ import {
   deleteManagedRoomInventoryRange,
 } from '../../../../services/hotelService';
 import { formatCurrency, formatDateOnly, getRatePlanTypeLabel } from '../../hotel/utils/presentation';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 
 function toDateInput(value) {
   return value.toISOString().slice(0, 10);
@@ -39,7 +40,7 @@ function getDefaultDateRange() {
 export default function HotelARIPage({ mode = 'tenant', adminScope = null }) {
   const isAdmin = mode === 'admin';
   const tenantId = adminScope?.tenantId;
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const [options, setOptions] = useState({
@@ -161,9 +162,13 @@ export default function HotelARIPage({ mode = 'tenant', adminScope = null }) {
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+  const loadRatePlanDetailRef = useLatestRef(loadRatePlanDetail);
+  const loadCalendarsRef = useLatestRef(loadCalendars);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   useEffect(() => {
     if (!selectedRatePlanId) {
@@ -172,16 +177,16 @@ export default function HotelARIPage({ mode = 'tenant', adminScope = null }) {
       return;
     }
 
-    loadRatePlanDetail(selectedRatePlanId).catch((requestError) => {
+    loadRatePlanDetailRef.current(selectedRatePlanId).catch((requestError) => {
       setError(requestError.message || 'Không thể tải chi tiết gói giá.');
     });
-  }, [selectedRatePlanId, isAdmin, tenantId]);
+  }, [selectedRatePlanId, isAdmin, tenantId, loadRatePlanDetailRef]);
 
   useEffect(() => {
-    loadCalendars(selectedRoomTypeId, selectedMappingId).catch((requestError) => {
+    loadCalendarsRef.current(selectedRoomTypeId, selectedMappingId).catch((requestError) => {
       setError(requestError.message || 'Không thể tải lịch ARI.');
     });
-  }, [selectedRoomTypeId, selectedMappingId, dateRange.fromDate, dateRange.toDate, isAdmin, tenantId]);
+  }, [selectedRoomTypeId, selectedMappingId, dateRange.fromDate, dateRange.toDate, isAdmin, tenantId, loadCalendarsRef]);
 
   const hotelRoomTypes = useMemo(
     () => options.roomTypes.filter((item) => item.hotelId === selectedHotelId && !item.isDeleted),
@@ -227,7 +232,7 @@ export default function HotelARIPage({ mode = 'tenant', adminScope = null }) {
       }
 
       setNotice('Đã lưu tồn kho phòng theo khoảng ngày.');
-      await loadCalendars(selectedRoomTypeId, selectedMappingId);
+      await loadCalendarsRef.current(selectedRoomTypeId, selectedMappingId);
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu tồn kho phòng.');
     }
@@ -246,7 +251,7 @@ export default function HotelARIPage({ mode = 'tenant', adminScope = null }) {
         await deleteManagedRoomInventoryRange(selectedRoomTypeId, payload);
       }
       setNotice('Đã xóa tồn kho trong khoảng ngày đã chọn.');
-      await loadCalendars(selectedRoomTypeId, selectedMappingId);
+      await loadCalendarsRef.current(selectedRoomTypeId, selectedMappingId);
     } catch (requestError) {
       setError(requestError.message || 'Không thể xóa tồn kho phòng.');
     }
@@ -278,7 +283,7 @@ export default function HotelARIPage({ mode = 'tenant', adminScope = null }) {
       }
 
       setNotice('Đã lưu bảng giá theo khoảng ngày.');
-      await loadCalendars(selectedRoomTypeId, selectedMappingId);
+      await loadCalendarsRef.current(selectedRoomTypeId, selectedMappingId);
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu giá bán.');
     }
@@ -297,7 +302,7 @@ export default function HotelARIPage({ mode = 'tenant', adminScope = null }) {
         await deleteManagedDailyRatesRange(selectedMappingId, payload);
       }
       setNotice('Đã xóa bảng giá trong khoảng ngày đã chọn.');
-      await loadCalendars(selectedRoomTypeId, selectedMappingId);
+      await loadCalendarsRef.current(selectedRoomTypeId, selectedMappingId);
     } catch (requestError) {
       setError(requestError.message || 'Không thể xóa bảng giá.');
     }

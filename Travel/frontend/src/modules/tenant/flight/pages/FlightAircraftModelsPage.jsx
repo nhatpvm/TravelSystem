@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Plus, RefreshCw } from 'lucide-react';
 import FlightModeShell from '../components/FlightModeShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createAdminFlightAircraftModel,
   createFlightAircraftModel,
@@ -96,9 +97,11 @@ export default function FlightAircraftModelsPage({ mode = 'tenant', adminScope =
     }
   }
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, [isAdmin, tenantId]);
+    loadDataRef.current();
+  }, [isAdmin, loadDataRef, tenantId]);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -115,7 +118,7 @@ export default function FlightAircraftModelsPage({ mode = 'tenant', adminScope =
         await createFn(payload);
         setNotice('Đã tạo mẫu tàu bay mới.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không lưu được mẫu tàu bay.');
     } finally {
@@ -135,7 +138,7 @@ export default function FlightAircraftModelsPage({ mode = 'tenant', adminScope =
         await deleteFn(item.id);
         setNotice('Đã ẩn mẫu tàu bay.');
       }
-      await loadData();
+      await loadDataRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không cập nhật được trạng thái mẫu tàu bay.');
     }

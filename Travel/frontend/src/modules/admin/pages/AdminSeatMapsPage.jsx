@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Edit2, LocateFixed, Plus, RefreshCw, RotateCcw, Search, Trash2, Wand2 } from 'lucide-react';
 import MasterDataPageShell from '../master-data/components/MasterDataPageShell';
 import useAdminMasterDataScope from '../master-data/hooks/useAdminMasterDataScope';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 import {
   createSeatMap,
   deleteSeatMap,
@@ -87,13 +88,15 @@ const AdminSeatMapsPage = () => {
     [items, selectedId],
   );
 
+  const loadItemsRef = useLatestRef(loadItems);
+
   useEffect(() => {
     if (!tenantId) {
       return;
     }
 
-    loadItems();
-  }, [tenantId, search, typeFilter, includeDeleted]);
+    loadItemsRef.current();
+  }, [tenantId, search, typeFilter, includeDeleted, loadItemsRef]);
 
   async function loadItems() {
     if (!tenantId) {
@@ -171,7 +174,7 @@ const AdminSeatMapsPage = () => {
       }
 
       resetForm();
-      await loadItems();
+      await loadItemsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể lưu sơ đồ ghế.');
     } finally {
@@ -199,7 +202,7 @@ const AdminSeatMapsPage = () => {
       }, tenantId);
 
       setNotice(`Đã tạo ${response.created || 0} ghế cho sơ đồ ghế.`);
-      await loadItems();
+      await loadItemsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể sinh ghế.');
     } finally {
@@ -228,7 +231,7 @@ const AdminSeatMapsPage = () => {
         resetForm();
       }
 
-      await loadItems();
+      await loadItemsRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể cập nhật sơ đồ ghế.');
     }

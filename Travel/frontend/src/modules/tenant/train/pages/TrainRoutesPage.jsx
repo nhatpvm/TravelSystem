@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Plus, RefreshCw, Route } from 'lucide-react';
 import TrainManagementPageShell from '../components/TrainManagementPageShell';
+import useLatestRef from '../../../../shared/hooks/useLatestRef';
 import {
   createTrainRoute,
   deleteTrainRoute,
@@ -135,9 +136,11 @@ const TrainRoutesPage = () => {
     }
   };
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
-    loadData();
-  }, []);
+    loadDataRef.current();
+  }, [loadDataRef]);
 
   const handleCreateNew = () => {
     setSelectedId('');
@@ -163,7 +166,7 @@ const TrainRoutesPage = () => {
         setNotice('Đã tạo tuyến đường mới.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được tuyến đường.');
     } finally {
@@ -193,7 +196,7 @@ const TrainRoutesPage = () => {
       });
 
       setNotice('Đã lưu danh sách ga dừng của tuyến.');
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không lưu được ga dừng tuyến.');
     } finally {
@@ -214,7 +217,7 @@ const TrainRoutesPage = () => {
         setNotice('Đã ẩn tuyến đường.');
       }
 
-      await loadData();
+      await loadDataRef.current();
     } catch (err) {
       setError(err.message || 'Không cập nhật được trạng thái tuyến đường.');
     }
@@ -400,7 +403,7 @@ const TrainRoutesPage = () => {
                 </label>
 
                 <label className="space-y-2">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Khoảng cách (km)</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Tổng km toàn tuyến</span>
                   <input
                     type="number"
                     value={routeForm.distanceKm}
@@ -495,7 +498,7 @@ const TrainRoutesPage = () => {
                   </label>
 
                   <label className="space-y-2">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Phút từ đầu tuyến</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Phút đi từ điểm đầu</span>
                     <input
                       type="number"
                       value={item.minutesFromStart}

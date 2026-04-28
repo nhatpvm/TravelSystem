@@ -4,6 +4,7 @@ import AdminTourPageShell from '../tours/components/AdminTourPageShell';
 import useAdminTourScope from '../tours/hooks/useAdminTourScope';
 import { getAdminTourReview, listAdminTourReviews, listAdminTours, approveAdminTourReview, rejectAdminTourReview, hideAdminTourReview, makeAdminTourReviewPublic, replyAdminTourReview } from '../../../services/tourService';
 import { formatDateTime, getReviewStatusClass, getReviewStatusLabel } from '../../tours/utils/presentation';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 export default function AdminTourReviewsPage() {
   const {
@@ -27,11 +28,13 @@ export default function AdminTourReviewsPage() {
   const [noteDrafts, setNoteDrafts] = useState({});
   const [submittingId, setSubmittingId] = useState('');
 
+  const loadDataRef = useLatestRef(loadData);
+
   useEffect(() => {
     if (tenantId) {
-      loadData();
+      loadDataRef.current();
     }
-  }, [tenantId]);
+  }, [loadDataRef, tenantId]);
 
   const filteredReviews = useMemo(() => {
     const keyword = search.trim().toLowerCase();
@@ -108,7 +111,7 @@ export default function AdminTourReviewsPage() {
       }
 
       setNotice('Đã cập nhật đánh giá tour.');
-      await loadData();
+      await loadDataRef.current();
       const detail = await getAdminTourReview(review.id, { includeDeleted: true });
       setDetails((current) => ({ ...current, [review.id]: detail }));
     } catch (requestError) {

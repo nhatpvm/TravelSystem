@@ -14,6 +14,7 @@ import {
   runGeoSync,
 } from '../../../services/masterDataService';
 import { formatDateTime } from '../master-data/utils/options';
+import useLatestRef from '../../../shared/hooks/useLatestRef';
 
 const AdminMasterDataPage = () => {
   const {
@@ -39,13 +40,15 @@ const AdminMasterDataPage = () => {
   });
   const [latestLogs, setLatestLogs] = useState([]);
 
+  const loadDashboardRef = useLatestRef(loadDashboard);
+
   useEffect(() => {
     if (!tenantId) {
       return;
     }
 
-    loadDashboard();
-  }, [tenantId]);
+    loadDashboardRef.current();
+  }, [loadDashboardRef, tenantId]);
 
   const cards = useMemo(() => ([
     { label: 'Địa điểm', value: stats.locations, icon: MapPinned, path: '/admin/master-data/locations' },
@@ -102,7 +105,7 @@ const AdminMasterDataPage = () => {
     try {
       await runGeoSync(3);
       setNotice('Đồng bộ địa giới đã được kích hoạt thành công.');
-      await loadDashboard();
+      await loadDashboardRef.current();
     } catch (requestError) {
       setError(requestError.message || 'Không thể đồng bộ dữ liệu địa giới.');
     } finally {
