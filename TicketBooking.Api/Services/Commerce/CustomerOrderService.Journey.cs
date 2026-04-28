@@ -13,21 +13,27 @@ public sealed partial class CustomerOrderService
         var (order, payment) = await LoadOrderGraphForUserAsync(orderCode, userId, ct);
         await EnsurePendingOrderStateAsync(order, payment, ct);
 
-        var ticket = await _db.CustomerTickets
+        var ticketTask = _db.CustomerTickets
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.OrderId == order.Id && !x.IsDeleted, ct);
 
-        var refunds = await _db.CustomerRefundRequests
+        var refundsTask = _db.CustomerRefundRequests
             .AsNoTracking()
             .Where(x => x.OrderId == order.Id && !x.IsDeleted)
             .OrderBy(x => x.RequestedAt)
             .ToListAsync(ct);
 
-        var supportTickets = await _db.CustomerSupportTickets
+        var supportTicketsTask = _db.CustomerSupportTickets
             .AsNoTracking()
             .Where(x => x.UserId == userId && x.OrderId == order.Id && !x.IsDeleted)
             .OrderBy(x => x.CreatedAt)
             .ToListAsync(ct);
+
+        await Task.WhenAll(ticketTask, refundsTask, supportTicketsTask);
+
+        var ticket = ticketTask.Result;
+        var refunds = refundsTask.Result;
+        var supportTickets = supportTicketsTask.Result;
 
         var events = new List<CustomerOrderTimelineEventDto>
         {
