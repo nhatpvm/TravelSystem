@@ -3,6 +3,9 @@ import { Tag, Clock, ArrowRight, Percent, Sparkles, Zap, Flame, Gift, ChevronDow
 import { motion } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import nav1 from '../../../assets/nav1.png';
+import nav2 from '../../../assets/nav2.png';
+import nav3 from '../../../assets/nav3.png';
 
 const PromotionsPage = () => {
   const deals = [
@@ -13,7 +16,7 @@ const PromotionsPage = () => {
       tag: 'Phổ biến nhất',
       price: '2.500.000đ',
       oldPrice: '4.200.000đ',
-      image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800',
+      image: nav1,
       expiry: 'Còn 2 ngày',
       color: 'blue'
     },
@@ -24,7 +27,7 @@ const PromotionsPage = () => {
       tag: 'Flash Sale',
       price: '1.200.000đ',
       oldPrice: '2.800.000đ',
-      image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800',
+      image: nav2,
       expiry: 'Còn 5 giờ',
       color: 'rose'
     },
@@ -35,7 +38,7 @@ const PromotionsPage = () => {
       tag: 'Bán chạy',
       price: '600.000đ',
       oldPrice: '1.200.000đ',
-      image: 'https://images.unsplash.com/photo-1555432329-399fa3b732de?auto=format&fit=crop&q=80&w=800',
+      image: nav3,
       expiry: 'Hết hạn hôm nay',
       color: 'amber'
     },
@@ -46,7 +49,7 @@ const PromotionsPage = () => {
       tag: 'Độc quyền',
       price: '5.900.000đ',
       oldPrice: '7.900.000đ',
-      image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=800',
+      image: nav1,
       expiry: 'Còn 3 ngày',
       color: 'indigo'
     },
@@ -57,7 +60,7 @@ const PromotionsPage = () => {
       tag: 'Combo Hot',
       price: '1.150.000đ',
       oldPrice: '1.550.000đ',
-      image: 'https://images.unsplash.com/photo-1559592413-7cea732639f5?auto=format&fit=crop&q=80&w=800',
+      image: nav2,
       expiry: 'Còn 4 ngày',
       color: 'blue'
     },
@@ -68,7 +71,7 @@ const PromotionsPage = () => {
       tag: 'Luxury',
       price: '2.990.000đ',
       oldPrice: '4.500.000đ',
-      image: 'https://images.unsplash.com/photo-1559592413-7cea732639f5?auto=format&fit=crop&q=80&w=800',
+      image: nav3,
       expiry: 'Sắp kết thúc',
       color: 'emerald'
     },
@@ -79,7 +82,7 @@ const PromotionsPage = () => {
       tag: 'Adventure',
       price: '3.200.000đ',
       oldPrice: '3.800.000đ',
-      image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800',
+      image: nav1,
       expiry: 'Còn 1 tuần',
       color: 'orange'
     }
@@ -134,7 +137,7 @@ const PromotionsPage = () => {
               className="relative group rounded-[2.5rem] overflow-hidden mb-24 bg-slate-900 shadow-2xl min-h-[400px] flex flex-col justify-end p-8 lg:p-12 border border-white/5"
             >
               <img 
-                  src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=1920" 
+                  src={nav2}
                   alt="Main Deal"
                   className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
               />

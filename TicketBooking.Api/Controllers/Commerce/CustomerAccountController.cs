@@ -92,7 +92,7 @@ public sealed class CustomerAccountController : ControllerBase
     {
         var userId = GetCurrentUserId();
         if (!userId.HasValue)
-            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ xem checkout dang dá»Ÿ." });
+            return Unauthorized(new { message = "Bạn cần đăng nhập để xem checkout đang dở." });
 
         var now = DateTimeOffset.UtcNow;
         var normalizedCheckoutKey = Normalize(checkoutKey);
@@ -136,7 +136,7 @@ public sealed class CustomerAccountController : ControllerBase
     {
         var userId = GetCurrentUserId();
         if (!userId.HasValue)
-            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ lÆ°u checkout dang dá»Ÿ." });
+            return Unauthorized(new { message = "Bạn cần đăng nhập để lưu checkout đang dở." });
 
         request ??= new UpsertCustomerCheckoutDraftRequest();
 
@@ -144,7 +144,7 @@ public sealed class CustomerAccountController : ControllerBase
             string.IsNullOrWhiteSpace(request.Title) ||
             string.IsNullOrWhiteSpace(request.ResumeUrl))
         {
-            return BadRequest(new { message = "Checkout dang dá»Ÿ cáº§n cÃ³ khÃ³a, tiÃªu Ä‘á» vÃ  Ä‘Æ°á»ng dáº«n tiáº¿p tá»¥c." });
+            return BadRequest(new { message = "Checkout đang dở cần có khóa, tiêu đề và đường dẫn tiếp tục." });
         }
 
         CustomerProductType productType;
@@ -199,13 +199,13 @@ public sealed class CustomerAccountController : ControllerBase
     {
         var userId = GetCurrentUserId();
         if (!userId.HasValue)
-            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ tiáº¿p tá»¥c checkout." });
+            return Unauthorized(new { message = "Bạn cần đăng nhập để tiếp tục checkout." });
 
         var draft = await _db.CustomerCheckoutDrafts
             .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId.Value && !x.IsDeleted, ct);
 
         if (draft is null)
-            return NotFound(new { message = "KhÃ´ng tÃ¬m tháº¥y checkout dang dá»Ÿ." });
+            return NotFound(new { message = "Không tìm thấy checkout đang dở." });
 
         draft.ResumeCount += 1;
         draft.LastActivityAt = DateTimeOffset.UtcNow;
@@ -235,13 +235,13 @@ public sealed class CustomerAccountController : ControllerBase
     {
         var userId = GetCurrentUserId();
         if (!userId.HasValue)
-            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ xÃ³a checkout dang dá»Ÿ." });
+            return Unauthorized(new { message = "Bạn cần đăng nhập để xóa checkout đang dở." });
 
         var draft = await _db.CustomerCheckoutDrafts
             .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId.Value && !x.IsDeleted, ct);
 
         if (draft is null)
-            return NotFound(new { message = "KhÃ´ng tÃ¬m tháº¥y checkout dang dá»Ÿ." });
+            return NotFound(new { message = "Không tìm thấy checkout đang dở." });
 
         draft.IsDeleted = true;
         draft.UpdatedAt = DateTimeOffset.UtcNow;
@@ -258,7 +258,7 @@ public sealed class CustomerAccountController : ControllerBase
     {
         var userId = GetCurrentUserId();
         if (!userId.HasValue)
-            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ xem má»¥c Ä‘Ã£ xem gáº§n Ä‘Ã¢y." });
+            return Unauthorized(new { message = "Bạn cần đăng nhập để xem mục đã xem gần đây." });
 
         var items = await _db.CustomerRecentViews
             .AsNoTracking()
@@ -295,16 +295,16 @@ public sealed class CustomerAccountController : ControllerBase
     {
         var userId = GetCurrentUserId();
         if (!userId.HasValue)
-            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ lÆ°u lá»‹ch sá»­ xem." });
+            return Unauthorized(new { message = "Bạn cần đăng nhập để lưu lịch sử xem." });
 
         request ??= new TrackCustomerRecentViewRequest();
 
         if (string.IsNullOrWhiteSpace(request.Title))
-            return BadRequest(new { message = "Má»¥c Ä‘Ã£ xem cáº§n cÃ³ tiÃªu Ä‘á»." });
+            return BadRequest(new { message = "Mục đã xem cần có tiêu đề." });
 
         var targetSlug = Normalize(request.TargetSlug);
         if (!request.TargetId.HasValue && targetSlug is null)
-            return BadRequest(new { message = "Má»¥c Ä‘Ã£ xem cáº§n cÃ³ Ä‘á»‹nh danh hoáº·c slug." });
+            return BadRequest(new { message = "Mục đã xem cần có định danh hoặc slug." });
 
         CustomerProductType productType;
         try
@@ -368,7 +368,7 @@ public sealed class CustomerAccountController : ControllerBase
     {
         var userId = GetCurrentUserId();
         if (!userId.HasValue)
-            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ xem lá»‹ch sá»­ tÃ¬m kiáº¿m." });
+            return Unauthorized(new { message = "Bạn cần đăng nhập để xem lịch sử tìm kiếm." });
 
         var items = await _db.CustomerRecentSearches
             .AsNoTracking()
@@ -504,12 +504,12 @@ public sealed class CustomerAccountController : ControllerBase
     {
         var userId = GetCurrentUserId();
         if (!userId.HasValue)
-            return Unauthorized(new { message = "Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ lÆ°u lá»‹ch sá»­ tÃ¬m kiáº¿m." });
+            return Unauthorized(new { message = "Bạn cần đăng nhập để lưu lịch sử tìm kiếm." });
 
         request ??= new TrackCustomerRecentSearchRequest();
 
         if (string.IsNullOrWhiteSpace(request.SearchKey) || string.IsNullOrWhiteSpace(request.SearchUrl))
-            return BadRequest(new { message = "Lá»‹ch sá»­ tÃ¬m kiáº¿m cáº§n cÃ³ khÃ³a vÃ  Ä‘Æ°á»ng dáº«n." });
+            return BadRequest(new { message = "Lịch sử tìm kiếm cần có khóa và đường dẫn." });
 
         CustomerProductType productType;
         try
@@ -770,7 +770,7 @@ public sealed class CustomerAccountController : ControllerBase
         var productType = ParseProductType(request.ProductType);
         var targetSlug = Normalize(request.TargetSlug);
         if (!request.TargetId.HasValue && targetSlug is null)
-            return BadRequest(new { message = "Vui lÃ²ng cung cáº¥p Ä‘á»‹nh danh hoáº·c slug cá»§a má»¥c yÃªu thÃ­ch." });
+            return BadRequest(new { message = "Vui lòng cung cấp định danh hoặc slug của mục yêu thích." });
 
         var now = DateTimeOffset.UtcNow;
         var existing = await _db.CustomerWishlistItems

@@ -24,7 +24,7 @@ namespace TicketBooking.Api.Controllers.Admin
     [ApiController]
     [ApiVersion(1.0)]
     [Route("api/v{version:apiVersion}/admin/roles")]
-    [Authorize(Roles = RoleNames.Admin)]
+    [Authorize(Policy = "perm:tenants.manage")]
     public sealed class RolesAdminController : ControllerBase
     {
         private readonly RoleManager<AppRole> _roleManager;

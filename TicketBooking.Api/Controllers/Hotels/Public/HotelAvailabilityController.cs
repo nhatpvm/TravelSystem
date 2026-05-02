@@ -12,6 +12,7 @@ namespace TicketBooking.Api.Controllers.Hotels;
 [Route("api/v{version:apiVersion}/hotels")]
 public sealed class HotelAvailabilityController : ControllerBase
 {
+    private static readonly List<RoomTypeOccupancyRule> EmptyOccupancyRules = new();
     private readonly AppDbContext _db;
 
     public HotelAvailabilityController(AppDbContext db)
@@ -170,16 +171,30 @@ public sealed class HotelAvailabilityController : ControllerBase
                 stayDates.Contains(x.Date))
             .ToListAsync(ct);
 
+        var occupancyRulesByRoomTypeId = occupancyRules
+            .GroupBy(x => x.RoomTypeId)
+            .ToDictionary(x => x.Key, x => x.ToList());
+        var inventoriesByRoomTypeId = inventories
+            .GroupBy(x => x.RoomTypeId)
+            .ToDictionary(x => x.Key, x => x.ToList());
+        var ratePlanById = ratePlans.ToDictionary(x => x.Id);
+        var mappingsByRoomTypeId = mappings
+            .GroupBy(x => x.RoomTypeId)
+            .ToDictionary(x => x.Key, x => x.ToList());
+        var dailyRatesByMappingIdAndDate = dailyRates.ToDictionary(
+            x => (x.RatePlanRoomTypeId, x.Date),
+            x => x);
+
         var roomTypeResults = new List<HotelAvailabilityRoomTypeDto>();
 
         foreach (var roomType in roomTypes)
         {
-            if (!PassesOccupancy(roomType, occupancyRules, adults, children, rooms))
+            occupancyRulesByRoomTypeId.TryGetValue(roomType.Id, out var roomRules);
+            if (!PassesOccupancy(roomType, roomRules ?? EmptyOccupancyRules, adults, children, rooms))
                 continue;
 
-            var roomInventories = inventories
-                .Where(x => x.RoomTypeId == roomType.Id)
-                .ToList();
+            if (!inventoriesByRoomTypeId.TryGetValue(roomType.Id, out var roomInventories))
+                continue;
 
             if (roomInventories.Count != nights)
                 continue;
@@ -197,16 +212,14 @@ public sealed class HotelAvailabilityController : ControllerBase
             if (roomInventories.Any(x => x.MaxNights.HasValue && nights > x.MaxNights.Value))
                 continue;
 
-            var roomMappings = mappings
-                .Where(x => x.RoomTypeId == roomType.Id)
-                .ToList();
-
             var options = new List<HotelAvailabilityRatePlanOptionDto>();
+
+            if (!mappingsByRoomTypeId.TryGetValue(roomType.Id, out var roomMappings))
+                continue;
 
             foreach (var mapping in roomMappings)
             {
-                var ratePlan = ratePlans.FirstOrDefault(x => x.Id == mapping.RatePlanId);
-                if (ratePlan is null)
+                if (!ratePlanById.TryGetValue(mapping.RatePlanId, out var ratePlan))
                     continue;
 
                 if (ratePlan.MinNights.HasValue && nights < ratePlan.MinNights.Value)
@@ -232,9 +245,7 @@ public sealed class HotelAvailabilityController : ControllerBase
 
                 foreach (var date in stayDates)
                 {
-                    var daily = dailyRates.FirstOrDefault(x =>
-                        x.RatePlanRoomTypeId == mapping.Id &&
-                        x.Date == date);
+                    dailyRatesByMappingIdAndDate.TryGetValue((mapping.Id, date), out var daily);
 
                     var perRoomNightlyPrice = daily?.Price ?? mapping.BasePrice;
                     if (!perRoomNightlyPrice.HasValue)

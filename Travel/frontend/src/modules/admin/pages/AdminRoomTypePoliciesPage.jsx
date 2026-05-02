@@ -250,7 +250,7 @@ export default function AdminRoomTypePoliciesPage() {
         <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 space-y-5">
           <div>
             <p className="text-lg font-black text-slate-900">{selectedId ? 'Cập nhật policy hạng phòng' : 'Tạo policy hạng phòng mới'}</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Trang này giữ JSON raw để admin có thể bám sát contract backend hiện tại.</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Trang này cho phép admin cập nhật đầy đủ điều kiện áp dụng cho từng loại phòng.</p>
           </div>
 
           <select value={form.roomTypeId} onChange={(event) => setForm((current) => ({ ...current, roomTypeId: event.target.value }))} className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none">

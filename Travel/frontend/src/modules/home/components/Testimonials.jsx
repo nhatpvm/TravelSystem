@@ -1,6 +1,7 @@
 import React from 'react';
 import { Star, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
+import nav3 from '../../../assets/nav3.png';
 
 const testimonials = [
   {
@@ -35,7 +36,7 @@ const Testimonials = () => {
       {/* Background Decorative Element */}
       <div className="absolute bottom-0 right-0 opacity-100 pointer-events-none z-10 hidden xl:block translate-x-20 translate-y-20">
          <img 
-           src="https://ex-coders.com/html/turmet/assets/img/testimonial/testimonial-shape.png" 
+           src={nav3}
            alt="decor" 
            className="w-full max-w-[500px]"
          />

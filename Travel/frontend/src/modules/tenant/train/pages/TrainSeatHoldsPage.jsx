@@ -77,7 +77,7 @@ const TrainSeatHoldsPage = () => {
     };
   }, [selectedTripId]);
 
-  const loadHolds = async () => {
+  async function loadHolds() {
     if (!selectedTripId) {
       setItems([]);
       setLoading(false);
@@ -95,7 +95,7 @@ const TrainSeatHoldsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
     loadHoldsRef.current();

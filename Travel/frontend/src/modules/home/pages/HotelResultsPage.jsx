@@ -8,9 +8,18 @@ import { trackRecentSearch } from '../../../services/customerCommerceService';
 import { useAuthSession } from '../../auth/hooks/useAuthSession';
 import { formatCurrency } from '../../tenant/hotel/utils/presentation';
 import useLatestRef from '../../../shared/hooks/useLatestRef';
+import fallbackHotelImage from '../../../assets/nav2.png';
 
 function estimateNightlyPrice(hotel) {
   return hotel.starRating >= 5 ? 2800000 : hotel.starRating >= 4 ? 1800000 : 1200000;
+}
+
+function resolveHotelImageUrl(value) {
+  if (!value || /example\.com/i.test(value)) {
+    return fallbackHotelImage;
+  }
+
+  return value;
 }
 
 export default function HotelResultsPage() {
@@ -186,7 +195,7 @@ export default function HotelResultsPage() {
               ) : filteredItems.map((hotel, index) => (
                 <motion.div key={hotel.id} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: index * 0.05 }} className="group bg-white rounded-[3.5rem] overflow-hidden shadow-sm border border-slate-100 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] transition-all duration-700 flex flex-col relative">
                   <div className="relative h-72 overflow-hidden">
-                    <img src={hotel.coverImageUrl || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=800'} alt={hotel.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                    <img src={resolveHotelImageUrl(hotel.coverImageUrl)} alt={hotel.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
                     <div className="absolute bottom-6 left-8">
                       <div className="flex items-center gap-2 text-white/90 text-[10px] font-black uppercase tracking-widest">

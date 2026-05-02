@@ -84,7 +84,7 @@ namespace TicketBooking.Infrastructure.Seed
             await EnsureUserWithRoleAsync(userManager, "qlvmm", "qlvmm@ticketbooking.local", "QlVmm@12345", "Quản lý vé máy bay", RoleNames.QLVMM, logger, ct);
             await EnsureUserWithRoleAsync(userManager, "qltour", "qltour@ticketbooking.local", "QlTour@12345", "Quản lý tour", RoleNames.QLTour, logger, ct);
             await EnsureUserWithRoleAsync(userManager, "scanner_nx", "scanner_nx@ticketbooking.local", "ScannerNx@12345", "NX Ticket Scanner", RoleNames.Customer, logger, ct);
-            await EnsureUserWithRoleAsync(userManager, "customer", "customer@ticketbooking.local", "Customer@12345", "Customer Demo", RoleNames.Customer, logger, ct);
+            await EnsureUserWithRoleAsync(userManager, "customer", "customer@ticketbooking.local", "Customer@12345", "Nguyễn Minh Anh", RoleNames.Customer, logger, ct);
 
             logger.LogInformation("Identity seed completed.");
         }

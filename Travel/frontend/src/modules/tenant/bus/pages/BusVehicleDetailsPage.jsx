@@ -41,7 +41,7 @@ const BusVehicleDetailsPage = () => {
     try {
       const [optionsResponse, listResponse] = await Promise.all([
         getBusManagerOptions(),
-        listBusVehicleDetails(),
+        listBusVehicleDetails({ includeDeleted: true }),
       ]);
 
       const nextItems = Array.isArray(listResponse?.items) ? listResponse.items : [];
@@ -150,7 +150,7 @@ const BusVehicleDetailsPage = () => {
     <BusManagementPageShell
       pageKey="vehicle-details"
       title="Chi tiết xe khách"
-      subtitle="Khai báo loại xe và tiện ích để public detail hiển thị đúng cho khách hàng."
+      subtitle="Khai báo loại xe và tiện ích để trang chi tiết hiển thị đúng cho khách hàng."
       error={error}
       notice={notice}
       actions={(
@@ -181,7 +181,7 @@ const BusVehicleDetailsPage = () => {
         <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
           <div className="px-8 py-6 border-b border-slate-100">
             <p className="text-lg font-black text-slate-900">Danh sách cấu hình xe</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Các tiện ích này được đọc vào màn public Bus detail.</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Các tiện ích này được hiển thị trên trang chi tiết xe.</p>
           </div>
           <div className="divide-y divide-slate-50">
             {loading ? (
@@ -254,7 +254,7 @@ const BusVehicleDetailsPage = () => {
         <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 space-y-5">
           <div>
             <p className="text-xl font-black text-slate-900">{selectedId ? 'Cập nhật chi tiết xe' : 'Tạo chi tiết xe mới'}</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Chọn tiện ích có sẵn hoặc thêm tiện ích riêng để đồng bộ ra màn public.</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Chọn tiện ích có sẵn hoặc thêm tiện ích riêng để đồng bộ ra trang khách hàng.</p>
           </div>
 
           <label className="space-y-2 block">

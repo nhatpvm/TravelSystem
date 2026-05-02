@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, ChevronLeft, Quote } from 'lucide-react';
+import nav1 from '../../../assets/nav1.png';
+import nav2 from '../../../assets/nav2.png';
+import nav3 from '../../../assets/nav3.png';
 
 const testimonials = [
   {
     id: 1,
     name: "Kathryn Murphy",
     role: "Nhà thiết kế Web",
-    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?q=80&w=200",
+    avatar: nav1,
     text: "Mọi thứ đều thật tuyệt vời! Tôi đã có một kỳ nghỉ không thể nào quên cùng gia đình. Cảm ơn đội ngũ đã hỗ trợ tận tình."
   },
   {
     id: 2,
     name: "Robert Johnson",
     role: "Nhiếp ảnh gia",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200",
+    avatar: nav2,
     text: "Chuyến du lịch tuyệt vời nhất! Dịch vụ chuyên nghiệp, hướng dẫn viên nhiệt tình. Tôi chắc chắn sẽ quay lại với những chuyến đi tiếp theo."
   },
   {
     id: 3,
     name: "Emily Watson",
     role: "Blogger Du lịch",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200",
+    avatar: nav3,
     text: "Một trải nghiệm không thể nào quên! Mọi thứ đều được sắp xếp hoàn hảo từ đầu đến cuối. Rất đáng để giới thiệu cho bạn bè."
   }
 ];
@@ -50,7 +53,7 @@ const TestimonialsThree = () => {
               {/* Main Image */}
               <div className="relative rounded-[3rem]">
                 <img
-                  src="https://ex-coders.com/html/turmet/assets/img/testimonial/02.png"
+                  src={nav2}
                   alt="Happy Traveler"
                   className="w-full aspect-[3/4] object-cover"
                 />

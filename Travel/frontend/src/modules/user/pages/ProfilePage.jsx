@@ -16,8 +16,30 @@ import {
   listWishlistItems,
 } from '../../../services/customerCommerceService';
 import { formatCustomerProductLabel } from '../../booking/utils/customerCommerce';
+import profileBanner from '../../../assets/nav1.png';
+import defaultAvatar from '../../../assets/nav3.png';
 
-const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=300';
+const DEFAULT_AVATAR = defaultAvatar;
+
+function resolveAvatarUrl(value) {
+  if (!value || /example\.com/i.test(value)) {
+    return DEFAULT_AVATAR;
+  }
+
+  return value;
+}
+
+function resolveOptionalImageUrl(value) {
+  if (!value) {
+    return '';
+  }
+
+  if (/example\.com/i.test(value)) {
+    return DEFAULT_AVATAR;
+  }
+
+  return value;
+}
 
 const ProfilePage = () => {
   const { user } = useAuthSession();
@@ -214,7 +236,7 @@ const ProfilePage = () => {
     >
       <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-sky-200/40">
         <img
-          src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=1600"
+          src={profileBanner}
           alt="travel banner"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -237,7 +259,7 @@ const ProfilePage = () => {
             <div className="relative group shrink-0">
               <div className="w-28 h-28 rounded-3xl overflow-hidden border-4 border-white/30 shadow-2xl ring-4 ring-white/10">
                 <img
-                  src={form.avatarUrl || DEFAULT_AVATAR}
+                  src={resolveAvatarUrl(form.avatarUrl)}
                   alt="Avatar"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
@@ -441,7 +463,7 @@ const ProfilePage = () => {
               {recentViews.map((item) => (
                 <Link key={item.id} to={item.targetUrl || '/'} className="rounded-[2rem] border border-slate-100 overflow-hidden bg-slate-50 hover:bg-white hover:shadow-lg transition-all">
                   <div className="h-36 bg-slate-200 overflow-hidden">
-                    <img src={item.imageUrl || DEFAULT_AVATAR} alt={item.title} className="w-full h-full object-cover" />
+                    <img src={resolveOptionalImageUrl(item.imageUrl) || DEFAULT_AVATAR} alt={item.title} className="w-full h-full object-cover" />
                   </div>
                   <div className="p-5">
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">{formatCustomerProductLabel(item.productType)}</p>
@@ -503,9 +525,9 @@ const ProfilePage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {suggestions.map((item) => (
                 <Link key={item.id} to={item.targetUrl || '/'} className="rounded-[2rem] border border-slate-100 overflow-hidden bg-slate-50 hover:bg-white hover:shadow-lg transition-all">
-                  {item.imageUrl ? (
+                  {resolveOptionalImageUrl(item.imageUrl) ? (
                     <div className="h-36 bg-slate-200 overflow-hidden">
-                      <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
+                      <img src={resolveOptionalImageUrl(item.imageUrl)} alt={item.title} className="w-full h-full object-cover" />
                     </div>
                   ) : null}
                   <div className="p-5">

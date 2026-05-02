@@ -64,7 +64,7 @@ namespace TicketBooking.Infrastructure.Seed
 
             // 4) Posts (2)
             var post1 = await EnsurePostAsync(db, tenant.Id,
-                title: "Ra Mắt Hệ Thống TicketBooking V3 (Demo)",
+                title: "Ra Mắt Hệ Thống TicketBooking V3",
                 slug: "ra-mat-ticketbooking-v3",
                 summary: "Giới thiệu tổng quan hệ thống đặt vé xe/tàu/máy bay/tour/khách sạn.",
                 status: NewsPostStatus.Published,
@@ -76,7 +76,7 @@ namespace TicketBooking.Infrastructure.Seed
                 ct: ct);
 
             var post2 = await EnsurePostAsync(db, tenant.Id,
-                title: "Hướng Dẫn Đặt Vé Xe Theo Sơ Đồ Ghế (Demo)",
+                title: "Hướng Dẫn Đặt Vé Xe Theo Sơ Đồ Ghế",
                 slug: "huong-dan-dat-ve-xe-theo-so-do-ghe",
                 summary: "Các bước chọn chuyến, chọn ghế, giữ chỗ và thanh toán.",
                 status: NewsPostStatus.Scheduled,
@@ -107,7 +107,7 @@ namespace TicketBooking.Infrastructure.Seed
             await EnsureRedirectAsync(db, tenant.Id,
                 fromPath: "/tin-tuc/ra-mat-he-thong",
                 toPath: "/tin-tuc/ra-mat-ticketbooking-v3",
-                reason: "Đổi slug bài viết demo",
+                reason: "Đổi slug bài viết",
                 now: now,
                 userId: authorUserId,
                 ct: ct);
@@ -662,7 +662,7 @@ Chào mừng bạn đến với **TicketBooking V3**.
 - Giữ chỗ (HOLD) chống đặt trùng
 - Booking snapshot & workflow chuẩn
 
-> Đây là bài viết demo phục vụ Phase 7 CMS/SEO.
+> Đây là bài viết giới thiệu nội dung và quy trình sử dụng hệ thống.
 ";
         }
 

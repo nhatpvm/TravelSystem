@@ -320,7 +320,7 @@ export function updateBusSeat(id, payload) {
 }
 
 export function bulkUpdateBusSeats(payload) {
-  return api.put('/qlnx/fleet/seats/bulk', payload);
+  return api.post('/qlnx/fleet/seats/bulk-update', payload);
 }
 
 export function deleteBusSeat(id) {

@@ -77,7 +77,7 @@ const BusInventoryPage = () => {
     try {
       const [optionsResponse, tripsResponse] = await Promise.all([
         getBusManagerOptions(),
-        listBusTrips(),
+        listBusTrips({ includeDeleted: true }),
       ]);
 
       setOptions({
@@ -124,6 +124,14 @@ const BusInventoryPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const departureAt = toApiDateTimeValue(form.departureAt);
+    const arrivalAt = toApiDateTimeValue(form.arrivalAt);
+
+    if (!departureAt || !arrivalAt || new Date(arrivalAt) < new Date(departureAt)) {
+      setError('Giờ đến nơi phải sau hoặc bằng giờ xuất bến.');
+      return;
+    }
+
     setSaving(true);
     setError('');
     setNotice('');
@@ -223,7 +231,7 @@ const BusInventoryPage = () => {
           <div className="px-8 py-6 border-b border-slate-100 flex items-center justify-between gap-4">
             <div>
               <p className="text-lg font-black text-slate-900">Danh sách chuyến xe</p>
-              <p className="text-xs font-bold text-slate-400 mt-1">Chuyến nào mở bán trên marketplace sẽ hiển thị cho khách hàng.</p>
+              <p className="text-xs font-bold text-slate-400 mt-1">Chuyến nào mở bán sẽ hiển thị cho khách hàng.</p>
             </div>
           </div>
 
@@ -231,7 +239,7 @@ const BusInventoryPage = () => {
             {loading ? (
               <div className="px-8 py-10 text-sm font-bold text-slate-500">Đang tải chuyến xe...</div>
             ) : trips.length === 0 ? (
-              <div className="px-8 py-10 text-sm font-bold text-slate-500">Chưa có chuyến xe nào trong tenant.</div>
+              <div className="px-8 py-10 text-sm font-bold text-slate-500">Đơn vị này chưa có chuyến xe nào.</div>
             ) : trips.map((trip) => (
               <div
                 key={trip.id}
@@ -293,7 +301,7 @@ const BusInventoryPage = () => {
           <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 space-y-5">
             <div>
               <p className="text-xl font-black text-slate-900">{selectedTripId ? 'Cập nhật chuyến xe' : 'Tạo chuyến xe mới'}</p>
-              <p className="text-xs font-bold text-slate-400 mt-1">Giữ đúng mã chuyến, tuyến, xe và thời gian để public search hoạt động chính xác.</p>
+              <p className="text-xs font-bold text-slate-400 mt-1">Giữ đúng mã chuyến, tuyến, xe và thời gian để khách tìm chuyến chính xác.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -409,7 +417,7 @@ const BusInventoryPage = () => {
                 value={form.notes}
                 onChange={(event) => setForm((current) => ({ ...current, notes: event.target.value }))}
                 className="w-full rounded-[2rem] border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-bold text-slate-700 outline-none"
-                placeholder="Mô tả nhanh cho điều hành, quy định hành lý, boarding..."
+                placeholder="Mô tả nhanh cho điều hành, quy định hành lý, điểm lên xe..."
               />
             </label>
 

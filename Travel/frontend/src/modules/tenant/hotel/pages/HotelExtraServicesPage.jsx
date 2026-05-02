@@ -257,7 +257,7 @@ export default function HotelExtraServicesPage({ mode = 'tenant', adminScope = n
         <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 space-y-5">
           <div>
             <p className="text-lg font-black text-slate-900">{selectedId ? 'Cập nhật dịch vụ thêm' : 'Tạo dịch vụ thêm mới'}</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Nhập bảng giá theo JSON để cover đủ contract giá theo ngày của backend.</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Khai báo bảng giá theo từng giai đoạn áp dụng cho dịch vụ.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -274,11 +274,11 @@ export default function HotelExtraServicesPage({ mode = 'tenant', adminScope = n
                 <option key={item.value} value={item.value}>{item.label}</option>
               ))}
             </select>
-            <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Metadata JSON" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
+            <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Ghi chú cấu hình nội bộ" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
           </div>
 
           <textarea value={form.description} onChange={(event) => setForm((current) => ({ ...current, description: event.target.value }))} rows={4} placeholder="Mô tả dịch vụ" className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
-          <textarea value={form.pricesJson} onChange={(event) => setForm((current) => ({ ...current, pricesJson: event.target.value }))} rows={10} placeholder='Prices JSON, ví dụ: [{"startDate":"2026-04-13","endDate":"2026-04-30","currencyCode":"VND","price":250000}]' className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
+          <textarea value={form.pricesJson} onChange={(event) => setForm((current) => ({ ...current, pricesJson: event.target.value }))} rows={10} placeholder='Bảng giá dịch vụ, ví dụ: [{"startDate":"2026-04-13","endDate":"2026-04-30","currencyCode":"VND","price":250000}]' className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
 
           <label className="flex items-center gap-3 text-sm font-bold text-slate-600">
             <input type="checkbox" checked={form.isActive} onChange={(event) => setForm((current) => ({ ...current, isActive: event.target.checked }))} />

@@ -1,20 +1,23 @@
-import React from 'react';
+﻿import React from 'react';
 import Navbar from '../../home/components/Navbar';
 import Footer from '../../home/components/Footer';
 import { ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import nav1 from '../../../assets/nav1.png';
+import nav2 from '../../../assets/nav2.png';
+import nav3 from '../../../assets/nav3.png';
 
 const activitiesData = [
-  { id: 1, title: "California", trips: "05 Chuyến đi", img: "https://images.unsplash.com/photo-1506461883276-594a12b11cf3?q=80&w=800" },
-  { id: 2, title: "Trọn gói", trips: "12 Chuyến đi", img: "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=800" },
-  { id: 3, title: "Thái Lan", trips: "25 Chuyến đi", img: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=800" },
-  { id: 4, title: "Ấn Độ", trips: "45 Chuyến đi", img: "https://images.unsplash.com/photo-1548013146-72479768bbfd?q=80&w=800" },
-  { id: 5, title: "Sugarland", trips: "15 Chuyến đi", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800" },
-  { id: 6, title: "Sugarland", trips: "35 Chuyến đi", img: "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=800" },
-  { id: 7, title: "Ấn Độ", trips: "18 Chuyến đi", img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800" },
-  { id: 8, title: "Sugarland", trips: "10 Chuyến đi", img: "https://images.unsplash.com/photo-1485833077593-4278bba3f11f?q=80&w=800" },
-  { id: 9, title: "Sugarland", trips: "20 Chuyến đi", img: "https://images.unsplash.com/photo-1544191714-8024047ddaba?q=80&w=800" },
+  { id: 1, title: "California", trips: "05 Chuyáº¿n Ä‘i", img: nav1 },
+  { id: 2, title: "Trá»n gÃ³i", trips: "12 Chuyáº¿n Ä‘i", img: nav2 },
+  { id: 3, title: "ThÃ¡i Lan", trips: "25 Chuyáº¿n Ä‘i", img: nav3 },
+  { id: 4, title: "áº¤n Äá»™", trips: "45 Chuyáº¿n Ä‘i", img: nav1 },
+  { id: 5, title: "Sugarland", trips: "15 Chuyáº¿n Ä‘i", img: nav2 },
+  { id: 6, title: "Sugarland", trips: "35 Chuyáº¿n Ä‘i", img: nav3 },
+  { id: 7, title: "áº¤n Äá»™", trips: "18 Chuyáº¿n Ä‘i", img: nav1 },
+  { id: 8, title: "Sugarland", trips: "10 Chuyáº¿n Ä‘i", img: nav2 },
+  { id: 9, title: "Sugarland", trips: "20 Chuyáº¿n Ä‘i", img: nav3 },
 ];
 
 const ActivitiesPage = () => {
@@ -22,12 +25,12 @@ const ActivitiesPage = () => {
     <div className="min-h-screen bg-white flex flex-col font-sans">
       <Navbar />
 
-      {/* Breadcrumb Header Section — same as About Us */}
+      {/* Breadcrumb Header Section â€” same as About Us */}
       <section className="relative h-[450px] md:h-[550px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070"
-            alt="Hoạt động"
+            src={nav1}
+            alt="Hoáº¡t Ä‘á»™ng"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/35"></div>
@@ -39,7 +42,7 @@ const ActivitiesPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 tracking-tighter"
           >
-            Hoạt động
+            Hoáº¡t Ä‘á»™ng
           </motion.h1>
 
           <motion.div
@@ -48,9 +51,9 @@ const ActivitiesPage = () => {
             transition={{ delay: 0.2 }}
             className="inline-flex items-center gap-4 bg-white/20 backdrop-blur-md px-10 py-4 rounded-full border border-white/30 text-lg font-bold"
           >
-            <Link to="/" className="text-white hover:text-[#1EB4D4] transition-colors">Trang chủ</Link>
+            <Link to="/" className="text-white hover:text-[#1EB4D4] transition-colors">Trang chá»§</Link>
             <ChevronRight size={20} className="text-[#1EB4D4]" />
-            <span className="text-white">Hoạt động</span>
+            <span className="text-white">Hoáº¡t Ä‘á»™ng</span>
           </motion.div>
         </div>
       </section>
@@ -96,3 +99,4 @@ const ActivitiesPage = () => {
 };
 
 export default ActivitiesPage;
+

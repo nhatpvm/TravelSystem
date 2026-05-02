@@ -74,7 +74,7 @@ export default function AdminHotelAmenitiesPage() {
       buildPayload={buildPayload}
       itemSubtitle={(item) => `${item.code || 'NO-CODE'} • ${item.category || 'General'}`}
       linkTitle="Liên kết tiện nghi với khách sạn"
-      linkDescription="Danh sách JSON phải theo contract backend: amenityId, isHighlighted, sortOrder, notes."
+      linkDescription="Danh sách tiện nghi áp dụng cho phòng, gồm nổi bật, thứ tự hiển thị và ghi chú vận hành."
       linkPlaceholder='[{"amenityId":"...","isHighlighted":true,"sortOrder":1,"notes":"Nằm ở tầng thượng"}]'
       renderFields={({ form, setForm }) => (
         <>
@@ -84,7 +84,7 @@ export default function AdminHotelAmenitiesPage() {
             <input value={form.category} onChange={(event) => setForm((current) => ({ ...current, category: event.target.value }))} placeholder="Nhóm tiện nghi" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
             <input value={form.iconUrl} onChange={(event) => setForm((current) => ({ ...current, iconUrl: event.target.value }))} placeholder="Icon URL" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
             <input type="number" value={form.sortOrder} onChange={(event) => setForm((current) => ({ ...current, sortOrder: event.target.value }))} placeholder="Thứ tự" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
-            <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Metadata JSON" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
+            <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Ghi chú cấu hình nội bộ" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
           </div>
           <textarea value={form.description} onChange={(event) => setForm((current) => ({ ...current, description: event.target.value }))} rows={4} placeholder="Mô tả tiện nghi" className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
           <label className="flex items-center gap-3 text-sm font-bold text-slate-600">

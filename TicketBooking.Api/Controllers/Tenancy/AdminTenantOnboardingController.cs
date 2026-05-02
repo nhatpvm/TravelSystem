@@ -16,7 +16,7 @@ namespace TicketBooking.Api.Controllers.Admin;
 [ApiController]
 [ApiVersion(1.0)]
 [Route("api/v{version:apiVersion}/admin/tenant-onboarding")]
-[Authorize(Roles = "Admin")]
+[Authorize(Policy = "perm:tenants.manage")]
 public sealed class AdminTenantOnboardingController : ControllerBase
 {
     private readonly PartnerOnboardingStore _store;
@@ -277,11 +277,12 @@ public sealed class AdminTenantOnboardingController : ControllerBase
 
         var owner = await _userManager.FindByEmailAsync(ownerEmail);
         var ownerCreated = false;
+        var ownerPasswordReset = false;
         if (owner is null)
         {
             if (string.IsNullOrWhiteSpace(password))
             {
-                return BadRequest(new { message = "InitialPassword is required when the owner user does not exist." });
+                return BadRequest(new { message = "Mật khẩu tạm là bắt buộc khi email owner chưa có tài khoản." });
             }
 
             owner = new AppUser
@@ -302,12 +303,13 @@ public sealed class AdminTenantOnboardingController : ControllerBase
             {
                 return BadRequest(new
                 {
-                    message = "Create owner user failed.",
+                    message = "Không thể tạo tài khoản owner.",
                     errors = createResult.Errors.Select(x => x.Description).ToArray()
                 });
             }
 
             ownerCreated = true;
+            ownerPasswordReset = true;
         }
         else
         {
@@ -322,9 +324,25 @@ public sealed class AdminTenantOnboardingController : ControllerBase
             {
                 return BadRequest(new
                 {
-                    message = "Update owner user failed.",
+                    message = "Không thể cập nhật tài khoản owner.",
                     errors = updateResult.Errors.Select(x => x.Description).ToArray()
                 });
+            }
+
+            if (!string.IsNullOrWhiteSpace(password))
+            {
+                var resetToken = await _userManager.GeneratePasswordResetTokenAsync(owner);
+                var resetResult = await _userManager.ResetPasswordAsync(owner, resetToken, password);
+                if (!resetResult.Succeeded)
+                {
+                    return BadRequest(new
+                    {
+                        message = "Không thể đặt lại mật khẩu owner.",
+                        errors = resetResult.Errors.Select(x => x.Description).ToArray()
+                    });
+                }
+
+                ownerPasswordReset = true;
             }
         }
 
@@ -377,6 +395,7 @@ public sealed class AdminTenantOnboardingController : ControllerBase
                 owner.FullName,
                 owner.PhoneNumber,
                 Created = ownerCreated,
+                PasswordReset = ownerPasswordReset,
                 GlobalRole = ownerRole
             },
             tenantRole = new

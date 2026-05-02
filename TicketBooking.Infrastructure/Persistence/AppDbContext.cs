@@ -17,6 +17,10 @@ namespace TicketBooking.Infrastructure.Persistence
             _tenantContext = tenantContext;
         }
 
+        public bool HasTenantFilter => _tenantContext.HasTenant;
+
+        public Guid? TenantIdFilter => _tenantContext.TenantId;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -82,10 +86,11 @@ namespace TicketBooking.Infrastructure.Persistence
 
                 if (hasTenantId)
                 {
-                    var hasTenantExpr = Expression.Property(Expression.Constant(_tenantContext), nameof(ITenantContext.HasTenant));
+                    var contextExpr = Expression.Constant(this);
+                    var hasTenantExpr = Expression.Property(contextExpr, nameof(HasTenantFilter));
                     var noTenant = Expression.Equal(hasTenantExpr, Expression.Constant(false));
 
-                    var ctxTenantIdNullable = Expression.Property(Expression.Constant(_tenantContext), nameof(ITenantContext.TenantId)); // Guid?
+                    var ctxTenantIdNullable = Expression.Property(contextExpr, nameof(TenantIdFilter)); // Guid?
 
                     var eTenantIdExpr = Expression.Property(param, "TenantId"); // Guid or Guid?
 

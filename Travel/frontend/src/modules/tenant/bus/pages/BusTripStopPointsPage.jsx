@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { LocateFixed, Plus, RefreshCw } from 'lucide-react';
+import { Info, LocateFixed, Plus, RefreshCw } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import BusManagementPageShell from '../components/BusManagementPageShell';
 import useLatestRef from '../../../../shared/hooks/useLatestRef';
@@ -83,9 +83,7 @@ const BusTripStopPointsPage = () => {
 
         const nextTrips = Array.isArray(response?.items) ? response.items.filter((item) => !item.isDeleted) : [];
         setTrips(nextTrips);
-        if (!selectedTripId) {
-          setSelectedTripId(nextTrips[0]?.id || '');
-        }
+        setSelectedTripId((current) => current || nextTrips[0]?.id || '');
       })
       .catch((err) => {
         if (active) {
@@ -96,11 +94,12 @@ const BusTripStopPointsPage = () => {
     return () => {
       active = false;
     };
-  }, [selectedTripId]);
+  }, []);
 
   useEffect(() => {
     if (!selectedTripId) {
       setStopTimes([]);
+      setSelectedStopTimeId('');
       return;
     }
 
@@ -114,11 +113,15 @@ const BusTripStopPointsPage = () => {
 
         const nextItems = Array.isArray(response?.items) ? response.items : [];
         setStopTimes(nextItems);
-        setSelectedStopTimeId(nextItems[0]?.id || '');
+        setSelectedStopTimeId((current) => (
+          current && nextItems.some((item) => item.id === current)
+            ? current
+            : nextItems[0]?.id || ''
+        ));
       })
       .catch((err) => {
         if (active) {
-          setError(err.message || 'Không tải được stop times của chuyến.');
+          setError(err.message || 'Không tải được lịch dừng của chuyến.');
         }
       });
 
@@ -127,7 +130,7 @@ const BusTripStopPointsPage = () => {
     };
   }, [selectedTripId]);
 
-  const loadPointData = async () => {
+  async function loadPointData() {
     if (!selectedStopTimeId) {
       setPickupItems([]);
       setDropoffItems([]);
@@ -167,11 +170,11 @@ const BusTripStopPointsPage = () => {
         setDropoffForm(createEmptyPointForm());
       }
     } catch (err) {
-      setError(err.message || 'Không tải được pickup/dropoff points.');
+      setError(err.message || 'Không tải được điểm đón/trả theo chuyến.');
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
     loadPointDataRef.current();
@@ -260,8 +263,8 @@ const BusTripStopPointsPage = () => {
   return (
     <BusManagementPageShell
       pageKey="trip-stop-points"
-      title="Điểm đón / trả"
-      subtitle="Mỗi lịch dừng có thể có nhiều điểm đón và trả linh hoạt cho từng chuyến."
+      title="Điểm đón trả theo chuyến"
+      subtitle="Cấu hình điểm khách có thể lên/xuống xe cho từng chuyến và từng lịch dừng. Đây không phải danh mục bến gốc."
       error={error}
       notice={notice}
       actions={(
@@ -275,6 +278,14 @@ const BusTripStopPointsPage = () => {
         </button>
       )}
     >
+      <div className="mb-6 rounded-3xl border border-amber-100 bg-amber-50 px-6 py-5 text-sm font-bold text-amber-800">
+        <div className="flex items-start gap-3">
+          <Info size={18} className="mt-0.5 shrink-0" />
+          <p>
+            Màn này chỉ áp dụng cho chuyến xe đang chọn. Chọn <span className="font-black">Chuyến xe</span> và <span className="font-black">Lịch dừng</span>, rồi thêm điểm đón/điểm trả linh hoạt cho khách.
+          </p>
+        </div>
+      </div>
       <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="space-y-2">
@@ -284,6 +295,7 @@ const BusTripStopPointsPage = () => {
               onChange={(event) => setSelectedTripId(event.target.value)}
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none"
             >
+              <option value="">Chọn chuyến xe</option>
               {trips.map((trip) => (
                 <option key={trip.id} value={trip.id}>{trip.name}</option>
               ))}
@@ -296,6 +308,7 @@ const BusTripStopPointsPage = () => {
               onChange={(event) => setSelectedStopTimeId(event.target.value)}
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none"
             >
+              <option value="">Chọn lịch dừng</option>
               {stopTimes.map((item) => (
                 <option key={item.id} value={item.id}>Điểm dừng số {Number(item.stopIndex) + 1}</option>
               ))}
@@ -306,7 +319,7 @@ const BusTripStopPointsPage = () => {
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <p className="text-lg font-black text-slate-900">Điểm đón</p>
+              <p className="text-lg font-black text-slate-900">Điểm đón của lịch dừng này</p>
               <button
                 type="button"
                 onClick={() => {
@@ -386,7 +399,7 @@ const BusTripStopPointsPage = () => {
 
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <p className="text-lg font-black text-slate-900">Điểm trả</p>
+              <p className="text-lg font-black text-slate-900">Điểm trả của lịch dừng này</p>
               <button
                 type="button"
                 onClick={() => {

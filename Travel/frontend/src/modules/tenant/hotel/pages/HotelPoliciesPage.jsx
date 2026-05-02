@@ -429,7 +429,7 @@ export default function HotelPoliciesPage({ mode = 'tenant', adminScope = null }
                 <option key={item.value} value={item.value}>{item.label}</option>
               ))}
             </select>
-            <textarea value={cancellationForm.rulesJson} onChange={(event) => setCancellationForm((current) => ({ ...current, rulesJson: event.target.value }))} rows={8} placeholder='Rules JSON, ví dụ: [{"cancelBeforeHours":48,"chargeType":2,"chargeValue":0,"priority":1}]' className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
+            <textarea value={cancellationForm.rulesJson} onChange={(event) => setCancellationForm((current) => ({ ...current, rulesJson: event.target.value }))} rows={8} placeholder='Quy định hủy phòng, ví dụ: [{"cancelBeforeHours":48,"chargeType":2,"chargeValue":0,"priority":1}]' className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
             <button type="button" onClick={(event) => handleSaveSection(event, 'cancellation')} disabled={saving !== ''} className="w-full px-5 py-4 rounded-2xl bg-slate-900 text-white text-sm font-black">
               {saving === 'cancellation' ? 'Đang lưu...' : 'Lưu chính sách hủy'}
             </button>
@@ -481,7 +481,7 @@ export default function HotelPoliciesPage({ mode = 'tenant', adminScope = null }
             </div>
             <input value={propertyForm.code} onChange={(event) => setPropertyForm((current) => ({ ...current, code: event.target.value.toUpperCase() }))} placeholder="Mã policy" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
             <input value={propertyForm.name} onChange={(event) => setPropertyForm((current) => ({ ...current, name: event.target.value }))} placeholder="Tên policy" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
-            <textarea value={propertyForm.policyJson} onChange={(event) => setPropertyForm((current) => ({ ...current, policyJson: event.target.value }))} rows={8} placeholder="Policy JSON" className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
+            <textarea value={propertyForm.policyJson} onChange={(event) => setPropertyForm((current) => ({ ...current, policyJson: event.target.value }))} rows={8} placeholder="Nội quy và điều kiện lưu trú" className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
             <textarea value={propertyForm.notes} onChange={(event) => setPropertyForm((current) => ({ ...current, notes: event.target.value }))} rows={3} placeholder="Ghi chú" className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
             <button type="button" onClick={(event) => handleSaveSection(event, 'property')} disabled={saving !== ''} className="w-full px-5 py-4 rounded-2xl bg-slate-900 text-white text-sm font-black">
               {saving === 'property' ? 'Đang lưu...' : 'Lưu property policy'}

@@ -313,7 +313,7 @@ export default function HotelRatePlansPage({ mode = 'tenant', adminScope = null 
         <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 space-y-5">
           <div>
             <p className="text-lg font-black text-slate-900">{selectedId ? 'Cập nhật gói giá' : 'Tạo gói giá mới'}</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Dùng JSON để map roomTypes và policy đúng theo contract backend.</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Khai báo hạng phòng áp dụng và điều kiện bán cho gói giá.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -361,8 +361,8 @@ export default function HotelRatePlansPage({ mode = 'tenant', adminScope = null 
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <input value={form.minNights} onChange={(event) => setForm((current) => ({ ...current, minNights: event.target.value }))} placeholder="Min nights" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
-            <input value={form.maxNights} onChange={(event) => setForm((current) => ({ ...current, maxNights: event.target.value }))} placeholder="Max nights" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
+            <input value={form.minNights} onChange={(event) => setForm((current) => ({ ...current, minNights: event.target.value }))} placeholder="Số đêm tối thiểu" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
+            <input value={form.maxNights} onChange={(event) => setForm((current) => ({ ...current, maxNights: event.target.value }))} placeholder="Số đêm tối đa" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
             <input value={form.minAdvanceDays} onChange={(event) => setForm((current) => ({ ...current, minAdvanceDays: event.target.value }))} placeholder="Min advance days" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
             <input value={form.maxAdvanceDays} onChange={(event) => setForm((current) => ({ ...current, maxAdvanceDays: event.target.value }))} placeholder="Max advance days" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
           </div>
@@ -374,11 +374,11 @@ export default function HotelRatePlansPage({ mode = 'tenant', adminScope = null 
             <label className="flex items-center gap-3 text-sm font-bold text-slate-600"><input type="checkbox" checked={form.isActive} onChange={(event) => setForm((current) => ({ ...current, isActive: event.target.checked }))} /> Kích hoạt</label>
           </div>
 
-          <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Metadata JSON" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
+          <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Ghi chú cấu hình nội bộ" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-            <textarea value={form.roomTypesJson} onChange={(event) => setForm((current) => ({ ...current, roomTypesJson: event.target.value }))} rows={10} placeholder='RoomTypes JSON, ví dụ: [{"roomTypeId":"...","basePrice":1500000,"currencyCode":"VND"}]' className="rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
-            <textarea value={form.policyJson} onChange={(event) => setForm((current) => ({ ...current, policyJson: event.target.value }))} rows={10} placeholder='Policy JSON, ví dụ: {"policyJson":"...","isActive":true}' className="rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
+            <textarea value={form.roomTypesJson} onChange={(event) => setForm((current) => ({ ...current, roomTypesJson: event.target.value }))} rows={10} placeholder='Hạng phòng áp dụng, ví dụ: [{"roomTypeId":"...","basePrice":1500000,"currencyCode":"VND"}]' className="rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
+            <textarea value={form.policyJson} onChange={(event) => setForm((current) => ({ ...current, policyJson: event.target.value }))} rows={10} placeholder='Điều kiện bán, ví dụ: {"isActive":true}' className="rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
           </div>
 
           <div className="flex flex-wrap gap-3">

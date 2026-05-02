@@ -11,8 +11,10 @@ import {
   restoreUserPermission,
   updateUserPermission,
 } from '../../../services/adminIdentity';
-import { EFFECT_BADGE_MAP } from '../utils/identity';
+import { EFFECT_BADGE_MAP, getPermissionLabel } from '../utils/identity';
 import useLatestRef from '../../../shared/hooks/useLatestRef';
+import { motion } from 'framer-motion';
+
 
 const EMPTY_FORM = {
   userId: '',
@@ -122,6 +124,18 @@ export default function AdminUserPermissionsPage() {
   }
 
   async function handleSave() {
+    if (!form.userId) {
+      setError('Vui lòng chọn người dùng trước khi tạo override.');
+      setNotice('');
+      return;
+    }
+
+    if (!form.permissionId) {
+      setError('Vui lòng chọn quyền trước khi tạo override.');
+      setNotice('');
+      return;
+    }
+
     setSaving(true);
     setError('');
     setNotice('');
@@ -196,7 +210,7 @@ export default function AdminUserPermissionsPage() {
             <UserCog size={16} /> Người dùng
           </Link>
           <Link to="/admin/permissions" className="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 rounded-2xl font-bold text-sm border border-slate-100 hover:border-blue-200 hover:text-blue-600 transition-all shadow-sm">
-            <Link2 size={16} /> Permission catalog
+            <Link2 size={16} /> Danh mục quyền
           </Link>
           <button onClick={startCreate} className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-2xl font-bold text-sm hover:bg-blue-600 transition-all shadow-lg">
             <Plus size={16} /> Thêm override
@@ -239,11 +253,11 @@ export default function AdminUserPermissionsPage() {
             </select>
           </div>
           <div>
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Permission</label>
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Quyền</label>
             <select value={form.permissionId} onChange={(e) => updateField('permissionId', e.target.value)} className="w-full bg-slate-50 border-2 border-transparent focus:border-blue-200 focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-bold text-slate-900 outline-none transition-all">
-              <option value="">Chọn permission</option>
+              <option value="">Chọn quyền</option>
               {permissions.map((permission) => (
-                <option key={permission.id} value={permission.id}>{permission.code}</option>
+                <option key={permission.id} value={permission.id}>{getPermissionLabel(permission)}</option>
               ))}
             </select>
           </div>
@@ -287,7 +301,7 @@ export default function AdminUserPermissionsPage() {
       <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-wrap gap-3">
         <div className="flex-1 min-w-40 flex items-center gap-2 bg-slate-50 rounded-xl px-4">
           <Search size={15} className="text-slate-400" />
-          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Tìm user, permission, tenant..." className="bg-transparent py-3 flex-1 text-sm font-medium outline-none" />
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Tìm người dùng, quyền, đối tác..." className="bg-transparent py-3 flex-1 text-sm font-medium outline-none" />
         </div>
         <select value={userFilter} onChange={(e) => setUserFilter(e.target.value)} className="bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest text-slate-600 outline-none">
           <option value="all">Tất cả user</option>
@@ -310,7 +324,7 @@ export default function AdminUserPermissionsPage() {
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         <div className="hidden md:grid grid-cols-12 gap-4 px-5 py-3 border-b border-slate-50 bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
           <div className="col-span-3">Người dùng</div>
-          <div className="col-span-3">Permission</div>
+          <div className="col-span-3">Quyền</div>
           <div className="col-span-2">Scope</div>
           <div className="col-span-1">Effect</div>
           <div className="col-span-1">Trạng thái</div>
@@ -322,7 +336,7 @@ export default function AdminUserPermissionsPage() {
           ) : items.length === 0 ? (
             <div className="px-5 py-8 text-sm font-bold text-slate-400">Không có override phù hợp.</div>
           ) : items.map((item, idx) => (
-            <motion.div key={item.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: idx * 0.04 }}
+            <motion.div key={`${item.id}-${idx}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: idx * 0.04 }}
               className="grid grid-cols-2 md:grid-cols-12 gap-4 px-5 py-4 items-center hover:bg-slate-50 transition-all"
             >
               <div className="col-span-2 md:col-span-3">
@@ -330,7 +344,7 @@ export default function AdminUserPermissionsPage() {
                 <p className="text-xs text-slate-400 font-bold">{item.user?.email || item.userId}</p>
               </div>
               <div className="col-span-1 md:col-span-3">
-                <p className="font-black text-slate-900 text-sm">{item.permission?.name || '--'}</p>
+                <p className="font-black text-slate-900 text-sm">{item.permission ? getPermissionLabel(item.permission) : '--'}</p>
                 <p className="text-xs text-slate-400 font-bold">{item.permission?.code || item.permissionId}</p>
               </div>
               <div className="col-span-1 md:col-span-2">

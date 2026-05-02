@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using TicketBooking.Domain.Commerce;
+using TicketBooking.Domain.Tenants;
 using TicketBooking.Infrastructure.Persistence;
 using TicketBooking.Infrastructure.Tenancy;
 
@@ -802,6 +803,122 @@ public sealed partial class CommerceBackofficeService
         };
     }
 
+    public async Task<TenantReportDashboardDto> GetTenantReportDashboardAsync(
+        Guid tenantId,
+        string? period,
+        CancellationToken ct = default)
+    {
+        var normalizedPeriod = NormalizeReportPeriod(period);
+        var now = DateTimeOffset.UtcNow;
+        var yearStart = new DateTimeOffset(now.Year, 1, 1, 0, 0, 0, TimeSpan.Zero);
+        var yearEnd = yearStart.AddYears(1);
+        var periodStart = GetReportPeriodStart(now, normalizedPeriod);
+        var periodEnd = normalizedPeriod switch
+        {
+            "month" => periodStart.AddMonths(1),
+            "quarter" => periodStart.AddMonths(3),
+            _ => periodStart.AddYears(1),
+        };
+
+        var tenant = await _db.Tenants
+            .AsNoTracking()
+            .Where(x => x.Id == tenantId && !x.IsDeleted)
+            .Select(x => new { x.Id, x.Code, x.Name, x.Type })
+            .FirstOrDefaultAsync(ct)
+            ?? throw new KeyNotFoundException("Khong tim thay tenant.");
+
+        var orders = await _db.CustomerOrders
+            .AsNoTracking()
+            .Where(x => x.TenantId == tenantId && !x.IsDeleted)
+            .Where(x => (x.PaidAt ?? x.CreatedAt) >= yearStart && (x.PaidAt ?? x.CreatedAt) < yearEnd)
+            .ToListAsync(ct);
+
+        var periodOrders = orders
+            .Where(x => (x.PaidAt ?? x.CreatedAt) >= periodStart && (x.PaidAt ?? x.CreatedAt) < periodEnd)
+            .ToList();
+
+        var paidPeriodOrders = periodOrders.Where(IsRevenueOrder).ToList();
+        var periodGross = paidPeriodOrders.Sum(x => x.GrossAmount);
+        var periodNet = paidPeriodOrders.Sum(GetOrderNetAfterRefund);
+
+        var monthlySeries = Enumerable.Range(1, 12)
+            .Select(month =>
+            {
+                var pointStart = new DateTimeOffset(now.Year, month, 1, 0, 0, 0, TimeSpan.Zero);
+                var pointEnd = pointStart.AddMonths(1);
+                var monthOrders = orders
+                    .Where(x => (x.PaidAt ?? x.CreatedAt) >= pointStart && (x.PaidAt ?? x.CreatedAt) < pointEnd)
+                    .ToList();
+                var monthPaidOrders = monthOrders.Where(IsRevenueOrder).ToList();
+
+                return new TenantReportMonthlyPointDto
+                {
+                    Label = $"T{month}",
+                    GrossAmount = monthPaidOrders.Sum(x => x.GrossAmount),
+                    NetAmount = monthPaidOrders.Sum(GetOrderNetAfterRefund),
+                    BookingCount = monthOrders.Count,
+                };
+            })
+            .ToList();
+
+        var breakdown = paidPeriodOrders
+            .GroupBy(x => x.ProductType)
+            .Select(group => new TenantReportProductBreakdownDto
+            {
+                ProductType = group.Key,
+                Label = GetProductTypeLabel(group.Key),
+                GrossAmount = group.Sum(x => x.GrossAmount),
+                BookingCount = group.Count(),
+                Percentage = periodGross <= 0 ? 0 : Math.Round(group.Sum(x => x.GrossAmount) * 100m / periodGross, 1),
+            })
+            .OrderByDescending(x => x.GrossAmount)
+            .ToList();
+
+        var topProducts = paidPeriodOrders
+            .GroupBy(x => new { Title = ExtractSnapshotTitle(x.SnapshotJson, x.OrderCode), x.ProductType })
+            .Select(group => new TenantReportTopProductDto
+            {
+                Name = group.Key.Title,
+                ProductType = group.Key.ProductType,
+                ProductTypeLabel = GetProductTypeLabel(group.Key.ProductType),
+                BookingCount = group.Count(),
+                GrossAmount = group.Sum(x => x.GrossAmount),
+                NetAmount = group.Sum(GetOrderNetAfterRefund),
+            })
+            .OrderByDescending(x => x.GrossAmount)
+            .ThenByDescending(x => x.BookingCount)
+            .Take(8)
+            .ToList();
+
+        return new TenantReportDashboardDto
+        {
+            Tenant = new TenantReportTenantDto
+            {
+                Id = tenant.Id,
+                Code = tenant.Code,
+                Name = tenant.Name,
+                Type = tenant.Type.ToString(),
+            },
+            Summary = new TenantReportSummaryDto
+            {
+                Period = normalizedPeriod,
+                GrossAmount = periodGross,
+                NetAmount = periodNet,
+                RefundedAmount = paidPeriodOrders.Sum(x => x.RefundedAmount),
+                TotalBookings = periodOrders.Count,
+                PaidBookings = paidPeriodOrders.Count,
+                CompletedBookings = periodOrders.Count(x => x.Status == CustomerOrderStatus.Completed),
+                CancelledBookings = periodOrders.Count(x => x.Status is CustomerOrderStatus.Cancelled or CustomerOrderStatus.Expired or CustomerOrderStatus.Failed),
+                CompletionRate = periodOrders.Count == 0 ? 0 : Math.Round(periodOrders.Count(x => x.Status == CustomerOrderStatus.Completed) * 100m / periodOrders.Count, 1),
+                CancellationRate = periodOrders.Count == 0 ? 0 : Math.Round(periodOrders.Count(x => x.Status is CustomerOrderStatus.Cancelled or CustomerOrderStatus.Expired or CustomerOrderStatus.Failed) * 100m / periodOrders.Count, 1),
+                CurrencyCode = paidPeriodOrders.Select(x => x.CurrencyCode).FirstOrDefault() ?? "VND",
+            },
+            MonthlySeries = monthlySeries,
+            ProductBreakdown = breakdown,
+            TopProducts = topProducts,
+        };
+    }
+
     public async Task<TenantPayoutAccountDto> UpsertTenantPayoutAccountAsync(
         Guid tenantId,
         UpsertTenantPayoutAccountRequest request,
@@ -1304,6 +1421,53 @@ public sealed partial class CommerceBackofficeService
                 };
             }
         }
+    }
+
+    private static string NormalizeReportPeriod(string? period)
+    {
+        if (string.Equals(period, "month", StringComparison.OrdinalIgnoreCase))
+            return "month";
+
+        if (string.Equals(period, "quarter", StringComparison.OrdinalIgnoreCase))
+            return "quarter";
+
+        return "year";
+    }
+
+    private static DateTimeOffset GetReportPeriodStart(DateTimeOffset now, string period)
+    {
+        if (period == "month")
+        {
+            return new DateTimeOffset(now.Year, now.Month, 1, 0, 0, 0, TimeSpan.Zero);
+        }
+
+        if (period == "quarter")
+        {
+            var quarterStartMonth = ((now.Month - 1) / 3 * 3) + 1;
+            return new DateTimeOffset(now.Year, quarterStartMonth, 1, 0, 0, 0, TimeSpan.Zero);
+        }
+
+        return new DateTimeOffset(now.Year, 1, 1, 0, 0, 0, TimeSpan.Zero);
+    }
+
+    private static bool IsRevenueOrder(CustomerOrder order)
+    {
+        return order.PaidAt.HasValue ||
+            order.PaymentStatus is CustomerPaymentStatus.Paid or CustomerPaymentStatus.RefundedPartial or CustomerPaymentStatus.RefundedFull ||
+            order.Status is CustomerOrderStatus.Paid or CustomerOrderStatus.TicketIssued or CustomerOrderStatus.Completed or CustomerOrderStatus.RefundedPartial or CustomerOrderStatus.RefundedFull;
+    }
+
+    private static string GetProductTypeLabel(CustomerProductType productType)
+    {
+        return productType switch
+        {
+            CustomerProductType.Bus => "Xe khách",
+            CustomerProductType.Train => "Tàu",
+            CustomerProductType.Flight => "Máy bay",
+            CustomerProductType.Hotel => "Khách sạn",
+            CustomerProductType.Tour => "Tour",
+            _ => "Dịch vụ",
+        };
     }
 
     private static decimal GetOrderNetAfterRefund(CustomerOrder order)

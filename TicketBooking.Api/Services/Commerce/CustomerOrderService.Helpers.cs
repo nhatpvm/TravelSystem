@@ -438,10 +438,13 @@ internal sealed class TrainOrderMetadata
 internal sealed class FlightOrderMetadata
 {
     public Guid OfferId { get; set; }
+    public Guid? EffectiveOfferId { get; set; }
     public Guid? SeatId { get; set; }
     public string? SeatNumber { get; set; }
     public List<Guid> AncillaryIds { get; set; } = new();
     public int PassengerCount { get; set; }
+    public bool InventoryHeld { get; set; }
+    public bool InventoryConfirmed { get; set; }
     public List<CustomerPassengerInput> Passengers { get; set; } = new();
 }
 

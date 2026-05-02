@@ -297,8 +297,8 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
   const [categoryForm, setCategoryForm] = useState({ name: '', slug: '', description: '' });
   const [tagForm, setTagForm] = useState({ name: '', slug: '' });
 
-  const tenantId = isAdmin ? selectedTenantId : session.currentTenantId;
-  const selectedTenant = useMemo(() => tenants.find((item) => item.id === selectedTenantId) || null, [selectedTenantId, tenants]);
+  const tenantId = isAdmin ? selectedTenantId : session?.currentTenantId;
+  const selectedTenant = useMemo(() => tenants.find((item) => item?.id === selectedTenantId) || null, [selectedTenantId, tenants]);
 
   const loadWorkspaceRef = useLatestRef(loadWorkspace);
 
@@ -316,9 +316,15 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
           return;
         }
 
-        setTenants(response.items || []);
-        if (!selectedTenantId && response.items?.length) {
-          setSelectedTenantId(response.items[0].id);
+        const nextTenants = Array.isArray(response.items)
+          ? response.items.filter((item) => item?.id)
+          : [];
+
+        setTenants(nextTenants);
+        if (!selectedTenantId && nextTenants.length) {
+          setSelectedTenantId(nextTenants[0].id);
+        } else if (selectedTenantId && !nextTenants.some((item) => item.id === selectedTenantId)) {
+          setSelectedTenantId(nextTenants[0]?.id || '');
         }
       } catch (err) {
         if (mounted) {
@@ -363,7 +369,7 @@ const CmsWorkspacePage = ({ mode = 'admin' }) => {
       supportPhone: options.siteSettings.supportPhone || '',
       isActive: options.siteSettings.isActive !== false,
     });
-  }, [options.siteSettings, options.siteSettings.id]);
+  }, [options.siteSettings]);
 
   async function loadWorkspace() {
     setLoading(true);

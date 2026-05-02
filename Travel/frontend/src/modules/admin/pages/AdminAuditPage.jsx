@@ -115,8 +115,8 @@ export default function AdminAuditPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
-                {data.items.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-50/60">
+                {data.items.map((item, index) => (
+                  <tr key={`${item.id}-${index}`} className="hover:bg-slate-50/60">
                     <td className="px-5 py-4 text-xs font-bold text-slate-500 whitespace-nowrap">{formatDate(item.occurredAt)}</td>
                     <td className="px-5 py-4 text-sm font-black text-slate-800">{item.actorName || 'System'}</td>
                     <td className="px-5 py-4">

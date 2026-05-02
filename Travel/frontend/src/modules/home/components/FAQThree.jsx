@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
+import nav3 from '../../../assets/nav3.png';
 
 const faqs = [
   {
@@ -29,7 +30,7 @@ const FAQThree = () => {
       {/* Decorative bg */}
       <div className="absolute top-0 left-0 opacity-10 pointer-events-none">
         <img 
-          src="https://ex-coders.com/html/turmet/assets/img/shape/faq-shape.png" 
+          src={nav3}
           alt="" 
           className="w-40"
         />

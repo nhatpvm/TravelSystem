@@ -16,7 +16,7 @@ namespace TicketBooking.Api.Controllers;
 [ApiController]
 [ApiVersion(1.0)]
 [Route("api/v{version:apiVersion}/tenant/staff")]
-[Authorize(Roles = "Admin,QLNX,QLVT,QLVMM,QLKS,QLTour")]
+[Authorize(Policy = "perm:tenant.staff.manage")]
 public sealed class TenantStaffController : ControllerBase
 {
     private sealed class StaffRoleTemplate

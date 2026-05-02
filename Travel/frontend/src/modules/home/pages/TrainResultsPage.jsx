@@ -13,6 +13,7 @@ import {
   formatTime,
   getCarTypeLabel,
 } from '../../tenant/train/utils/presentation';
+import trainHeroImage from '../../../assets/nav1.png';
 
 const SORT_TABS = [
   { key: 'all', label: 'Tất cả tàu' },
@@ -207,7 +208,7 @@ const TrainResultsPage = () => {
     <MainLayout>
       <div className="min-h-screen bg-slate-50 pb-12 overflow-hidden">
         <div className="bg-slate-900 h-[320px] relative flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1474487585635-96811fca4c1c?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center opacity-30" />
+          <div className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: `url(${trainHeroImage})` }} />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900/90" />
           <div className="container mx-auto px-4 relative z-10 text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex justify-center mb-6">

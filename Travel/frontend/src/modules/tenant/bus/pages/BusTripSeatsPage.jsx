@@ -32,6 +32,31 @@ function buildSeatGrid(seatMap, seats) {
   return grouped;
 }
 
+function getStopIndex(stopTimes, id) {
+  const item = stopTimes.find((stopTime) => stopTime.id === id);
+  return item ? Number(item.stopIndex) : -1;
+}
+
+function resolveForwardSegment(stopTimes, fromId, toId) {
+  const ordered = [...stopTimes].sort((a, b) => Number(a.stopIndex) - Number(b.stopIndex));
+
+  if (ordered.length < 2) {
+    return { fromTripStopTimeId: '', toTripStopTimeId: '' };
+  }
+
+  const lastStopIndex = Number(ordered[ordered.length - 1]?.stopIndex);
+  const currentFrom = ordered.find((item) => item.id === fromId && Number(item.stopIndex) < lastStopIndex);
+  const from = currentFrom || ordered[0];
+  const fromIndex = Number(from.stopIndex);
+  const currentTo = ordered.find((item) => item.id === toId && Number(item.stopIndex) > fromIndex);
+  const to = currentTo || ordered.find((item) => Number(item.stopIndex) > fromIndex);
+
+  return {
+    fromTripStopTimeId: from?.id || '',
+    toTripStopTimeId: to?.id || '',
+  };
+}
+
 const BusTripSeatsPage = () => {
   const [searchParams] = useSearchParams();
   const [trips, setTrips] = useState([]);
@@ -56,9 +81,7 @@ const BusTripSeatsPage = () => {
 
         const nextTrips = Array.isArray(response?.items) ? response.items.filter((item) => !item.isDeleted) : [];
         setTrips(nextTrips);
-        if (!selectedTripId) {
-          setSelectedTripId(nextTrips[0]?.id || '');
-        }
+        setSelectedTripId((current) => current || nextTrips[0]?.id || '');
       })
       .catch((err) => {
         if (active) {
@@ -69,7 +92,7 @@ const BusTripSeatsPage = () => {
     return () => {
       active = false;
     };
-  }, [selectedTripId]);
+  }, []);
 
   useEffect(() => {
     if (!selectedTripId) {
@@ -87,8 +110,9 @@ const BusTripSeatsPage = () => {
 
         const nextItems = Array.isArray(response?.items) ? response.items : [];
         setStopTimes(nextItems);
-        setFromTripStopTimeId(nextItems[0]?.id || '');
-        setToTripStopTimeId(nextItems[1]?.id || nextItems[0]?.id || '');
+        const nextSegment = resolveForwardSegment(nextItems, '', '');
+        setFromTripStopTimeId(nextSegment.fromTripStopTimeId);
+        setToTripStopTimeId(nextSegment.toTripStopTimeId);
       })
       .catch((err) => {
         if (active) {
@@ -101,10 +125,20 @@ const BusTripSeatsPage = () => {
     };
   }, [selectedTripId]);
 
-  const loadSeats = async () => {
+  async function loadSeats() {
     if (!selectedTripId || !fromTripStopTimeId || !toTripStopTimeId) {
       setSeatData(null);
       setLoading(false);
+      return;
+    }
+
+    const fromIndex = getStopIndex(stopTimes, fromTripStopTimeId);
+    const toIndex = getStopIndex(stopTimes, toTripStopTimeId);
+
+    if (fromIndex < 0 || toIndex <= fromIndex) {
+      setSeatData(null);
+      setLoading(false);
+      setError('Chọn điểm xuống nằm sau điểm lên để xem sơ đồ ghế.');
       return;
     }
 
@@ -119,7 +153,7 @@ const BusTripSeatsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
     loadSeatsRef.current();
@@ -127,6 +161,9 @@ const BusTripSeatsPage = () => {
 
   const seats = seatData?.seats || [];
   const seatGroups = buildSeatGrid(seatData?.seatMap, seats);
+  const fromStopIndex = getStopIndex(stopTimes, fromTripStopTimeId);
+  const fromStopOptions = stopTimes.filter((item) => Number(item.stopIndex) < Math.max(...stopTimes.map((stopTime) => Number(stopTime.stopIndex)), 0));
+  const toStopOptions = stopTimes.filter((item) => Number(item.stopIndex) > fromStopIndex);
 
   return (
     <BusManagementPageShell
@@ -154,6 +191,7 @@ const BusTripSeatsPage = () => {
               onChange={(event) => setSelectedTripId(event.target.value)}
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none"
             >
+              <option value="">Chọn chuyến xe</option>
               {trips.map((trip) => (
                 <option key={trip.id} value={trip.id}>{trip.name}</option>
               ))}
@@ -163,10 +201,14 @@ const BusTripSeatsPage = () => {
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Điểm lên</span>
             <select
               value={fromTripStopTimeId}
-              onChange={(event) => setFromTripStopTimeId(event.target.value)}
+              onChange={(event) => {
+                const nextSegment = resolveForwardSegment(stopTimes, event.target.value, toTripStopTimeId);
+                setFromTripStopTimeId(nextSegment.fromTripStopTimeId);
+                setToTripStopTimeId(nextSegment.toTripStopTimeId);
+              }}
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none"
             >
-              {stopTimes.map((item) => (
+              {fromStopOptions.map((item) => (
                 <option key={item.id} value={item.id}>Điểm dừng số {Number(item.stopIndex) + 1}</option>
               ))}
             </select>
@@ -178,7 +220,7 @@ const BusTripSeatsPage = () => {
               onChange={(event) => setToTripStopTimeId(event.target.value)}
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none"
             >
-              {stopTimes.map((item) => (
+              {toStopOptions.map((item) => (
                 <option key={item.id} value={item.id}>Điểm dừng số {Number(item.stopIndex) + 1}</option>
               ))}
             </select>

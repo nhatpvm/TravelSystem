@@ -79,7 +79,7 @@ const TrainTripStopTimesPage = () => {
     };
   }, [selectedTripId]);
 
-  const loadStopTimes = async () => {
+  async function loadStopTimes() {
     if (!selectedTripId) {
       setItems([]);
       setLoading(false);
@@ -107,7 +107,7 @@ const TrainTripStopTimesPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
     loadStopTimesRef.current();

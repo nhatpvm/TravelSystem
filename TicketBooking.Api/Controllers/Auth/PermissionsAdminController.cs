@@ -20,7 +20,7 @@ namespace TicketBooking.Api.Controllers.Admin
     [ApiController]
     [ApiVersion(1.0)]
     [Route("api/v{version:apiVersion}/admin/auth/permissions")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "perm:tenants.manage")]
     public sealed class PermissionsAdminController : ControllerBase
     {
         private readonly AppDbContext _db;

@@ -329,8 +329,6 @@ public sealed class QlNxRoutesController : ControllerBase
             }
         }
 
-        await _db.SaveChangesAsync(ct);
-
         route.FromStopPointId = ordered.First().StopPointId;
         route.ToStopPointId = ordered.Last().StopPointId;
         route.UpdatedAt = now;

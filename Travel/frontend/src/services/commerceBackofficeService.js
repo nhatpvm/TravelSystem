@@ -71,6 +71,22 @@ export function getTenantCommerceFinance() {
   return api.get('/tenant/commerce/finance');
 }
 
+export function getTenantCommerceReports(params = {}) {
+  return api.get(`/tenant/commerce/reports${toQuery(params)}`);
+}
+
+export function listTenantCommerceBookings(params = {}) {
+  return api.get(`/tenant/commerce/bookings${toQuery(params)}`);
+}
+
+export function getTenantCommerceBooking(orderId) {
+  return api.get(`/tenant/commerce/bookings/${orderId}`);
+}
+
+export function listTenantCommerceReviews(params = {}) {
+  return api.get(`/tenant/commerce/reviews${toQuery(params)}`);
+}
+
 export function upsertTenantCommercePayoutAccount(payload = {}) {
   return api.put('/tenant/commerce/payout-account', payload);
 }

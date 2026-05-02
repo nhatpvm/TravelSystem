@@ -43,7 +43,7 @@ const BusOperationsPage = () => {
     <BusManagementPageShell
       pageKey="operations"
       title="Vận hành Xe khách"
-      subtitle="Điểm đón/trả, tuyến đường và lịch dừng đều được điều hành theo tenant hiện tại."
+      subtitle="Danh mục bến, tuyến đường, lịch dừng và điểm đón/trả theo chuyến đều được điều hành theo đơn vị đang chọn."
       error={error}
       actions={(
         <button
@@ -58,7 +58,7 @@ const BusOperationsPage = () => {
     >
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {[
-          { label: 'Điểm đón/trả', value: options.stopPoints.length, icon: MapPin },
+          { label: 'Bến/điểm dừng gốc', value: options.stopPoints.length, icon: MapPin },
           { label: 'Tuyến đường', value: options.routes.length, icon: Route },
           { label: 'Chuyến đang chạy', value: activeTrips.length, icon: Ticket },
           { label: 'Chuyến có lịch dừng', value: trips.filter((item) => Number(item.status) === 2).length, icon: Clock3 },
@@ -81,8 +81,8 @@ const BusOperationsPage = () => {
         <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
           <div className="px-8 py-6 border-b border-slate-100 flex items-center justify-between">
             <div>
-              <p className="text-lg font-black text-slate-900">Điểm đón/trả nổi bật</p>
-              <p className="text-xs font-bold text-slate-400 mt-1">Danh sách lấy trực tiếp từ các điểm dừng của tenant.</p>
+              <p className="text-lg font-black text-slate-900">Bến/điểm dừng nổi bật</p>
+              <p className="text-xs font-bold text-slate-400 mt-1">Danh mục địa điểm gốc dùng để dựng tuyến đường và lịch dừng.</p>
             </div>
             <Link to="/tenant/operations/bus/stop-points" className="text-xs font-black uppercase tracking-widest text-blue-600">
               Quản lý ngay
@@ -105,7 +105,7 @@ const BusOperationsPage = () => {
               </div>
             ))}
             {!loading && options.stopPoints.length === 0 ? (
-              <div className="px-8 py-10 text-sm font-bold text-slate-500">Chưa có điểm đón/trả nào.</div>
+              <div className="px-8 py-10 text-sm font-bold text-slate-500">Chưa có bến/điểm dừng gốc nào.</div>
             ) : null}
           </div>
         </div>
@@ -147,7 +147,7 @@ const BusOperationsPage = () => {
         <div className="px-8 py-6 border-b border-slate-100 flex items-center justify-between">
           <div>
             <p className="text-lg font-black text-slate-900">Chuyến cần xử lý tiếp</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Từ đây có thể nhảy nhanh sang lịch dừng, điểm đón/trả và giá chặng.</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Từ đây có thể nhảy nhanh sang lịch dừng, đón/trả theo chuyến và giá chặng.</p>
           </div>
         </div>
         <div className="divide-y divide-slate-50">
@@ -167,7 +167,7 @@ const BusOperationsPage = () => {
                   Lịch dừng
                 </Link>
                 <Link to={`/tenant/operations/bus/trip-stop-points?tripId=${trip.id}`} className="px-4 py-3 rounded-2xl bg-slate-100 text-xs font-black uppercase tracking-widest text-slate-600">
-                  Điểm đón/trả
+                  Đón/trả theo chuyến
                 </Link>
                 <Link to={`/tenant/operations/bus/trip-segment-prices?tripId=${trip.id}`} className="px-4 py-3 rounded-2xl bg-slate-900 text-xs font-black uppercase tracking-widest text-white">
                   Giá chặng

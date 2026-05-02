@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketBooking.Infrastructure.Persistence;
@@ -10,6 +11,7 @@ namespace TicketBooking.Api.Controllers.Dev;
 
 [ApiController]
 [ApiVersion("1.0")]
+[Authorize(Policy = "perm:tenants.manage")]
 [Route("api/v{version:apiVersion}/dev/schema-export")]
 public sealed class SchemaExportController : ControllerBase
 {

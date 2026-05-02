@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import nav2 from '../../../assets/nav2.png';
 
 const stats = [
   { value: "26+", label: "Năm Kinh Nghiệm" },
@@ -15,7 +16,7 @@ const StatsBarThree = () => {
         {/* Decorative image on right */}
         <div className="absolute right-0 top-0 bottom-0 w-[300px] hidden lg:block">
           <img
-            src="https://ex-coders.com/html/turmet/assets/img/about/about-counter.png"
+            src={nav2}
             alt="Traveler"
             className="h-full w-full object-cover object-center"
           />

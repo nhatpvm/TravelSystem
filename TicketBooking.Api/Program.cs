@@ -260,6 +260,11 @@ if (app.Environment.IsDevelopment() && builder.Configuration.GetValue("Database:
     await db.Database.MigrateAsync();
 }
 
+// ===== Optional startup seed =====
+// Keep disabled by default. Existing local accounts/roles/permissions stay in DB,
+// but application startup must not recreate demo/business data.
+if (builder.Configuration.GetValue("Seed:RunOnStartup", false))
+{
 // ===== Seed Identity (roles/users) =====
 {
     using var scope = app.Services.CreateScope();
@@ -450,21 +455,22 @@ if (app.Environment.IsDevelopment() && builder.Configuration.GetValue("Database:
     }
 }
 
-// ===== Seed TOUR Demo (Phase Tour) =====
-//{
-//    using var scope = app.Services.CreateScope();
-//    await TourDemoSeed.SeedAsync(scope.ServiceProvider);
-//}
-
-// ===== Seed Locked Defense Demo Data =====
+// ===== Seed TOUR Data (Phase Tour) =====
 {
     using var scope = app.Services.CreateScope();
-    var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("LockedDemoDataSeed");
+    await TourDemoSeed.SeedAsync(scope.ServiceProvider);
+}
+
+// ===== Seed Defense Data =====
+{
+    using var scope = app.Services.CreateScope();
+    var logger = scope.ServiceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("DefenseDataSeed");
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var userManager = scope.ServiceProvider.GetRequiredService<Microsoft.AspNetCore.Identity.UserManager<TicketBooking.Infrastructure.Identity.AppUser>>();
     var tenantCtxObj = scope.ServiceProvider.GetRequiredService(typeof(TicketBooking.Infrastructure.Tenancy.ITenantContext));
 
-    await LockedDemoDataSeed.SeedAsync(db, userManager, logger, tenantCtxObj, app.Environment.ContentRootPath);
+    await DefenseDataSeed.SeedAsync(db, userManager, logger, tenantCtxObj, app.Environment.ContentRootPath);
+}
 }
 
 // ===== Global exception handling (ProblemDetails) =====
@@ -494,7 +500,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseSerilogRequestLogging();
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
 app.UseStaticFiles();
 
 app.UseAuthentication();

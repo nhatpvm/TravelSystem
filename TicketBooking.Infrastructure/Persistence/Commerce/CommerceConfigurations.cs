@@ -20,7 +20,7 @@ public sealed class CustomerOrderConfiguration : IEntityTypeConfiguration<Custom
         b.Property(x => x.TenantNetAmount).HasPrecision(18, 2);
         b.Property(x => x.PayableAmount).HasPrecision(18, 2);
         b.Property(x => x.RefundedAmount).HasPrecision(18, 2);
-        b.Property(x => x.SettlementStatus).HasDefaultValue(CustomerSettlementStatus.Unsettled);
+        b.Property(x => x.SettlementStatus);
         b.Property(x => x.ContactFullName).HasMaxLength(200).IsRequired();
         b.Property(x => x.ContactPhone).HasMaxLength(50).IsRequired();
         b.Property(x => x.ContactEmail).HasMaxLength(200).IsRequired();
@@ -333,7 +333,7 @@ public sealed class CustomerSettlementBatchConfiguration : IEntityTypeConfigurat
         b.HasKey(x => x.Id);
 
         b.Property(x => x.BatchCode).HasMaxLength(50).IsRequired();
-        b.Property(x => x.Status).HasDefaultValue(CustomerSettlementBatchStatus.Draft);
+        b.Property(x => x.Status);
         b.Property(x => x.CurrencyCode).HasMaxLength(10).IsRequired();
         b.Property(x => x.TotalGrossAmount).HasPrecision(18, 2);
         b.Property(x => x.TotalCommissionAmount).HasPrecision(18, 2);
@@ -357,7 +357,7 @@ public sealed class CustomerSettlementBatchLineConfiguration : IEntityTypeConfig
         b.ToTable("CustomerSettlementBatchLines", "commerce");
         b.HasKey(x => x.Id);
 
-        b.Property(x => x.Status).HasDefaultValue(CustomerSettlementStatus.InSettlement);
+        b.Property(x => x.Status);
         b.Property(x => x.CurrencyCode).HasMaxLength(10).IsRequired();
         b.Property(x => x.GrossAmount).HasPrecision(18, 2);
         b.Property(x => x.CommissionAmount).HasPrecision(18, 2);

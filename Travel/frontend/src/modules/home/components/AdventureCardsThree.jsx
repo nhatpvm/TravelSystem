@@ -1,24 +1,27 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MoveRight } from 'lucide-react';
+import nav1 from '../../../assets/nav1.png';
+import nav2 from '../../../assets/nav2.png';
+import nav3 from '../../../assets/nav3.png';
 
 const cards = [
   {
     id: 1,
     title: "NÚI\nBATUR",
-    image: "https://ex-coders.com/html/turmet/assets/img/destination/new/04.jpg",
+    image: nav1,
     bgColor: "from-[#1EB4D4] to-[#0E8FA8]"
   },
   {
     id: 2,
     title: "Phiêu Lưu\nChờ Đợi",
-    image: "https://ex-coders.com/html/turmet/assets/img/destination/new/05.jpg",
+    image: nav2,
     bgColor: "from-[#F5A623] to-[#E08E0A]"
   },
   {
     id: 3,
     title: "Kỳ Nghỉ\nTuyệt Vời",
-    image: "https://ex-coders.com/html/turmet/assets/img/destination/new/06.jpg",
+    image: nav3,
     bgColor: "from-[#1EB4D4] to-[#0E8FA8]"
   }
 ];
@@ -72,7 +75,7 @@ const AdventureCardsThree = () => {
                     transition={{ repeat: Infinity, duration: 4 }}
                   >
                     <img
-                      src="https://ex-coders.com/html/turmet/assets/img/shape/plane.png"
+                      src={nav3}
                       alt="Plane"
                       className="w-16 opacity-60"
                     />

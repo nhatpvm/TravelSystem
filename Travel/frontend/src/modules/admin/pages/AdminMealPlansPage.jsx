@@ -80,7 +80,7 @@ export default function AdminMealPlansPage() {
       buildPayload={buildPayload}
       itemSubtitle={(item) => `${item.code || 'NO-CODE'} • ${item.category || 'Meal plan'}`}
       linkTitle="Liên kết meal plan với hạng phòng"
-      linkDescription="Danh sách JSON phải theo contract backend: mealPlanId, additionalPrice, currencyCode, isDefault, isIncluded."
+      linkDescription="Khai báo gói bữa ăn, phụ thu, tiền tệ, mặc định và trạng thái bao gồm trong giá."
       linkPlaceholder='[{"mealPlanId":"...","additionalPrice":150000,"currencyCode":"VND","isDefault":true,"isIncluded":false}]'
       renderFields={({ form, setForm }) => (
         <>
@@ -89,7 +89,7 @@ export default function AdminMealPlansPage() {
             <input value={form.name} onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))} placeholder="Tên meal plan" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
             <input value={form.category} onChange={(event) => setForm((current) => ({ ...current, category: event.target.value }))} placeholder="Nhóm meal plan" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
             <input type="number" value={form.sortOrder} onChange={(event) => setForm((current) => ({ ...current, sortOrder: event.target.value }))} placeholder="Thứ tự" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
-            <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Metadata JSON" className="md:col-span-2 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
+            <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Ghi chú cấu hình nội bộ" className="md:col-span-2 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
           </div>
           <textarea value={form.description} onChange={(event) => setForm((current) => ({ ...current, description: event.target.value }))} rows={4} placeholder="Mô tả meal plan" className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
           <div className="flex flex-wrap gap-6">

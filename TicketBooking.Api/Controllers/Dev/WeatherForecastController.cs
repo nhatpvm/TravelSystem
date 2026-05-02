@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TicketBooking.Api.Controllers
 {
     [ApiController]
+    [Authorize(Policy = "perm:tenants.manage")]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {

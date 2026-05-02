@@ -55,9 +55,7 @@ const BusTripStopTimesPage = () => {
         const nextTrips = Array.isArray(tripResponse?.items) ? tripResponse.items.filter((item) => !item.isDeleted) : [];
         setTrips(nextTrips);
         setStopPoints(Array.isArray(optionsResponse?.stopPoints) ? optionsResponse.stopPoints : []);
-        if (!selectedTripId) {
-          setSelectedTripId(nextTrips[0]?.id || '');
-        }
+        setSelectedTripId((current) => current || nextTrips[0]?.id || '');
       })
       .catch((err) => {
         if (active) {
@@ -68,9 +66,9 @@ const BusTripStopTimesPage = () => {
     return () => {
       active = false;
     };
-  }, [selectedTripId]);
+  }, []);
 
-  const loadStopTimes = async () => {
+  async function loadStopTimes() {
     if (!selectedTripId) {
       setItems([]);
       setLoading(false);
@@ -98,7 +96,7 @@ const BusTripStopTimesPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
     loadStopTimesRef.current();
@@ -188,7 +186,7 @@ const BusTripStopTimesPage = () => {
     <BusManagementPageShell
       pageKey="trip-stop-times"
       title="Lịch dừng theo chuyến"
-      subtitle="Mỗi chuyến có thể có bộ stop times riêng để public detail và chọn ghế theo chặng."
+      subtitle="Mỗi chuyến có lịch dừng riêng để trang chi tiết và sơ đồ ghế theo chặng hiển thị đúng."
       error={error}
       notice={notice}
       actions={(
@@ -226,6 +224,7 @@ const BusTripStopTimesPage = () => {
                   onChange={(event) => setSelectedTripId(event.target.value)}
                   className="bg-transparent text-sm font-bold text-slate-700 outline-none"
                 >
+                  <option value="">Chọn chuyến xe</option>
                   {trips.map((trip) => (
                     <option key={trip.id} value={trip.id}>{trip.name}</option>
                   ))}
@@ -303,7 +302,7 @@ const BusTripStopTimesPage = () => {
         <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 space-y-5">
           <div>
             <p className="text-xl font-black text-slate-900">{selectedId ? 'Cập nhật lịch dừng' : 'Thêm lịch dừng mới'}</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Điểm dừng này sẽ sinh ra pickup/dropoff và các chặng giá liên quan.</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Lịch dừng này là điểm neo để cấu hình đón/trả theo chuyến và các chặng giá liên quan.</p>
           </div>
 
           <label className="space-y-2 block">

@@ -2,6 +2,9 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MessageCircle, Calendar, ArrowRight, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import nav1 from '../../../assets/nav1.png';
+import nav2 from '../../../assets/nav2.png';
+import nav3 from '../../../assets/nav3.png';
 
 const articles = [
   {
@@ -9,11 +12,11 @@ const articles = [
     title: "Hướng Dẫn Tuyệt Vời Để Lên Kế Hoạch Cho Kỳ Nghỉ Mơ Ước",
     date: "05 Tháng 9, 2024",
     comments: 0,
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800",
+    image: nav1,
     authorImages: [
-        "https://randomuser.me/api/portraits/women/1.jpg",
-        "https://randomuser.me/api/portraits/men/2.jpg",
-        "https://randomuser.me/api/portraits/women/3.jpg"
+        nav1,
+        nav2,
+        nav3
     ]
   },
   {
@@ -21,11 +24,11 @@ const articles = [
     title: "Những Cuộc Phiêu Lưu Khó Quên: Trải Nghiệm Danh Sách Ước Nguyện",
     date: "05 Tháng 9, 2024",
     comments: 0,
-    image: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?q=80&w=800",
+    image: nav2,
     authorImages: [
-        "https://randomuser.me/api/portraits/men/4.jpg",
-        "https://randomuser.me/api/portraits/women/5.jpg",
-        "https://randomuser.me/api/portraits/men/6.jpg"
+        nav2,
+        nav3,
+        nav1
     ]
   },
   {
@@ -33,11 +36,11 @@ const articles = [
     title: "Khám Phá Văn Hóa Và Ẩm Thực Cùng Đại Lý Du Lịch",
     date: "05 Tháng 9, 2024",
     comments: 0,
-    image: "https://images.unsplash.com/photo-1516483642785-0c47f5990815?q=80&w=800",
+    image: nav3,
     authorImages: [
-        "https://randomuser.me/api/portraits/women/7.jpg",
-        "https://randomuser.me/api/portraits/men/8.jpg",
-        "https://randomuser.me/api/portraits/women/9.jpg"
+        nav3,
+        nav1,
+        nav2
     ]
   },
   {
@@ -45,11 +48,11 @@ const articles = [
     title: "Những Món Ăn Tốt Nhất Tại Các Điểm Đến Du Lịch",
     date: "05 Tháng 9, 2024",
     comments: 0,
-    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800",
+    image: nav1,
     authorImages: [
-        "https://randomuser.me/api/portraits/men/10.jpg",
-        "https://randomuser.me/api/portraits/women/11.jpg",
-        "https://randomuser.me/api/portraits/men/12.jpg"
+        nav1,
+        nav2,
+        nav3
     ]
   },
   {
@@ -57,10 +60,10 @@ const articles = [
     title: "10 Bí Quyết Để Chụp Ảnh Du Lịch Đẹp Như Nhiếp Ảnh Gia",
     date: "08 Tháng 9, 2024",
     comments: 12,
-    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800",
+    image: nav2,
     authorImages: [
-        "https://randomuser.me/api/portraits/women/15.jpg",
-        "https://randomuser.me/api/portraits/men/16.jpg"
+        nav2,
+        nav3
     ]
   },
   {
@@ -68,9 +71,9 @@ const articles = [
     title: "Hành Trình Khám Phá Những Ngôi Làng Cổ Ở Châu Âu",
     date: "10 Tháng 9, 2024",
     comments: 8,
-    image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=800",
+    image: nav3,
     authorImages: [
-        "https://randomuser.me/api/portraits/men/20.jpg"
+        nav3
     ]
   }
 ];

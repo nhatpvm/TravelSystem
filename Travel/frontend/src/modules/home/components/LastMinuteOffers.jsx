@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import nav1 from '../../../assets/nav1.png';
 
 const offers = [
   {
@@ -15,7 +16,7 @@ const offers = [
     id: 2,
     title: "Thành phố Trung Quốc",
     price: "$160",
-    img: "https://images.unsplash.com/photo-1547984609-bc015f606da0?q=80&w=2070&auto=format&fit=crop",
+    img: nav1,
     featured: true
   },
   {

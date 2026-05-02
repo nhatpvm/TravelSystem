@@ -1,4 +1,6 @@
 using System.Text.Json;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.EntityFrameworkCore;
 using TicketBooking.Domain.Commerce;
 using TicketBooking.Domain.Hotels;
@@ -86,7 +88,7 @@ public sealed partial class CustomerOrderService
             return await MapOrderDetailAsync(order.Id, ct);
         }
 
-        await ApplySyncedPaymentStateAsync(order, payment, syncResult, userId, ct);
+        await ApplySyncedPaymentStateWithTransactionAsync(order, payment, syncResult, userId, ct);
         return await MapOrderDetailAsync(order.Id, ct);
     }
 
@@ -158,9 +160,10 @@ public sealed partial class CustomerOrderService
         string rawBody,
         string? authorizationHeader,
         string? secretHeader,
+        string? signatureHeader,
         CancellationToken ct = default)
     {
-        if (!IsWebhookAuthorized(authorizationHeader, secretHeader))
+        if (!IsWebhookAuthorized(rawBody, authorizationHeader, secretHeader, signatureHeader))
             return false;
 
         var payload = ParseWebhookPayload(rawBody);
@@ -194,13 +197,17 @@ public sealed partial class CustomerOrderService
                 ProviderInvoiceNumber = payload.ProviderInvoiceNumber,
                 ProviderOrderId = payload.ProviderOrderId,
                 RawStatus = payload.RawStatus,
+                CurrencyCode = payload.CurrencyCode,
                 PaymentStatus = SePayGatewayService.MapPaymentStatus(payload.RawStatus),
                 OrderStatus = SePayGatewayService.MapOrderStatus(payload.RawStatus),
                 PaidAmount = payload.Amount,
                 RawPayloadJson = rawBody,
             };
 
-            await ApplySyncedPaymentStateAsync(order, payment, sync, order.UserId, ct, fromWebhook: true);
+            if (!WebhookMatchesPayment(order, payment, sync))
+                return false;
+
+            await ApplySyncedPaymentStateWithTransactionAsync(order, payment, sync, order.UserId, ct, fromWebhook: true);
             return true;
         }
         catch (DbUpdateConcurrencyException)
@@ -212,6 +219,55 @@ public sealed partial class CustomerOrderService
             if (await IsGatewayWebhookAlreadyAppliedAsync(payload, ct))
                 return true;
 
+            throw;
+        }
+    }
+
+    public Task<bool> HandleGatewayWebhookAsync(
+        string rawBody,
+        string? authorizationHeader,
+        string? secretHeader,
+        CancellationToken ct = default)
+        => HandleGatewayWebhookAsync(rawBody, authorizationHeader, secretHeader, null, ct);
+
+    private async Task ApplySyncedPaymentStateWithTransactionAsync(
+        CustomerOrder order,
+        CustomerPayment payment,
+        SePayOrderSyncResult syncResult,
+        Guid actorUserId,
+        CancellationToken ct,
+        bool fromWebhook = false)
+    {
+        if (!_db.Database.IsRelational())
+        {
+            await ApplySyncedPaymentStateAsync(order, payment, syncResult, actorUserId, ct, fromWebhook);
+            return;
+        }
+
+        await using var tx = await _db.Database.BeginTransactionAsync(ct);
+        try
+        {
+            var currentPayment = await _db.CustomerPayments
+                .FirstOrDefaultAsync(x => x.Id == payment.Id && !x.IsDeleted, ct);
+            var currentOrder = currentPayment is null
+                ? null
+                : await _db.CustomerOrders.FirstOrDefaultAsync(x => x.Id == currentPayment.OrderId && !x.IsDeleted, ct);
+
+            if (currentOrder is null || currentPayment is null)
+            {
+                await tx.CommitAsync(ct);
+                return;
+            }
+
+            if (!PaymentSyncMatchesCurrentOrder(currentOrder, currentPayment, syncResult))
+                throw new InvalidOperationException("Webhook payment payload does not match the order.");
+
+            await ApplySyncedPaymentStateAsync(currentOrder, currentPayment, syncResult, actorUserId, ct, fromWebhook);
+            await tx.CommitAsync(ct);
+        }
+        catch
+        {
+            await tx.RollbackAsync(ct);
             throw;
         }
     }
@@ -432,6 +488,9 @@ public sealed partial class CustomerOrderService
             case CustomerProductType.Train:
                 await ReleaseTrainOrderAsync(order, actorUserId, ct, finalStatus);
                 break;
+            case CustomerProductType.Flight:
+                await ReleaseFlightOrderAsync(order, actorUserId, ct);
+                break;
             case CustomerProductType.Hotel:
                 await ReleaseHotelOrderAsync(order, actorUserId, ct, finalStatus);
                 break;
@@ -603,7 +662,7 @@ public sealed partial class CustomerOrderService
             ct: ct);
     }
 
-    private bool IsWebhookAuthorized(string? authorizationHeader, string? secretHeader)
+    private bool IsWebhookAuthorized(string rawBody, string? authorizationHeader, string? secretHeader, string? signatureHeader)
     {
         var configuredSecret = NormalizeOptional(_sePayGatewayService.WebhookSecret);
         if (configuredSecret is null)
@@ -612,8 +671,71 @@ public sealed partial class CustomerOrderService
         var authValue = NormalizeWebhookSecret(authorizationHeader);
         var secretValue = NormalizeWebhookSecret(secretHeader);
 
-        return string.Equals(authValue, configuredSecret, StringComparison.Ordinal) ||
-               string.Equals(secretValue, configuredSecret, StringComparison.Ordinal);
+        if (string.Equals(authValue, configuredSecret, StringComparison.Ordinal) ||
+            string.Equals(secretValue, configuredSecret, StringComparison.Ordinal))
+        {
+            return true;
+        }
+
+        return VerifyWebhookSignature(rawBody, configuredSecret, signatureHeader);
+    }
+
+    private static bool VerifyWebhookSignature(string rawBody, string configuredSecret, string? signatureHeader)
+    {
+        var signature = NormalizeWebhookSecret(signatureHeader);
+        if (string.IsNullOrWhiteSpace(signature))
+            return false;
+
+        var expectedBytes = HMACSHA256.HashData(
+            Encoding.UTF8.GetBytes(configuredSecret),
+            Encoding.UTF8.GetBytes(rawBody ?? string.Empty));
+
+        var expectedHex = Convert.ToHexString(expectedBytes).ToLowerInvariant();
+        var expectedBase64 = Convert.ToBase64String(expectedBytes);
+
+        return FixedTimeEquals(signature, expectedHex) ||
+               FixedTimeEquals(signature, expectedBase64);
+    }
+
+    private static bool FixedTimeEquals(string left, string right)
+    {
+        var leftBytes = Encoding.UTF8.GetBytes(left.Trim());
+        var rightBytes = Encoding.UTF8.GetBytes(right.Trim());
+        return leftBytes.Length == rightBytes.Length &&
+               CryptographicOperations.FixedTimeEquals(leftBytes, rightBytes);
+    }
+
+    private static bool WebhookMatchesPayment(
+        CustomerOrder order,
+        CustomerPayment payment,
+        SePayOrderSyncResult sync)
+        => PaymentSyncMatchesCurrentOrder(order, payment, sync);
+
+    private static bool PaymentSyncMatchesCurrentOrder(
+        CustomerOrder order,
+        CustomerPayment payment,
+        SePayOrderSyncResult sync)
+    {
+        if (!string.Equals(payment.ProviderInvoiceNumber, sync.ProviderInvoiceNumber, StringComparison.OrdinalIgnoreCase))
+            return false;
+
+        if (sync.PaymentStatus == CustomerPaymentStatus.Paid && !sync.PaidAmount.HasValue)
+            return false;
+
+        if (sync.PaidAmount.HasValue && decimal.Round(sync.PaidAmount.Value, 0, MidpointRounding.AwayFromZero) !=
+            decimal.Round(payment.Amount, 0, MidpointRounding.AwayFromZero))
+        {
+            return false;
+        }
+
+        if (!string.Equals(payment.CurrencyCode, order.CurrencyCode, StringComparison.OrdinalIgnoreCase))
+            return false;
+
+        if (sync.PaymentStatus == CustomerPaymentStatus.Paid && string.IsNullOrWhiteSpace(sync.CurrencyCode))
+            return false;
+
+        return string.IsNullOrWhiteSpace(sync.CurrencyCode) ||
+               string.Equals(sync.CurrencyCode, payment.CurrencyCode, StringComparison.OrdinalIgnoreCase);
     }
 
     private static string? NormalizeWebhookSecret(string? value)
@@ -658,6 +780,9 @@ public sealed partial class CustomerOrderService
                     Amount = hasTransaction
                         ? GetWebhookDecimal(transactionElement, "transaction_amount")
                         : GetWebhookDecimal(orderElement, "order_amount"),
+                    CurrencyCode = hasTransaction
+                        ? GetWebhookString(transactionElement, "currency", "transaction_currency")
+                        : GetWebhookString(orderElement, "currency", "order_currency"),
                     ShouldProcess = true,
                 };
             }
@@ -677,6 +802,7 @@ public sealed partial class CustomerOrderService
                     null,
                     isIncomingTransfer),
                 Amount = GetWebhookDecimal(root, "order_amount", "amount", "paid_amount", "transferAmount", "transfer_amount"),
+                CurrencyCode = GetWebhookString(root, "currency", "order_currency", "transferCurrency", "transfer_currency"),
                 ShouldProcess = isIncomingTransfer,
             };
         }
@@ -832,5 +958,6 @@ internal sealed class SePayWebhookPayload
     public string? ProviderOrderId { get; set; }
     public string RawStatus { get; set; } = "PENDING";
     public decimal? Amount { get; set; }
+    public string? CurrencyCode { get; set; }
     public bool ShouldProcess { get; set; } = true;
 }

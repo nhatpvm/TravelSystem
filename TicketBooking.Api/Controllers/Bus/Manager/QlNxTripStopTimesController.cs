@@ -427,6 +427,14 @@ public sealed class QlNxTripStopTimesController : ControllerBase
         if (await HasActiveSeatOccupancyAsync(tripId, ct))
             return Conflict(new { message = BusSeatOccupancySupport.TripMutationBlockedMessage });
 
+        var route = await _db.BusRoutes.IgnoreQueryFilters()
+            .Where(x => x.Id == trip.RouteId && x.TenantId == _tenantContext.TenantId && !x.IsDeleted)
+            .Select(x => new { x.EstimatedMinutes })
+            .FirstOrDefaultAsync(ct);
+
+        if (route is null)
+            return BadRequest(new { message = "Route is invalid for this trip." });
+
         var routeStops = await _db.BusRouteStops.IgnoreQueryFilters()
             .Where(x => x.RouteId == trip.RouteId && x.TenantId == _tenantContext.TenantId && !x.IsDeleted)
             .OrderBy(x => x.StopIndex)
@@ -435,11 +443,16 @@ public sealed class QlNxTripStopTimesController : ControllerBase
         if (routeStops.Count < 2)
             return BadRequest(new { message = "RouteStops must have at least 2 items before generating stop times." });
 
+        var departureAt = req.DepartureAt == default ? trip.DepartureAt : req.DepartureAt;
+        var fallbackDuration = route.EstimatedMinutes > 0
+            ? route.EstimatedMinutes
+            : Math.Max(0, (int)Math.Round((trip.ArrivalAt - trip.DepartureAt).TotalMinutes));
+
         var items = routeStops.Select(rs =>
         {
             DateTimeOffset? time = null;
             if (req.UseRouteStopMinutes && rs.MinutesFromStart.HasValue)
-                time = req.DepartureAt.AddMinutes(rs.MinutesFromStart.Value);
+                time = departureAt.AddMinutes(rs.MinutesFromStart.Value);
 
             return new ReplaceTripStopTimesRequest.Item
             {
@@ -452,12 +465,12 @@ public sealed class QlNxTripStopTimesController : ControllerBase
             };
         }).ToList();
 
-        items[0].ArriveAt = items[0].ArriveAt ?? req.DepartureAt;
-        items[0].DepartAt = req.DepartureAt;
+        items[0].ArriveAt = items[0].ArriveAt ?? departureAt;
+        items[0].DepartAt = departureAt;
 
         var last = items[^1];
         if (!last.ArriveAt.HasValue && !last.DepartAt.HasValue)
-            last.ArriveAt = req.DepartureAt;
+            last.ArriveAt = departureAt.AddMinutes(fallbackDuration);
         last.DepartAt = null;
 
         var replaceReq = new ReplaceTripStopTimesRequest { Items = items };

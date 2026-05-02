@@ -39,7 +39,29 @@ public sealed class CmsManagerSiteSettingsController : ControllerBase
 
         var entity = await query.FirstOrDefaultAsync(x => x.TenantId == tenantId, ct);
         if (entity is null)
-            return NotFound(new { message = "Site settings not found for this tenant." });
+        {
+            return Ok(new
+            {
+                Id = (Guid?)null,
+                TenantId = tenantId,
+                SiteName = string.Empty,
+                SiteUrl = (string?)null,
+                DefaultRobots = "index,follow",
+                DefaultOgImageUrl = (string?)null,
+                DefaultTwitterCard = "summary_large_image",
+                DefaultTwitterSite = (string?)null,
+                DefaultSchemaJsonLd = (string?)null,
+                BrandLogoUrl = (string?)null,
+                SupportEmail = (string?)null,
+                SupportPhone = (string?)null,
+                IsActive = true,
+                IsDeleted = false,
+                CreatedAt = (DateTimeOffset?)null,
+                CreatedByUserId = (string?)null,
+                UpdatedAt = (DateTimeOffset?)null,
+                UpdatedByUserId = (string?)null
+            });
+        }
 
         return Ok(new
         {

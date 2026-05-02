@@ -9,7 +9,7 @@ namespace TicketBooking.Api.Controllers.Admin;
 [ApiController]
 [ApiVersion(1.0)]
 [Route("api/v{version:apiVersion}/admin/uploads")]
-[Authorize(Roles = RoleNames.Admin)]
+[Authorize(Policy = "perm:tenants.manage")]
 public sealed class AdminUploadsController : ControllerBase
 {
     private readonly AdminImageUploadService _uploadService;

@@ -1,6 +1,7 @@
 ﻿// FILE #245: TicketBooking.Api/Controllers/Dev/DbmlExportController.cs
 using System.Text;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -10,6 +11,7 @@ namespace TicketBooking.Api.Controllers.Dev;
 
 [ApiController]
 [ApiVersion("1.0")]
+[Authorize(Policy = "perm:tenants.manage")]
 [Route("api/v{version:apiVersion}/dev/dbml-export")]
 public sealed class DbmlExportController : ControllerBase
 {

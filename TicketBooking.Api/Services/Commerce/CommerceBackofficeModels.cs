@@ -237,6 +237,65 @@ public sealed class TenantFinanceDashboardDto
     public List<TenantFinanceTransactionDto> Transactions { get; set; } = new();
 }
 
+public sealed class TenantReportDashboardDto
+{
+    public TenantReportTenantDto Tenant { get; set; } = new();
+    public TenantReportSummaryDto Summary { get; set; } = new();
+    public List<TenantReportMonthlyPointDto> MonthlySeries { get; set; } = new();
+    public List<TenantReportProductBreakdownDto> ProductBreakdown { get; set; } = new();
+    public List<TenantReportTopProductDto> TopProducts { get; set; } = new();
+}
+
+public sealed class TenantReportTenantDto
+{
+    public Guid Id { get; set; }
+    public string Code { get; set; } = "";
+    public string Name { get; set; } = "";
+    public string Type { get; set; } = "";
+}
+
+public sealed class TenantReportSummaryDto
+{
+    public string Period { get; set; } = "year";
+    public decimal GrossAmount { get; set; }
+    public decimal NetAmount { get; set; }
+    public decimal RefundedAmount { get; set; }
+    public int TotalBookings { get; set; }
+    public int PaidBookings { get; set; }
+    public int CompletedBookings { get; set; }
+    public int CancelledBookings { get; set; }
+    public decimal CompletionRate { get; set; }
+    public decimal CancellationRate { get; set; }
+    public string CurrencyCode { get; set; } = "VND";
+}
+
+public sealed class TenantReportMonthlyPointDto
+{
+    public string Label { get; set; } = "";
+    public decimal GrossAmount { get; set; }
+    public decimal NetAmount { get; set; }
+    public int BookingCount { get; set; }
+}
+
+public sealed class TenantReportProductBreakdownDto
+{
+    public CustomerProductType ProductType { get; set; }
+    public string Label { get; set; } = "";
+    public decimal GrossAmount { get; set; }
+    public int BookingCount { get; set; }
+    public decimal Percentage { get; set; }
+}
+
+public sealed class TenantReportTopProductDto
+{
+    public string Name { get; set; } = "";
+    public CustomerProductType ProductType { get; set; }
+    public string ProductTypeLabel { get; set; } = "";
+    public int BookingCount { get; set; }
+    public decimal GrossAmount { get; set; }
+    public decimal NetAmount { get; set; }
+}
+
 public sealed class TenantFinanceSummaryDto
 {
     public decimal CurrentMonthGrossAmount { get; set; }

@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+*.log
+*.err.log
+*.out.log
+.vs/
+TicketBooking.Api/Logs/
+TicketBooking.Api/exports/
+TicketBooking.Api/wwwroot/uploads/
+TicketBooking.Api/App_Data/partner-onboarding/
+
+Travel/frontend/dist/
+Travel/frontend/.vite/
+Travel/frontend/node_modules/
+
+.tmp-localhost-check/

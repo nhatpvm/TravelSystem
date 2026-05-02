@@ -1,6 +1,7 @@
 ﻿// FILE #029: TicketBooking.Infrastructure/Auth/PermissionAuthorizationHandler.cs
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using TicketBooking.Infrastructure.Identity;
 using TicketBooking.Infrastructure.Tenancy;
 
 namespace TicketBooking.Infrastructure.Auth
@@ -35,6 +36,12 @@ namespace TicketBooking.Infrastructure.Auth
             var userId = GetUserId(context.User);
             if (!userId.HasValue)
                 return;
+
+            if (context.User.IsInRole(RoleNames.Admin))
+            {
+                context.Succeed(requirement);
+                return;
+            }
 
             // tenantId can be null for admin reads; permissions can still be checked globally/role-based
             var tenantId = _tenantContext.TenantId;

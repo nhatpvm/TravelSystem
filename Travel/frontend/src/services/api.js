@@ -1,6 +1,7 @@
 import {
   buildAuthHeaders,
   clearAuthSession,
+  getAccessToken,
   getRefreshToken,
   getStoredAuthState,
   setAuthSession,
@@ -27,6 +28,7 @@ async function request(path, options = {}, isRetry = false) {
   } = options;
 
   const isFormData = typeof FormData !== 'undefined' && body instanceof FormData;
+  const requestAccessToken = auth ? getAccessToken() : null;
   const finalHeaders = {
     ...(!isFormData && body ? { 'Content-Type': 'application/json' } : {}),
     ...(auth ? buildAuthHeaders(headers) : headers),
@@ -48,7 +50,7 @@ async function request(path, options = {}, isRetry = false) {
       }
     }
 
-    if (response.status === 401) {
+    if (response.status === 401 && (!requestAccessToken || getAccessToken() === requestAccessToken)) {
       clearAuthSession();
     }
 
@@ -84,7 +86,9 @@ async function performRefresh(refreshToken) {
 
   const data = await parseResponse(response);
   if (!response.ok) {
-    clearAuthSession();
+    if (getRefreshToken() === refreshToken) {
+      clearAuthSession();
+    }
     return false;
   }
 
@@ -121,7 +125,11 @@ function resolveErrorMessage(data) {
   }
 
   if (typeof data === 'string') {
-    return data;
+    try {
+      return resolveErrorMessage(JSON.parse(data));
+    } catch {
+      return data;
+    }
   }
 
   if (data.message) {
@@ -130,6 +138,16 @@ function resolveErrorMessage(data) {
     }
 
     return data.message;
+  }
+
+  if (data.errors && typeof data.errors === 'object') {
+    const messages = Object.values(data.errors)
+      .flatMap((value) => Array.isArray(value) ? value : [value])
+      .filter(Boolean);
+
+    if (messages.length > 0) {
+      return messages.join(' ');
+    }
   }
 
   if (data.title) {

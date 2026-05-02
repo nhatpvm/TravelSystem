@@ -39,6 +39,31 @@ function hydrateForm(item) {
   };
 }
 
+function getStopIndex(stopTimes, id) {
+  const item = stopTimes.find((stopTime) => stopTime.id === id);
+  return item ? Number(item.stopIndex) : -1;
+}
+
+function resolveForwardSegment(stopTimes, fromId, toId) {
+  const ordered = [...stopTimes].sort((a, b) => Number(a.stopIndex) - Number(b.stopIndex));
+
+  if (ordered.length < 2) {
+    return { fromTripStopTimeId: '', toTripStopTimeId: '' };
+  }
+
+  const lastStopIndex = Number(ordered[ordered.length - 1]?.stopIndex);
+  const currentFrom = ordered.find((item) => item.id === fromId && Number(item.stopIndex) < lastStopIndex);
+  const from = currentFrom || ordered[0];
+  const fromIndex = Number(from.stopIndex);
+  const currentTo = ordered.find((item) => item.id === toId && Number(item.stopIndex) > fromIndex);
+  const to = currentTo || ordered.find((item) => Number(item.stopIndex) > fromIndex);
+
+  return {
+    fromTripStopTimeId: from?.id || '',
+    toTripStopTimeId: to?.id || '',
+  };
+}
+
 const BusTripSegmentPricesPage = () => {
   const [searchParams] = useSearchParams();
   const [trips, setTrips] = useState([]);
@@ -65,9 +90,7 @@ const BusTripSegmentPricesPage = () => {
 
         const nextTrips = Array.isArray(response?.items) ? response.items.filter((item) => !item.isDeleted) : [];
         setTrips(nextTrips);
-        if (!selectedTripId) {
-          setSelectedTripId(nextTrips[0]?.id || '');
-        }
+        setSelectedTripId((current) => current || nextTrips[0]?.id || '');
       })
       .catch((err) => {
         if (active) {
@@ -78,7 +101,7 @@ const BusTripSegmentPricesPage = () => {
     return () => {
       active = false;
     };
-  }, [selectedTripId]);
+  }, []);
 
   useEffect(() => {
     if (!selectedTripId) {
@@ -98,8 +121,7 @@ const BusTripSegmentPricesPage = () => {
         setStopTimes(nextItems);
         setForm((current) => ({
           ...current,
-          fromTripStopTimeId: current.fromTripStopTimeId || nextItems[0]?.id || '',
-          toTripStopTimeId: current.toTripStopTimeId || nextItems[1]?.id || nextItems[0]?.id || '',
+          ...resolveForwardSegment(nextItems, current.fromTripStopTimeId, current.toTripStopTimeId),
         }));
       })
       .catch((err) => {
@@ -113,7 +135,7 @@ const BusTripSegmentPricesPage = () => {
     };
   }, [selectedTripId]);
 
-  const loadItems = async () => {
+  async function loadItems() {
     if (!selectedTripId) {
       setItems([]);
       setLoading(false);
@@ -141,7 +163,7 @@ const BusTripSegmentPricesPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
     loadItemsRef.current();
@@ -149,6 +171,14 @@ const BusTripSegmentPricesPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const fromIndex = getStopIndex(stopTimes, form.fromTripStopTimeId);
+    const toIndex = getStopIndex(stopTimes, form.toTripStopTimeId);
+
+    if (fromIndex < 0 || toIndex <= fromIndex) {
+      setError('Chọn điểm xuống nằm sau điểm lên để lưu giá chặng.');
+      return;
+    }
+
     setSaving(true);
     setError('');
     setNotice('');
@@ -225,12 +255,15 @@ const BusTripSegmentPricesPage = () => {
   };
 
   const computedTotalPrice = Number(form.baseFare || 0) + Number(form.taxesFees || 0);
+  const fromStopIndex = getStopIndex(stopTimes, form.fromTripStopTimeId);
+  const fromStopOptions = stopTimes.filter((item) => Number(item.stopIndex) < Math.max(...stopTimes.map((stopTime) => Number(stopTime.stopIndex)), 0));
+  const toStopOptions = stopTimes.filter((item) => Number(item.stopIndex) > fromStopIndex);
 
   return (
     <BusManagementPageShell
       pageKey="trip-segment-prices"
       title="Giá chặng i → j"
-      subtitle="Thiết lập mức giá theo từng cặp lịch dừng để public search và giữ chỗ tính đúng giá."
+      subtitle="Thiết lập mức giá theo từng cặp lịch dừng để khách tìm chuyến và giữ chỗ tính đúng giá."
       error={error}
       notice={notice}
       actions={(
@@ -271,6 +304,7 @@ const BusTripSegmentPricesPage = () => {
                   onChange={(event) => setSelectedTripId(event.target.value)}
                   className="bg-transparent text-sm font-bold text-slate-700 outline-none"
                 >
+                  <option value="">Chọn chuyến xe</option>
                   {trips.map((trip) => (
                     <option key={trip.id} value={trip.id}>{trip.name}</option>
                   ))}
@@ -355,11 +389,14 @@ const BusTripSegmentPricesPage = () => {
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Điểm lên</span>
             <select
               value={form.fromTripStopTimeId}
-              onChange={(event) => setForm((current) => ({ ...current, fromTripStopTimeId: event.target.value }))}
+              onChange={(event) => setForm((current) => ({
+                ...current,
+                ...resolveForwardSegment(stopTimes, event.target.value, current.toTripStopTimeId),
+              }))}
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none"
               required
             >
-              {stopTimes.map((item) => (
+              {fromStopOptions.map((item) => (
                 <option key={item.id} value={item.id}>Điểm dừng số {Number(item.stopIndex) + 1}</option>
               ))}
             </select>
@@ -373,7 +410,7 @@ const BusTripSegmentPricesPage = () => {
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-bold text-slate-700 outline-none"
               required
             >
-              {stopTimes.map((item) => (
+              {toStopOptions.map((item) => (
                 <option key={item.id} value={item.id}>Điểm dừng số {Number(item.stopIndex) + 1}</option>
               ))}
             </select>

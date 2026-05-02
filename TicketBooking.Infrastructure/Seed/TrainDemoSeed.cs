@@ -41,8 +41,8 @@ namespace TicketBooking.Infrastructure.Seed
                 tenant.Id,
                 ProviderType.Train,
                 code: "VT001-TRAIN",
-                name: "Đường Sắt Demo VT001",
-                slug: "duong-sat-demo-vt001",
+                name: "Đường sắt Việt Nam",
+                slug: "duong-sat-viet-nam",
                 locationId: hanoi.Id,
                 ct);
 
@@ -77,7 +77,7 @@ namespace TicketBooking.Infrastructure.Seed
             var trip1 = await EnsureTrainTripAsync(db, tenant.Id, provider.Id, r1.Id,
                 trainNumber: "SE1",
                 code: "VT001-TRIP-1",
-                name: "Chuyến SE1 (Demo)",
+                name: "Chuyến SE1",
                 departAt: new DateTimeOffset(d1.Year, d1.Month, d1.Day, 6, 0, 0, TimeSpan.FromHours(7)),
                 arriveAt: new DateTimeOffset(d2.Year, d2.Month, d2.Day, 12, 0, 0, TimeSpan.FromHours(7)),
                 ct);
@@ -95,7 +95,7 @@ namespace TicketBooking.Infrastructure.Seed
             var trip2 = await EnsureTrainTripAsync(db, tenant.Id, provider.Id, r2.Id,
                 trainNumber: "SE2",
                 code: "VT001-TRIP-2",
-                name: "Chuyến SE2 (Demo)",
+                name: "Chuyến SE2",
                 departAt: new DateTimeOffset(d2.Year, d2.Month, d2.Day, 18, 0, 0, TimeSpan.FromHours(7)),
                 arriveAt: new DateTimeOffset(d2.Year, d2.Month, d2.Day, 23, 30, 0, TimeSpan.FromHours(7)),
                 ct);

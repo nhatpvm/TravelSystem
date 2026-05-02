@@ -15,6 +15,15 @@ import {
 } from '../../../services/hotelService';
 import { uploadAdminImage } from '../../../services/adminUploadService';
 import useLatestRef from '../../../shared/hooks/useLatestRef';
+import fallbackRoomTypeImage from '../../../assets/nav3.png';
+
+function resolveRoomTypeImageUrl(value) {
+  if (!value || /example\.com/i.test(value)) {
+    return fallbackRoomTypeImage;
+  }
+
+  return value;
+}
 
 function createEmptyForm(roomTypeId = '') {
   return {
@@ -282,7 +291,7 @@ export default function AdminRoomTypeImagesPage() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-2xl bg-slate-50 text-[#1EB4D4] flex items-center justify-center overflow-hidden">
-                      {item.imageUrl ? <img src={item.imageUrl} alt={item.title || item.caption || 'Ảnh hạng phòng'} className="w-full h-full object-cover" /> : <Images size={20} />}
+                      {item.imageUrl ? <img src={resolveRoomTypeImageUrl(item.imageUrl)} alt={item.title || item.caption || 'Ảnh hạng phòng'} className="w-full h-full object-cover" /> : <Images size={20} />}
                     </div>
                     <div>
                       <div className="flex items-center gap-3 flex-wrap">
@@ -338,7 +347,7 @@ export default function AdminRoomTypeImagesPage() {
             <input type="number" value={form.sortOrder} onChange={(event) => setForm((current) => ({ ...current, sortOrder: event.target.value }))} placeholder="Thứ tự" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
           </div>
 
-          <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Metadata JSON" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
+          <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Ghi chú hình ảnh nội bộ" className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
 
           <div className="flex flex-wrap gap-6">
             <label className="flex items-center gap-3 text-sm font-bold text-slate-600"><input type="checkbox" checked={form.isPrimary} onChange={(event) => setForm((current) => ({ ...current, isPrimary: event.target.checked }))} /> Ảnh đại diện</label>

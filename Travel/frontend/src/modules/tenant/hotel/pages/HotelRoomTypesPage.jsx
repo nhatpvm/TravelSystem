@@ -340,7 +340,7 @@ export default function HotelRoomTypesPage({ mode = 'tenant', adminScope = null 
         <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 space-y-5">
           <div>
             <p className="text-lg font-black text-slate-900">{selectedId ? 'Cập nhật hạng phòng' : 'Tạo hạng phòng mới'}</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Bạn có thể nhập cấu trúc bed, amenity và occupancy bằng JSON để khớp contract backend.</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Khai báo cấu hình giường, tiện nghi và sức chứa để hệ thống bán phòng chính xác.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -381,7 +381,7 @@ export default function HotelRoomTypesPage({ mode = 'tenant', adminScope = null 
                 <option key={item.value} value={item.value}>{item.label}</option>
               ))}
             </select>
-            <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Metadata JSON" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
+            <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Ghi chú cấu hình nội bộ" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -392,9 +392,9 @@ export default function HotelRoomTypesPage({ mode = 'tenant', adminScope = null 
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-            <textarea value={form.bedsJson} onChange={(event) => setForm((current) => ({ ...current, bedsJson: event.target.value }))} rows={8} placeholder='Beds JSON, ví dụ: [{"bedTypeId":"...","quantity":1}]' className="rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
-            <textarea value={form.amenitiesJson} onChange={(event) => setForm((current) => ({ ...current, amenitiesJson: event.target.value }))} rows={8} placeholder='Amenities JSON, ví dụ: [{"amenityId":"...","isHighlighted":true}]' className="rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
-            <textarea value={form.occupancyRulesJson} onChange={(event) => setForm((current) => ({ ...current, occupancyRulesJson: event.target.value }))} rows={8} placeholder='Occupancy JSON, ví dụ: [{"minAdults":1,"maxAdults":2,"minGuests":1,"maxGuests":3}]' className="rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
+            <textarea value={form.bedsJson} onChange={(event) => setForm((current) => ({ ...current, bedsJson: event.target.value }))} rows={8} placeholder='Danh sách giường, ví dụ: [{"bedTypeId":"...","quantity":1}]' className="rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
+            <textarea value={form.amenitiesJson} onChange={(event) => setForm((current) => ({ ...current, amenitiesJson: event.target.value }))} rows={8} placeholder='Tiện nghi phòng, ví dụ: [{"amenityId":"...","isHighlighted":true}]' className="rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
+            <textarea value={form.occupancyRulesJson} onChange={(event) => setForm((current) => ({ ...current, occupancyRulesJson: event.target.value }))} rows={8} placeholder='Quy tắc sức chứa, ví dụ: [{"minAdults":1,"maxAdults":2,"minGuests":1,"maxGuests":3}]' className="rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
           </div>
 
           <div className="flex flex-wrap gap-3">

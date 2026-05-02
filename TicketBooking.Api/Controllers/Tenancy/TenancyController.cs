@@ -14,6 +14,12 @@ namespace TicketBooking.Api.Controllers;
 [Route("api/v{version:apiVersion}/tenancy")]
 public sealed class TenancyController : ControllerBase
 {
+    public sealed class UpdateCurrentTenantSettingsRequest
+    {
+        public string? Name { get; set; }
+        public int HoldMinutes { get; set; } = 5;
+    }
+
     private sealed class MembershipTenantRoleItem
     {
         public Guid Id { get; init; }
@@ -133,6 +139,88 @@ public sealed class TenancyController : ControllerBase
             currentTenantId = _tenantContext.TenantId,
             total = items.Count,
             items
+        });
+    }
+
+    [HttpGet("current-tenant/settings")]
+    [Authorize(Policy = "perm:tenant.settings.read")]
+    public async Task<IActionResult> CurrentTenantSettings(CancellationToken ct = default)
+    {
+        if (!_tenantContext.HasTenant)
+            return BadRequest(new { message = "Tenant context is required." });
+
+        var tenantId = _tenantContext.TenantId!.Value;
+        var tenant = await _db.Tenants.IgnoreQueryFilters().AsNoTracking()
+            .Where(x => x.Id == tenantId && !x.IsDeleted)
+            .Select(x => new
+            {
+                x.Id,
+                x.Code,
+                x.Name,
+                Type = x.Type.ToString(),
+                Status = x.Status.ToString(),
+                x.HoldMinutes,
+                x.CreatedAt,
+                x.UpdatedAt
+            })
+            .FirstOrDefaultAsync(ct);
+
+        if (tenant is null)
+            return NotFound(new { message = "Tenant not found." });
+
+        var membership = _tenantContext.UserId.HasValue
+            ? await _db.TenantUsers.AsNoTracking()
+                .Where(x => x.TenantId == tenantId && x.UserId == _tenantContext.UserId.Value && !x.IsDeleted)
+                .Select(x => new
+                {
+                    x.RoleName,
+                    x.IsOwner,
+                    x.CreatedAt
+                })
+                .FirstOrDefaultAsync(ct)
+            : null;
+
+        return Ok(new
+        {
+            tenant,
+            membership
+        });
+    }
+
+    [HttpPut("current-tenant/settings")]
+    [Authorize(Policy = "perm:tenant.settings.read")]
+    public async Task<IActionResult> UpdateCurrentTenantSettings(
+        [FromBody] UpdateCurrentTenantSettingsRequest request,
+        CancellationToken ct = default)
+    {
+        if (!_tenantContext.HasTenant)
+            return BadRequest(new { message = "Tenant context is required." });
+
+        var tenantId = _tenantContext.TenantId!.Value;
+        var tenant = await _db.Tenants.FirstOrDefaultAsync(x => x.Id == tenantId && !x.IsDeleted, ct);
+        if (tenant is null)
+            return NotFound(new { message = "Tenant not found." });
+
+        var name = (request.Name ?? "").Trim();
+        if (name.Length == 0)
+            return BadRequest(new { message = "Tenant name is required." });
+
+        tenant.Name = name.Length > 200 ? name[..200] : name;
+        tenant.HoldMinutes = Math.Clamp(request.HoldMinutes, 1, 60);
+        tenant.UpdatedAt = DateTimeOffset.Now;
+        tenant.UpdatedByUserId = _tenantContext.UserId;
+
+        await _db.SaveChangesAsync(ct);
+
+        return Ok(new
+        {
+            tenant.Id,
+            tenant.Code,
+            tenant.Name,
+            Type = tenant.Type.ToString(),
+            Status = tenant.Status.ToString(),
+            tenant.HoldMinutes,
+            tenant.UpdatedAt
         });
     }
 

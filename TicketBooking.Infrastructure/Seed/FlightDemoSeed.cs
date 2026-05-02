@@ -74,7 +74,7 @@ namespace TicketBooking.Infrastructure.Seed
 
             // 4) AircraftModel + Aircraft
             var a320 = await EnsureAircraftModelAsync(db, tenant.Id, code: "A320", manufacturer: "Airbus", model: "A320-200", typicalCapacity: 180, ct);
-            var aircraft = await EnsureAircraftAsync(db, tenant.Id, aircraftModelId: a320.Id, airlineId: airline.Id, code: "VNA-A320-01", registration: "VN-A123", name: "Airbus A320 Demo", ct);
+            var aircraft = await EnsureAircraftAsync(db, tenant.Id, aircraftModelId: a320.Id, airlineId: airline.Id, code: "VNA-A320-01", registration: "VN-A123", name: "Airbus A320 Vietnam Airlines", ct);
 
             // 5) CabinSeatMap + CabinSeats (UPsert to satisfy unique index CabinSeatMapId+SeatNumber)
             var ecoMap = await EnsureCabinSeatMapAsync(db, tenant.Id, a320.Id, CabinClass.Economy, code: "A320-ECO", name: "A320 Economy 20x6", rows: 20, cols: 6, seatLabelScheme: "ABCDEF", ct);

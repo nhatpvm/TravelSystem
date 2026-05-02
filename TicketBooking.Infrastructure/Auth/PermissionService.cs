@@ -1,5 +1,6 @@
 ﻿// FILE #028: TicketBooking.Infrastructure/Auth/PermissionService.cs
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.EntityFrameworkCore;
 using TicketBooking.Domain.Auth;
 using TicketBooking.Infrastructure.Identity;
@@ -38,11 +39,13 @@ namespace TicketBooking.Infrastructure.Auth
     {
         private readonly AppDbContext _db;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IMemoryCache _cache;
 
-        public PermissionService(AppDbContext db, UserManager<AppUser> userManager)
+        public PermissionService(AppDbContext db, UserManager<AppUser> userManager, IMemoryCache cache)
         {
             _db = db;
             _userManager = userManager;
+            _cache = cache;
         }
 
         public async Task<bool> HasPermissionAsync(Guid userId, string permissionCode, Guid? tenantId, CancellationToken ct = default)
@@ -50,6 +53,11 @@ namespace TicketBooking.Infrastructure.Auth
             permissionCode = (permissionCode ?? "").Trim();
             if (string.IsNullOrWhiteSpace(permissionCode))
                 return false;
+
+            var normalizedTenant = tenantId.HasValue && tenantId.Value != Guid.Empty ? tenantId.Value.ToString("N") : "global";
+            var cacheKey = $"perm:{userId:N}:{normalizedTenant}:{permissionCode.ToLowerInvariant()}";
+            if (_cache.TryGetValue(cacheKey, out bool cached))
+                return cached;
 
             // Resolve permission id
             var perm = await _db.Permissions
@@ -127,6 +135,16 @@ namespace TicketBooking.Infrastructure.Auth
             var hasRolePerm = await _db.RolePermissions
                 .Where(x => roleIds.Contains(x.RoleId) && x.PermissionId == permId && !x.IsDeleted)
                 .AnyAsync(ct);
+
+            _cache.Set(
+                cacheKey,
+                hasRolePerm,
+                new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30),
+                    SlidingExpiration = TimeSpan.FromSeconds(10),
+                    Size = 1
+                });
 
             return hasRolePerm;
         }

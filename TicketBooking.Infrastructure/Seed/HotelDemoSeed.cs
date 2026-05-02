@@ -107,7 +107,7 @@ public static class HotelDemoSeed
     {
         var now = DateTimeOffset.Now;
 
-        var hotelCode = $"HTL_{tenantCode}_DEMO_01";
+        var hotelCode = $"HTL_{tenantCode}_MAIN_01";
         var hotelId = StableGuid(tenantId, $"hotel:{hotelCode}");
 
         var existingHotel = await db.Set<Hotel>().IgnoreQueryFilters()
@@ -119,18 +119,18 @@ public static class HotelDemoSeed
         if (existingHotel is not null)
         {
             logger.LogInformation("Tenant {TenantCode}: Hotel {HotelCode} already exists. Skipping core hotel create.", tenantCode, hotelCode);
-            existingHotel.Name = $"Demo Hotel {tenantCode}";
-            existingHotel.Slug = $"demo-hotel-{tenantCode.ToLowerInvariant()}";
+            existingHotel.Name = $"Khách sạn Minh Nhật {tenantCode}";
+            existingHotel.Slug = $"khach-san-minh-nhat-{tenantCode.ToLowerInvariant()}";
             existingHotel.TimeZone = "Asia/Ho_Chi_Minh";
             existingHotel.CountryCode = "VN";
             existingHotel.Province = "Đồng Nai";
             existingHotel.City = "Biên Hòa";
-            existingHotel.AddressLine = "KCN (Demo) - Đường số 1";
-            existingHotel.ShortDescription = "Khách sạn demo chuẩn PRO cho hệ thống TicketBooking.";
-            existingHotel.DescriptionMarkdown = "## Demo Hotel\n\nNội dung demo cho Phase 11 (Hotel PRO).";
-            existingHotel.DescriptionHtml = "<h2>Demo Hotel</h2><p>Nội dung demo cho Phase 11 (Hotel PRO).</p>";
+            existingHotel.AddressLine = "12 Nguyễn Văn Linh";
+            existingHotel.ShortDescription = "Khách sạn tiêu chuẩn 4 sao, phù hợp công tác và du lịch gia đình.";
+            existingHotel.DescriptionMarkdown = "## Khách sạn Minh Nhật\n\nKhông gian lưu trú hiện đại, vị trí thuận tiện và dịch vụ ổn định.";
+            existingHotel.DescriptionHtml = "<h2>Khách sạn Minh Nhật</h2><p>Không gian lưu trú hiện đại, vị trí thuận tiện và dịch vụ ổn định.</p>";
             existingHotel.Phone = "0900-000-000";
-            existingHotel.Email = $"hotel-{tenantCode.ToLowerInvariant()}@demo.local";
+            existingHotel.Email = $"hotel-{tenantCode.ToLowerInvariant()}@ticketbooking.local";
             existingHotel.CoverImageUrl = "https://picsum.photos/seed/hotel/1200/600";
             existingHotel.DefaultCheckInTime = new TimeOnly(14, 0);
             existingHotel.DefaultCheckOutTime = new TimeOnly(12, 0);
@@ -165,18 +165,18 @@ public static class HotelDemoSeed
                 Id = hotelId,
                 TenantId = tenantId,
                 Code = hotelCode,
-                Name = $"Demo Hotel {tenantCode}",
-                Slug = $"demo-hotel-{tenantCode.ToLowerInvariant()}",
+                Name = $"Khách sạn Minh Nhật {tenantCode}",
+                Slug = $"khach-san-minh-nhat-{tenantCode.ToLowerInvariant()}",
                 TimeZone = "Asia/Ho_Chi_Minh",
                 CountryCode = "VN",
                 Province = "Đồng Nai",
                 City = "Biên Hòa",
-                AddressLine = "KCN (Demo) - Đường số 1",
-                ShortDescription = "Khách sạn demo chuẩn PRO cho hệ thống TicketBooking.",
-                DescriptionMarkdown = "## Demo Hotel\n\nNội dung demo cho Phase 11 (Hotel PRO).",
-                DescriptionHtml = "<h2>Demo Hotel</h2><p>Nội dung demo cho Phase 11 (Hotel PRO).</p>",
+                AddressLine = "12 Nguyễn Văn Linh",
+                ShortDescription = "Khách sạn tiêu chuẩn 4 sao, phù hợp công tác và du lịch gia đình.",
+                DescriptionMarkdown = "## Khách sạn Minh Nhật\n\nKhông gian lưu trú hiện đại, vị trí thuận tiện và dịch vụ ổn định.",
+                DescriptionHtml = "<h2>Khách sạn Minh Nhật</h2><p>Không gian lưu trú hiện đại, vị trí thuận tiện và dịch vụ ổn định.</p>",
                 Phone = "0900-000-000",
-                Email = $"hotel-{tenantCode.ToLowerInvariant()}@demo.local",
+                Email = $"hotel-{tenantCode.ToLowerInvariant()}@ticketbooking.local",
                 WebsiteUrl = null,
                 CoverImageUrl = "https://picsum.photos/seed/hotel/1200/600",
                 Status = HotelStatus.Active,
@@ -628,8 +628,8 @@ public static class HotelDemoSeed
         {
             existing.Name = name;
             existing.SortOrder = sort;
-            existing.DescriptionMarkdown = $"**{name}** (demo room type).";
-            existing.DescriptionHtml = $"<p><strong>{name}</strong> (demo room type).</p>";
+            existing.DescriptionMarkdown = $"**{name}** - phù hợp nghỉ dưỡng và công tác.";
+            existing.DescriptionHtml = $"<p><strong>{name}</strong> - phù hợp nghỉ dưỡng và công tác.</p>";
             existing.AreaSquareMeters = areaSquareMeters;
             existing.DefaultAdults = defaultAdults;
             existing.DefaultChildren = defaultChildren;
@@ -655,8 +655,8 @@ public static class HotelDemoSeed
             Code = code,
             Name = name,
             SortOrder = sort,
-            DescriptionMarkdown = $"**{name}** (demo room type).",
-            DescriptionHtml = $"<p><strong>{name}</strong> (demo room type).</p>",
+            DescriptionMarkdown = $"**{name}** - phù hợp nghỉ dưỡng và công tác.",
+            DescriptionHtml = $"<p><strong>{name}</strong> - phù hợp nghỉ dưỡng và công tác.</p>",
             AreaSquareMeters = areaSquareMeters,
             DefaultAdults = defaultAdults,
             DefaultChildren = defaultChildren,
@@ -698,7 +698,7 @@ public static class HotelDemoSeed
         if (existing is not null)
         {
             existing.Name = name;
-            existing.Description = "Giá tốt nhất theo ngày (demo).";
+            existing.Description = "Giá tốt nhất theo ngày.";
             existing.Status = RatePlanStatus.Active;
             existing.Type = RatePlanType.Public;
             existing.Refundable = true;
@@ -722,7 +722,7 @@ public static class HotelDemoSeed
             HotelId = hotelId,
             Code = code,
             Name = name,
-            Description = "Giá tốt nhất theo ngày (demo).",
+            Description = "Giá tốt nhất theo ngày.",
             Type = RatePlanType.Public,
             Status = RatePlanStatus.Active,
             Refundable = true,
@@ -869,7 +869,7 @@ public static class HotelDemoSeed
             HotelId = hotelId,
             Code = code,
             Name = name,
-            Description = "Dịch vụ demo.",
+            Description = "Dịch vụ tiện ích tại khách sạn.",
             IsActive = true,
             IsDeleted = false,
             CreatedAt = DateTimeOffset.Now
@@ -1133,10 +1133,10 @@ public static class HotelDemoSeed
             Id = id,
             TenantId = tenantId,
             HotelId = hotelId,
-            ContactName = "Lễ tân (Demo)",
+            ContactName = "Bộ phận lễ tân",
             RoleTitle = "Front Office",
             Phone = "0900-111-222",
-            Email = "frontdesk@demo.local",
+            Email = "frontdesk@ticketbooking.local",
             IsPrimary = true,
             IsActive = true,
             IsDeleted = false,
@@ -1192,7 +1192,7 @@ public static class HotelDemoSeed
             Id = id,
             TenantId = tenantId,
             RatePlanRoomTypeId = ratePlanRoomTypeId,
-            PromoCode = "DEMO10",
+            PromoCode = "WELCOME10",
             StartDate = start,
             EndDate = end,
             CurrencyCode = "VND",
@@ -1222,8 +1222,8 @@ public static class HotelDemoSeed
             Id = id,
             TenantId = tenantId,
             HotelId = hotelId,
-            Title = "Trải nghiệm tốt (Demo)",
-            Content = "Khách sạn demo sạch sẽ, vị trí thuận tiện. Sẽ quay lại!",
+            Title = "Trải nghiệm tốt",
+            Content = "Khách sạn sạch sẽ, vị trí thuận tiện. Sẽ quay lại!",
             Rating = 5,
             IsDeleted = false,
             CreatedAt = DateTimeOffset.Now

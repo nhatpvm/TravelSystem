@@ -23,6 +23,14 @@ export function listTenantMemberships() {
   return api.get('/tenancy/memberships');
 }
 
+export function getCurrentTenantSettings() {
+  return api.get('/tenancy/current-tenant/settings');
+}
+
+export function updateCurrentTenantSettings(payload) {
+  return api.put('/tenancy/current-tenant/settings', payload);
+}
+
 export function getTenantStaff(id) {
   return api.get(`/tenant/staff/${id}`);
 }

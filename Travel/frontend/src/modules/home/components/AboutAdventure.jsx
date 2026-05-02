@@ -1,6 +1,9 @@
 import React from 'react';
 import { Play, ShieldCheck, Map, Crown, Plane } from 'lucide-react';
 import { motion } from 'framer-motion';
+import nav1 from '../../../assets/nav1.png';
+import nav2 from '../../../assets/nav2.png';
+import nav3 from '../../../assets/nav3.png';
 
 const features = [
   {
@@ -25,7 +28,7 @@ const AboutAdventure = () => {
     <section className="py-24 bg-gray-50/30 overflow-hidden relative">
       {/* Background patterns could be added here */}
       <div className="absolute top-0 right-0 opacity-10 pointer-events-none">
-         <img src="https://ex-coders.com/html/turmet/assets/img/bg/about-bg-shape.png" alt="" className="w-full max-w-lg" />
+         <img src={nav3} alt="" className="w-full max-w-lg" />
       </div>
 
       <div className="container mx-auto px-4 md:px-12 lg:px-24">
@@ -40,7 +43,7 @@ const AboutAdventure = () => {
               className="relative z-10 w-[65%] rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white"
             >
               <img 
-                src="https://ex-coders.com/html/turmet/assets/img/about/01.png" 
+                src={nav1}
                 alt="Adventure" 
                 className="w-full h-full object-cover aspect-[4/5]"
               />
@@ -61,7 +64,7 @@ const AboutAdventure = () => {
               className="absolute bottom-0 right-0 z-20 w-[55%] rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white"
             >
               <img 
-                src="https://ex-coders.com/html/turmet/assets/img/about/02.png" 
+                src={nav2}
                 alt="Luxury" 
                 className="w-full h-full object-cover aspect-[4/5]"
               />
@@ -84,7 +87,7 @@ const AboutAdventure = () => {
                <motion.img 
                 animate={{ y: [0, -20, 0] }}
                 transition={{ duration: 4, repeat: Infinity }}
-                src="https://ex-coders.com/html/turmet/assets/img/about/plane-shape.png" 
+                src={nav3}
                 alt="plane" 
                 className="w-40"
                />
@@ -160,7 +163,7 @@ const AboutAdventure = () => {
          className="absolute bottom-0 right-0 opacity-100 hidden 2xl:block pointer-events-none z-50"
       >
          <img 
-            src="https://ex-coders.com/html/turmet/assets/img/about/about-woman.png" 
+            src={nav2}
             alt="traveller" 
             className="w-full max-w-md translate-y-20 brightness-110"
          />
@@ -169,7 +172,7 @@ const AboutAdventure = () => {
       {/* Decorative Right Shape */}
       <div className="absolute bottom-0 right-0 opacity-80 pointer-events-none z-0">
          <img 
-            src="https://ex-coders.com/html/turmet/assets/img/about/right-shape.png" 
+            src={nav3}
             alt="" 
             className="w-full max-w-lg"
          />

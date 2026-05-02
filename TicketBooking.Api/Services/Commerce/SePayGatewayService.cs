@@ -129,12 +129,16 @@ public sealed class SePayGatewayService
             var orderAmount = item.TryGetProperty("order_amount", out var amountElement)
                 ? ParseDecimal(amountElement.GetString())
                 : null;
+            var currencyCode = item.TryGetProperty("currency", out var currencyElement)
+                ? currencyElement.GetString()
+                : null;
 
             return new SePayOrderSyncResult
             {
                 ProviderOrderId = orderId,
                 ProviderInvoiceNumber = currentInvoice ?? invoiceNumber,
                 RawStatus = orderStatus,
+                CurrencyCode = currencyCode,
                 PaymentStatus = MapPaymentStatus(orderStatus),
                 OrderStatus = MapOrderStatus(orderStatus),
                 PaidAmount = orderAmount,
@@ -277,6 +281,7 @@ public sealed class SePayOrderSyncResult
     public string ProviderInvoiceNumber { get; set; } = "";
     public string? ProviderOrderId { get; set; }
     public string RawStatus { get; set; } = "";
+    public string? CurrencyCode { get; set; }
     public CustomerPaymentStatus PaymentStatus { get; set; }
     public CustomerOrderStatus OrderStatus { get; set; }
     public decimal? PaidAmount { get; set; }

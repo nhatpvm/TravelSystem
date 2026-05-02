@@ -10,6 +10,9 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import nav1 from '../../../assets/nav1.png';
+import nav2 from '../../../assets/nav2.png';
+import nav3 from '../../../assets/nav3.png';
 
 const faqData = [
   {
@@ -65,7 +68,7 @@ const FAQPage = () => {
       <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1454165833222-68d69a597721?q=80&w=2070"
+            src={nav1}
             alt="FAQ"
             className="w-full h-full object-cover"
           />
@@ -175,7 +178,7 @@ const FAQPage = () => {
              <div className="relative">
                 {/* Main phone screen */}
                 <div className="w-[280px] h-[580px] bg-white rounded-[3rem] shadow-2xl overflow-hidden border-8 border-gray-900 relative z-20 hidden md:block mt-24">
-                   <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=400" alt="App Screen" className="w-full h-full object-cover" />
+                   <img src={nav2} alt="App Screen" className="w-full h-full object-cover" />
                 </div>
                 {/* Floating card UI element */}
                 <div className="absolute top-1/4 -left-32 z-30 bg-white p-4 rounded-2xl shadow-2xl flex items-center gap-4 hidden lg:flex border border-gray-50">
@@ -187,7 +190,7 @@ const FAQPage = () => {
                 </div>
                 {/* Background decorative App Screen image */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] opacity-10 pointer-events-none">
-                    <img src="https://ex-coders.com/html/turmet/assets/img/others/app-shape.png" alt="pattern" />
+                    <img src={nav3} alt="pattern" />
                 </div>
              </div>
           </div>

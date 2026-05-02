@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play } from 'lucide-react';
+import nav1 from '../../../assets/nav1.png';
+import nav3 from '../../../assets/nav3.png';
 
 const TravelStory = () => {
   const [videoPlaying, setVideoPlaying] = useState(false);
@@ -13,7 +15,7 @@ const TravelStory = () => {
           <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="700" fill="#1EB4D4" fontFamily="sans-serif" opacity="0.3">🌍</text>
         </svg>
         <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/2560px-World_map_-_low_resolution.svg.png"
+          src={nav3}
           alt="world map"
           className="absolute inset-0 w-full h-full object-contain opacity-100"
         />
@@ -81,7 +83,7 @@ const TravelStory = () => {
           ) : (
             <>
               <img
-                src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?q=80&w=1400&auto=format&fit=crop"
+                src={nav1}
                 alt="Travel group"
                 className="w-full h-[680px] object-cover transition-transform duration-700 group-hover:scale-105"
               />

@@ -3,6 +3,7 @@
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
@@ -45,15 +46,18 @@ namespace TicketBooking.Api.Middlewares
         private readonly ITenantContext _tenantContext;
         private readonly AppDbContext _db;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IMemoryCache _cache;
 
         public TenantContextMiddleware(
             ITenantContext tenantContext,
             AppDbContext db,
-            UserManager<AppUser> userManager)
+            UserManager<AppUser> userManager,
+            IMemoryCache cache)
         {
             _tenantContext = tenantContext;
             _db = db;
             _userManager = userManager;
+            _cache = cache;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -82,25 +86,18 @@ namespace TicketBooking.Api.Middlewares
                 return;
             }
 
-            var user = await _userManager.FindByIdAsync(userId.Value.ToString());
-            if (user is null || !user.IsActive)
+            var userAccess = await GetCachedUserAccessAsync(context, userId.Value);
+            if (userAccess is null || !userAccess.IsActive)
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 await context.Response.WriteAsJsonAsync(new { message = "User not found or inactive." });
                 return;
             }
 
-            var roles = await _userManager.GetRolesAsync(user);
-            var isAdmin = roles.Any(r => string.Equals(r, RoleNames.Admin, StringComparison.OrdinalIgnoreCase));
+            var isAdmin = userAccess.Roles.Any(r => string.Equals(r, RoleNames.Admin, StringComparison.OrdinalIgnoreCase));
+            var userTenantIds = userAccess.TenantIds;
 
-            // Load tenant memberships
-            var userTenantIds = await _db.TenantUsers
-                .Where(x => x.UserId == user.Id && !x.IsDeleted)
-                .Select(x => x.TenantId)
-                .Distinct()
-                .ToListAsync();
-
-            _tenantContext.SetUser(user.Id, isAdmin, userTenantIds);
+            _tenantContext.SetUser(userAccess.UserId, isAdmin, userTenantIds);
 
             if (isTenantBootstrapRoute)
             {
@@ -150,7 +147,7 @@ namespace TicketBooking.Api.Middlewares
             // If user belongs to only one tenant and header not provided -> auto select
             if (userTenantIds.Count == 1 && headerTenantId is null)
             {
-                _tenantContext.SetTenant(userTenantIds[0]);
+                _tenantContext.SetTenant(userTenantIds.First());
                 await next(context);
                 return;
             }
@@ -367,6 +364,44 @@ namespace TicketBooking.Api.Middlewares
             return Guid.TryParse(sub, out var id) ? id : null;
         }
 
+        private async Task<CachedUserAccess?> GetCachedUserAccessAsync(HttpContext context, Guid userId)
+        {
+            var securityStamp = context.User.FindFirstValue("security_stamp") ?? "";
+            var cacheKey = $"tenant-access:{userId:N}:{securityStamp}";
+            if (_cache.TryGetValue(cacheKey, out CachedUserAccess? cached))
+                return cached;
+
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user is null)
+                return null;
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var tenantIds = await _db.TenantUsers
+                .AsNoTracking()
+                .Where(x => x.UserId == user.Id && !x.IsDeleted)
+                .Select(x => x.TenantId)
+                .Distinct()
+                .ToListAsync(context.RequestAborted);
+
+            var access = new CachedUserAccess(
+                user.Id,
+                user.IsActive,
+                roles.ToArray(),
+                tenantIds);
+
+            _cache.Set(
+                cacheKey,
+                access,
+                new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30),
+                    SlidingExpiration = TimeSpan.FromSeconds(10),
+                    Size = 1
+                });
+
+            return access;
+        }
+
         private static Guid? TryParseTenantIdHeader(string? value)
         {
             if (string.IsNullOrWhiteSpace(value))
@@ -375,4 +410,10 @@ namespace TicketBooking.Api.Middlewares
             return Guid.TryParse(value.Trim(), out var id) ? id : null;
         }
     }
+
+    internal sealed record CachedUserAccess(
+        Guid UserId,
+        bool IsActive,
+        IReadOnlyCollection<string> Roles,
+        IReadOnlyCollection<Guid> TenantIds);
 }

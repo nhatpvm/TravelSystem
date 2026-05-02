@@ -71,7 +71,7 @@ export default function AdminBedTypesPage() {
       buildPayload={buildPayload}
       itemSubtitle={(item) => `${item.code || 'NO-CODE'} • ${item.category || 'Bed type'}`}
       linkTitle="Liên kết loại giường với hạng phòng"
-      linkDescription="Danh sách JSON phải theo contract backend: bedTypeId và quantity."
+      linkDescription="Khai báo loại giường và số lượng tương ứng cho từng hạng phòng."
       linkPlaceholder='[{"bedTypeId":"...","quantity":2}]'
       renderFields={({ form, setForm }) => (
         <>
@@ -80,7 +80,7 @@ export default function AdminBedTypesPage() {
             <input value={form.name} onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))} placeholder="Tên loại giường" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
             <input value={form.category} onChange={(event) => setForm((current) => ({ ...current, category: event.target.value }))} placeholder="Nhóm giường" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
             <input type="number" value={form.sortOrder} onChange={(event) => setForm((current) => ({ ...current, sortOrder: event.target.value }))} placeholder="Thứ tự" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
-            <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Metadata JSON" className="md:col-span-2 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
+            <input value={form.metadataJson} onChange={(event) => setForm((current) => ({ ...current, metadataJson: event.target.value }))} placeholder="Ghi chú cấu hình nội bộ" className="md:col-span-2 rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
           </div>
           <textarea value={form.description} onChange={(event) => setForm((current) => ({ ...current, description: event.target.value }))} rows={4} placeholder="Mô tả loại giường" className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
           <label className="flex items-center gap-3 text-sm font-bold text-slate-600">

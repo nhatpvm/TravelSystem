@@ -27,7 +27,7 @@ public sealed class CustomerOrdersController : ControllerBase
     {
         var userId = GetCurrentUserId();
         if (!userId.HasValue)
-            return Unauthorized(new { message = "Bạn cần đăng nhập để xem đơn hàng." });
+            return Unauthorized(new { message = "Bạn cần đăng nhập để tạo đơn hàng." });
 
         var result = await _customerOrderService.CreateOrderAsync(request, userId.Value, ct);
         return CreatedAtAction(
@@ -47,13 +47,13 @@ public sealed class CustomerOrdersController : ControllerBase
     {
         var userId = GetCurrentUserId();
         if (!userId.HasValue)
-            return Unauthorized(new { message = "Bạn cần đăng nhập để tạo đơn hàng." });
+            return Unauthorized(new { message = "Bạn cần đăng nhập để xem danh sách đơn hàng." });
 
         CustomerProductType? parsedProductType = null;
         if (!string.IsNullOrWhiteSpace(productType))
         {
             if (!Enum.TryParse<CustomerProductType>(productType, true, out var value))
-            return BadRequest(new { message = "Loại dịch vụ không hợp lệ." });
+                return BadRequest(new { message = "Loại dịch vụ không hợp lệ." });
 
             parsedProductType = value;
         }

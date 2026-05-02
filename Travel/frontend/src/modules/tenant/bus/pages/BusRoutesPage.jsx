@@ -170,13 +170,28 @@ const BusRoutesPage = () => {
       return;
     }
 
+    const normalizedStops = routeStops
+      .map((item) => ({ ...item, stopPointId: item.stopPointId || '' }))
+      .filter((item) => item.stopPointId);
+
+    if (normalizedStops.length < 2) {
+      setError('Tuyến đường cần ít nhất 2 điểm dừng hợp lệ.');
+      return;
+    }
+
+    const uniqueStopIds = new Set(normalizedStops.map((item) => item.stopPointId));
+    if (uniqueStopIds.size !== normalizedStops.length) {
+      setError('Mỗi điểm dừng chỉ được chọn một lần trong cùng tuyến.');
+      return;
+    }
+
     setSavingStops(true);
     setError('');
     setNotice('');
 
     try {
       await replaceBusRouteStops(selectedId, {
-        stops: routeStops.map((item, index) => ({
+        stops: normalizedStops.map((item, index) => ({
           stopPointId: item.stopPointId,
           stopIndex: index,
           distanceFromStartKm: item.distanceFromStartKm === '' ? null : Number(item.distanceFromStartKm),
@@ -217,7 +232,7 @@ const BusRoutesPage = () => {
     <BusManagementPageShell
       pageKey="routes"
       title="Tuyến đường"
-      subtitle="Tuyến đường là nền tảng để sinh lịch dừng, chặng giá và chuyến xe marketplace."
+      subtitle="Tuyến đường là nền tảng để sinh lịch dừng, chặng giá và chuyến xe mở bán."
       error={error}
       notice={notice}
       actions={(
@@ -308,7 +323,7 @@ const BusRoutesPage = () => {
           <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 space-y-5">
             <div>
               <p className="text-xl font-black text-slate-900">{selectedId ? 'Cập nhật tuyến đường' : 'Tạo tuyến đường mới'}</p>
-              <p className="text-xs font-bold text-slate-400 mt-1">Route code phải ổn định để đội vận hành dễ tra cứu.</p>
+              <p className="text-xs font-bold text-slate-400 mt-1">Mã tuyến phải ổn định để đội vận hành dễ tra cứu.</p>
             </div>
 
             <form onSubmit={handleSaveRoute} className="space-y-5">
@@ -444,20 +459,22 @@ const BusRoutesPage = () => {
                   <button
                     type="button"
                     onClick={() => setRouteStops((current) => current.filter((_, currentIndex) => currentIndex !== index).map((row, rowIndex) => ({ ...row, stopIndex: rowIndex })))}
-                    className="text-[10px] font-black uppercase tracking-widest text-rose-600"
+                    disabled={routeStops.length <= 2}
+                    className="text-[10px] font-black uppercase tracking-widest text-rose-600 disabled:opacity-40"
                   >
                     Xóa dòng
                   </button>
                 </div>
 
                 <label className="space-y-2 block">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Stop point</span>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Điểm dừng</span>
                   <select
                     value={item.stopPointId}
                     onChange={(event) => setRouteStops((current) => current.map((row, rowIndex) => (rowIndex === index ? { ...row, stopPointId: event.target.value } : row)))}
                     className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-bold text-slate-700 outline-none"
+                    required
                   >
-                    <option value="">Chọn stop point</option>
+                    <option value="">Chọn điểm dừng</option>
                     {options.stopPoints.map((stopPoint) => (
                       <option key={stopPoint.id} value={stopPoint.id}>{stopPoint.name}</option>
                     ))}

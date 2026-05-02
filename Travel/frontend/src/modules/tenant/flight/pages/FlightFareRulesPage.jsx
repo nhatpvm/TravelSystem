@@ -259,7 +259,7 @@ export default function FlightFareRulesPage({ mode = 'tenant', adminScope = null
         <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 space-y-6">
           <div>
             <p className="text-lg font-black text-slate-900">{selectedId ? 'Cập nhật điều kiện vé' : 'Tạo điều kiện vé mới'}</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Có thể lưu JSON theo đúng contract backend để public flow hiển thị linh hoạt hơn.</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Có thể lưu điều kiện giá chi tiết để kênh bán hiển thị linh hoạt hơn.</p>
           </div>
           <div className="space-y-5">
             <select value={form.fareClassId} onChange={(event) => setForm((current) => ({ ...current, fareClassId: event.target.value }))} className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none">

@@ -128,7 +128,7 @@ const TrainTripSegmentPricesPage = () => {
     [stopTimes],
   );
 
-  const loadItems = async () => {
+  async function loadItems() {
     if (!selectedTripId) {
       setItems([]);
       setLoading(false);
@@ -156,7 +156,7 @@ const TrainTripSegmentPricesPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
     loadItemsRef.current();

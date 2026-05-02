@@ -2,6 +2,7 @@ import React from 'react';
 import { Share2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import nav2 from '../../../assets/nav2.png';
 
 const guides = [
   {
@@ -55,7 +56,7 @@ const TourGuides = () => {
          <motion.img 
            animate={{ rotate: [0, 2, 0], y: [0, -5, 0] }}
            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-           src="https://ex-coders.com/html/turmet/assets/img/others/car-shape.png" 
+           src={nav2}
            alt="decor van" 
            className="w-full max-w-sm"
          />

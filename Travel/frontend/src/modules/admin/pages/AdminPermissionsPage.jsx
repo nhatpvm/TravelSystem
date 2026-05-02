@@ -8,8 +8,10 @@ import {
   restorePermission,
   updatePermission,
 } from '../../../services/adminIdentity';
-import { getPermissionCategories } from '../utils/identity';
+import { getPermissionCategories, getPermissionCategoryLabel, getPermissionLabel } from '../utils/identity';
 import useLatestRef from '../../../shared/hooks/useLatestRef';
+import { motion } from 'framer-motion';
+  
 
 const EMPTY_FORM = {
   code: '',
@@ -149,7 +151,7 @@ export default function AdminPermissionsPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black text-slate-900">Danh mục Quyền hạn</h1>
-          <p className="text-slate-500 text-sm mt-1">Quản lý permission code, mô tả, nhóm chức năng và trạng thái sử dụng</p>
+          <p className="text-slate-500 text-sm mt-1">Quản lý mã quyền, mô tả, nhóm chức năng và trạng thái sử dụng</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <Link to="/admin/role-permissions" className="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 rounded-2xl font-bold text-sm border border-slate-100 hover:border-blue-200 hover:text-blue-600 transition-all shadow-sm">
@@ -191,25 +193,25 @@ export default function AdminPermissionsPage() {
           </div>
           <div>
             <h2 className="font-black text-slate-900">{editingId ? 'Cập nhật quyền hạn' : 'Tạo quyền hạn mới'}</h2>
-            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">Giữ đồng bộ với permission policy backend</p>
+            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">Giữ đồng bộ với chính sách quyền ở backend</p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Permission Code</label>
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Mã quyền</label>
             <input value={form.code} onChange={(e) => updateField('code', e.target.value)} placeholder="bus.trips.read" className="w-full bg-slate-50 border-2 border-transparent focus:border-blue-200 focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-bold text-slate-900 outline-none transition-all" />
           </div>
           <div>
             <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Tên hiển thị</label>
-            <input value={form.name} onChange={(e) => updateField('name', e.target.value)} placeholder="Bus Trips Read" className="w-full bg-slate-50 border-2 border-transparent focus:border-blue-200 focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-bold text-slate-900 outline-none transition-all" />
+            <input value={form.name} onChange={(e) => updateField('name', e.target.value)} placeholder="Xem chuyến xe" className="w-full bg-slate-50 border-2 border-transparent focus:border-blue-200 focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-bold text-slate-900 outline-none transition-all" />
           </div>
           <div>
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Category</label>
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Nhóm quyền</label>
             <input value={form.category} onChange={(e) => updateField('category', e.target.value)} placeholder="bus" className="w-full bg-slate-50 border-2 border-transparent focus:border-blue-200 focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-bold text-slate-900 outline-none transition-all" />
           </div>
           <div>
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Sort Order</label>
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Thứ tự sắp xếp</label>
             <input type="number" value={form.sortOrder} onChange={(e) => updateField('sortOrder', Number(e.target.value))} className="w-full bg-slate-50 border-2 border-transparent focus:border-blue-200 focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-bold text-slate-900 outline-none transition-all" />
           </div>
           <div className="md:col-span-2">
@@ -241,12 +243,12 @@ export default function AdminPermissionsPage() {
       <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-wrap gap-3">
         <div className="flex-1 min-w-40 flex items-center gap-2 bg-slate-50 rounded-xl px-4">
           <Search size={15} className="text-slate-400" />
-          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Tìm code, tên, category..." className="bg-transparent py-3 flex-1 text-sm font-medium outline-none" />
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Tìm mã quyền, tên, nhóm..." className="bg-transparent py-3 flex-1 text-sm font-medium outline-none" />
         </div>
         <div className="flex bg-slate-50 p-1 rounded-xl border border-slate-100 gap-1">
           <button onClick={() => setCategory('all')} className={`px-3 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${category === 'all' ? 'bg-white shadow-md text-blue-600' : 'text-slate-400 hover:text-slate-700'}`}>Tất cả</button>
           {categories.map((item) => (
-            <button key={item} onClick={() => setCategory(item)} className={`px-3 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${category === item ? 'bg-white shadow-md text-blue-600' : 'text-slate-400 hover:text-slate-700'}`}>{item}</button>
+            <button key={item} onClick={() => setCategory(item)} className={`px-3 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${category === item ? 'bg-white shadow-md text-blue-600' : 'text-slate-400 hover:text-slate-700'}`}>{getPermissionCategoryLabel(item)}</button>
           ))}
         </div>
         <button onClick={() => setIncludeDeleted((value) => !value)} className={`px-4 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${includeDeleted ? 'bg-rose-50 text-rose-700' : 'bg-slate-50 text-slate-500'}`}>
@@ -256,10 +258,10 @@ export default function AdminPermissionsPage() {
 
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         <div className="hidden md:grid grid-cols-12 gap-4 px-5 py-3 border-b border-slate-50 bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-          <div className="col-span-3">Permission</div>
+          <div className="col-span-3">Quyền</div>
           <div className="col-span-3">Mô tả</div>
-          <div className="col-span-2">Category</div>
-          <div className="col-span-1">Sort</div>
+          <div className="col-span-2">Nhóm</div>
+          <div className="col-span-1">Thứ tự</div>
           <div className="col-span-1">Trạng thái</div>
           <div className="col-span-2">Hành động</div>
         </div>
@@ -273,12 +275,12 @@ export default function AdminPermissionsPage() {
               className="grid grid-cols-2 md:grid-cols-12 gap-4 px-5 py-4 items-center hover:bg-slate-50 transition-all"
             >
               <div className="col-span-2 md:col-span-3">
-                <p className="font-black text-slate-900 text-sm">{item.name}</p>
+                <p className="font-black text-slate-900 text-sm">{getPermissionLabel(item)}</p>
                 <p className="text-xs text-slate-400 font-bold">{item.code}</p>
               </div>
               <div className="col-span-2 md:col-span-3 text-sm font-bold text-slate-500">{item.description || '--'}</div>
               <div className="col-span-1 md:col-span-2">
-                <span className="px-2.5 py-1 rounded-xl text-[10px] font-black uppercase bg-slate-100 text-slate-600">{item.category || 'uncategorized'}</span>
+                <span className="px-2.5 py-1 rounded-xl text-[10px] font-black uppercase bg-slate-100 text-slate-600">{getPermissionCategoryLabel(item.category)}</span>
               </div>
               <div className="col-span-1 md:col-span-1 text-sm font-bold text-slate-700">{item.sortOrder}</div>
               <div className="col-span-1 md:col-span-1">

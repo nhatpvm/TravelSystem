@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
 import { Users, Search, Plus, Lock, Unlock, RotateCcw, Eye, Shield, UserPlus } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 import AdminImageUploadField from '../components/AdminImageUploadField';
@@ -47,6 +48,14 @@ function buildEditForm(user) {
     avatarUrl: user?.avatarUrl || '',
     emailConfirmed: user?.emailConfirmed ?? true,
   };
+}
+
+function resolveAvatarUrl(value) {
+  if (!value || /example\.com/i.test(value)) {
+    return '';
+  }
+
+  return value;
 }
 
 export default function AdminUsersPage() {
@@ -543,8 +552,8 @@ export default function AdminUsersPage() {
               >
                 <div className="col-span-2 md:col-span-4 flex items-center gap-3">
                   <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center font-black text-slate-700 shrink-0 overflow-hidden">
-                    {user.avatarUrl ? (
-                      <img src={user.avatarUrl} alt={user.fullName || user.userName || 'Avatar'} className="w-full h-full object-cover" />
+                    {resolveAvatarUrl(user.avatarUrl) ? (
+                      <img src={resolveAvatarUrl(user.avatarUrl)} alt={user.fullName || user.userName || 'Avatar'} className="w-full h-full object-cover" />
                     ) : (
                       (user.fullName || user.userName || user.email || 'U').charAt(0).toUpperCase()
                     )}
@@ -595,8 +604,8 @@ export default function AdminUsersPage() {
               <div className="flex flex-col lg:flex-row justify-between gap-4 mb-6">
                 <div className="flex items-start gap-4">
                   <div className="w-16 h-16 rounded-[1.5rem] bg-slate-100 overflow-hidden flex items-center justify-center text-xl font-black text-slate-700 shrink-0">
-                    {selectedUser.avatarUrl ? (
-                      <img src={selectedUser.avatarUrl} alt={selectedUser.fullName || selectedUser.userName || 'Avatar'} className="w-full h-full object-cover" />
+                    {resolveAvatarUrl(selectedUser.avatarUrl) ? (
+                      <img src={resolveAvatarUrl(selectedUser.avatarUrl)} alt={selectedUser.fullName || selectedUser.userName || 'Avatar'} className="w-full h-full object-cover" />
                     ) : (
                       (selectedUser.fullName || selectedUser.userName || selectedUser.email || 'U').charAt(0).toUpperCase()
                     )}

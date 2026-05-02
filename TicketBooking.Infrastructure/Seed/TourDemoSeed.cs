@@ -77,7 +77,7 @@ public static class TourDemoSeed
         var tour1 = await EnsureTourAsync(
             db,
             tenantId,
-            code: "TOUR-DEMO-01",
+            code: "TOUR-DANANG-HUE-3N2D",
             apply: x =>
             {
                 x.ProviderId = null;
@@ -123,7 +123,7 @@ public static class TourDemoSeed
                               {"booking":"Đặt cọc trước để giữ chỗ","childPolicy":"Giá trẻ em áp dụng theo chiều cao/độ tuổi","cancellation":"Áp dụng theo chính sách từng mốc thời gian"}
                               """;
                 x.MetadataJson = """
-                                 {"theme":"central-vietnam","product":"tour-demo","seed":"phase-tour"}
+                                 {"theme":"central-vietnam","product":"tour-package","seed":"phase-tour"}
                                  """;
                 x.CoverImageUrl = "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=1200&auto=format&fit=crop";
                 x.CoverMediaAssetId = null;
@@ -136,7 +136,7 @@ public static class TourDemoSeed
         var tour2 = await EnsureTourAsync(
             db,
             tenantId,
-            code: "TOUR-DEMO-02",
+            code: "TOUR-PHUQUOC-4N3D",
             apply: x =>
             {
                 x.ProviderId = null;
@@ -182,7 +182,7 @@ public static class TourDemoSeed
                               {"booking":"Giữ chỗ theo lịch khởi hành","childPolicy":"Giá trẻ em theo độ tuổi","cancellation":"Theo mốc thời gian gần ngày đi"}
                               """;
                 x.MetadataJson = """
-                                 {"theme":"island","product":"tour-demo","seed":"phase-tour"}
+                                 {"theme":"island","product":"tour-package","seed":"phase-tour"}
                                  """;
                 x.CoverImageUrl = "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop";
                 x.CoverMediaAssetId = null;
@@ -324,7 +324,7 @@ public static class TourDemoSeed
                     Title = "Tư vấn tour",
                     Department = "Sales",
                     Phone = "0901-100-200",
-                    Email = $"tour-sales-{tenantCode.ToLowerInvariant()}@demo.local",
+                    Email = $"tour-sales-{tenantCode.ToLowerInvariant()}@ticketbooking.local",
                     ContactType = TourContactType.Sales,
                     IsPrimary = true,
                     SortOrder = 1,
@@ -342,7 +342,7 @@ public static class TourDemoSeed
                     Title = "Điều hành tour",
                     Department = "Operation",
                     Phone = "0909-888-777",
-                    Email = $"tour-ops-{tenantCode.ToLowerInvariant()}@demo.local",
+                    Email = $"tour-ops-{tenantCode.ToLowerInvariant()}@ticketbooking.local",
                     ContactType = TourContactType.Operation,
                     IsPrimary = false,
                     SortOrder = 2,
@@ -962,7 +962,7 @@ public static class TourDemoSeed
                     Title = "Chuyên viên tư vấn",
                     Department = "Sales",
                     Phone = "0902-333-222",
-                    Email = $"phuquoc-sales-{tenantCode.ToLowerInvariant()}@demo.local",
+                    Email = $"phuquoc-sales-{tenantCode.ToLowerInvariant()}@ticketbooking.local",
                     ContactType = TourContactType.Sales,
                     IsPrimary = true,
                     SortOrder = 1,
@@ -1035,8 +1035,8 @@ public static class TourDemoSeed
                     TenantId = tenantId,
                     TourId = tour.Id,
                     Question = "Tour có bao gồm vé cáp treo Hòn Thơm không?",
-                    AnswerMarkdown = "Có, vé cáp treo Hòn Thơm đã bao gồm trong giá cơ bản của tour demo này.",
-                    AnswerHtml = "<p>Có, vé cáp treo Hòn Thơm đã bao gồm trong giá cơ bản của tour demo này.</p>",
+                    AnswerMarkdown = "Có, vé cáp treo Hòn Thơm đã bao gồm trong giá cơ bản của tour này.",
+                    AnswerHtml = "<p>Có, vé cáp treo Hòn Thơm đã bao gồm trong giá cơ bản của tour này.</p>",
                     Type = TourFaqType.General,
                     IsHighlighted = true,
                     SortOrder = 1,

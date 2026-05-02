@@ -1,43 +1,46 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
+import nav1 from '../../../assets/nav1.png';
+import nav2 from '../../../assets/nav2.png';
+import nav3 from '../../../assets/nav3.png';
 
 const destinations = [
   {
     id: 1,
     name: "New Zealand",
     category: "Khách sạn 1",
-    image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=800",
+    image: nav1,
   },
   {
     id: 2,
     name: "Rừng Amazon",
     category: "Khách sạn 1",
-    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800",
+    image: nav2,
   },
   {
     id: 3,
     name: "Venice, Ý",
     category: "Khách sạn 1",
-    image: "https://images.unsplash.com/photo-1514890547357-a9ee2887ad85?q=80&w=800",
+    image: nav3,
   },
   {
     id: 4,
     name: "Vạn Lý Trường Thành",
     category: "Khách sạn 1",
-    image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?q=80&w=800",
+    image: nav1,
   },
   {
     id: 5,
     name: "Paris, Pháp",
     category: "Khách sạn 2",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=800",
+    image: nav2,
   },
   {
     id: 6,
     name: "Dubai, UAE",
     category: "Khách sạn 3",
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800",
+    image: nav3,
   },
 ];
 

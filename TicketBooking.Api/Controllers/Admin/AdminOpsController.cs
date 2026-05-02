@@ -9,7 +9,7 @@ namespace TicketBooking.Api.Controllers.Admin;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/admin/ops")]
-[Authorize(Roles = RoleNames.Admin)]
+[Authorize(Policy = "perm:tenants.manage")]
 public sealed class AdminOpsController : ControllerBase
 {
     private readonly AdminOpsService _service;

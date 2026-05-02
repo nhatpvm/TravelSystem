@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play } from 'lucide-react';
+import nav1 from '../../../assets/nav1.png';
+import nav3 from '../../../assets/nav3.png';
 
 const TravelStoryTwo = () => {
   const [videoPlaying, setVideoPlaying] = useState(false);
@@ -10,7 +12,7 @@ const TravelStoryTwo = () => {
       {/* World Map Background Decoration */}
       <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none select-none">
         <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/2560px-World_map_-_low_resolution.svg.png"
+          src={nav3}
           alt="world map"
           className="w-full h-full object-contain"
         />
@@ -58,7 +60,7 @@ const TravelStoryTwo = () => {
           ) : (
             <>
               <img
-                src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?q=80&w=1600&auto=format&fit=crop"
+                src={nav1}
                 alt="Travel experience"
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
               />

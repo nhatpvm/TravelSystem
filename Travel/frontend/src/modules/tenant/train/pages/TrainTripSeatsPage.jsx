@@ -120,7 +120,7 @@ const TrainTripSeatsPage = () => {
     };
   }, [selectedTripId]);
 
-  const loadSeats = async () => {
+  async function loadSeats() {
     if (!selectedTripId || !fromTripStopTimeId || !toTripStopTimeId) {
       setSeatData(null);
       setLoading(false);
@@ -142,7 +142,7 @@ const TrainTripSeatsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
     loadSeatsRef.current();

@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
 import { Link2, Plus, RotateCcw, Search, Shield, Trash2, Edit3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import useLatestRef from '../../../shared/hooks/useLatestRef';
@@ -11,6 +12,7 @@ import {
   restoreRolePermission,
   updateRolePermission,
 } from '../../../services/adminIdentity';
+import { getPermissionCategoryLabel, getPermissionLabel } from '../utils/identity';
 
 const EMPTY_FORM = {
   roleId: '',
@@ -160,14 +162,14 @@ export default function AdminRolePermissionsPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black text-slate-900">Ánh xạ Vai trò - Quyền</h1>
-          <p className="text-slate-500 text-sm mt-1">Quản lý từng liên kết giữa Identity Role và permission catalog</p>
+          <p className="text-slate-500 text-sm mt-1">Quản lý từng liên kết giữa vai trò định danh và danh mục quyền</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <Link to="/admin/roles" className="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 rounded-2xl font-bold text-sm border border-slate-100 hover:border-blue-200 hover:text-blue-600 transition-all shadow-sm">
             <Shield size={16} /> Vai trò
           </Link>
           <Link to="/admin/permissions" className="flex items-center gap-2 px-6 py-3 bg-white text-slate-700 rounded-2xl font-bold text-sm border border-slate-100 hover:border-blue-200 hover:text-blue-600 transition-all shadow-sm">
-            <Link2 size={16} /> Permission catalog
+            <Link2 size={16} /> Danh mục quyền
           </Link>
           <button onClick={startCreate} className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white rounded-2xl font-bold text-sm hover:bg-blue-600 transition-all shadow-lg">
             <Plus size={16} /> Thêm ánh xạ
@@ -210,11 +212,11 @@ export default function AdminRolePermissionsPage() {
             </select>
           </div>
           <div>
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Permission</label>
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 block">Quyền</label>
             <select value={form.permissionId} onChange={(e) => updateField('permissionId', e.target.value)} className="w-full bg-slate-50 border-2 border-transparent focus:border-blue-200 focus:bg-white rounded-2xl px-4 py-3.5 text-sm font-bold text-slate-900 outline-none transition-all">
-              <option value="">Chọn permission</option>
+              <option value="">Chọn quyền</option>
               {permissions.map((permission) => (
-                <option key={permission.id} value={permission.id}>{permission.code}</option>
+                <option key={permission.id} value={permission.id}>{getPermissionLabel(permission)}</option>
               ))}
             </select>
           </div>
@@ -235,7 +237,7 @@ export default function AdminRolePermissionsPage() {
       <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-wrap gap-3">
         <div className="flex-1 min-w-40 flex items-center gap-2 bg-slate-50 rounded-xl px-4">
           <Search size={15} className="text-slate-400" />
-          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Tìm role hoặc permission..." className="bg-transparent py-3 flex-1 text-sm font-medium outline-none" />
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Tìm vai trò hoặc quyền..." className="bg-transparent py-3 flex-1 text-sm font-medium outline-none" />
         </div>
         <select value={roleId} onChange={(e) => setRoleId(e.target.value)} className="bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-[10px] font-black uppercase tracking-widest text-slate-600 outline-none">
           <option value="all">Tất cả vai trò</option>
@@ -251,8 +253,8 @@ export default function AdminRolePermissionsPage() {
       <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         <div className="hidden md:grid grid-cols-12 gap-4 px-5 py-3 border-b border-slate-50 bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest">
           <div className="col-span-3">Vai trò</div>
-          <div className="col-span-4">Permission</div>
-          <div className="col-span-2">Category</div>
+          <div className="col-span-4">Quyền</div>
+          <div className="col-span-2">Nhóm</div>
           <div className="col-span-1">Trạng thái</div>
           <div className="col-span-2">Hành động</div>
         </div>
@@ -270,11 +272,11 @@ export default function AdminRolePermissionsPage() {
                 <p className="text-xs text-slate-400 font-bold">{item.roleId}</p>
               </div>
               <div className="col-span-1 md:col-span-4">
-                <p className="font-black text-slate-900 text-sm">{item.permission?.name || '--'}</p>
+                <p className="font-black text-slate-900 text-sm">{item.permission ? getPermissionLabel(item.permission) : '--'}</p>
                 <p className="text-xs text-slate-400 font-bold">{item.permission?.code || item.permissionId}</p>
               </div>
               <div className="col-span-1 md:col-span-2">
-                <span className="px-2.5 py-1 rounded-xl text-[10px] font-black uppercase bg-slate-100 text-slate-600">{item.permission?.code?.split('.')[0] || '--'}</span>
+                <span className="px-2.5 py-1 rounded-xl text-[10px] font-black uppercase bg-slate-100 text-slate-600">{getPermissionCategoryLabel(item.permission?.category || item.permission?.code?.split('.')[0])}</span>
               </div>
               <div className="col-span-1 md:col-span-1">
                 <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[10px] font-black uppercase ${item.isDeleted ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}`}>

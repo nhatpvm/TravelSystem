@@ -22,6 +22,8 @@ import Footer from '../../../modules/home/components/Footer';
 import { logout } from '../../../services/auth';
 import { useAuthSession } from '../../../modules/auth/hooks/useAuthSession';
 import { getUserDisplayName } from '../../../modules/auth/types';
+import sidebarImage from '../../../assets/nav1.png';
+import defaultAvatar from '../../../assets/nav3.png';
 
 const menuItems = [
   { icon: User, label: 'Thông tin cá nhân', sub: 'Hồ sơ lữ khách', path: '/my-account/profile' },
@@ -36,7 +38,15 @@ const menuItems = [
   { icon: Settings, label: 'Cài đặt', sub: 'Tùy chọn tài khoản', path: '/my-account/settings' },
 ];
 
-const DEFAULT_AVATAR = 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=200';
+const DEFAULT_AVATAR = defaultAvatar;
+
+function resolveAvatarUrl(value) {
+  if (!value || /example\.com/i.test(value)) {
+    return DEFAULT_AVATAR;
+  }
+
+  return value;
+}
 
 const UserLayout = () => {
   const location = useLocation();
@@ -64,7 +74,7 @@ const UserLayout = () => {
               <div className="sticky top-32 space-y-4">
                 <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-slate-200/50">
                   <img
-                    src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=600"
+                    src={sidebarImage}
                     alt="sidebar bg"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
@@ -74,7 +84,7 @@ const UserLayout = () => {
                     <div className="relative inline-block mb-4">
                       <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white/30 shadow-2xl ring-4 ring-white/10 mx-auto">
                         <img
-                          src={user?.avatarUrl || DEFAULT_AVATAR}
+                          src={resolveAvatarUrl(user?.avatarUrl)}
                           alt="avatar"
                           className="w-full h-full object-cover"
                         />

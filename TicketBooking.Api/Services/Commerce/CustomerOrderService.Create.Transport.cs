@@ -3,6 +3,7 @@ using TicketBooking.Domain.Bus;
 using TicketBooking.Domain.Commerce;
 using TicketBooking.Domain.Flight;
 using TicketBooking.Domain.Train;
+using TicketBooking.Api.Services.Flight;
 
 namespace TicketBooking.Api.Services.Commerce;
 
@@ -365,6 +366,22 @@ public sealed partial class CustomerOrderService
         if (offer.Status != OfferStatus.Active || offer.ExpiresAt <= now)
             throw new InvalidOperationException("Offer chuyến bay đã hết hiệu lực.");
 
+        var passengerCount = Math.Max(1, request.AdultCount + request.ChildCount);
+        var effectiveOffer = await FlightOfferSupport.ResolveCanonicalOfferAsync(
+            _db,
+            offer.TenantId,
+            offer.FlightId,
+            offer.FareClassId,
+            now,
+            asNoTracking: false,
+            ct) ?? offer;
+
+        if (effectiveOffer.Status != OfferStatus.Active || effectiveOffer.ExpiresAt <= now)
+            throw new InvalidOperationException("Tồn vé chuyến bay không còn khả dụng.");
+
+        if (effectiveOffer.SeatsAvailable < passengerCount)
+            throw new InvalidOperationException("Số ghế chuyến bay còn lại không đủ cho đơn này.");
+
         var airline = await _db.FlightAirlines.IgnoreQueryFilters()
             .Where(x => x.Id == offer.AirlineId && !x.IsDeleted)
             .Select(x => new { x.Id, x.Name, x.IataCode, x.LogoUrl })
@@ -482,7 +499,7 @@ public sealed partial class CustomerOrderService
             RouteFrom = routeFrom,
             RouteTo = routeTo,
             SeatText = seatNumber,
-            PassengerText = $"{Math.Max(1, request.AdultCount + request.ChildCount)} hành khách",
+            PassengerText = $"{passengerCount} hành khách",
             DepartureAt = firstSegment.DepartureAt,
             ArrivalAt = lastSegment.ArrivalAt,
             TicketNote = "Vui lòng kiểm tra kỹ thông tin hành khách trước khi làm thủ tục bay.",
@@ -493,12 +510,19 @@ public sealed partial class CustomerOrderService
         order.MetadataJson = SerializeJson(new FlightOrderMetadata
         {
             OfferId = offer.Id,
+            EffectiveOfferId = effectiveOffer.Id,
             SeatId = request.SeatId,
             SeatNumber = seatNumber,
             AncillaryIds = ancillaryIds,
-            PassengerCount = Math.Max(1, request.AdultCount + request.ChildCount),
+            PassengerCount = passengerCount,
+            InventoryHeld = true,
+            InventoryConfirmed = false,
             Passengers = request.Passengers,
         });
+
+        effectiveOffer.SeatsAvailable -= passengerCount;
+        effectiveOffer.UpdatedAt = now;
+        effectiveOffer.UpdatedByUserId = userId;
 
         PreparePaymentAndVat(order, payment, vat);
         _db.CustomerOrders.Add(order);

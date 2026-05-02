@@ -9,7 +9,8 @@ public sealed partial class CommerceBackofficeService
     public async Task<AdminCommerceBookingListResponse> ListBookingsAsync(
         string? q,
         CustomerOrderStatus? status,
-        CancellationToken ct = default)
+        CancellationToken ct = default,
+        Guid? tenantId = null)
     {
         var query =
             from order in _db.CustomerOrders.AsNoTracking()
@@ -26,6 +27,11 @@ public sealed partial class CommerceBackofficeService
         if (status.HasValue)
         {
             query = query.Where(x => x.Order.Status == status.Value);
+        }
+
+        if (tenantId.HasValue)
+        {
+            query = query.Where(x => x.Order.TenantId == tenantId.Value);
         }
 
         if (!string.IsNullOrWhiteSpace(q))
@@ -189,9 +195,10 @@ public sealed partial class CommerceBackofficeService
 
     public async Task<AdminCommerceBookingDetailDto> GetBookingDetailAsync(
         Guid orderId,
-        CancellationToken ct = default)
+        CancellationToken ct = default,
+        Guid? tenantId = null)
     {
-        var row = await (
+        var detailQuery =
             from order in _db.CustomerOrders.AsNoTracking()
             join user in _db.Users.AsNoTracking() on order.UserId equals user.Id
             join tenant in _db.Tenants.AsNoTracking() on order.TenantId equals tenant.Id
@@ -201,7 +208,14 @@ public sealed partial class CommerceBackofficeService
                 Order = order,
                 CustomerName = user.FullName ?? user.Email ?? order.ContactFullName,
                 TenantName = tenant.Name,
-            })
+            };
+
+        if (tenantId.HasValue)
+        {
+            detailQuery = detailQuery.Where(x => x.Order.TenantId == tenantId.Value);
+        }
+
+        var row = await detailQuery
             .FirstOrDefaultAsync(ct)
             ?? throw new KeyNotFoundException("Khong tim thay booking.");
 

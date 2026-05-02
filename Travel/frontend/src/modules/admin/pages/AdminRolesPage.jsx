@@ -10,7 +10,7 @@ import {
   listRolePermissions,
   listRoles,
 } from '../../../services/adminIdentity';
-import { getPermissionCategories } from '../utils/identity';
+import { getPermissionCategories, getPermissionCategoryLabel, getPermissionLabel } from '../utils/identity';
 
 export default function AdminRolesPage() {
   const [roles, setRoles] = useState([]);
@@ -328,7 +328,7 @@ export default function AdminRolesPage() {
                 <div className="space-y-6">
                   {groupedPermissions.map((group) => (
                     <div key={group.category}>
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3 border-b border-slate-100 pb-2">{group.category}</p>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3 border-b border-slate-100 pb-2">{getPermissionCategoryLabel(group.category)}</p>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                         {group.items.map((perm) => {
                           const has = assignedPermissionMap.has(perm.id);
@@ -337,7 +337,7 @@ export default function AdminRolesPage() {
                               className={`flex items-center justify-between px-4 py-3 rounded-xl border transition-all ${has ? 'border-emerald-200 bg-emerald-50' : 'border-slate-100 bg-slate-50 hover:border-slate-200'}`}
                             >
                               <div className="text-left">
-                                <span className={`text-sm font-bold ${has ? 'text-emerald-700' : 'text-slate-500'}`}>{perm.name}</span>
+                                <span className={`text-sm font-bold ${has ? 'text-emerald-700' : 'text-slate-500'}`}>{getPermissionLabel(perm)}</span>
                                 <p className={`text-[10px] font-black uppercase tracking-widest mt-1 ${has ? 'text-emerald-500' : 'text-slate-300'}`}>{perm.code}</p>
                               </div>
                               <span className={`w-5 h-5 rounded-md flex items-center justify-center ${has ? 'bg-emerald-500' : 'bg-slate-200'}`}>

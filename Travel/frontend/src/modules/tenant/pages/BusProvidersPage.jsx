@@ -90,7 +90,7 @@ const BusProvidersPage = () => {
     <BusManagementPageShell
       pageKey="providers"
       title="Đội xe & Giữ chỗ"
-      subtitle="Theo dõi phương tiện, tiện ích xe và seat holds theo từng chuyến."
+      subtitle="Theo dõi phương tiện, tiện ích xe và lượt giữ chỗ theo từng chuyến."
       error={error}
       notice={notice}
       actions={(
@@ -130,7 +130,7 @@ const BusProvidersPage = () => {
           <div className="px-8 py-6 border-b border-slate-100 flex items-center justify-between">
             <div>
               <p className="text-lg font-black text-slate-900">Chi tiết xe khách</p>
-              <p className="text-xs font-bold text-slate-400 mt-1">Tiện ích và loại xe đang được xuất ra cho màn public.</p>
+              <p className="text-xs font-bold text-slate-400 mt-1">Tiện ích và loại xe đang được hiển thị cho khách hàng.</p>
             </div>
             <Link to="/tenant/providers/bus/vehicle-details" className="text-xs font-black uppercase tracking-widest text-blue-600">
               Mở chi tiết
@@ -180,6 +180,7 @@ const BusProvidersPage = () => {
                 onChange={(event) => setSelectedTripId(event.target.value)}
                 className="bg-transparent text-sm font-bold text-slate-700 outline-none"
               >
+                <option value="">Chọn chuyến xe</option>
                 {trips.map((trip) => (
                   <option key={trip.id} value={trip.id}>{trip.name}</option>
                 ))}
@@ -191,7 +192,7 @@ const BusProvidersPage = () => {
               <div key={hold.id} className="px-8 py-5 flex items-center justify-between gap-4">
                 <div>
                   <p className="font-black text-slate-900">{hold.seatId}</p>
-                  <p className="text-xs font-bold text-slate-400 mt-1">Hold token: {hold.holdToken}</p>
+                  <p className="text-xs font-bold text-slate-400 mt-1">Mã giữ chỗ: {hold.holdToken}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-widest ${getSeatStatusClass(hold.status === 1 ? 'held' : 'booked')}`}>

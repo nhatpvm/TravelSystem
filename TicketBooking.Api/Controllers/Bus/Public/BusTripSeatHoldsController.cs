@@ -7,6 +7,7 @@ using TicketBooking.Api.Services.Bus;
 using TicketBooking.Domain.Bus;
 using TicketBooking.Infrastructure.Identity;
 using TicketBooking.Infrastructure.Persistence;
+using TicketBooking.Infrastructure.Tenancy;
 
 namespace TicketBooking.Api.Controllers;
 
@@ -17,10 +18,12 @@ namespace TicketBooking.Api.Controllers;
 public sealed class BusTripSeatHoldsController : ControllerBase
 {
     private readonly AppDbContext _db;
+    private readonly ITenantContext _tenantContext;
 
-    public BusTripSeatHoldsController(AppDbContext db)
+    public BusTripSeatHoldsController(AppDbContext db, ITenantContext tenantContext)
     {
         _db = db;
+        _tenantContext = tenantContext;
     }
 
     public sealed class HoldSeatsRequest
@@ -119,97 +122,107 @@ public sealed class BusTripSeatHoldsController : ControllerBase
             return Unauthorized(new { message = "UserId claim is required." });
 
         var clientToken = (req.ClientToken ?? string.Empty).Trim();
+        var originalTenantId = _tenantContext.TenantId;
 
-        await using var tx = await _db.Database.BeginTransactionAsync(IsolationLevel.Serializable, ct);
-        await ReleaseExpiredHoldsForTripAsync(req.TripId, now, ct);
+        _tenantContext.SetTenant(tenantId);
 
-        if (!string.IsNullOrWhiteSpace(clientToken))
+        try
         {
-            var existingTokenQuery = _db.BusTripSeatHolds.IgnoreQueryFilters()
+            await using var tx = await _db.Database.BeginTransactionAsync(IsolationLevel.Serializable, ct);
+            await ReleaseExpiredHoldsForTripAsync(req.TripId, tenantId, now, ct);
+
+            if (!string.IsNullOrWhiteSpace(clientToken))
+            {
+                var existingTokenQuery = _db.BusTripSeatHolds.IgnoreQueryFilters()
+                    .Where(x =>
+                        x.TenantId == tenantId &&
+                        x.TripId == req.TripId &&
+                        x.FromTripStopTimeId == req.FromTripStopTimeId &&
+                        x.ToTripStopTimeId == req.ToTripStopTimeId &&
+                        x.HoldToken == clientToken &&
+                        !x.IsDeleted)
+                    .WhereActiveSeatOccupancy(now);
+
+                if (!User.IsInRole(RoleNames.Admin))
+                    existingTokenQuery = existingTokenQuery.Where(x => x.UserId == userId.Value);
+
+                var existingToken = await existingTokenQuery
+                    .Where(x => x.Status == SeatHoldStatus.Held)
+                    .ToListAsync(ct);
+
+                if (existingToken.Count > 0)
+                {
+                    await tx.CommitAsync(ct);
+                    return Ok(new HoldSeatsResponse
+                    {
+                        Ok = true,
+                        HoldToken = clientToken,
+                        ExpiresAt = existingToken.Min(x => x.HoldExpiresAt),
+                        HeldCount = existingToken.Count,
+                        HeldSeatIds = existingToken.Select(x => x.SeatId).Distinct().ToList()
+                    });
+                }
+            }
+
+            var conflicting = await _db.BusTripSeatHolds.IgnoreQueryFilters()
                 .Where(x =>
                     x.TenantId == tenantId &&
                     x.TripId == req.TripId &&
-                    x.FromTripStopTimeId == req.FromTripStopTimeId &&
-                    x.ToTripStopTimeId == req.ToTripStopTimeId &&
-                    x.HoldToken == clientToken &&
+                    seatIds.Contains(x.SeatId) &&
                     !x.IsDeleted)
-                .WhereActiveSeatOccupancy(now);
-
-            if (!User.IsInRole(RoleNames.Admin))
-                existingTokenQuery = existingTokenQuery.Where(x => x.UserId == userId.Value);
-
-            var existingToken = await existingTokenQuery
-                .Where(x => x.Status == SeatHoldStatus.Held)
+                .WhereActiveSeatOccupancy(now)
+                .WhereOverlappingSegment(fromStop.StopIndex, toStop.StopIndex)
+                .Select(x => x.SeatId)
+                .Distinct()
                 .ToListAsync(ct);
 
-            if (existingToken.Count > 0)
+            if (conflicting.Count > 0)
             {
                 await tx.CommitAsync(ct);
-                return Ok(new HoldSeatsResponse
+                return Conflict(new
                 {
-                    Ok = true,
-                    HoldToken = clientToken,
-                    ExpiresAt = existingToken.Min(x => x.HoldExpiresAt),
-                    HeldCount = existingToken.Count,
-                    HeldSeatIds = existingToken.Select(x => x.SeatId).Distinct().ToList()
+                    message = "Some seats are already occupied.",
+                    conflictingSeatIds = conflicting
                 });
             }
-        }
 
-        var conflicting = await _db.BusTripSeatHolds.IgnoreQueryFilters()
-            .Where(x =>
-                x.TenantId == tenantId &&
-                x.TripId == req.TripId &&
-                seatIds.Contains(x.SeatId) &&
-                !x.IsDeleted)
-            .WhereActiveSeatOccupancy(now)
-            .WhereOverlappingSegment(fromStop.StopIndex, toStop.StopIndex)
-            .Select(x => x.SeatId)
-            .Distinct()
-            .ToListAsync(ct);
-
-        if (conflicting.Count > 0)
-        {
-            await tx.CommitAsync(ct);
-            return Conflict(new
+            var token = !string.IsNullOrWhiteSpace(clientToken) ? clientToken : Guid.NewGuid().ToString("N");
+            var rows = seatIds.Select(seatId => new TripSeatHold
             {
-                message = "Some seats are already occupied.",
-                conflictingSeatIds = conflicting
+                Id = Guid.NewGuid(),
+                TenantId = tenantId,
+                TripId = req.TripId,
+                SeatId = seatId,
+                FromTripStopTimeId = req.FromTripStopTimeId,
+                ToTripStopTimeId = req.ToTripStopTimeId,
+                FromStopIndex = fromStop.StopIndex,
+                ToStopIndex = toStop.StopIndex,
+                Status = SeatHoldStatus.Held,
+                UserId = userId,
+                BookingId = null,
+                HoldToken = token,
+                HoldExpiresAt = expiresAt,
+                IsDeleted = false,
+                CreatedAt = now
+            }).ToList();
+
+            _db.BusTripSeatHolds.AddRange(rows);
+            await _db.SaveChangesAsync(ct);
+            await tx.CommitAsync(ct);
+
+            return Ok(new HoldSeatsResponse
+            {
+                Ok = true,
+                HoldToken = token,
+                ExpiresAt = expiresAt,
+                HeldCount = rows.Count,
+                HeldSeatIds = rows.Select(x => x.SeatId).ToList()
             });
         }
-
-        var token = !string.IsNullOrWhiteSpace(clientToken) ? clientToken : Guid.NewGuid().ToString("N");
-        var rows = seatIds.Select(seatId => new TripSeatHold
+        finally
         {
-            Id = Guid.NewGuid(),
-            TenantId = tenantId,
-            TripId = req.TripId,
-            SeatId = seatId,
-            FromTripStopTimeId = req.FromTripStopTimeId,
-            ToTripStopTimeId = req.ToTripStopTimeId,
-            FromStopIndex = fromStop.StopIndex,
-            ToStopIndex = toStop.StopIndex,
-            Status = SeatHoldStatus.Held,
-            UserId = userId,
-            BookingId = null,
-            HoldToken = token,
-            HoldExpiresAt = expiresAt,
-            IsDeleted = false,
-            CreatedAt = now
-        }).ToList();
-
-        _db.BusTripSeatHolds.AddRange(rows);
-        await _db.SaveChangesAsync(ct);
-        await tx.CommitAsync(ct);
-
-        return Ok(new HoldSeatsResponse
-        {
-            Ok = true,
-            HoldToken = token,
-            ExpiresAt = expiresAt,
-            HeldCount = rows.Count,
-            HeldSeatIds = rows.Select(x => x.SeatId).ToList()
-        });
+            _tenantContext.SetTenant(originalTenantId);
+        }
     }
 
     [HttpDelete("{holdToken}")]
@@ -226,24 +239,52 @@ public sealed class BusTripSeatHoldsController : ControllerBase
         if (!isAdmin && !userId.HasValue)
             return Unauthorized(new { message = "UserId claim is required." });
 
-        var query = _db.BusTripSeatHolds.IgnoreQueryFilters()
-            .Where(x => x.HoldToken == holdToken && !x.IsDeleted && x.Status == SeatHoldStatus.Held);
+        var probeQuery = _db.BusTripSeatHolds.IgnoreQueryFilters()
+            .Where(x => x.HoldToken == holdToken && !x.IsDeleted);
 
         if (!isAdmin)
-            query = query.Where(x => x.UserId == userId);
+            probeQuery = probeQuery.Where(x => x.UserId == userId);
 
-        var holds = await query.ToListAsync(ct);
+        var probe = await probeQuery
+            .OrderByDescending(x => x.CreatedAt)
+            .FirstOrDefaultAsync(ct);
+
+        if (probe is null)
+            return NotFound(new { message = "Hold token not found." });
+
+        var holds = await _db.BusTripSeatHolds.IgnoreQueryFilters()
+            .Where(x =>
+                x.TenantId == probe.TenantId &&
+                x.TripId == probe.TripId &&
+                x.HoldToken == holdToken &&
+                !x.IsDeleted &&
+                x.Status == SeatHoldStatus.Held)
+            .ToListAsync(ct);
+
+        if (!isAdmin)
+            holds = holds.Where(x => x.UserId == userId).ToList();
+
         if (holds.Count == 0)
             return NotFound(new { message = "Hold token not found." });
 
-        foreach (var hold in holds)
-        {
-            hold.Status = SeatHoldStatus.Cancelled;
-            hold.UpdatedAt = now;
-        }
+        var originalTenantId = _tenantContext.TenantId;
+        _tenantContext.SetTenant(probe.TenantId);
 
-        await _db.SaveChangesAsync(ct);
-        return Ok(new { ok = true, released = holds.Count });
+        try
+        {
+            foreach (var hold in holds)
+            {
+                hold.Status = SeatHoldStatus.Cancelled;
+                hold.UpdatedAt = now;
+            }
+
+            await _db.SaveChangesAsync(ct);
+            return Ok(new { ok = true, released = holds.Count });
+        }
+        finally
+        {
+            _tenantContext.SetTenant(originalTenantId);
+        }
     }
 
     [HttpGet("trip/{tripId:guid}")]
@@ -287,10 +328,11 @@ public sealed class BusTripSeatHoldsController : ControllerBase
         return Ok(new { items });
     }
 
-    private async Task ReleaseExpiredHoldsForTripAsync(Guid tripId, DateTimeOffset now, CancellationToken ct)
+    private async Task ReleaseExpiredHoldsForTripAsync(Guid tripId, Guid tenantId, DateTimeOffset now, CancellationToken ct)
     {
         var expired = await _db.BusTripSeatHolds.IgnoreQueryFilters()
             .Where(x =>
+                x.TenantId == tenantId &&
                 x.TripId == tripId &&
                 !x.IsDeleted &&
                 x.Status == SeatHoldStatus.Held &&

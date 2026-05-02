@@ -11,7 +11,7 @@ namespace TicketBooking.Api.Controllers.Commerce;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/admin/commerce")]
-[Authorize(Roles = RoleNames.Admin)]
+[Authorize(Policy = "perm:admin.commerce.read")]
 public sealed class AdminCommerceController : ControllerBase
 {
     private readonly CommerceBackofficeService _service;

@@ -192,7 +192,7 @@ const BusFleetVehiclesPage = () => {
         <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
           <div className="px-8 py-6 border-b border-slate-100">
             <p className="text-lg font-black text-slate-900">Danh sách xe</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Chỉ hiển thị xe khách và xe tour thuộc tenant hiện tại.</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Chỉ hiển thị xe khách và xe tour thuộc đơn vị hiện tại.</p>
           </div>
           <div className="divide-y divide-slate-50">
             {loading ? (

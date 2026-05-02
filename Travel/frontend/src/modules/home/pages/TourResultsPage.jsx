@@ -22,6 +22,8 @@ import {
   getDifficultyLabel,
   getTourTypeLabel,
 } from '../../tours/utils/presentation';
+import tourHeroImage from '../../../assets/nav2.png';
+import tourFallbackImage from '../../../assets/nav3.png';
 
 const SORT_OPTIONS = [
   'Phổ biến',
@@ -257,7 +259,8 @@ export default function TourResultsPage() {
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
             transition={{ duration: 15, repeat: Infinity, repeatType: 'reverse' }}
-            className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534008843454-b310df66932c?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center brightness-[0.4]"
+            className="absolute inset-0 bg-cover bg-center brightness-[0.4]"
+            style={{ backgroundImage: `url(${tourHeroImage})` }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-slate-900/40 to-slate-900/60" />
 
@@ -372,7 +375,7 @@ export default function TourResultsPage() {
                     >
                       <div className="relative h-72 overflow-hidden">
                         <img
-                          src={tour.coverImageUrl || 'https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=1200&auto=format&fit=crop'}
+                          src={tour.coverImageUrl && !/example\.com/i.test(tour.coverImageUrl) ? tour.coverImageUrl : tourFallbackImage}
                           alt={tour.name}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                         />

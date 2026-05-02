@@ -36,7 +36,7 @@ namespace TicketBooking.Infrastructure.Seed
             var hcm = await EnsureLocationAsync(db, tenant.Id, LocationType.City, "TP. Hồ Chí Minh", "HCM", "Asia/Ho_Chi_Minh", ct);
             var dalat = await EnsureLocationAsync(db, tenant.Id, LocationType.City, "Đà Lạt", "DLA", "Asia/Ho_Chi_Minh", ct);
             var nhatrang = await EnsureLocationAsync(db, tenant.Id, LocationType.City, "Nha Trang", "NTR", "Asia/Ho_Chi_Minh", ct);
-            var restLoc = await EnsureLocationAsync(db, tenant.Id, LocationType.Other, "Trạm dừng chân Demo", "NX001-REST", "Asia/Ho_Chi_Minh", ct);
+            var restLoc = await EnsureLocationAsync(db, tenant.Id, LocationType.Other, "Trạm dừng chân Bảo Lộc", "NX001-REST", "Asia/Ho_Chi_Minh", ct);
 
             // 2) Provider
             var provider = await EnsureProviderAsync(
@@ -50,15 +50,15 @@ namespace TicketBooking.Infrastructure.Seed
                 ct);
 
             // 3) SeatMaps (2) + Seats
-            var sm1 = await EnsureSeatMapAsync(db, tenant.Id, VehicleType.Bus, "NX001-SM-01", "Bus 5x4 (Demo)", rows: 5, cols: 4, decks: 1, ct);
-            var sm2 = await EnsureSeatMapAsync(db, tenant.Id, VehicleType.Bus, "NX001-SM-02", "Bus 6x4 (Demo)", rows: 6, cols: 4, decks: 1, ct);
+            var sm1 = await EnsureSeatMapAsync(db, tenant.Id, VehicleType.Bus, "NX001-SM-01", "Sơ đồ giường nằm 20 chỗ", rows: 5, cols: 4, decks: 1, ct);
+            var sm2 = await EnsureSeatMapAsync(db, tenant.Id, VehicleType.Bus, "NX001-SM-02", "Sơ đồ limousine 24 chỗ", rows: 6, cols: 4, decks: 1, ct);
 
             await EnsureSeatsForSeatMapAsync(db, tenant.Id, sm1, ct);
             await EnsureSeatsForSeatMapAsync(db, tenant.Id, sm2, ct);
 
             // 4) Vehicles (2)
-            var v1 = await EnsureVehicleAsync(db, tenant.Id, VehicleType.Bus, provider.Id, sm1.Id, "NX001-V-01", "Xe demo 01", sm1.TotalRows * sm1.TotalColumns, "60A-999.99", ct);
-            var v2 = await EnsureVehicleAsync(db, tenant.Id, VehicleType.Bus, provider.Id, sm2.Id, "NX001-V-02", "Xe demo 02", sm2.TotalRows * sm2.TotalColumns, "60A-888.88", ct);
+            var v1 = await EnsureVehicleAsync(db, tenant.Id, VehicleType.Bus, provider.Id, sm1.Id, "NX001-V-01", "Xe giường nằm 34 chỗ 01", sm1.TotalRows * sm1.TotalColumns, "51B-268.68", ct);
+            var v2 = await EnsureVehicleAsync(db, tenant.Id, VehicleType.Bus, provider.Id, sm2.Id, "NX001-V-02", "Xe limousine 24 phòng 02", sm2.TotalRows * sm2.TotalColumns, "51B-286.86", ct);
 
             await EnsureBusVehicleDetailAsync(db, tenant.Id, v1.Id, ct);
             await EnsureBusVehicleDetailAsync(db, tenant.Id, v2.Id, ct);
@@ -67,7 +67,7 @@ namespace TicketBooking.Infrastructure.Seed
             var spHcm = await EnsureStopPointAsync(db, tenant.Id, hcm.Id, StopPointType.Terminal, "Bến xe TP.HCM", "TP.HCM", ct);
             var spDalat = await EnsureStopPointAsync(db, tenant.Id, dalat.Id, StopPointType.Terminal, "Bến xe Đà Lạt", "Đà Lạt", ct);
             var spNtr = await EnsureStopPointAsync(db, tenant.Id, nhatrang.Id, StopPointType.Terminal, "Bến xe Nha Trang", "Nha Trang", ct);
-            var spRest = await EnsureStopPointAsync(db, tenant.Id, restLoc.Id, StopPointType.RestStop, "Trạm dừng chân Demo", "QL1A", ct);
+            var spRest = await EnsureStopPointAsync(db, tenant.Id, restLoc.Id, StopPointType.RestStop, "Trạm dừng chân Bảo Lộc", "QL20", ct);
 
             // 6) Routes (2) + RouteStops (3 stops each)
             var r1 = await EnsureBusRouteAsync(db, tenant.Id, provider.Id, "SGN-DLA", "TP.HCM → Đà Lạt", spHcm.Id, spDalat.Id, ct);
@@ -92,7 +92,7 @@ namespace TicketBooking.Infrastructure.Seed
 
             var t1 = await EnsureTripAsync(db, tenant.Id, provider.Id, r1.Id, v1.Id,
                 code: "NX001-TRIP-1",
-                name: "Chuyến sáng (Demo)",
+                name: "Chuyến sáng",
                 departAt: new DateTimeOffset(d1.Year, d1.Month, d1.Day, 7, 0, 0, TimeSpan.FromHours(7)),
                 arriveAt: new DateTimeOffset(d1.Year, d1.Month, d1.Day, 13, 0, 0, TimeSpan.FromHours(7)),
                 ct);
@@ -102,7 +102,7 @@ namespace TicketBooking.Infrastructure.Seed
 
             var t2 = await EnsureTripAsync(db, tenant.Id, provider.Id, r2.Id, v2.Id,
                 code: "NX001-TRIP-2",
-                name: "Chuyến chiều (Demo)",
+                name: "Chuyến chiều",
                 departAt: new DateTimeOffset(d2.Year, d2.Month, d2.Day, 14, 0, 0, TimeSpan.FromHours(7)),
                 arriveAt: new DateTimeOffset(d2.Year, d2.Month, d2.Day, 19, 0, 0, TimeSpan.FromHours(7)),
                 ct);

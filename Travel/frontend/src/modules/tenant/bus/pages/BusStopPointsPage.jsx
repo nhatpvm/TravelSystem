@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MapPin, Plus, RefreshCw } from 'lucide-react';
+import { Info, MapPin, Plus, RefreshCw } from 'lucide-react';
 import BusManagementPageShell from '../components/BusManagementPageShell';
 import { BUS_STOP_POINT_TYPES, getStopPointTypeLabel } from '../utils/presentation';
 import { createBusStopPoint, deleteBusStopPoint, getBusManagerOptions, listBusStopPoints, restoreBusStopPoint, updateBusStopPoint } from '../../../../services/busService';
@@ -64,7 +64,7 @@ const BusStopPointsPage = () => {
     try {
       const [optionsResponse, listResponse] = await Promise.all([
         getBusManagerOptions(),
-        listBusStopPoints(),
+        listBusStopPoints({ includeDeleted: true }),
       ]);
 
       const nextItems = Array.isArray(listResponse?.items) ? listResponse.items : [];
@@ -80,7 +80,7 @@ const BusStopPointsPage = () => {
         setForm(createEmptyForm());
       }
     } catch (err) {
-      setError(err.message || 'Không tải được điểm đón/trả.');
+      setError(err.message || 'Không tải được danh mục bến/điểm dừng.');
     } finally {
       setLoading(false);
     }
@@ -109,15 +109,15 @@ const BusStopPointsPage = () => {
 
       if (selectedId) {
         await updateBusStopPoint(selectedId, payload);
-        setNotice('Đã cập nhật điểm đón/trả.');
+        setNotice('Đã cập nhật bến/điểm dừng.');
       } else {
         await createBusStopPoint(payload);
-        setNotice('Đã tạo điểm đón/trả mới.');
+        setNotice('Đã tạo bến/điểm dừng mới.');
       }
 
       await loadDataRef.current();
     } catch (err) {
-      setError(err.message || 'Không lưu được điểm đón/trả.');
+      setError(err.message || 'Không lưu được bến/điểm dừng.');
     } finally {
       setSaving(false);
     }
@@ -130,23 +130,23 @@ const BusStopPointsPage = () => {
     try {
       if (item.isDeleted) {
         await restoreBusStopPoint(item.id);
-        setNotice('Đã khôi phục điểm đón/trả.');
+        setNotice('Đã khôi phục bến/điểm dừng.');
       } else {
         await deleteBusStopPoint(item.id);
-        setNotice('Đã ẩn điểm đón/trả.');
+        setNotice('Đã ẩn bến/điểm dừng.');
       }
 
       await loadDataRef.current();
     } catch (err) {
-      setError(err.message || 'Không cập nhật được trạng thái điểm đón/trả.');
+      setError(err.message || 'Không cập nhật được trạng thái bến/điểm dừng.');
     }
   };
 
   return (
     <BusManagementPageShell
       pageKey="stop-points"
-      title="Điểm đón/trả"
-      subtitle="Quản lý stop points của nhà xe để dùng cho tuyến đường và public search."
+      title="Danh mục bến & điểm dừng"
+      subtitle="Dữ liệu gốc của nhà xe: bến chính, điểm đón, điểm trả. Dùng để dựng tuyến đường, lịch dừng và tìm kiếm."
       error={error}
       notice={notice}
       actions={(
@@ -165,22 +165,30 @@ const BusStopPointsPage = () => {
             className="px-5 py-3 rounded-2xl bg-slate-900 text-white text-sm font-black flex items-center gap-2"
           >
             <Plus size={16} />
-            Thêm điểm mới
+            Thêm bến/điểm dừng
           </button>
         </>
       )}
     >
+      <div className="mb-6 rounded-3xl border border-blue-100 bg-blue-50 px-6 py-5 text-sm font-bold text-blue-800">
+        <div className="flex items-start gap-3">
+          <Info size={18} className="mt-0.5 shrink-0" />
+          <p>
+            Màn này chỉ quản lý danh mục địa điểm cố định của nhà xe. Muốn cấu hình khách được đón/trả ở đâu cho từng chuyến cụ thể, dùng tab <span className="font-black">Đón/trả theo chuyến</span>.
+          </p>
+        </div>
+      </div>
       <div className="grid grid-cols-1 xl:grid-cols-[1fr_0.95fr] gap-8">
         <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
           <div className="px-8 py-6 border-b border-slate-100">
-            <p className="text-lg font-black text-slate-900">Danh sách điểm dừng</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Mỗi điểm dừng gắn với một địa điểm nội bộ của tenant.</p>
+            <p className="text-lg font-black text-slate-900">Danh sách bến/điểm dừng gốc</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Mỗi mục là một địa điểm cố định, có thể được dùng lại ở nhiều tuyến và nhiều chuyến.</p>
           </div>
           <div className="divide-y divide-slate-50">
             {loading ? (
-              <div className="px-8 py-10 text-sm font-bold text-slate-500">Đang tải điểm dừng...</div>
+              <div className="px-8 py-10 text-sm font-bold text-slate-500">Đang tải danh mục bến/điểm dừng...</div>
             ) : items.length === 0 ? (
-              <div className="px-8 py-10 text-sm font-bold text-slate-500">Chưa có điểm dừng nào.</div>
+              <div className="px-8 py-10 text-sm font-bold text-slate-500">Chưa có bến/điểm dừng gốc nào.</div>
             ) : items.map((item) => (
               <button
                 key={item.id}
@@ -231,8 +239,8 @@ const BusStopPointsPage = () => {
 
         <form onSubmit={handleSubmit} className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm p-8 space-y-5">
           <div>
-            <p className="text-xl font-black text-slate-900">{selectedId ? 'Cập nhật điểm dừng' : 'Tạo điểm dừng mới'}</p>
-            <p className="text-xs font-bold text-slate-400 mt-1">Thông tin này sẽ được dùng khi dựng tuyến đường và lịch dừng.</p>
+            <p className="text-xl font-black text-slate-900">{selectedId ? 'Cập nhật bến/điểm dừng' : 'Tạo bến/điểm dừng mới'}</p>
+            <p className="text-xs font-bold text-slate-400 mt-1">Tạo địa điểm gốc trước, sau đó đưa vào tuyến đường hoặc lịch dừng theo chuyến.</p>
           </div>
 
           <label className="space-y-2 block">
@@ -335,7 +343,7 @@ const BusStopPointsPage = () => {
               onChange={(event) => setForm((current) => ({ ...current, isActive: event.target.checked }))}
               className="h-4 w-4 rounded border-slate-300"
             />
-            Kích hoạt điểm dừng này
+            Kích hoạt bến/điểm dừng này
           </label>
 
           <button
@@ -343,7 +351,7 @@ const BusStopPointsPage = () => {
             disabled={saving}
             className="w-full rounded-[1.5rem] bg-slate-900 px-5 py-4 text-sm font-black uppercase tracking-widest text-white disabled:opacity-70"
           >
-            {saving ? 'Đang lưu...' : selectedId ? 'Lưu thay đổi' : 'Tạo stop point'}
+            {saving ? 'Đang lưu...' : selectedId ? 'Lưu thay đổi' : 'Tạo bến/điểm dừng'}
           </button>
         </form>
       </div>

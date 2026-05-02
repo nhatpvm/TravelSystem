@@ -436,8 +436,8 @@ export default function HotelARIPage({ mode = 'tenant', adminScope = null }) {
                   <option value={1}>Mở bán</option>
                   <option value={2}>Đóng bán</option>
                 </select>
-                <input value={inventoryForm.minNights} onChange={(event) => setInventoryForm((current) => ({ ...current, minNights: event.target.value }))} placeholder="Min nights" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
-                <input value={inventoryForm.maxNights} onChange={(event) => setInventoryForm((current) => ({ ...current, maxNights: event.target.value }))} placeholder="Max nights" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
+                <input value={inventoryForm.minNights} onChange={(event) => setInventoryForm((current) => ({ ...current, minNights: event.target.value }))} placeholder="Số đêm tối thiểu" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
+                <input value={inventoryForm.maxNights} onChange={(event) => setInventoryForm((current) => ({ ...current, maxNights: event.target.value }))} placeholder="Số đêm tối đa" className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 outline-none" />
               </div>
               <textarea value={inventoryForm.notes} onChange={(event) => setInventoryForm((current) => ({ ...current, notes: event.target.value }))} rows={3} placeholder="Ghi chú vận hành" className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
 
@@ -475,7 +475,7 @@ export default function HotelARIPage({ mode = 'tenant', adminScope = null }) {
                   Cho phép bán
                 </label>
               </div>
-              <textarea value={rateForm.metadataJson} onChange={(event) => setRateForm((current) => ({ ...current, metadataJson: event.target.value }))} rows={3} placeholder="Metadata JSON" className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
+              <textarea value={rateForm.metadataJson} onChange={(event) => setRateForm((current) => ({ ...current, metadataJson: event.target.value }))} rows={3} placeholder="Ghi chú giá theo ngày" className="w-full rounded-[1.75rem] border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none resize-none" />
 
               <div className="flex flex-wrap gap-3">
                 <button type="button" onClick={handleSaveRates} className="px-6 py-4 rounded-2xl bg-slate-900 text-white text-sm font-black flex items-center gap-2">

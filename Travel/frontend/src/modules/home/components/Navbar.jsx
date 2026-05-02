@@ -153,6 +153,8 @@ const Navbar = () => {
               <Link to="/activities" className="px-6 py-3 text-gray-800 hover:text-[#1EB4D4] hover:bg-gray-50 transition-colors">Hoạt động trải nghiệm</Link>
               <Link to="/blog" className="px-6 py-3 text-gray-800 hover:text-[#1EB4D4] hover:bg-gray-50 transition-colors">Blog du lịch</Link>
               <Link to="/promotions" className="px-6 py-3 text-gray-800 hover:text-[#1EB4D4] hover:bg-gray-50 transition-colors">Ưu đãi hấp dẫn</Link>
+              <div className="mx-6 my-2 h-px bg-gray-100" />
+              <Link to="/tenant/onboarding" className="px-6 py-3 font-bold text-[#1EB4D4] hover:bg-cyan-50 transition-colors">Đăng ký đối tác</Link>
             </div>
           </div>
         </div>

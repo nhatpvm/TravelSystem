@@ -29,9 +29,7 @@ const BusSeatHoldsPage = () => {
 
         const nextTrips = Array.isArray(response?.items) ? response.items.filter((item) => !item.isDeleted) : [];
         setTrips(nextTrips);
-        if (!selectedTripId) {
-          setSelectedTripId(nextTrips[0]?.id || '');
-        }
+        setSelectedTripId((current) => current || nextTrips[0]?.id || '');
       })
       .catch((err) => {
         if (active) {
@@ -42,9 +40,9 @@ const BusSeatHoldsPage = () => {
     return () => {
       active = false;
     };
-  }, [selectedTripId]);
+  }, []);
 
-  const loadHolds = async () => {
+  async function loadHolds() {
     if (!selectedTripId) {
       setItems([]);
       return;
@@ -61,7 +59,7 @@ const BusSeatHoldsPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
     loadHoldsRef.current();
@@ -125,6 +123,7 @@ const BusSeatHoldsPage = () => {
               onChange={(event) => setSelectedTripId(event.target.value)}
               className="bg-transparent text-sm font-bold text-slate-700 outline-none"
             >
+              <option value="">Chọn chuyến xe</option>
               {trips.map((trip) => (
                 <option key={trip.id} value={trip.id}>{trip.name}</option>
               ))}
@@ -156,7 +155,7 @@ const BusSeatHoldsPage = () => {
                     ) : null}
                   </div>
                   <p className="text-xs font-bold text-slate-400 mt-2">
-                    Hold token: {item.holdToken}
+                    Mã giữ chỗ: {item.holdToken}
                   </p>
                   <p className="text-xs font-bold text-slate-400 mt-1">
                     Chặng từ điểm dừng số {Number(item.fromStopIndex) + 1} đến điểm dừng số {Number(item.toStopIndex) + 1} • Hết hạn: {formatDateTime(item.holdExpiresAt)}
