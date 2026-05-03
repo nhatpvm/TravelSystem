@@ -79,6 +79,7 @@ const PartnerFinancePage = lazy(() => import('../modules/tenant/pages/PartnerFin
 const TenantSettingsPage = lazy(() => import('../modules/tenant/pages/TenantSettingsPage'));
 const TenantReportsPage = lazy(() => import('../modules/tenant/pages/TenantReportsPage'));
 const TenantReviewsPage = lazy(() => import('../modules/tenant/pages/TenantReviewsPage'));
+const TenantPromosPage = lazy(() => import('../modules/tenant/pages/TenantPromosPage'));
 const TrainInventoryPage = lazy(() => import('../modules/tenant/inventory/pages/TrainInventoryPage'));
 const TrainOperationsPage = lazy(() => import('../modules/tenant/pages/TrainOperationsPage'));
 const TrainProvidersPage = lazy(() => import('../modules/tenant/pages/TrainProvidersPage'));
@@ -344,6 +345,7 @@ function App() {
             <Route path="cms/seo-audit" element={<RequireAuth access="tenant" tenantPermission="cms.posts.read"><CmsSeoAuditPage mode="tenant" /></RequireAuth>} />
             <Route path="cms/site-settings" element={<RequireAuth access="tenant" tenantPermission="cms.posts.read"><CmsSiteSettingsPage mode="tenant" /></RequireAuth>} />
             <Route path="bookings" element={<RequireAuth access="tenant" tenantPermission="tenant.bookings.read"><TenantBookingsPage /></RequireAuth>} />
+            <Route path="promos" element={<RequireAuth access="tenant"><TenantPromosPage /></RequireAuth>} />
             <Route path="staff" element={<RequireAuth access="tenant" tenantPermission="tenant.staff.manage"><StaffManagementPage /></RequireAuth>} />
             <Route path="finance" element={<RequireAuth access="tenant" tenantPermission="tenant.finance.read"><PartnerFinancePage /></RequireAuth>} />
             <Route path="settings" element={<RequireAuth access="tenant" tenantPermission="tenant.settings.read"><TenantSettingsPage /></RequireAuth>} />

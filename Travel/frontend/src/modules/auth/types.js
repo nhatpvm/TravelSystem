@@ -81,6 +81,7 @@ const TENANT_FALLBACK_PATHS = [
   { path: '/tenant', permission: 'tenant.dashboard.read' },
   { path: '/tenant/cms', permission: 'cms.posts.read' },
   { path: '/tenant/bookings', permission: 'tenant.bookings.read' },
+  { path: '/tenant/promos', permission: null },
   { path: '/tenant/reviews', permission: 'tenant.reviews.read' },
   { path: '/tenant/staff', permission: 'tenant.staff.manage' },
   { path: '/tenant/finance', permission: 'tenant.finance.read' },

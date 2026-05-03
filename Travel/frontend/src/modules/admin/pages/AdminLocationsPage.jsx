@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Edit2, MapPinned, Plus, RefreshCw, RotateCcw, Search, Trash2 } from 'lucide-react';
+import { Edit2, MapPinned, Plus, RefreshCw, RotateCcw, Search, Trash2, Upload } from 'lucide-react';
 import MasterDataPageShell from '../master-data/components/MasterDataPageShell';
 import useAdminMasterDataScope from '../master-data/hooks/useAdminMasterDataScope';
 import useLatestRef from '../../../shared/hooks/useLatestRef';
@@ -7,6 +7,7 @@ import {
   createLocation,
   deleteLocation,
   getLocation,
+  importLocations,
   listGeoDistricts,
   listGeoProvinces,
   listGeoWards,
@@ -84,6 +85,8 @@ const AdminLocationsPage = () => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
+  const [importing, setImporting] = useState(false);
+  const [importSummary, setImportSummary] = useState(null);
 
   const selectedItem = useMemo(
     () => items.find((item) => item.id === selectedId) || null,
@@ -294,6 +297,37 @@ const AdminLocationsPage = () => {
     }
   }
 
+  async function handleImportFile(event) {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+
+    if (!tenantId || !file) {
+      return;
+    }
+
+    setImporting(true);
+    setNotice('');
+    setError('');
+    setImportSummary(null);
+
+    try {
+      const response = await importLocations(file, {
+        type: 2,
+        updateExisting: true,
+        dryRun: false,
+      }, tenantId);
+
+      setImportSummary(response);
+      setTypeFilter('2');
+      setNotice(`Import xong: tạo ${response.created || 0}, cập nhật ${response.updated || 0}, bỏ qua ${response.skipped || 0}.`);
+      await loadLocationsRef.current();
+    } catch (requestError) {
+      setError(requestError.message || 'Không thể import file Excel.');
+    } finally {
+      setImporting(false);
+    }
+  }
+
   return (
     <MasterDataPageShell
       pageKey="locations"
@@ -307,6 +341,10 @@ const AdminLocationsPage = () => {
       notice={notice}
       actions={(
         <div className="flex items-center gap-3">
+          <label className={`px-5 py-3 bg-white text-slate-700 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-2 border border-slate-100 shadow-sm cursor-pointer ${importing || !tenantId ? 'opacity-60 pointer-events-none' : ''}`}>
+            <Upload size={14} /> {importing ? 'Đang import...' : 'Import Excel'}
+            <input type="file" accept=".xlsx" onChange={handleImportFile} disabled={importing || !tenantId} className="hidden" />
+          </label>
           <button onClick={loadLocations} className="px-5 py-3 bg-white text-slate-700 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-2 border border-slate-100 shadow-sm">
             <RefreshCw size={14} /> Tải lại
           </button>
@@ -383,6 +421,17 @@ const AdminLocationsPage = () => {
         </div>
 
         <div className="space-y-4">
+          {importSummary ? (
+            <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 text-sm font-bold text-emerald-900">
+              <p>Đã import {importSummary.totalRows || 0} dòng từ Excel: tạo {importSummary.created || 0}, cập nhật {importSummary.updated || 0}, bỏ qua {importSummary.skipped || 0}.</p>
+              {Array.isArray(importSummary.warnings) && importSummary.warnings.length > 0 ? (
+                <p className="mt-2 text-xs text-amber-700">
+                  Có {importSummary.warnings.length} dòng đã nhập nhưng chưa gắn được mã tỉnh/quận/phường, địa chỉ text vẫn được lưu.
+                </p>
+              ) : null}
+            </div>
+          ) : null}
+
           <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-wrap gap-3">
             <div className="flex-1 min-w-40 flex items-center gap-2 bg-slate-50 rounded-xl px-4">
               <Search size={15} className="text-slate-400" />

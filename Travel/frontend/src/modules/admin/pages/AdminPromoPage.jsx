@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AlertTriangle, CheckCircle2, Hotel, Loader2, Tag } from 'lucide-react';
 import { getAdminOpsPromoReadiness } from '../../../services/adminOpsService';
+import PromoCampaignManager from '../components/PromoCampaignManager';
 
 const statusClass = {
   Ready: 'bg-emerald-50 text-emerald-700 border-emerald-100',
@@ -59,9 +60,9 @@ export default function AdminPromoPage() {
   const cards = [
     {
       label: 'Platform promo',
-      value: 'Chưa có engine',
-      className: 'bg-amber-50',
-      icon: <AlertTriangle size={20} className="text-amber-600" />,
+      value: `${data.summary?.activePlatformPromotionCount || 0} đang chạy`,
+      className: 'bg-blue-50',
+      icon: <Tag size={20} className="text-blue-600" />,
     },
     {
       label: 'Hotel promo overrides',
@@ -70,8 +71,8 @@ export default function AdminPromoPage() {
       icon: <Hotel size={20} className="text-emerald-600" />,
     },
     {
-      label: 'Tổng override',
-      value: data.summary?.hotelOverrideCount || 0,
+      label: 'Tenant promo',
+      value: `${data.summary?.activeTenantPromotionCount || 0} đang chạy`,
       className: 'bg-slate-50',
       icon: <Tag size={20} className="text-slate-500" />,
     },
@@ -141,6 +142,10 @@ export default function AdminPromoPage() {
           </div>
         )}
       </div>
+
+      {!loading && !error ? (
+        <PromoCampaignManager mode="admin" />
+      ) : null}
 
       {!loading && !error ? (
         <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">

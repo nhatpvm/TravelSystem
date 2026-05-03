@@ -41,6 +41,16 @@ export function createLocation(payload, tenantId) {
   return api.post('/admin/catalog/locations', payload, withTenantHeaders(tenantId));
 }
 
+export function importLocations(file, payload = {}, tenantId) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('type', String(payload.type ?? 2));
+  formData.append('updateExisting', String(payload.updateExisting ?? true));
+  formData.append('dryRun', String(payload.dryRun ?? false));
+
+  return api.post('/admin/catalog/locations/import', formData, withTenantHeaders(tenantId));
+}
+
 export function updateLocation(id, payload, tenantId) {
   return api.put(`/admin/catalog/locations/${id}`, payload, withTenantHeaders(tenantId));
 }
