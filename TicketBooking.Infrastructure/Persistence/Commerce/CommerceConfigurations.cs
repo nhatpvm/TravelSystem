@@ -375,3 +375,59 @@ public sealed class CustomerSettlementBatchLineConfiguration : IEntityTypeConfig
         b.HasIndex(x => new { x.Status, x.IsDeleted, x.CreatedAt });
     }
 }
+
+public sealed class PromotionCampaignConfiguration : IEntityTypeConfiguration<PromotionCampaign>
+{
+    public void Configure(EntityTypeBuilder<PromotionCampaign> b)
+    {
+        b.ToTable("PromotionCampaigns", "commerce");
+        b.HasKey(x => x.Id);
+
+        b.Property(x => x.OwnerScope);
+        b.Property(x => x.ProductScope);
+        b.Property(x => x.Status);
+        b.Property(x => x.DiscountType);
+        b.Property(x => x.Code).HasMaxLength(64).IsRequired();
+        b.Property(x => x.Name).HasMaxLength(200).IsRequired();
+        b.Property(x => x.Description).HasMaxLength(2000);
+        b.Property(x => x.CurrencyCode).HasMaxLength(10).IsRequired();
+        b.Property(x => x.DiscountValue).HasPrecision(18, 2);
+        b.Property(x => x.MaxDiscountAmount).HasPrecision(18, 2);
+        b.Property(x => x.MinOrderAmount).HasPrecision(18, 2);
+        b.Property(x => x.BudgetAmount).HasPrecision(18, 2);
+        b.Property(x => x.DiscountGrantedAmount).HasPrecision(18, 2);
+        b.Property(x => x.RevenueAttributedAmount).HasPrecision(18, 2);
+        b.Property(x => x.RulesJson).HasColumnType("nvarchar(max)");
+        b.Property(x => x.MetadataJson).HasColumnType("nvarchar(max)");
+        b.Property(x => x.RowVersion).IsRowVersion().IsConcurrencyToken();
+
+        b.HasIndex(x => new { x.TenantId, x.Code }).IsUnique();
+        b.HasIndex(x => x.Code).IsUnique().HasFilter("[TenantId] IS NULL");
+        b.HasIndex(x => new { x.OwnerScope, x.Status, x.StartsAt, x.EndsAt, x.IsDeleted });
+        b.HasIndex(x => new { x.TenantId, x.Status, x.IsDeleted });
+        b.HasIndex(x => x.ProductScope);
+    }
+}
+
+public sealed class PromotionRedemptionConfiguration : IEntityTypeConfiguration<PromotionRedemption>
+{
+    public void Configure(EntityTypeBuilder<PromotionRedemption> b)
+    {
+        b.ToTable("PromotionRedemptions", "commerce");
+        b.HasKey(x => x.Id);
+
+        b.Property(x => x.Status);
+        b.Property(x => x.PromotionCode).HasMaxLength(64).IsRequired();
+        b.Property(x => x.CurrencyCode).HasMaxLength(10).IsRequired();
+        b.Property(x => x.OrderAmount).HasPrecision(18, 2);
+        b.Property(x => x.DiscountAmount).HasPrecision(18, 2);
+        b.Property(x => x.PayableAmount).HasPrecision(18, 2);
+        b.Property(x => x.MetadataJson).HasColumnType("nvarchar(max)");
+        b.Property(x => x.RowVersion).IsRowVersion().IsConcurrencyToken();
+
+        b.HasIndex(x => new { x.PromotionCampaignId, x.Status, x.IsDeleted });
+        b.HasIndex(x => new { x.TenantId, x.ProductType, x.Status, x.RedeemedAt });
+        b.HasIndex(x => new { x.UserId, x.PromotionCampaignId, x.IsDeleted });
+        b.HasIndex(x => new { x.OrderId, x.PromotionCampaignId, x.IsDeleted });
+    }
+}

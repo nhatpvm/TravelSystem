@@ -22,6 +22,8 @@ public sealed partial class AppDbContext
     public DbSet<CustomerTenantPayoutAccount> CustomerTenantPayoutAccounts => Set<CustomerTenantPayoutAccount>();
     public DbSet<CustomerSettlementBatch> CustomerSettlementBatches => Set<CustomerSettlementBatch>();
     public DbSet<CustomerSettlementBatchLine> CustomerSettlementBatchLines => Set<CustomerSettlementBatchLine>();
+    public DbSet<PromotionCampaign> PromotionCampaigns => Set<PromotionCampaign>();
+    public DbSet<PromotionRedemption> PromotionRedemptions => Set<PromotionRedemption>();
 }
 
 public static class AppDbContextCommerceModel

@@ -135,7 +135,7 @@ public sealed class AdminOpsService
                 SupportEvents = items.Count(x => x.EntityType == "SupportTicket"),
                 SettlementEvents = items.Count(x => x.EntityType == "SettlementBatch"),
                 NotificationEvents = items.Count(x => x.EntityType == "Notification"),
-                PromoEvents = items.Count(x => x.EntityType == "HotelPromoOverride"),
+                PromoEvents = items.Count(x => x.EntityType == "HotelPromoOverride" || x.EntityType == "PromotionCampaign"),
                 OnboardingEvents = items.Count(x => x.EntityType == "TenantOnboarding")
             },
             Items = paged
@@ -218,6 +218,7 @@ public sealed class AdminOpsService
     public async Task<AdminOpsPromoReadinessDto> GetPromoReadinessAsync(CancellationToken ct = default)
     {
         var today = DateOnly.FromDateTime(DateTime.Today);
+        var now = DateTimeOffset.Now;
 
         var rows = await (
             from promo in _db.Set<PromoRateOverride>().IgnoreQueryFilters().AsNoTracking()
@@ -250,6 +251,28 @@ public sealed class AdminOpsService
             .Take(50)
             .ToList();
 
+        var campaigns = await _db.PromotionCampaigns.IgnoreQueryFilters()
+            .AsNoTracking()
+            .Where(x => !x.IsDeleted)
+            .ToListAsync(ct);
+
+        var platformCampaigns = campaigns.Where(x => x.OwnerScope == PromotionOwnerScope.Platform).ToList();
+        var tenantCampaigns = campaigns.Where(x => x.OwnerScope == PromotionOwnerScope.Tenant).ToList();
+        var productPromoCount = campaigns.Count(x =>
+            (x.ProductScope & (PromotionProductScope.Bus | PromotionProductScope.Train | PromotionProductScope.Flight | PromotionProductScope.Tour)) != 0);
+
+        var redemptionSummary = await _db.PromotionRedemptions.IgnoreQueryFilters()
+            .AsNoTracking()
+            .Where(x => !x.IsDeleted && x.Status != PromotionRedemptionStatus.Cancelled)
+            .GroupBy(_ => 1)
+            .Select(g => new
+            {
+                Count = g.Count(),
+                Discount = g.Sum(x => x.DiscountAmount),
+                Revenue = g.Sum(x => x.OrderAmount)
+            })
+            .FirstOrDefaultAsync(ct);
+
         return new AdminOpsPromoReadinessDto
         {
             Summary = new AdminOpsPromoSummaryDto
@@ -258,6 +281,14 @@ public sealed class AdminOpsService
                 ActiveHotelOverrideCount = rows.Count(x => x.Promo.IsActive && x.Promo.StartDate <= today && x.Promo.EndDate >= today),
                 UpcomingHotelOverrideCount = rows.Count(x => x.Promo.IsActive && x.Promo.StartDate > today),
                 ExpiredHotelOverrideCount = rows.Count(x => x.Promo.EndDate < today),
+                PlatformPromotionCount = platformCampaigns.Count,
+                ActivePlatformPromotionCount = platformCampaigns.Count(x => IsCampaignActive(x, now)),
+                TenantPromotionCount = tenantCampaigns.Count,
+                ActiveTenantPromotionCount = tenantCampaigns.Count(x => IsCampaignActive(x, now)),
+                ProductPromotionCount = productPromoCount,
+                PromotionRedemptionCount = redemptionSummary?.Count ?? 0,
+                PromotionDiscountGrantedAmount = redemptionSummary?.Discount ?? 0m,
+                PromotionRevenueAttributedAmount = redemptionSummary?.Revenue ?? 0m,
                 TenantCount = tenants.Count
             },
             Tenants = tenants,
@@ -273,14 +304,16 @@ public sealed class AdminOpsService
                 new AdminOpsReadinessItemDto
                 {
                     Area = "Platform promo engine",
-                    Status = "Missing",
-                    Note = "Chua co entity/API coupon toan san, usage limit, scope theo module/tenant va bao cao ROI."
+                    Status = "Ready",
+                    Note = "Da co entity/API coupon toan san, usage limit, scope theo module/tenant va so lieu ROI.",
+                    ActionUrl = "/admin/promos"
                 },
                 new AdminOpsReadinessItemDto
                 {
                     Area = "Bus/train/flight/tour promo",
-                    Status = "Missing",
-                    Note = "Chua co API khuyen mai rieng cho cac module ngoai hotel."
+                    Status = "Ready",
+                    Note = "Da co API tenant promotions cho bus/train/flight/hotel/tour; tenant chi quan ly scope cua chinh minh.",
+                    ActionUrl = "/tenant/promos"
                 }
             }
         };
@@ -523,6 +556,30 @@ public sealed class AdminOpsService
             if (row.UpdatedAt.HasValue)
                 Add(events, row.UpdatedAt.Value, row.UpdatedByUserId, "HOTEL_PROMO_OVERRIDE_UPDATED", "HotelPromoOverride", row.Id.ToString(), code, row.TenantId, "Admin", "Info", $"Cap nhat hotel promo override {code}.");
         }
+
+        var campaigns = await _db.PromotionCampaigns.IgnoreQueryFilters().AsNoTracking()
+            .Where(x => !x.IsDeleted)
+            .OrderByDescending(x => x.CreatedAt)
+            .Take(AuditSourceLimit)
+            .Select(x => new
+            {
+                x.Id,
+                x.TenantId,
+                x.Code,
+                x.OwnerScope,
+                x.CreatedAt,
+                x.CreatedByUserId,
+                x.UpdatedAt,
+                x.UpdatedByUserId
+            })
+            .ToListAsync(ct);
+
+        foreach (var row in campaigns)
+        {
+            Add(events, row.CreatedAt, row.CreatedByUserId, "PROMOTION_CAMPAIGN_CREATED", "PromotionCampaign", row.Id.ToString(), row.Code, row.TenantId, row.OwnerScope.ToString(), "Info", $"Tao promotion campaign {row.Code}.");
+            if (row.UpdatedAt.HasValue)
+                Add(events, row.UpdatedAt.Value, row.UpdatedByUserId, "PROMOTION_CAMPAIGN_UPDATED", "PromotionCampaign", row.Id.ToString(), row.Code, row.TenantId, row.OwnerScope.ToString(), "Info", $"Cap nhat promotion campaign {row.Code}.");
+        }
     }
 
     private async Task AddOnboardingEventsAsync(List<AuditEventSeed> events, CancellationToken ct)
@@ -611,6 +668,13 @@ public sealed class AdminOpsService
     {
         return !string.IsNullOrWhiteSpace(value) &&
                value.Contains(keyword, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsCampaignActive(PromotionCampaign campaign, DateTimeOffset now)
+    {
+        return campaign.Status == PromotionStatus.Active &&
+               campaign.StartsAt <= now &&
+               (!campaign.EndsAt.HasValue || campaign.EndsAt.Value >= now);
     }
 
     private sealed record AuditEventSeed(

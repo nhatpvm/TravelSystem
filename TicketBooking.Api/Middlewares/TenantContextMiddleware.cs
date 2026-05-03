@@ -207,6 +207,9 @@ namespace TicketBooking.Api.Middlewares
             if (IsVersionedApiRoute(path, "admin", "commerce", "settlements"))
                 return true;
 
+            if (IsVersionedApiRoute(path, "admin", "promotions"))
+                return true;
+
             if (IsVersionedApiRoute(path, "admin", "uploads"))
                 return true;
 
@@ -221,6 +224,9 @@ namespace TicketBooking.Api.Middlewares
                 return true;
 
             if (IsVersionedApiRoute(path, "payments", "sepay"))
+                return true;
+
+            if (IsVersionedApiRoute(path, "promotions"))
                 return true;
 
             return false;

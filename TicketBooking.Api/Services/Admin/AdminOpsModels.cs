@@ -101,6 +101,14 @@ public sealed class AdminOpsPromoSummaryDto
     public int ActiveHotelOverrideCount { get; set; }
     public int UpcomingHotelOverrideCount { get; set; }
     public int ExpiredHotelOverrideCount { get; set; }
+    public int PlatformPromotionCount { get; set; }
+    public int ActivePlatformPromotionCount { get; set; }
+    public int TenantPromotionCount { get; set; }
+    public int ActiveTenantPromotionCount { get; set; }
+    public int ProductPromotionCount { get; set; }
+    public int PromotionRedemptionCount { get; set; }
+    public decimal PromotionDiscountGrantedAmount { get; set; }
+    public decimal PromotionRevenueAttributedAmount { get; set; }
     public int TenantCount { get; set; }
 }
 

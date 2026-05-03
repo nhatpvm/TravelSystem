@@ -112,6 +112,119 @@ public enum CustomerSettlementBatchStatus
     Cancelled = 4
 }
 
+[Flags]
+public enum PromotionProductScope
+{
+    None = 0,
+    Bus = 1,
+    Train = 2,
+    Flight = 4,
+    Hotel = 8,
+    Tour = 16,
+    All = Bus | Train | Flight | Hotel | Tour
+}
+
+public enum PromotionOwnerScope
+{
+    Platform = 1,
+    Tenant = 2
+}
+
+public enum PromotionStatus
+{
+    Draft = 1,
+    Active = 2,
+    Paused = 3,
+    Expired = 4
+}
+
+public enum PromotionDiscountType
+{
+    FixedAmount = 1,
+    Percent = 2
+}
+
+public enum PromotionRedemptionStatus
+{
+    Reserved = 1,
+    Applied = 2,
+    Cancelled = 3,
+    Refunded = 4
+}
+
+public sealed class PromotionCampaign
+{
+    public Guid Id { get; set; }
+    public Guid? TenantId { get; set; }
+
+    public PromotionOwnerScope OwnerScope { get; set; } = PromotionOwnerScope.Tenant;
+    public PromotionProductScope ProductScope { get; set; } = PromotionProductScope.All;
+    public PromotionStatus Status { get; set; } = PromotionStatus.Draft;
+    public PromotionDiscountType DiscountType { get; set; } = PromotionDiscountType.Percent;
+
+    public string Code { get; set; } = "";
+    public string Name { get; set; } = "";
+    public string? Description { get; set; }
+    public string CurrencyCode { get; set; } = "VND";
+
+    public decimal DiscountValue { get; set; }
+    public decimal? MaxDiscountAmount { get; set; }
+    public decimal? MinOrderAmount { get; set; }
+
+    public DateTimeOffset StartsAt { get; set; }
+    public DateTimeOffset? EndsAt { get; set; }
+
+    public int? GlobalUsageLimit { get; set; }
+    public int? PerUserUsageLimit { get; set; }
+    public int? PerTenantUsageLimit { get; set; }
+    public decimal? BudgetAmount { get; set; }
+
+    public int RedemptionCount { get; set; }
+    public decimal DiscountGrantedAmount { get; set; }
+    public decimal RevenueAttributedAmount { get; set; }
+
+    public bool RequiresCode { get; set; } = true;
+    public bool IsPublic { get; set; } = true;
+    public string? RulesJson { get; set; }
+    public string? MetadataJson { get; set; }
+
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public Guid? CreatedByUserId { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? UpdatedByUserId { get; set; }
+    public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+}
+
+public sealed class PromotionRedemption
+{
+    public Guid Id { get; set; }
+    public Guid PromotionCampaignId { get; set; }
+    public Guid? TenantId { get; set; }
+    public Guid? UserId { get; set; }
+    public Guid? OrderId { get; set; }
+
+    public CustomerProductType ProductType { get; set; }
+    public PromotionRedemptionStatus Status { get; set; } = PromotionRedemptionStatus.Applied;
+
+    public string PromotionCode { get; set; } = "";
+    public string CurrencyCode { get; set; } = "VND";
+    public decimal OrderAmount { get; set; }
+    public decimal DiscountAmount { get; set; }
+    public decimal PayableAmount { get; set; }
+
+    public DateTimeOffset RedeemedAt { get; set; }
+    public DateTimeOffset? CancelledAt { get; set; }
+    public string? MetadataJson { get; set; }
+
+    public bool IsDeleted { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
+    public Guid? CreatedByUserId { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
+    public Guid? UpdatedByUserId { get; set; }
+    public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+}
+
 public sealed class CustomerOrder
 {
     public Guid Id { get; set; }
