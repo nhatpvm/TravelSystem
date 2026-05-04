@@ -13,7 +13,8 @@ namespace TicketBooking.Api.Controllers;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/admin/fleet/vehicle-models")]
-[Authorize(Roles = RoleNames.Admin)]
+[Route("api/v{version:apiVersion}/tenant/fleet/vehicle-models")]
+[Authorize(Roles = $"{RoleNames.Admin},{RoleNames.QLNX},{RoleNames.QLVT},{RoleNames.QLVMM},{RoleNames.QLTour}")]
 public sealed class VehicleModelsAdminController : ControllerBase
 {
     private readonly AppDbContext _db;
@@ -32,6 +33,13 @@ public sealed class VehicleModelsAdminController : ControllerBase
         [FromQuery] string? q = null,
         CancellationToken ct = default)
     {
+        var allowedTypes = GetAllowedVehicleTypes();
+        if (!User.IsInRole(RoleNames.Admin) && !_tenantContext.HasTenant)
+            return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác quản lý mẫu phương tiện." });
+
+        if (!User.IsInRole(RoleNames.Admin) && vehicleType.HasValue && !allowedTypes.Contains(vehicleType.Value))
+            return BadRequest(new { message = "Loại phương tiện không thuộc phạm vi tenant này." });
+
         IQueryable<VehicleModel> query = _db.VehicleModels;
 
         if (includeDeleted)
@@ -40,7 +48,9 @@ public sealed class VehicleModelsAdminController : ControllerBase
         if (_tenantContext.HasTenant)
             query = query.Where(x => x.TenantId == _tenantContext.TenantId);
 
-        if (vehicleType.HasValue)
+        if (!User.IsInRole(RoleNames.Admin))
+            query = query.Where(x => allowedTypes.Contains(x.VehicleType));
+        else if (vehicleType.HasValue)
             query = query.Where(x => x.VehicleType == vehicleType.Value);
 
         if (!string.IsNullOrWhiteSpace(q))
@@ -80,6 +90,8 @@ public sealed class VehicleModelsAdminController : ControllerBase
 
         if (_tenantContext.HasTenant)
             query = query.Where(x => x.TenantId == _tenantContext.TenantId);
+        if (!User.IsInRole(RoleNames.Admin))
+            query = query.Where(x => GetAllowedVehicleTypes().Contains(x.VehicleType));
 
         var item = await query.FirstOrDefaultAsync(x => x.Id == id, ct);
         if (item is null) return NotFound(new { message = "Không tìm thấy mẫu phương tiện." });
@@ -104,6 +116,8 @@ public sealed class VehicleModelsAdminController : ControllerBase
             return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác ghi của admin." });
 
         Validate(req);
+        if (!IsVehicleTypeAllowed(req.VehicleType))
+            return BadRequest(new { message = "Loại phương tiện không thuộc phạm vi tenant này." });
 
         // Optional uniqueness: manufacturer+model+year per tenant+type
         var exists = await _db.VehicleModels.IgnoreQueryFilters().AnyAsync(x =>
@@ -142,6 +156,8 @@ public sealed class VehicleModelsAdminController : ControllerBase
             return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác ghi của admin." });
 
         Validate(req);
+        if (!IsVehicleTypeAllowed(req.VehicleType))
+            return BadRequest(new { message = "Loại phương tiện không thuộc phạm vi tenant này." });
 
         var entity = await _db.VehicleModels.IgnoreQueryFilters()
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
@@ -181,6 +197,8 @@ public sealed class VehicleModelsAdminController : ControllerBase
         var entity = await _db.VehicleModels
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
         if (entity is null) return NotFound(new { message = "Không tìm thấy mẫu phương tiện trong tenant này." });
+        if (!IsVehicleTypeAllowed(entity.VehicleType))
+            return NotFound(new { message = "Không tìm thấy mẫu phương tiện trong phạm vi tenant này." });
 
         _db.VehicleModels.Remove(entity); // interceptor => soft delete
         await _db.SaveChangesAsync(ct);
@@ -198,6 +216,8 @@ public sealed class VehicleModelsAdminController : ControllerBase
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
 
         if (entity is null) return NotFound(new { message = "Không tìm thấy mẫu phương tiện." });
+        if (!IsVehicleTypeAllowed(entity.VehicleType))
+            return NotFound(new { message = "Không tìm thấy mẫu phương tiện trong phạm vi tenant này." });
 
         entity.IsDeleted = false;
         entity.UpdatedAt = DateTimeOffset.Now;
@@ -216,5 +236,26 @@ public sealed class VehicleModelsAdminController : ControllerBase
         if (req.ModelName.Length > 120) throw new InvalidOperationException("Tên mẫu tối đa 120 ký tự.");
         if (req.ModelYear.HasValue && (req.ModelYear.Value < 1900 || req.ModelYear.Value > DateTime.UtcNow.Year + 2))
             throw new InvalidOperationException("Năm sản xuất không hợp lệ.");
+    }
+
+    private bool IsVehicleTypeAllowed(VehicleType vehicleType)
+        => User.IsInRole(RoleNames.Admin) || GetAllowedVehicleTypes().Contains(vehicleType);
+
+    private VehicleType[] GetAllowedVehicleTypes()
+    {
+        if (User.IsInRole(RoleNames.Admin))
+            return Enum.GetValues<VehicleType>();
+
+        var values = new List<VehicleType>();
+        if (User.IsInRole(RoleNames.QLNX))
+            values.AddRange(new[] { VehicleType.Bus, VehicleType.TourBus });
+        if (User.IsInRole(RoleNames.QLVT))
+            values.Add(VehicleType.Train);
+        if (User.IsInRole(RoleNames.QLVMM))
+            values.Add(VehicleType.Airplane);
+        if (User.IsInRole(RoleNames.QLTour))
+            values.Add(VehicleType.TourBus);
+
+        return values.Distinct().ToArray();
     }
 }

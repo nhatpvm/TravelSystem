@@ -38,7 +38,7 @@ function mapModelToForm(item) {
   };
 }
 
-const AdminVehicleModelsPage = () => {
+const AdminVehicleModelsPage = ({ scope = 'admin' }) => {
   const {
     tenantId,
     tenants,
@@ -46,7 +46,9 @@ const AdminVehicleModelsPage = () => {
     setSelectedTenantId,
     selectedTenant,
     scopeError,
-  } = useAdminMasterDataScope();
+    showTenantSelector,
+    scopeHint,
+  } = useAdminMasterDataScope({ scope });
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -86,7 +88,7 @@ const AdminVehicleModelsPage = () => {
         q: search || undefined,
         vehicleType: typeFilter === 'all' ? undefined : typeFilter,
         includeDeleted,
-      }, tenantId);
+      }, tenantId, scope);
 
       setItems(response.items || []);
     } catch (requestError) {
@@ -129,10 +131,10 @@ const AdminVehicleModelsPage = () => {
 
     try {
       if (selectedId) {
-        await updateVehicleModel(selectedId, payload, tenantId);
+        await updateVehicleModel(selectedId, payload, tenantId, scope);
         setNotice('Mẫu phương tiện đã được cập nhật.');
       } else {
-        await createVehicleModel(payload, tenantId);
+        await createVehicleModel(payload, tenantId, scope);
         setNotice('Mẫu phương tiện mới đã được tạo.');
       }
 
@@ -155,10 +157,10 @@ const AdminVehicleModelsPage = () => {
 
     try {
       if (item.isDeleted) {
-        await restoreVehicleModel(item.id, tenantId);
+        await restoreVehicleModel(item.id, tenantId, scope);
         setNotice('Mẫu phương tiện đã được khôi phục.');
       } else {
-        await deleteVehicleModel(item.id, tenantId);
+        await deleteVehicleModel(item.id, tenantId, scope);
         setNotice('Mẫu phương tiện đã được chuyển vào thùng rác.');
       }
 
@@ -181,6 +183,9 @@ const AdminVehicleModelsPage = () => {
       selectedTenantId={selectedTenantId}
       setSelectedTenantId={setSelectedTenantId}
       selectedTenant={selectedTenant}
+      showTenantSelector={showTenantSelector}
+      scopeHint={scopeHint}
+      navScope={scope}
       error={scopeError || error}
       notice={notice}
       actions={(

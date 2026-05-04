@@ -61,7 +61,7 @@ function mapSeatMapToForm(item) {
   };
 }
 
-const AdminSeatMapsPage = () => {
+const AdminSeatMapsPage = ({ scope = 'admin' }) => {
   const {
     tenantId,
     tenants,
@@ -69,7 +69,9 @@ const AdminSeatMapsPage = () => {
     setSelectedTenantId,
     selectedTenant,
     scopeError,
-  } = useAdminMasterDataScope();
+    showTenantSelector,
+    scopeHint,
+  } = useAdminMasterDataScope({ scope });
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -111,7 +113,7 @@ const AdminSeatMapsPage = () => {
         q: search || undefined,
         vehicleType: typeFilter === 'all' ? undefined : typeFilter,
         includeDeleted,
-      }, tenantId);
+      }, tenantId, scope);
 
       setItems(response.items || []);
     } catch (requestError) {
@@ -135,7 +137,7 @@ const AdminSeatMapsPage = () => {
     setError('');
 
     try {
-      const detail = await getSeatMap(item.id, { includeDeleted }, tenantId);
+      const detail = await getSeatMap(item.id, { includeDeleted }, tenantId, scope);
       setForm(mapSeatMapToForm(detail.seatMap || item));
     } catch (requestError) {
       setError(requestError.message || 'Không thể tải chi tiết sơ đồ ghế.');
@@ -166,10 +168,10 @@ const AdminSeatMapsPage = () => {
 
     try {
       if (selectedId) {
-        await updateSeatMap(selectedId, payload, tenantId);
+        await updateSeatMap(selectedId, payload, tenantId, scope);
         setNotice('Sơ đồ ghế đã được cập nhật.');
       } else {
-        await createSeatMap(payload, tenantId);
+        await createSeatMap(payload, tenantId, scope);
         setNotice('Sơ đồ ghế mới đã được tạo.');
       }
 
@@ -199,7 +201,7 @@ const AdminSeatMapsPage = () => {
         markWindow: generateForm.markWindow,
         markAisle: generateForm.markAisle,
         overwriteExisting: generateForm.overwriteExisting,
-      }, tenantId);
+      }, tenantId, scope);
 
       setNotice(`Đã tạo ${response.created || 0} ghế cho sơ đồ ghế.`);
       await loadItemsRef.current();
@@ -220,10 +222,10 @@ const AdminSeatMapsPage = () => {
 
     try {
       if (item.isDeleted) {
-        await restoreSeatMap(item.id, tenantId);
+        await restoreSeatMap(item.id, tenantId, scope);
         setNotice('Sơ đồ ghế đã được khôi phục.');
       } else {
-        await deleteSeatMap(item.id, tenantId);
+        await deleteSeatMap(item.id, tenantId, scope);
         setNotice('Sơ đồ ghế đã được chuyển vào thùng rác.');
       }
 
@@ -246,6 +248,9 @@ const AdminSeatMapsPage = () => {
       selectedTenantId={selectedTenantId}
       setSelectedTenantId={setSelectedTenantId}
       selectedTenant={selectedTenant}
+      showTenantSelector={showTenantSelector}
+      scopeHint={scopeHint}
+      navScope={scope}
       error={scopeError || error}
       notice={notice}
       actions={(

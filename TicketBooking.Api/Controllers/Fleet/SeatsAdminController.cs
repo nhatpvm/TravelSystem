@@ -14,7 +14,8 @@ namespace TicketBooking.Api.Controllers;
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/admin/fleet/seats")]
 [Route("api/v{version:apiVersion}/qlnx/fleet/seats")]
-[Authorize(Roles = $"{RoleNames.Admin},{RoleNames.QLNX}")]
+[Route("api/v{version:apiVersion}/tenant/fleet/seats")]
+[Authorize(Roles = $"{RoleNames.Admin},{RoleNames.QLNX},{RoleNames.QLVT},{RoleNames.QLVMM},{RoleNames.QLTour}")]
 public sealed class SeatsAdminController : ControllerBase
 {
     private readonly AppDbContext _db;
@@ -32,14 +33,14 @@ public sealed class SeatsAdminController : ControllerBase
         [FromQuery] bool includeDeleted = false,
         CancellationToken ct = default)
     {
-        if (IsQlnxOnly() && !_tenantContext.HasTenant)
-            return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác quản lý ghế của QLNX." });
+        if (IsTenantOperator() && !_tenantContext.HasTenant)
+            return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác quản lý ghế." });
 
         if (seatMapId == Guid.Empty)
             return BadRequest(new { message = "seatMapId là bắt buộc." });
 
-        if (IsQlnxOnly() && !await IsBusSeatMapAsync(seatMapId, ct))
-            return NotFound(new { message = "Không tìm thấy sơ đồ ghế xe khách trong tenant này." });
+        if (IsTenantOperator() && !await IsAllowedSeatMapAsync(seatMapId, ct))
+            return NotFound(new { message = "Không tìm thấy sơ đồ ghế trong phạm vi tenant này." });
 
         IQueryable<Seat> query = _db.Seats;
 
@@ -82,8 +83,8 @@ public sealed class SeatsAdminController : ControllerBase
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> Get(Guid id, [FromQuery] bool includeDeleted = false, CancellationToken ct = default)
     {
-        if (IsQlnxOnly() && !_tenantContext.HasTenant)
-            return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác quản lý ghế của QLNX." });
+        if (IsTenantOperator() && !_tenantContext.HasTenant)
+            return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác quản lý ghế." });
 
         IQueryable<Seat> query = _db.Seats;
         if (includeDeleted)
@@ -94,8 +95,8 @@ public sealed class SeatsAdminController : ControllerBase
 
         var item = await query.FirstOrDefaultAsync(x => x.Id == id, ct);
         if (item is null) return NotFound(new { message = "Không tìm thấy ghế." });
-        if (IsQlnxOnly() && !await IsBusSeatMapAsync(item.SeatMapId, ct))
-            return NotFound(new { message = "Không tìm thấy ghế xe khách trong tenant này." });
+        if (IsTenantOperator() && !await IsAllowedSeatMapAsync(item.SeatMapId, ct))
+            return NotFound(new { message = "Không tìm thấy ghế trong phạm vi tenant này." });
 
         return Ok(item);
     }
@@ -130,8 +131,8 @@ public sealed class SeatsAdminController : ControllerBase
 
         if (seat is null) return NotFound(new { message = "Không tìm thấy ghế trong tenant này." });
 
-        if (IsQlnxOnly() && !await IsBusSeatMapAsync(seat.SeatMapId, ct))
-            return NotFound(new { message = "Không tìm thấy ghế xe khách trong tenant này." });
+        if (IsTenantOperator() && !await IsAllowedSeatMapAsync(seat.SeatMapId, ct))
+            return NotFound(new { message = "Không tìm thấy ghế trong phạm vi tenant này." });
 
         var exists = await _db.Seats.IgnoreQueryFilters().AnyAsync(x =>
             x.SeatMapId == seat.SeatMapId &&
@@ -183,8 +184,8 @@ public sealed class SeatsAdminController : ControllerBase
         if (req.SeatIds is null || req.SeatIds.Count == 0)
             return BadRequest(new { message = "SeatIds là bắt buộc." });
 
-        if (IsQlnxOnly() && !await IsBusSeatMapAsync(req.SeatMapId, ct))
-            return NotFound(new { message = "Không tìm thấy sơ đồ ghế xe khách trong tenant này." });
+        if (IsTenantOperator() && !await IsAllowedSeatMapAsync(req.SeatMapId, ct))
+            return NotFound(new { message = "Không tìm thấy sơ đồ ghế trong phạm vi tenant này." });
 
         var seats = await _db.Seats.IgnoreQueryFilters()
             .Where(x => x.TenantId == _tenantContext.TenantId && x.SeatMapId == req.SeatMapId && req.SeatIds.Contains(x.Id))
@@ -222,8 +223,8 @@ public sealed class SeatsAdminController : ControllerBase
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
         if (seat is null) return NotFound(new { message = "Không tìm thấy ghế trong tenant này." });
 
-        if (IsQlnxOnly() && !await IsBusSeatMapAsync(seat.SeatMapId, ct))
-            return NotFound(new { message = "Không tìm thấy ghế xe khách trong tenant này." });
+        if (IsTenantOperator() && !await IsAllowedSeatMapAsync(seat.SeatMapId, ct))
+            return NotFound(new { message = "Không tìm thấy ghế trong phạm vi tenant này." });
 
         _db.Seats.Remove(seat);
         await _db.SaveChangesAsync(ct);
@@ -243,8 +244,8 @@ public sealed class SeatsAdminController : ControllerBase
         if (seat is null)
             return NotFound(new { message = "Không tìm thấy ghế." });
 
-        if (IsQlnxOnly() && !await IsBusSeatMapAsync(seat.SeatMapId, ct))
-            return NotFound(new { message = "Không tìm thấy ghế xe khách trong tenant này." });
+        if (IsTenantOperator() && !await IsAllowedSeatMapAsync(seat.SeatMapId, ct))
+            return NotFound(new { message = "Không tìm thấy ghế trong phạm vi tenant này." });
 
         seat.IsDeleted = false;
         seat.UpdatedAt = DateTimeOffset.Now;
@@ -263,8 +264,36 @@ public sealed class SeatsAdminController : ControllerBase
         if (req.DeckIndex <= 0 || req.DeckIndex > 5) throw new InvalidOperationException("Chỉ số tầng không hợp lệ.");
     }
 
-    private bool IsQlnxOnly()
-        => User.IsInRole(RoleNames.QLNX) && !User.IsInRole(RoleNames.Admin);
+    private bool IsTenantOperator()
+        => !User.IsInRole(RoleNames.Admin);
+
+    private Task<bool> IsAllowedSeatMapAsync(Guid seatMapId, CancellationToken ct)
+    {
+        var allowedTypes = GetAllowedVehicleTypes();
+        return _db.SeatMaps.IgnoreQueryFilters().AnyAsync(x =>
+            x.Id == seatMapId &&
+            x.TenantId == _tenantContext.TenantId &&
+            !x.IsDeleted &&
+            allowedTypes.Contains(x.VehicleType), ct);
+    }
+
+    private VehicleType[] GetAllowedVehicleTypes()
+    {
+        if (User.IsInRole(RoleNames.Admin))
+            return Enum.GetValues<VehicleType>();
+
+        var values = new List<VehicleType>();
+        if (User.IsInRole(RoleNames.QLNX))
+            values.AddRange(new[] { VehicleType.Bus, VehicleType.TourBus });
+        if (User.IsInRole(RoleNames.QLVT))
+            values.Add(VehicleType.Train);
+        if (User.IsInRole(RoleNames.QLVMM))
+            values.Add(VehicleType.Airplane);
+        if (User.IsInRole(RoleNames.QLTour))
+            values.Add(VehicleType.TourBus);
+
+        return values.Distinct().ToArray();
+    }
 
     private Task<bool> IsBusSeatMapAsync(Guid seatMapId, CancellationToken ct)
         => _db.SeatMaps.IgnoreQueryFilters().AnyAsync(x =>

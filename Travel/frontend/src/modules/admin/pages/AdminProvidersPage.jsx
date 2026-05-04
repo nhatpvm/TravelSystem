@@ -77,7 +77,7 @@ function mapProviderToForm(item) {
   };
 }
 
-const AdminProvidersPage = () => {
+const AdminProvidersPage = ({ scope = 'admin' }) => {
   const {
     tenantId,
     tenants,
@@ -85,7 +85,9 @@ const AdminProvidersPage = () => {
     setSelectedTenantId,
     selectedTenant,
     scopeError,
-  } = useAdminMasterDataScope();
+    showTenantSelector,
+    scopeHint,
+  } = useAdminMasterDataScope({ scope });
   const [items, setItems] = useState([]);
   const [locationOptions, setLocationOptions] = useState([]);
   const [provinces, setProvinces] = useState([]);
@@ -156,7 +158,7 @@ const AdminProvidersPage = () => {
         q: search || undefined,
         type: typeFilter === 'all' ? undefined : typeFilter,
         includeDeleted,
-      }, tenantId);
+      }, tenantId, scope);
 
       setItems(response.items || []);
     } catch (requestError) {
@@ -173,7 +175,7 @@ const AdminProvidersPage = () => {
     }
 
     try {
-      const response = await listLocations({ includeDeleted: false }, tenantId);
+      const response = await listLocations({ includeDeleted: false }, tenantId, scope);
       setLocationOptions(response.items || []);
     } catch {
       setLocationOptions([]);
@@ -249,7 +251,7 @@ const AdminProvidersPage = () => {
     setError('');
 
     try {
-      const detail = await getProvider(item.id, { includeDeleted }, tenantId);
+      const detail = await getProvider(item.id, { includeDeleted }, tenantId, scope);
       setForm(mapProviderToForm(detail));
     } catch (requestError) {
       setError(requestError.message || 'Không thể tải chi tiết đối tác.');
@@ -288,10 +290,10 @@ const AdminProvidersPage = () => {
 
     try {
       if (selectedId) {
-        await updateProvider(selectedId, payload, tenantId);
+        await updateProvider(selectedId, payload, tenantId, scope);
         setNotice('Đối tác đã được cập nhật.');
       } else {
-        await createProvider(payload, tenantId);
+        await createProvider(payload, tenantId, scope);
         setNotice('Đối tác mới đã được tạo.');
       }
 
@@ -315,10 +317,10 @@ const AdminProvidersPage = () => {
 
     try {
       if (item.isDeleted) {
-        await restoreProvider(item.id, tenantId);
+        await restoreProvider(item.id, tenantId, scope);
         setNotice('Đối tác đã được khôi phục.');
       } else {
-        await deleteProvider(item.id, tenantId);
+        await deleteProvider(item.id, tenantId, scope);
         setNotice('Đối tác đã được chuyển vào thùng rác.');
       }
 
@@ -341,6 +343,9 @@ const AdminProvidersPage = () => {
       selectedTenantId={selectedTenantId}
       setSelectedTenantId={setSelectedTenantId}
       selectedTenant={selectedTenant}
+      showTenantSelector={showTenantSelector}
+      scopeHint={scopeHint}
+      navScope={scope}
       error={scopeError || error}
       notice={notice}
       actions={(

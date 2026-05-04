@@ -46,7 +46,7 @@ function mapSeatToForm(item) {
   };
 }
 
-const AdminSeatsPage = () => {
+const AdminSeatsPage = ({ scope = 'admin' }) => {
   const {
     tenantId,
     tenants,
@@ -54,7 +54,9 @@ const AdminSeatsPage = () => {
     setSelectedTenantId,
     selectedTenant,
     scopeError,
-  } = useAdminMasterDataScope();
+    showTenantSelector,
+    scopeHint,
+  } = useAdminMasterDataScope({ scope });
   const [seatMaps, setSeatMaps] = useState([]);
   const [selectedSeatMapId, setSelectedSeatMapId] = useState('');
   const [items, setItems] = useState([]);
@@ -113,7 +115,7 @@ const AdminSeatsPage = () => {
     }
 
     try {
-      const response = await listSeatMaps({ includeDeleted: false }, tenantId);
+      const response = await listSeatMaps({ includeDeleted: false }, tenantId, scope);
       const nextSeatMaps = response.items || [];
       setSeatMaps(nextSeatMaps);
       if (!selectedSeatMapId && nextSeatMaps.length > 0) {
@@ -138,7 +140,7 @@ const AdminSeatsPage = () => {
       const response = await listSeats({
         seatMapId: selectedSeatMapId,
         includeDeleted,
-      }, tenantId);
+      }, tenantId, scope);
 
       setItems(response.items || []);
       setSelectedSeatIds([]);
@@ -188,7 +190,7 @@ const AdminSeatsPage = () => {
         isWindow: seatForm.isWindow,
         priceModifier: seatForm.priceModifier === '' ? null : Number(seatForm.priceModifier),
         isActive: seatForm.isActive,
-      }, tenantId);
+      }, tenantId, scope);
 
       setNotice('Ghế đã được cập nhật.');
       await loadSeatsRef.current();
@@ -217,7 +219,7 @@ const AdminSeatsPage = () => {
         isActive: bulkForm.isActive === '' ? null : bulkForm.isActive === 'true',
         priceModifier: bulkForm.priceModifier === '' ? null : Number(bulkForm.priceModifier),
         setPriceModifier: bulkForm.setPriceModifier,
-      }, tenantId);
+      }, tenantId, scope);
 
       setNotice(`Đã cập nhật ${selectedSeatIds.length} ghế.`);
       setBulkForm(buildBulkForm());
@@ -239,10 +241,10 @@ const AdminSeatsPage = () => {
 
     try {
       if (item.isDeleted) {
-        await restoreSeat(item.id, tenantId);
+        await restoreSeat(item.id, tenantId, scope);
         setNotice('Ghế đã được khôi phục.');
       } else {
-        await deleteSeat(item.id, tenantId);
+        await deleteSeat(item.id, tenantId, scope);
         setNotice('Ghế đã được chuyển vào thùng rác.');
       }
 
@@ -261,6 +263,9 @@ const AdminSeatsPage = () => {
       selectedTenantId={selectedTenantId}
       setSelectedTenantId={setSelectedTenantId}
       selectedTenant={selectedTenant}
+      showTenantSelector={showTenantSelector}
+      scopeHint={scopeHint}
+      navScope={scope}
       error={scopeError || error}
       notice={notice}
       actions={(

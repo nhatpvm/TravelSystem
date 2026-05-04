@@ -11,6 +11,7 @@ const MasterDataPageShell = ({
   selectedTenant = null,
   showTenantSelector = true,
   scopeHint = '',
+  navScope = 'admin',
   error = '',
   notice = '',
   actions = null,
@@ -40,7 +41,7 @@ const MasterDataPageShell = ({
       </div>
     </div>
 
-    <MasterDataSecondaryNav currentKey={pageKey} />
+    <MasterDataSecondaryNav currentKey={pageKey} scope={navScope} />
 
     {showTenantSelector && selectedTenant && (
       <div className="rounded-2xl border border-sky-100 bg-sky-50 px-5 py-4 text-sm font-bold text-sky-700">

@@ -75,7 +75,7 @@ function resolveProviderTypeForVehicle(vehicleType) {
   }
 }
 
-const AdminVehiclesPage = () => {
+const AdminVehiclesPage = ({ scope = 'admin' }) => {
   const {
     tenantId,
     tenants,
@@ -83,7 +83,9 @@ const AdminVehiclesPage = () => {
     setSelectedTenantId,
     selectedTenant,
     scopeError,
-  } = useAdminMasterDataScope();
+    showTenantSelector,
+    scopeHint,
+  } = useAdminMasterDataScope({ scope });
   const [items, setItems] = useState([]);
   const [providers, setProviders] = useState([]);
   const [vehicleModels, setVehicleModels] = useState([]);
@@ -144,9 +146,9 @@ const AdminVehiclesPage = () => {
 
     try {
       const [providersResponse, modelsResponse, seatMapsResponse] = await Promise.all([
-        listProviders({ includeDeleted: false }, tenantId),
-        listVehicleModels({ includeDeleted: false }, tenantId),
-        listSeatMaps({ includeDeleted: false }, tenantId),
+        listProviders({ includeDeleted: false }, tenantId, scope),
+        listVehicleModels({ includeDeleted: false }, tenantId, scope),
+        listSeatMaps({ includeDeleted: false }, tenantId, scope),
       ]);
 
       setProviders(providersResponse.items || []);
@@ -172,7 +174,7 @@ const AdminVehiclesPage = () => {
         q: search || undefined,
         vehicleType: typeFilter === 'all' ? undefined : typeFilter,
         includeDeleted,
-      }, tenantId);
+      }, tenantId, scope);
 
       setItems(response.items || []);
     } catch (requestError) {
@@ -195,7 +197,7 @@ const AdminVehiclesPage = () => {
     setError('');
 
     try {
-      const detail = await getVehicle(item.id, { includeDeleted }, tenantId);
+      const detail = await getVehicle(item.id, { includeDeleted }, tenantId, scope);
       setForm(mapVehicleToForm(detail.vehicle || item));
     } catch (requestError) {
       setError(requestError.message || 'Không thể tải chi tiết phương tiện.');
@@ -246,10 +248,10 @@ const AdminVehiclesPage = () => {
 
     try {
       if (selectedId) {
-        await updateVehicle(selectedId, payload, tenantId);
+        await updateVehicle(selectedId, payload, tenantId, scope);
         setNotice('Phương tiện đã được cập nhật.');
       } else {
-        await createVehicle(payload, tenantId);
+        await createVehicle(payload, tenantId, scope);
         setNotice('Phương tiện mới đã được tạo.');
       }
 
@@ -273,10 +275,10 @@ const AdminVehiclesPage = () => {
 
     try {
       if (item.isDeleted) {
-        await restoreVehicle(item.id, tenantId);
+        await restoreVehicle(item.id, tenantId, scope);
         setNotice('Phương tiện đã được khôi phục.');
       } else {
-        await deleteVehicle(item.id, tenantId);
+        await deleteVehicle(item.id, tenantId, scope);
         setNotice('Phương tiện đã được chuyển vào thùng rác.');
       }
 
@@ -299,6 +301,9 @@ const AdminVehiclesPage = () => {
       selectedTenantId={selectedTenantId}
       setSelectedTenantId={setSelectedTenantId}
       selectedTenant={selectedTenant}
+      showTenantSelector={showTenantSelector}
+      scopeHint={scopeHint}
+      navScope={scope}
       error={scopeError || error}
       notice={notice}
       actions={(
@@ -332,6 +337,9 @@ const AdminVehiclesPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <select value={form.providerId} onChange={(event) => updateField('providerId', event.target.value)} className="w-full rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm font-medium text-slate-700 outline-none">
               <option value="">Chọn đối tác</option>
+              {filteredProviders.length === 0 && (
+                <option value="" disabled>Chưa có đối tác phù hợp</option>
+              )}
               {filteredProviders.map((item) => (
                 <option key={item.id} value={item.id}>{item.name} | {PROVIDER_TYPE_OPTIONS.find((option) => option.value === Number(item.type))?.label || item.type}</option>
               ))}

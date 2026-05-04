@@ -17,6 +17,7 @@ import {
   PieChart,
   Tag,
   Globe,
+  Database,
 } from 'lucide-react';
 import { logout, switchCurrentTenant } from '../../../services/auth';
 import { getStoredAuthState } from '../../../services/interceptor';
@@ -96,6 +97,10 @@ function isTenantPathAccessible(pathname, session) {
     return canAccessTenantModule(session, 'tour');
   }
 
+  if (pathname.startsWith('/tenant/master-data')) {
+    return hasTenantPermission(session);
+  }
+
   return true;
 }
 
@@ -122,6 +127,7 @@ const TenantLayout = () => {
     { icon: <Hotel size={20} />, label: 'Dịch vụ & ARI', path: '/tenant/providers/hotel', module: 'hotel' },
     { icon: <Map size={20} />, label: 'Quản lý tour', path: '/tenant/inventory/tour', module: 'tour' },
     { icon: <Globe size={20} />, label: 'CMS & SEO', path: '/tenant/cms', permission: 'cms.posts.read' },
+    { icon: <Database size={20} />, label: 'Dữ liệu nền', path: '/tenant/master-data/providers' },
     { icon: <Ticket size={20} />, label: 'Đơn hàng', path: '/tenant/bookings', permission: 'tenant.bookings.read' },
     { icon: <Tag size={20} />, label: 'Khuyến mãi', path: '/tenant/promos' },
     { icon: <Star size={20} />, label: 'Đánh giá', path: '/tenant/reviews', permission: 'tenant.reviews.read' },

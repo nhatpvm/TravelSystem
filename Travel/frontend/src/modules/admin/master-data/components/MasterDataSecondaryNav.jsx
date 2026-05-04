@@ -25,15 +25,20 @@ const NAV_ITEMS = [
   { key: 'seats', label: 'Ghế', icon: ScanLine },
 ];
 
-const MasterDataSecondaryNav = ({ currentKey = 'overview' }) => (
+const MasterDataSecondaryNav = ({ currentKey = 'overview', scope = 'admin' }) => {
+  const items = scope === 'tenant'
+    ? NAV_ITEMS.filter((item) => ['providers', 'vehicle-models', 'vehicles', 'seat-maps', 'seats'].includes(item.key))
+    : NAV_ITEMS;
+
+  return (
   <div className="flex flex-wrap gap-3">
-    {NAV_ITEMS.map((item) => {
+    {items.map((item) => {
       const Icon = item.icon;
 
       return (
         <NavLink
           key={item.key}
-          to={getMasterDataSectionPath(item.key)}
+          to={getMasterDataSectionPath(item.key, scope)}
           className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all ${
             currentKey === item.key
               ? 'bg-white text-blue-600 shadow-sm border border-slate-100'
@@ -46,6 +51,7 @@ const MasterDataSecondaryNav = ({ currentKey = 'overview' }) => (
       );
     })}
   </div>
-);
+  );
+};
 
 export default MasterDataSecondaryNav;

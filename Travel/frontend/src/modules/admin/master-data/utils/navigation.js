@@ -1,9 +1,9 @@
-export function getMasterDataBasePath() {
-  return '/admin/master-data';
+export function getMasterDataBasePath(scope = 'admin') {
+  return scope === 'tenant' ? '/tenant/master-data' : '/admin/master-data';
 }
 
-export function getMasterDataSectionPath(sectionKey = 'overview') {
-  const basePath = getMasterDataBasePath();
+export function getMasterDataSectionPath(sectionKey = 'overview', scope = 'admin') {
+  const basePath = getMasterDataBasePath(scope);
 
   switch (sectionKey) {
     case 'locations':

@@ -336,6 +336,12 @@ function App() {
             <Route path="providers/flight/seat-maps" element={<RequireAuth access="tenant" tenantModule="flight"><FlightCabinSeatMapsPage /></RequireAuth>} />
             <Route path="providers/flight/seats" element={<RequireAuth access="tenant" tenantModule="flight"><FlightCabinSeatsPage /></RequireAuth>} />
             <Route path="providers/flight/ancillaries" element={<RequireAuth access="tenant" tenantModule="flight"><FlightAncillariesPage /></RequireAuth>} />
+            <Route path="master-data" element={<RequireAuth access="tenant"><AdminProvidersPage scope="tenant" /></RequireAuth>} />
+            <Route path="master-data/providers" element={<RequireAuth access="tenant"><AdminProvidersPage scope="tenant" /></RequireAuth>} />
+            <Route path="master-data/vehicle-models" element={<RequireAuth access="tenant"><AdminVehicleModelsPage scope="tenant" /></RequireAuth>} />
+            <Route path="master-data/vehicles" element={<RequireAuth access="tenant"><AdminVehiclesPage scope="tenant" /></RequireAuth>} />
+            <Route path="master-data/seat-maps" element={<RequireAuth access="tenant"><AdminSeatMapsPage scope="tenant" /></RequireAuth>} />
+            <Route path="master-data/seats" element={<RequireAuth access="tenant"><AdminSeatsPage scope="tenant" /></RequireAuth>} />
             <Route path="cms" element={<RequireAuth access="tenant" tenantPermission="cms.posts.read"><TenantCMSPage /></RequireAuth>} />
             <Route path="cms/media" element={<RequireAuth access="tenant" tenantPermission="cms.posts.read"><CmsMediaPage mode="tenant" /></RequireAuth>} />
             <Route path="cms/categories" element={<RequireAuth access="tenant" tenantPermission="cms.posts.read"><CmsCategoriesPage mode="tenant" /></RequireAuth>} />

@@ -20,7 +20,8 @@ namespace TicketBooking.Api.Controllers;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/admin/catalog/locations")]
-[Authorize(Roles = RoleNames.Admin)]
+[Route("api/v{version:apiVersion}/tenant/catalog/locations")]
+[Authorize(Roles = $"{RoleNames.Admin},{RoleNames.QLNX},{RoleNames.QLVT},{RoleNames.QLVMM},{RoleNames.QLKS},{RoleNames.QLTour}")]
 public sealed class LocationsAdminController : ControllerBase
 {
     private readonly AppDbContext _db;

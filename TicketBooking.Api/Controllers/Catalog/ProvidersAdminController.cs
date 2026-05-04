@@ -14,7 +14,8 @@ namespace TicketBooking.Api.Controllers;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/admin/catalog/providers")]
-[Authorize(Roles = RoleNames.Admin)]
+[Route("api/v{version:apiVersion}/tenant/catalog/providers")]
+[Authorize(Roles = $"{RoleNames.Admin},{RoleNames.QLNX},{RoleNames.QLVT},{RoleNames.QLVMM},{RoleNames.QLKS},{RoleNames.QLTour}")]
 public sealed class ProvidersAdminController : ControllerBase
 {
     private readonly AppDbContext _db;
@@ -33,6 +34,13 @@ public sealed class ProvidersAdminController : ControllerBase
         [FromQuery] string? q = null,
         CancellationToken ct = default)
     {
+        var allowedTypes = GetAllowedProviderTypes();
+        if (!User.IsInRole(RoleNames.Admin) && !_tenantContext.HasTenant)
+            return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác quản lý đối tác." });
+
+        if (!User.IsInRole(RoleNames.Admin) && type.HasValue && !allowedTypes.Contains(type.Value))
+            return BadRequest(new { message = "Loại đối tác không thuộc phạm vi tenant này." });
+
         IQueryable<Provider> query = _db.Providers;
 
         if (includeDeleted)
@@ -41,7 +49,9 @@ public sealed class ProvidersAdminController : ControllerBase
         if (_tenantContext.HasTenant)
             query = query.Where(x => x.TenantId == _tenantContext.TenantId);
 
-        if (type.HasValue)
+        if (!User.IsInRole(RoleNames.Admin))
+            query = query.Where(x => allowedTypes.Contains(x.Type));
+        else if (type.HasValue)
             query = query.Where(x => x.Type == type.Value);
 
         if (!string.IsNullOrWhiteSpace(q))
@@ -102,6 +112,8 @@ public sealed class ProvidersAdminController : ControllerBase
 
         if (_tenantContext.HasTenant)
             query = query.Where(x => x.TenantId == _tenantContext.TenantId);
+        if (!User.IsInRole(RoleNames.Admin))
+            query = query.Where(x => GetAllowedProviderTypes().Contains(x.Type));
 
         var item = await query.FirstOrDefaultAsync(x => x.Id == id, ct);
         if (item is null) return NotFound(new { message = "Không tìm thấy đối tác." });
@@ -148,6 +160,8 @@ public sealed class ProvidersAdminController : ControllerBase
             return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác ghi của admin." });
 
         Validate(req);
+        if (!IsProviderTypeAllowed(req.Type))
+            return BadRequest(new { message = "Loại đối tác không thuộc phạm vi tenant này." });
         await ValidateProviderReferencesAsync(req, ct);
 
         var code = req.Code.Trim();
@@ -203,6 +217,8 @@ public sealed class ProvidersAdminController : ControllerBase
             return BadRequest(new { message = "Cần gửi X-TenantId cho thao tác ghi của admin." });
 
         Validate(req);
+        if (!IsProviderTypeAllowed(req.Type))
+            return BadRequest(new { message = "Loại đối tác không thuộc phạm vi tenant này." });
         await ValidateProviderReferencesAsync(req, ct);
 
         var code = req.Code.Trim();
@@ -258,6 +274,8 @@ public sealed class ProvidersAdminController : ControllerBase
         var entity = await _db.Providers
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
         if (entity is null) return NotFound(new { message = "Không tìm thấy đối tác trong tenant này." });
+        if (!IsProviderTypeAllowed(entity.Type))
+            return NotFound(new { message = "Không tìm thấy đối tác trong phạm vi tenant này." });
 
         _db.Providers.Remove(entity); // interceptor converts to soft delete
         await _db.SaveChangesAsync(ct);
@@ -275,6 +293,8 @@ public sealed class ProvidersAdminController : ControllerBase
             .FirstOrDefaultAsync(x => x.Id == id && x.TenantId == _tenantContext.TenantId, ct);
 
         if (entity is null) return NotFound(new { message = "Không tìm thấy đối tác." });
+        if (!IsProviderTypeAllowed(entity.Type))
+            return NotFound(new { message = "Không tìm thấy đối tác trong phạm vi tenant này." });
 
         entity.IsDeleted = false;
         entity.UpdatedAt = DateTimeOffset.Now;
@@ -355,5 +375,28 @@ public sealed class ProvidersAdminController : ControllerBase
         if (req.RatingAverage.HasValue && (req.RatingAverage.Value < 0 || req.RatingAverage.Value > 5))
             throw new InvalidOperationException("Điểm đánh giá phải nằm trong khoảng 0 đến 5.");
         if (req.RatingCount < 0) throw new InvalidOperationException("Số lượt đánh giá không được âm.");
+    }
+
+    private bool IsProviderTypeAllowed(ProviderType providerType)
+        => User.IsInRole(RoleNames.Admin) || GetAllowedProviderTypes().Contains(providerType);
+
+    private ProviderType[] GetAllowedProviderTypes()
+    {
+        if (User.IsInRole(RoleNames.Admin))
+            return Enum.GetValues<ProviderType>();
+
+        var values = new List<ProviderType>();
+        if (User.IsInRole(RoleNames.QLNX))
+            values.Add(ProviderType.Bus);
+        if (User.IsInRole(RoleNames.QLVT))
+            values.Add(ProviderType.Train);
+        if (User.IsInRole(RoleNames.QLVMM))
+            values.Add(ProviderType.Flight);
+        if (User.IsInRole(RoleNames.QLKS))
+            values.Add(ProviderType.Hotel);
+        if (User.IsInRole(RoleNames.QLTour))
+            values.Add(ProviderType.Tour);
+
+        return values.Distinct().ToArray();
     }
 }
